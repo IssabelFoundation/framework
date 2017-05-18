@@ -1,0 +1,14 @@
+Versión 0.5 (11 Ene 2007)
+-------------------------
+
+- Se eliminó cajones de tiempo de jscalendar puesto que no se utilizaban
+- Se implementó el campo "Status" en el listado de faxes. Este campo indica el estado actual de un dispositivo virtual de fax
+- Se completó ayuda faltante para el menú "system"
+- Se implementó un nuevo menú de "billing" con 4 módulos: Rates, Report, Destination Distribution y Trunk configuration
+- Múltiples mejoras en el instalador
+- Corrección de bugs menores
+
+Versión 0.4 (29 Dic 2006)
+-------------------------
+
+- Se lanza la primera versión pública de Elastix 

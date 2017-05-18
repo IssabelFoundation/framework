@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Este script compara dos versiones con release incluidos, devuelve 10 si las dos versiones son iguales, devuelve 9 si la version1 es menor a la version2 y devuelve 11 si la version1 es mayor a la version2
+
+do_version_check() {
+
+   [ "$1" == "$2" ] && return 10
+
+   ver1front=`echo $1 | cut -d "." -f -1`
+   ver1back=`echo $1 | cut -d "." -f 2-`
+   ver2front=`echo $2 | cut -d "." -f -1`
+   ver2back=`echo $2 | cut -d "." -f 2-`
+
+   if [ "$ver1front" != "$1" ] || [ "$ver2front" != "$2" ]; then
+       [ "$ver1front" -gt "$ver2front" ] && return 11
+       [ "$ver1front" -lt "$ver2front" ] && return 9
+
+       [ "$ver1front" == "$1" ] || [ -z "$ver1back" ] && ver1back=0
+       [ "$ver2front" == "$2" ] || [ -z "$ver2back" ] && ver2back=0
+       do_version_check "$ver1back" "$ver2back"
+       return $?
+   else
+           [ "$1" -gt "$2" ] && return 11 || return 9
+   fi
+}    
+
+do_release_check() {
+   if [ "$1" == "10" ]; then
+        if [ "$2" == "$3" ]; then
+             return 10
+        else
+             [ "$2" -gt "$3" ] && return 11 || return 9
+        fi
+   else
+	return $1
+   fi
+}
+
+version1=`echo $1 | cut -d "-" -f -1`
+release1=`echo $1 | cut -d "-" -f 2-`
+version2=`echo $2 | cut -d "-" -f -1`
+release2=`echo $2 | cut -d "-" -f 2-`
+do_version_check "$version1" "$version2"
+do_release_check "$?" "$release1" "$release2"

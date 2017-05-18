@@ -1,0 +1,91 @@
+Panel support for Elastix sidebar
+-----------------------------------------------------------
+
+The Elastix framework supports displaying a sidebar in the web interface since
+elastix-framework-2.5.0-15 and elastix-framework-4.0.0-13 (for themes tenant,
+blackmin, elastixneo, elastixwave, giox). This sidebar can display one or more
+panels with content and controls for custom actions. These panels are always
+available (if the panel code chooses to display it) regardless of the logged-in
+user or the displayed Elastix module. The following is the implemented API model
+for these custom panels.
+
+File organization
+-----------------
+
+To add a new panel, a new directory must be created under /var/www/html/panels/ ,
+with the files making up the panel. The directory must contain a file called
+index.php that defines the entry points for the required functionality.
+Additionally the following directories should be included, if necessary:
+
+js/
+Javascript functions to be included for the panel implementation. These files
+must be referenced manually with a <script> tag in the initial HTML content for
+the panel. Under jQuery, the panel content can be found inside the <div> tag
+selected with: 'div#elastix-panel-{MODULE_NAME} > div.panel-body' .
+
+lang/
+Language translations for the texts to use in the panel. The translation file
+format is identical to the files used by the standard modules. These files will
+be automatically loaded by the Elastix framework, and therefore it is not
+required to call load_language_module() in the panel code.
+
+tpl/
+Files with templates for the panel.
+
+Other directories or files are ignored by the code, although they might be
+explicitly included.
+
+Functions and classes to implement
+----------------------------------
+
+In order to prevent name collisions between panels, the panel-supplied index.php
+must define a class with a name that is derived from the panel directory name,
+with the first letter in uppercase. For example, a directory called "awesome"
+should define a class called "Panel_Awesome".
+
+The class may define the following functions:
+
+static function templateContent($smarty, $module_name)
+
+The templateContent function must exist, and will be called with the Smarty
+object from the framework, and the panel directory name in $module_name. The
+template directory path may be formed with the following expression:
+
+dirname($_SERVER['SCRIPT_FILENAME'])."/panels/$module_name/tpl"
+
+The templateContent function should return an array containing the title, the
+optional icon, and the panel content for the panel to appear in the interface,
+or NULL if the code chooses not to show the panel. The returned content must be
+organized as follows:
+
+array('title' => "...", 'content' => "...", 'iconclass' => "...", 'icon' => "...")
+
+The values for title and content are mandatory. Either icon or iconclass can be
+specified, but if both are specified, iconclass takes precedence. The value of
+icon is a path to an icon file, relative from the base URL of the Elastix
+framework. The value of iconclass is a CSS class definition to be applied to an
+<i> tag in order to use a fonticon, either one of the supplied ones (Font Awesome
+or Entypo) or a custom one (to be manually included by the panel). For example,
+a paw icon can be made to appear by using iconclass="fa fa-paw".
+
+
+static function handleJSON_ACTION($module_name, $smarty, $local_templates_dir, $oPaloConsola, $estado)
+
+For each action defined by the panel that requires server access, a function can
+be defined called "handleJSON_ACTION", where ACTION is used to choose the desired
+operation. To build an AJAX request that invokes the action, the following should
+be specified (either GET or POST):
+
+$.post('index.php', {
+    menu: '_elastixpanel',
+    elastixpanel: {MODULE_NAME},
+    action: {ACTION},
+    param1: {...},
+    param2: {...},
+    param3: {...}
+}, function(data) {});
+
+The value of menu is always '_elastixpanel'. The elastixpanel parameter is
+mandatory and is used to choose the panel to use. The action panel is mandatory
+and is used to invoke the function handleJSON_ACTION in the panel class. The
+additional parameters param1..paramN are panel-specific.

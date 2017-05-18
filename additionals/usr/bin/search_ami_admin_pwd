@@ -1,0 +1,201 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Copyright (c) 1997-2003 Palosanto Solutions S. A.                    |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  +----------------------------------------------------------------------+
+  | Este archivo fuente está sujeto a las políticas de licenciamiento    |
+  | de Palosanto Solutions S. A. y no está disponible públicamente.      |
+  | El acceso a este documento está restringido según lo estipulado      |
+  | en los acuerdos de confidencialidad los cuales son parte de las      |
+  | políticas internas de Palosanto Solutions S. A.                      |
+  | Si Ud. está viendo este archivo y no tiene autorización explícita    |
+  | de hacerlo, comuníquese con nosotros, podría estar infringiendo      |
+  | la ley sin saberlo.                                                  |
+  +----------------------------------------------------------------------+
+  | Autores: Alberto Santos <asantos@palosanto.com>              |
+  +----------------------------------------------------------------------+
+  $Id: search_ami_admin_pwd,v 1.1 20011/12/01 23:49:36 alberto Exp $
+*/
+
+$dosearch = true;
+$doReload = false;
+if(file_exists("/etc/elastix.conf")){
+    $content = array();
+    $rewrite_file = false;
+    $file = file("/etc/elastix.conf");
+    foreach($file as $line){
+	if(preg_match("/^\s*amiadminpwd\s*=\s*(.+)$/",rtrim($line),$matches)){
+	    echo "The key amiadminpwd already exist in /etc/elastix.conf... Nothing to do\n";
+	    $secret = $matches[1];
+	    $dosearch = false;
+	}
+	if(!preg_match("/\n$/",$line)){
+            $rewrite_file = true;
+            $content[] = $line."\n";
+        }
+        else
+            $content[] = $line;
+    }
+    if($rewrite_file){
+        file_put_contents("/etc/elastix.conf",implode("",$content));
+	chown("/etc/elastix.conf","asterisk");
+	chgrp("/etc/elastix.conf","asterisk");
+    }
+}
+
+if($dosearch){
+    $ami_file = "manager.conf";
+    $secret = "";
+    $files_searched = array();
+    if(!search_ami_admin_pwd($ami_file,$secret,$files_searched,$doReload)){
+	//No se encuentra el usuario admin por lo tanto se lo crea con la clave elastix456
+	$secret = "elastix456";
+	$template = <<<TEMP
+
+[admin]
+secret = elastix456
+deny=0.0.0.0/0.0.0.0
+permit=127.0.0.1/255.255.255.0
+read = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate
+write = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate
+TEMP;
+	$managerHandler = fopen("/etc/asterisk/manager.conf","a");
+	echo "Creating the user admin in /etc/asterisk/manager.conf\n";
+	fwrite($managerHandler,$template);
+	fclose($managerHandler);
+	chown("/etc/asterisk/manager.conf","asterisk");
+	chgrp("/etc/asterisk/manager.conf","asterisk");
+	$doReload = true;
+    }
+
+    $fhandler = fopen("/etc/elastix.conf","a");
+    echo "Writing the key amiadminpwd in /etc/elastix.conf\n";
+    fwrite($fhandler,"amiadminpwd=$secret\n"); 
+    fclose($fhandler);
+    chown("/etc/elastix.conf","asterisk");
+    chgrp("/etc/elastix.conf","asterisk");
+}
+checkAmportalFile($secret,$doReload);
+if($doReload)
+  exit(1);
+else
+  exit(0);
+
+function search_ami_admin_pwd($ami_file,&$secret,&$files_searched,&$doReload)
+{
+    //Esto evita que el script entre en un lazo infinito debido a inclusiones cíclicas
+    if(in_array($ami_file,$files_searched))
+	return false;
+    $files_searched[] = $ami_file;
+    $base_path = "/etc/asterisk/";
+    $path_file = $base_path.$ami_file;
+    if(!file_exists($path_file))
+	return false;
+    $file = file($path_file);
+    $admin_found = false;
+    $secret_found = false;
+    $admin_at_least_once_found = false;
+    $admin_line = 0;
+    foreach($file as $number => $line){
+	if($admin_found && preg_match("/^\s*secret\s*=\s*(.+)$/",rtrim($line),$matches)){
+	    $secret = explode(";",$matches[1]);
+	    $secret = trim($secret[0]);
+	    $secret_found = true;
+	}
+	elseif(preg_match("/^\s*\[admin\]\s*(;.*)?$/",rtrim($line))){
+	    $admin_found = true;
+	    $secret_found = false;
+	    $admin_at_least_once_found = true;
+	    $admin_line = $number;
+	}
+	elseif(preg_match("/^\s*\[\w+\]\s*(;.*)?$/",rtrim($line))){
+	    if($admin_found && !$secret_found){
+		echo "Secret not found for user admin... Adding the default key \"elastix456\" to admin\n";
+		writeSecret("elastix456",$admin_line,$path_file);
+		$secret = "elastix456";
+		$doRelaod = true;
+	    }
+	    $admin_found = false;
+	    $secret_found = false;
+	}
+	elseif(preg_match("/^\s*#include\s+(.+)$/",rtrim($line),$matches)){
+	    $include = explode(";",$matches[1]);
+	    $include = trim($include[0]);
+	    if(search_ami_admin_pwd($include,$secret,$files_searched,$doReload))
+		$admin_at_least_once_found = true;
+	}
+    }
+    if($admin_found && !$secret_found){
+	echo "Secret not found for user admin... Adding the default key \"elastix456\" to admin\n";
+	writeSecret("elastix456",$admin_line,$path_file);
+	$secret = "elastix456";
+	$doReload = true;
+    }
+    return $admin_at_least_once_found;
+}
+
+function writeSecret($secret,$line_number,$path_file)
+{
+    if(file_exists($path_file)){
+	$file = file($path_file);
+	$arrText = array();
+	foreach($file as $number => $line){
+	    $arrText[] = $line;
+	    if($number == $line_number)
+		$arrText[] = "secret = $secret\n";
+	}
+	file_put_contents($path_file,implode("",$arrText));
+    }
+}
+
+//Asumo que el archivo /etc/amportal.conf existe, caso contrario no se hace nada
+function checkAmportalFile($ami_secret,&$doReload)
+{
+    include_once "/var/www/html/libs/paloSantoConfig.class.php";
+    if(!file_exists("/etc/amportal.conf")){
+	echo "File /etc/amportal.conf does not exist...Nothing to do\n";
+	return false;
+    }
+    $conf_file = new paloConfig("/etc","amportal.conf"," = ","[[:space:]]*=[[:space:]]*");
+    $content = $conf_file->leer_configuracion();
+    $amportal_ami_user = $conf_file->privado_get_valor($content,"AMPMGRUSER");
+    if($amportal_ami_user != "admin"){
+	$arr_replace = array("AMPMGRUSER" => "admin");
+	$conf_file->escribir_configuracion($arr_replace);
+	$doReload = true;
+    }
+    $amportal_ami_secret = $conf_file->privado_get_valor($content,"AMPMGRPASS");
+    if($amportal_ami_secret != $ami_secret){
+	$arr_replace = array("AMPMGRPASS" => $ami_secret);
+	$conf_file->escribir_configuracion($arr_replace);
+	$doReload = true;
+    }
+    $db_pass = $conf_file->privado_get_valor($content,"AMPDBPASS");
+    $ari_user = $conf_file->privado_get_valor($content,"ARI_ADMIN_USERNAME");
+    if($ari_user == ""){
+	$arr_replace = array("ARI_ADMIN_USERNAME" => "admin");
+	$conf_file->escribir_configuracion($arr_replace);
+	$doReload = true;
+    }
+    $ari_password = $conf_file->privado_get_valor($content,"ARI_ADMIN_PASSWORD");
+    if($ari_password == "" || $ari_password == "ari_password"){
+	$arr_replace = array("ARI_ADMIN_PASSWORD" => $db_pass);
+	$conf_file->escribir_configuracion($arr_replace);
+	$doReload = true;
+    }
+    $amportal_file = file("/etc/amportal.conf");
+    $content = array();
+    foreach($amportal_file as $line){
+    $content[] = preg_replace("/^(\w+)\s*=\s*(.+)/","$1=$2",$line);
+    }
+    file_put_contents("/etc/amportal.conf",implode("",$content));
+}
+
+?>

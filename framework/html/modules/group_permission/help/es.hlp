@@ -1,0 +1,19 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>La opción "Permisos de Grupo" del menú "Sistema" en Issabel permite determinar los menús a los cuales un grupo de usuarios tiene acceso.</p>
+
+<p>La figura 1 muestra una lista de los menús permitidos o prohibidos para el grupo Administrador. Seleccione o deseleccione los que desea y luego haga click en el botón "Guardar selección como accesible".</p>
+
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_user_management_group.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+</body>
+</html>

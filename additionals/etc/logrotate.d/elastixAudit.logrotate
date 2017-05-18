@@ -1,0 +1,6 @@
+/var/log/elastix/audit.log {
+   missingok
+   rotate 5
+   weekly
+   create 0640 asterisk asterisk
+}

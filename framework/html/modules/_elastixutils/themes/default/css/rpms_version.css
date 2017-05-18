@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+#rpminfo_loading {
+    display: block;
+    text-align:center;  
+    position: absolute;
+    top:45%;
+    left:45%; 
+}
+#rpminfo_htmlmode {
+	display: none;
+}
+#rpminfo_htmlmode > table {
+	border:1px solid #999;
+	width: 96%;
+	border-spacing: 0px;
+}
+#rpminfo_htmlmode > table tr,
+#rpminfo_htmlmode > table td,
+#rpminfo_htmlmode > table th {
+    padding: 0px;
+}
+#rpminfo_htmlmode > table > thead > tr {
+	background-color: #B5B5B5;
+}
+#rpminfo_htmlmode > table > tbody > tr.tdRPMDetail {
+    background-color: #E8E8E8;
+}
+#rpminfo_textmode {
+	display: none;
+}
+#rpminfo_textmode > textarea {
+    width: 95%;
+}
+#rpminfo_changemode {
+    font-size: 10px;
+    cursor: pointer;
+    display: none;
+    color:blue;
+    text-align: right;
+    padding: 5px;
+}

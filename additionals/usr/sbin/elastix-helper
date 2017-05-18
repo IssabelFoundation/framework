@@ -1,0 +1,78 @@
+#!/usr/bin/php
+<?php
+/*
+  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Copyright (c) 1997-2003 Palosanto Solutions S. A.                    |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  +----------------------------------------------------------------------+
+  | Este archivo fuente está sujeto a las políticas de licenciamiento    |
+  | de Palosanto Solutions S. A. y no está disponible públicamente.      |
+  | El acceso a este documento está restringido según lo estipulado      |
+  | en los acuerdos de confidencialidad los cuales son parte de las      |
+  | políticas internas de Palosanto Solutions S. A.                      |
+  | Si Ud. está viendo este archivo y no tiene autorización explícita    |
+  | de hacerlo, comuníquese con nosotros, podría estar infringiendo      |
+  | la ley sin saberlo.                                                  |
+  +----------------------------------------------------------------------+
+  | Autores: Alex Villacís Lasso <a_villacis@palosanto.com>              |
+  +----------------------------------------------------------------------+
+  $Id: elastix-helper.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+*/
+
+/******************************************************************************
+ * This program (elastix-helper) is intended to be a single point of entry for
+ * operations started from the web interface that require elevated privileges.
+ * The program must be installed as /usr/sbin/elastix-helper and invoked via the
+ * wrapper /usr/bin/elastix-helper which closes extra file descriptors with 
+ * /usr/sbin/close-on-exec.pl and adds the sudo invocation.
+ * 
+ * As extra file descriptors past STDIN/STDOUT/STDERR are closed via the 
+ * intended invocation, helper programs should not rely on any file descriptors
+ * being open other than the standard ones.
+ * 
+ * Packages should install helper programs in /usr/share/elastix/privileged. All
+ * communication should be performed via command-line parameters.
+ ******************************************************************************/
+
+define ('HELPER_DIR', '/usr/share/elastix/privileged');
+
+if (count($argv) <= 1 || $argv[1] == '-h') {
+print <<<HELP
+Usage: /usr/sbin/elastix-helper [helper-name] [helper-parameters]
+Run as /usr/bin/elastix-helper for proper sudo wrapping. 
+HELP;
+	exit(0);
+}
+
+if (posix_geteuid() != 0) error_exit("Helper script must be invoked as root!\n");
+$infoDir = @stat(HELPER_DIR);
+if (!is_array($infoDir)) error_exit("Helper script directory does not exist!\n");
+if ((($infoDir[2] & 0777) & ~0755) != 0) error_exit("Helper script directory has invalid permissions!\n");
+if ($infoDir[4] != 0) error_exit("Helper script directory has invalid owner (should be root)!\n");
+if ($infoDir[5] != 0) error_exit("Helper script directory has invalid group (should be root)!\n");
+
+$sNombreHelper = $argv[1];
+if (!preg_match('/^\w+$/', $sNombreHelper)) error_exit("Invalid helper program!\n");
+$sPathHelper = HELPER_DIR.'/'.$sNombreHelper;
+$infoFile = @stat($sPathHelper);
+if (!is_array($infoFile)) error_exit("Helper program does not exist!\n");
+if ((($infoFile[2] & 0777) & ~0755) != 0) error_exit("Helper program has invalid permissions!\n");
+if ($infoFile[4] != 0) error_exit("Helper program has invalid owner (should be root)!\n");
+if ($infoFile[5] != 0) error_exit("Helper program has invalid group (should be root)!\n");
+
+array_shift($argv); // Remove self
+array_shift($argv); // Remove helper
+pcntl_exec($sPathHelper, $argv);
+exit(1); // Should never be reached
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+?>

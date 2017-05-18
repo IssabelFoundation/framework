@@ -1,0 +1,134 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción "Grupos" en Issabel permite crear y modificar grupos que cuentan con privilegios de acceso a la interfaz web de Issabel. Existen tres grupos que vienen incluidos por defecto en la instalcación de Issabel:</p>
+
+  <ul>
+      <li>Administrador</li>
+      <li>Operator</li>
+      <li>Extensión</li>
+  </ul>
+
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_grouplist.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>Cada uno de estos grupos representan un nivel de acceso diferente a la interfaz web de Issabel. Estos niveles de acceso están asociados con un conjunto de menús a los cuales el grupo tiene acceso. A continuación se lista algunos de los menús a los cuales los grupos por defecto tienen acceso:</p>
+
+<table class="inline">
+	<tr>
+		<th> Menú </th><th> Administrador </th><th> Operator </th><th> Extensión </th>
+	</tr>
+
+	<tr>
+		<th class="centeralign" colspan="4">  Sistema  </th>
+	</tr>
+	<tr>
+		<td> Información del Sistema </td><td> Sí </td><td> Sí </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Configuración PBX </td><td> Sí </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<td> Red </td><td> Sí </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+		<td> Administración de usuarios </td><td> Sí </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Apagar </td><td> Sí </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Panel del Operator  </th>
+	</tr>
+	<tr>
+		<td> Flash Operator Panel </td><td> Sí </td><td> Sí </td><td> No </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Voicemails  </th>
+	</tr>
+	<tr>
+		<td> Interfaz de grabación Asterisk </td><td> Sí </td><td> Sí </td><td> Sí </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Fax  </th>
+	</tr>
+	<tr>
+		<td> Lista de Fax Virtual </td><td> Sí </td><td> Sí </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Nuevo Fax Virtual </td><td> Sí </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Reportes  </th>
+	</tr>
+	<tr>
+                <td> Reporte CDR </td><td> Sí </td><td> Sí </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Uso de Canales </td><td> Sí </td><td> Sí </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Facturación  </th>
+	</tr>
+	<tr>
+		<td> Tarifas </td><td> Sí </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Reporte de Facturación </td><td> Sí </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<td> Distribución de Destinos </td><td> Sí </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+		<td> Configuración de Troncales </td><td> Sí </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Extras  </th>
+	</tr>
+	<tr>
+		<td> SugarCRM </td><td> Sí </td><td> Sí </td><td> Sí </td>
+
+	</tr>
+	<tr>
+		<td> Tarjetas Telefónicas </td><td> Sí </td><td> Sí </td><td> Sí </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Descargas  </th>
+	</tr>
+	<tr>
+		<td> Softphones </td><td> Sí </td><td> Sí </td><td> Sí </td>
+
+	</tr>
+	<tr>
+		<td> Utilidades de Fax </td><td> Sí </td><td> Sí </td><td> Sí </td>
+	</tr>
+</table>
+<br />
+<h2>Crear nuevo grupo</h2>
+<p>Para crear un nuevo grupo usted debe hacer click en el botón "Crear Nuevo Grupo" y llenar el formulario requerido.</p>
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_grouplist_new.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<p>Para asignar permisos a un grupo usted debe ir al módulo "Permisos de Grupo".</p>
+</body>
+</html>

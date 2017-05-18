@@ -1,0 +1,193 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ko.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage"=>"디스크사용",
+"Used space"=>"사용 용량",
+"Free space"=>"여유 용량",
+"Simultaneous calls, memory and CPU"=>"동시콜 개수,메모리 ,CPU",
+"Sim. calls"=>"동시콜 ",
+"CPU usage (%)"=>"CPU 사용 (%)",
+"Mem. usage (MB)"=>"메모리 사용(MB)",
+/*System Info*/
+
+"Export"=>"도입",
+"Start"=>"시작",
+"End"=>"종료",
+"Next"=>"다음 ",
+"Previous"=>"이전",
+
+"Validation Error"=>"유효 에러",
+"The following fields contain errors"=>"다음 필드는 에러을 나타냅니다.",
+"Save"=>"저장",
+"Required field"=>"요구된 필드",
+"Apply changes"=>"수정사항 적용",
+"Cancel"=>"취소",
+
+/*Login to Issabel*/
+"Welcome to Issabel"=>"Welcome to Issabel",
+"Please enter your username and password"=>"사용자 이름과 암호를 입력 하십시요.",
+"Username"=>"사용자 이름",
+"Password"=>"암호",
+"Submit"=>"등록",
+"Login page"=>"로그인 페이지",
+/*Login to Issabel*/
+
+/*start User Management*/
+"The group is wrong"=>"그룹이 다릅니다.",
+"Group"=>"그룹",
+"User List"=>"사용자 리스트",
+"Are you sure you wish to continue?"=>"계속 하기를 원하십니까?",
+"Edit"=>"수정",
+"Delete"=>"삭제",
+"Accept"=>"확인",
+"Group Permission"=>"그룹허락",
+"Users" => "Users",
+"Directory couldn't be opened"=>"디렉토리를 열 수 없읍니다.",
+/*end User Management*/
+
+/*start menu*/
+"System"=>"시스템",
+"System Info"=>"시스템 정보",
+"User Management"=>"사용자 운영",
+"Menu Administrator"=>"관리자 메뉴",
+/*end menu*/
+
+/*Start Language*/
+"Language"=>"Language",
+"Change"=>"Change",
+"Logout"=>"Logout",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"Options",
+"Empty field"=>"Empty field",
+"Bad Format"=>"Bad Format",
+"No option was selected"=>"No option was selected",
+"Octets out of range"=>"Octets out of range",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User" => "View User",
+/*end user*/
+
+/*system - date/time*/
+"Date/Time"  =>  "Date/Time",
+/*end system - date/time*/
+
+/*load module*/
+"Load Module"  =>  "Load Module",
+"ID for new module (folder name)"  =>  "ID for new module (folder name)",
+"Choose Menu"  =>  "Choose Menu",
+"ID for new menu"  =>  "ID for new menu",
+"Menu Name"  =>  "Menu Name",
+"Defined Menu"  =>  "Defined Menu",
+"New Menu"  =>  "New Menu",
+"Module sucessfully loaded"  =>  "Module sucessfully loaded",
+"Folder name doesn't exist in module file"  =>  "Folder name doesn't exist in module file",
+"Folder configs doesn't exist in module file"  =>  "Folder configs doesn't exist in module file",
+"Folder themes doesn't exist in module file"  =>  "Folder themes doesn't exist in module file",
+"File index.php doesn't exist in module file"  =>  "File index.php doesn't exist in module file",
+"File install.php doesn't exist in module file"  =>  "File install.php doesn't exist in module file",
+/*end load module*/
+
+// Issabel 0.9 
+/*Start SubModule Themes*/
+"Themes" => "Themes",
+"Change Theme" => "Change Theme",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "The Openfire service is not active at this moment. If you want to activate it please ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "The vTiger installation is almost done. To complete it please ",
+"click here" => "click here",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Preferences",
+
+/* Start About Issabel */
+"About Issabel"=>"About Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content"=>"Issabel was created under the premise of becoming a reliable, easy-to-use,web-based system for the management of communications over IP. This open
+source software started in Ecuador has become the solution of choice for
+implementations of Voice over IP around the globe.",
+"About Issabel Closed"=>"Close",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Groups",
+"Group List"=>"Group List",
+/*End module Group List*/
+
+/** Issabel 1.0 **/
+/*Grouplist*/
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+"total access" => "Total Access",
+"extension user" => "Extension User",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

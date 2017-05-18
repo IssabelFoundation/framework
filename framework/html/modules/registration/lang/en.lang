@@ -1,0 +1,95 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.0-31                                               |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2011-08-09 10:08:51 Eduardo Cueva ecueva@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Contact Name" => "Contact Name",
+"Email" => "Email",
+"Email Confirm" => "Email Confirm",
+"Password" => "Password",
+"Password Confirm" => "Password Confirm",    
+"Phone" => "Phone",
+"Country" => "Country",
+"Company" => "Company",
+"Address" => "Address",
+"City" => "City",
+"idPartner" => "idPartner",
+"registration" => "Issabel Server Registration Form",
+"registration_server" => "Register your server with Issabel",    
+"alert_message_unregister" => "By Registering your Issabel server, you will be able to install addons for Issabel. To access the gallery of available addons, just click on the Addons tab. If you already have a Elatix Cloud account, proceed with the registration.",
+"alert_message_form" => "Be sure to correctly fill out the fields of this form, and remember the email field, because its your username which will allow you to get access to your Issabel Cloud Interface and any licenses of addons that you will bought in the future.",
+"alert_message_registered" => "Thanks for register your Issabel Server. Now you can enjoy the posibility of install Issabel Addons. To access the gallery of available addons, click on the Addons tab. <br />Your Issabel Server its NOW REGISTERED in Issabel Cloud.",    
+"Activate registration" => "Activate registration",
+"Update Information" => "Update Information",
+"Cancel" => "Cancel",
+"Save information and sending data" => "Saving information and sending data about register",
+"Not user allowed to access this content" => "Not user allowed to access this content",
+"Your information cannot be saved. Please try again." => "Your information cannot be saved on Issabel Cloud. Please try again.",
+"Your information has been saved." => "Your information has been saved.",
+"Impossible connect to Issabel Web services. Please check your internet connection." => "Impossible connect to Issabel Web services. Please check your internet connection.",
+"Impossible connect to Issabel Web services. Please check your internet connection. Showing local information cache." => "Impossible connect to Issabel Web services. Please check your internet connection. Showing local information cache.",
+"Your Server ID" => "Your Server ID",
+"Getting infomation from Issabel Web Services." => "Getting infomation from Issabel Web Services.",
+"Your Server ID is not valid. Please update your information to generate a new Server ID." => "Your Server ID is not valid. Please update your information to generate a new Server ID.",
+"There are some problem with the local database. Information cannot be saved in database." => "The register information could not be saved in the local database.",
+"* Contact Name: Only text " => "* Contact Name: Should not be empty",
+"* Email: Only format email " => "* Email. Invalid format, should be user@domain",
+"* Email Confirm: Only format email " => "* Email Confirm: Invalid format, should be user@domain",    
+"* Phone: number " => "* Phone: Can only have numbers, +, -",
+"* Company: text " => "* Company: Should not be empty",
+"* City: text " => "* City: Should not be empty",
+"* Country: Selected a country " => "* Country: Selected a country",
+"* Address: text " => "* Address: Should not be empty",
+"Please fill the correct values in fields: " => "Please fill the correct values in fields: ",
+"The table register does not exist and could not be created" => "The table register does not exist and could not be created",
+"EMAIL" => "Email",
+"PASSWORD" => "Password",  
+"Don't have an Issabel Cloud account?" => "Don't have an Issabel Cloud account?",
+"is licensed under" => "is licensed under",
+"by" => "by",    
+"REGISTER_ACTION" => "Login",    
+"USERNAME" => "Username",  
+"Your Issabel server is registered" => "Your Issabel server is registered",
+"Access my account Issabel Cloud" =>  "Access my account \"Issabel Cloud\"",
+"The column 'has_account' does not exist and could not be created" => "The column 'has_account' does not exist and could not be created",
+"Incomplete registration" => "Incomplete registration",
+"Your Issabel Server is not registered" => "Your Issabel Server is not registered",    
+"Unable to get local information cache. Nor from Issabel Web services." => "Unable to get local information cache. Nor from Issabel Web services.",    
+"* Emails do not match " => "* Emails do not match",    
+"* Passwords do not match " => "* Passwords do not match",
+"* Password: Must be at least 10 " => "* Password: Must be at least 10 characters and contain at least one uppercase letter, at least one lowercase letter, and at least one digit",    
+"* Password Confirm: Must be at least 10 " => "* Password Confirm: Must be at least 10 characters and contain at least one uppercase letter, at least one lowercase letter, and at least one digit",
+"FIELD VALIDATION" => "Customer data is invalid.",  
+"INVALID LOGIN" => "Email and/or password are incorrect.", 
+"ACCOUNT EXISTS" => "An account with the email entered already exists.",
+"Customer could not be created" => "Account could not be created.", 
+"Installation data could not be saved" => "Installation data could not be saved.",    
+"SIGN_UP"=>"Sign Up",
+"INFO_REGISTER" =>"You must be logged in to install Addons"
+);
+?>

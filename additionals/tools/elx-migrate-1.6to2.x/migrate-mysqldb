@@ -1,0 +1,198 @@
+#!/bin/bash
+echo "Beginning script for databases backup ..."
+
+dbuser=root
+dbhost=localhost
+dbpw=$1
+
+crearUniqueIdIndex(){
+pro="
+USE asteriskcdrdb;
+DELIMITER ++ ;
+DROP PROCEDURE IF EXISTS add_index_idx_uniqueid ++
+CREATE PROCEDURE add_index_idx_uniqueid()
+BEGIN
+DECLARE Index_cnt tinyint(1);
+      set Index_cnt = 0;
+      select count(*) into Index_cnt
+      FROM INFORMATION_SCHEMA.STATISTICS
+      WHERE table_schema = 'asteriskcdrdb'
+      AND table_name = 'cdr'
+      and index_name = 'IDX_UNIQUEID';
+      IF Index_cnt = 0 THEN
+             Alter table asteriskcdrdb.cdr ADD INDEX IDX_UNIQUEID (uniqueid);
+      END IF;
+END;
+++
+DELIMITER ; ++
+CALL add_index_idx_uniqueid();
+DROP PROCEDURE IF EXISTS add_index_idx_uniqueid;"
+echo $pro >> $1
+}
+
+#Creating directories to use#
+
+   echo "   Creating directories to use...."
+   directoryBCK="/var/lib/mysql.elastix-1.6.dump"
+   directoryBCKmysql="/var/lib/mysql_elastix-1.6"
+   mkdir -p $directoryBCK
+   mkdir -p $directoryBCKmysql
+   echo "created directories:  $directoryBCK and $directoryBCKmysql"
+   echo "Beginning databases backup, using ..."
+   echo "user: $dbuser; host: $dbhost and password: $dbpw"
+
+#End creating directories to use#
+
+                ## Backup All Databases##
+    num=1
+    echo "   Making backup of all databases..."
+    for b in $( mysql -u$dbuser -p$dbpw -e 'show databases' );
+    do
+        if [[ "$b" != "information_schema" ]]; then
+           if [[ "$b" != "mysql" ]]; then
+              if [[ "$b" != "Database" ]]; then
+                numb="0"$num"-"$b
+                filenameDB=$numb.sql
+                echo "Making backup of $b in $directoryBCK as $filenameDB"
+                echo "CREATE DATABASE $b;" > $directoryBCK/$filenameDB
+                echo "USE $b;" >> $directoryBCK/$filenameDB
+                mysqldump -u$dbuser -p$dbpw $b >> $directoryBCK/$filenameDB
+                if test $? -ne 0
+                    then
+                        echo "Backup failed....GOOD BYE !!"
+                        exit 1
+                fi
+				if [[ "$b" == "asteriskcdrdb" ]]; then
+					echo "Creating index IDX_UNIQUEID in asteriskcdrdb.cdr" 
+					crearUniqueIdIndex "$directoryBCK/$filenameDB"
+				fi
+                echo "Backup of $b done"
+                num=$( expr $num + 1 )
+              fi
+           fi
+       fi
+    done
+
+	#comprobamos que se haya hecho el backup de las bases num debe ser diferente de uno
+	if [ $num -eq 1 ]; then
+		echo "Couldn't be made backup of MySQL Databases"
+		exit 1
+	fi
+
+               ## Backup user Table##
+   number="0"$num"-"
+   filename=$number"mysql_user".sql
+   echo "   Making backup of user table from mysql database as $filename..."
+   echo "USE mysql;" > $directoryBCK/$filename
+   mysqldump -p$dbpw --user $dbuser mysql user >> $directoryBCK/$filename
+                # End Backup user Table##
+    num=$( expr $num + 1 )
+            ## Backup db Table##
+            number="0"$num"-"
+            filename=$number"mysql_db".sql
+            echo "   Making backup of user table from mysql database as $filename..."
+            echo "USE mysql;" > $directoryBCK/$filename
+            mysqldump -p$dbpw --user $dbuser mysql db >> $directoryBCK/$filename
+            echo "ALTER TABLE db ADD COLUMN Create_view_priv enum('N','Y');" >> $directoryBCK/$filename
+            echo "ALTER TABLE db ADD COLUMN Show_view_priv enum('N','Y');" >> $directoryBCK/$filename
+            echo "ALTER TABLE db ADD COLUMN Create_routine_priv enum('N','Y');" >> $directoryBCK/$filename
+            echo "ALTER TABLE db ADD COLUMN Alter_routine_priv enum('N','Y');" >> $directoryBCK/$filename
+            echo "ALTER TABLE db ADD COLUMN Execute_priv enum('N','Y');" >> $directoryBCK/$filename
+            echo "UPDATE db SET Create_view_priv='N',Show_view_priv='N',Create_routine_priv='N',Alter_routine_priv='N',Execute_priv='N' WHERE User='asteriskuser';" >> $directoryBCK/$filename
+            echo "UPDATE db SET Create_view_priv='N',Show_view_priv='N',Create_routine_priv='N',Alter_routine_priv='N',Execute_priv='N' WHERE User='roundcube';" >> $directoryBCK/$filename
+                # End Backup db Table##
+
+    echo "Finishing backup"
+    echo "Directory of backups contains:"
+    ls -la $directoryBCK
+    echo "Backup completed"
+                # End Backup All Databases##
+
+                #Stopping Mysql Service#
+    echo "Stopping mysqld service"
+    verify="false"
+    service mysqld stop
+    
+    if test $? -eq 0
+        then
+            echo "Status: service mysqld stopped"
+            verify="true"   
+        else
+            echo "Status: service mysqld can not be stopped"
+            exit 1
+    fi
+    
+                #End Stopping Mysql Service##
+
+    if [[ "$verify" = "true" ]]; then
+                    #Backup /var/lib/mysql#
+                    echo "Making backup of /var/lib/mysql in $directoryBCKmysql..."
+                    cp -r /var/lib/mysql/* $directoryBCKmysql/
+                    echo "Backup of /var/lib/mysql in $directoryBCKmysql finished"
+                    #End backup /var/lib/mysql#
+                    #removing rpm: elastix-dbdata.rpm#
+                    echo "Removing rpm elastix-mysqldbdata.rpm..."
+                    rpm -e --nodeps elastix-mysqldbdata
+
+                    rm -rf /var/lib/mysql/*
+                    if test $? -ne 0
+                     then
+                      echo "Failed remove /var/lib/mysql"
+                      exit 1
+                    fi
+
+                    #End removing rpm: elastix-mysqldbdata.rpm#
+                    #Starting mysql service#
+                    echo "Starting mysqld service"
+                    service mysqld start
+                    if test $? -eq 0
+                        then
+                            echo "Status: service mysqld started"
+                        else
+                            echo "Status: service mysqld can not be started"
+							cp -r $directoryBCKmysql/* /var/lib/mysql/
+                            exit 1
+                    fi
+        else
+            echo "service mysqld can not be stopped"
+			exit 1
+    fi
+
+###########################RESTORE PROCESS###################################
+ echo "Beginning script for restauration of databases..."
+                ## Creating elastix.conf file##
+ echo "Creating /etc/elastix.conf file and writing password $dbpw in it..."
+ echo "mysqlrootpwd=$dbpw" > /etc/elastix.conf
+ if test $? -eq 0 
+    then echo "file /etc/elastix.conf created"
+         echo "setting mysql root's password to $dbpw"
+         mysqladmin -u$dbuser password $dbpw 
+         if test $? -ne 0
+            then echo "Can not set mysql root's password...Good Bye !!!"
+                 exit 1 
+         fi
+    else echo "file /etc/elastix.conf can not be created"
+         exit 1
+ fi
+    ##End Creation elastix.conf file##
+
+
+ for b in $( ls $directoryBCK/*.sql );
+  do
+   mysql -u$dbuser -p$dbpw < $b
+   if test $? -ne 0
+    then
+     echo "Restore failed.... $b"
+    else
+     echo "Restore of $b done"
+   fi
+ done
+
+echo "Restarting mysqld service"
+service mysqld restart
+if test $? -eq 0
+ then
+  echo "Status: service mysqld restarted"
+ else
+  echo "Status: service mysqld can not be restarted"
+fi

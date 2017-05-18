@@ -1,0 +1,192 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+ Codificacion: UTF-8
+ +----------------------------------------------------------------------+
+ | Issabel version 1.0 |
+ | http://www.elastix.com |
+ +----------------------------------------------------------------------+
+ | Copyright (c) 2006 Palosanto Solutions S. A. |
+ +----------------------------------------------------------------------+
+ | Cdla. Nueva Kennedy Calle E 222 y 9na. Este |
+ | Telfs. 2283-268, 2294-440, 2284-356 |
+ | Guayaquil - Ecuador |
+ | http://www.palosanto.com |
+ +----------------------------------------------------------------------+
+ | The contents of this file are subject to the General Public License |
+ | (GPL) Version 2 (the "License"); you may not use this file except in |
+ | compliance with the License. You may obtain a copy of the License at |
+ | http://www.opensource.org/licenses/gpl-license.php |
+ | |
+ | Software distributed under the License is distributed on an "AS IS" |
+ | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See |
+ | the License for the specific language governing rights and |
+ | limitations under the License. |
+ +----------------------------------------------------------------------+
+ | The Original Code is: Issabel Open Source. |
+ | The Initial Developer of the Original Code is PaloSanto Solutions |
+ | |
+ | Translate bye: Tomoaki Tanaka  |
+ | ganymean@gmail.com |
+ +----------------------------------------------------------------------+
+ $Id: ja.lang,v 1.6 2008/05/18 20:00:00 ganymean Exp $ */
+global $arrLang;
+$arrLang=array(
+"Disk usage"=>"Disk usage",//"Disk usage"=>"ディスク使用率",
+"Used space"=>"Used space",//"Used space"=>"使用容量",
+"Free space"=>"Free space",//"Free space"=>"空き容量",
+"Simultaneous calls, memory and CPU"=>"Simultaneous calls, memory and CPU",//"Simultaneous calls, memory and CPU"=>"同時高付加、メモリ＆ＣＰＵ状況",
+"Sim. calls"=>"Sim. calls",//"Sim. calls"=>"同時高付加",
+"CPU usage (%)"=>"CPU usage (%)",//"CPU usage (%)"=>"CPU使用率(%)",
+"Mem. usage (MB)"=>"Mem. usage (MB)",//"Mem. usage (MB)"=>"メモリ使用量(MB)",
+
+"Export"=>"エクスポート",
+"Start"=>"先頭",
+"End"=>"末尾",
+"Next"=>"次へ",
+"Previous"=>"前へ",
+
+"Validation Error"=>"検証エラー",
+"The following fields contain errors"=>"以下の内容に間違いがあります",
+"Save"=>"保存",
+"Edit Network Parameters"=>"ネットワークパラメータの編集",
+"Required field"=>"必須フィールド",
+"Apply changes"=>"変更の適用",
+"Are you sure you want to edit network parameters?"=>"ネットワークパラメータを本当に変更しますか？",
+"Cancel"=>"キャンセル",
+
+
+"Welcome to Issabel"=>"ようこそIssabelへ",
+"Please enter your username and password"=>"usernameとpasswordを入力してください",
+"Username"=>"ユーザ名",
+"Password"=>"パスワード",
+"Submit"=>"送信",
+"Login page"=>"ログインページ",
+
+
+"The group is wrong"=>"そのグループ名は間違っています",
+"Are you sure you wish to continue?"=>"本当に継続しますか？",
+"Edit"=>"編集",
+"Delete"=>"削除",
+"Accept"=>"承認",
+"Group"=>"グループ",
+"Group Permission"=>"グループパーミッション",
+
+
+
+
+//menu
+"System"=>"システム",
+"System Info"=>"システム情報",
+"User Management"=>"ユーザ管理",
+"Menu Administrator"=>"メニュー管理者",
+"Users" => "利用ユーザ",
+//
+
+"Language"=>"言語",
+"Change"=>"変更",
+"Logout"=>"ログアウト",
+
+//version 0.7
+"Empty field"=>"入力なし",
+"Bad Format"=>"不正なフォーマット",
+"No option was selected"=>"オプション未選択",
+"Octets out of range"=>"ビット数範囲外",
+"Undefined validation type" => "Undefined validation type",
+
+//version 0.8
+//user
+"View User" => "ユーザの参照",
+
+/*Date/Time*/
+"Date/Time" => "日時",
+/*Date/Time*/
+
+//load module
+"Load Module" => "モジュールのロード",
+"ID for new module (folder name)" => "新モジュールID（フォルダ名）",
+"Choose Menu" => "モジュールの選択",
+"ID for new menu" => "新規モジュールID",
+"Menu Name" => "メニュー名",
+"Defined Menu" => "定義済メニュー",
+"New Menu" => "新規メニュー",
+"Module sucessfully loaded" => "モジュールを正常にロードしました",
+"Folder name doesn't exist in module file" => "モジュールファイルに、フォルダ名がありません",
+"Folder configs doesn't exist in module file" => "モジュールファイルに、フォルダ設定情報がありません",
+"Folder themes doesn't exist in module file" => "モジュールファイルに、フォルダーテーマがありません",
+"File index.php doesn't exist in module file" => "モジュールファイルに、index.phpがありません",
+"File install.php doesn't exist in module file" => "モジュールファイルに、install.phpがありません",
+
+
+
+// Issabel 0.9 
+
+//Inicio SubModule Themes
+"Themes" => "テーマ",
+"Change Theme" => "テーマの変更",
+//Fin SubModule Themes
+
+/*Module IM*/
+"IM" => "インスタントメッセージ",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "現在、Openfireは動作していません。",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "vTiger のインストールが概ね終了しました。完了するには、",
+"click here" => "クリックしてください",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "SugarCRMのインストールが概ね終了しました。完了するには、",
+
+/* Preferences*/
+"Preferences" => "プリファレンス",
+
+/* Start About Issabel */
+"About Issabel" => "Issabelについて",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content" => "Issabelは、IPコミュニケーション管理のための信頼でき、使いやすい、
+ウェブベースシステムを目指して開発されました。エクアドルで始まったこのオープンソース
+ソフトウェアは、世界中におけるVoIP実装ソリューションに選択されつつあります。",
+"About Issabel Closed" => "閉じる",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups" => "グループ",
+"Group List" => "グループ一覧",
+/*End module Group List*/
+
+/* Issabel 1.0 */
+/*Grouplist*/
+"administrator" => "管理者",
+"operator" => "オペレータ",
+"extension" => "内線",
+"total access" => "管理者権限",
+"extension user" => "内線登録ユーザ",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

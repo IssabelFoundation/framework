@@ -1,0 +1,63 @@
+#!/bin/bash
+
+function newRepoElastix {
+ echo "Making backup of /etc/yum.repos.d/elastix.repo as /etc/yum.repos.d/elastix.backup..."
+ repoNew="/etc/yum.repos.d/elastix.repo"
+ repoOld="/etc/yum.repos.d/elastix.backup"
+ mv $repoNew $repoOld
+ cat <<REPOS > $repoNew
+[elastix-base]
+name=Base RPM Repository for Elastix
+mirrorlist=http://mirror.elastix.org/?release=2&arch=$basearch&repo=base
+#baseurl=http://repo.elastix.org/elastix/2/base/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.elastix.org/elastix/RPM-GPG-KEY-Elastix
+   
+[elastix-updates]
+name=Updates RPM Repository for Elastix
+mirrorlist=http://mirror.elastix.org/?release=2&arch=$basearch&repo=updates
+#baseurl=http://repo.elastix.org/elastix/2/updates/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.elastix.org/elastix/RPM-GPG-KEY-Elastix
+    
+[elastix-beta]
+name=Beta RPM Repository for Elastix
+mirrorlist=http://mirror.elastix.org/?release=2&arch=$basearch&repo=beta
+#baseurl=http://repo.elastix.org/elastix/2/beta/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=http://repo.elastix.org/elastix/RPM-GPG-KEY-Elastix
+    
+[elastix-extras]
+name=Extras RPM Repository for Elastix
+mirrorlist=http://mirror.elastix.org/?release=2&arch=$basearch&repo=extras
+#baseurl=http://repo.elastix.org/elastix/2/extras/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.elastix.org/elastix/RPM-GPG-KEY-Elastix
+REPOS
+
+echo "Repo elastix was changed."
+return 0
+}
+
+newRepoElastix
+
+echo "Verifying yum command..."
+yum clean all
+yum check-update
+if test $? -eq 1
+      then
+          echo "yum command can not revolve dependences...Good bye!"
+          exit 1
+      else
+          ping -c2 -W5 repo.elastix.org
+          if test $? -ne 0 
+            then 
+                echo "please verify your connection to repo.elastix.org...Good Bye"
+                exit 1
+          fi
+fi 
+echo "yum command successfully verified"

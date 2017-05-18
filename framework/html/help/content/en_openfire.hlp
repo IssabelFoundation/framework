@@ -1,0 +1,35 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>Openfire (previously known as Wildfire) is a Jabber/XMPP server written in Java under GNU and commercial licences. Openfire implements most features amongst those measured by jabber.org.</p>
+
+<p>Before you start the Setup of Openfire, you have to create the database and set some privileges. To do this, enter the following commands in the Linux terminal of your  Issabel Server:</p>
+<br />
+<p><i>mysqladmin create openfire -p</i></br>
+(Enter the mysql password set when Issabel was installed)</p>
+<p><i>cat /opt/openfire/resources/database/openfire_mysql.sql | mysql openfire -p</i></br>
+(Enter password)</p>
+<p><i>mysql -u root -p</i></br>
+(Enter password)</p>
+<p><i>use openfire;</i></p>
+<p><i>GRANT ALL PRIVILEGES ON openfire.* TO 'openfire'@'localhost' IDENTIFIED BY 'openfire';</i></p>
+<p><i>quit</i></p>
+<br />
+<p>Now you have to activate the Openfire service in this module and then you are ready to set up Openfire. (See figure 1 and 2)</p>
+<div class="hlp_figures"><img src="../images/help/im/hlp_openfire_service.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+<div class="hlp_figures"><img src="../images/help/im/hlp_openfire.png" border="0" />
+<p>Figure 2</p></div>
+<br />
+
+<p>For more information visit <a href="http://www.igniterealtime.org/projects/openfire/index.jsp">http://www.igniterealtime.org/projects/openfire/index.jsp</a></p>
+
+</body>
+</html>

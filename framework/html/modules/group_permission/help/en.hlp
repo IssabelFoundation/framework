@@ -1,0 +1,19 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Group Permission” of the Menu “System” in Issabel lets us determine the menus to which each group of users will have access.</p>
+
+<p>The list below shows the names of the Issabel menus; you should select the ones that each group should have permission to access, and then click the “Apply” button.</p>
+
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_user_management_group.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+</body>
+</html>

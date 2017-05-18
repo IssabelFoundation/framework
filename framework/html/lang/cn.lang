@@ -1,0 +1,192 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: cn.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage"=>"硬盘使用量",
+"Used space"=>"已使用空间",
+"Free space"=>"可使用空间",
+"Simultaneous calls, memory and CPU"=>"同步通话,内存和CPU",
+"Sim. calls"=>"同步通话",
+"CPU usage (%)"=>"CPU使用量百分比",
+"Mem. usage (MB)"=>"内存使用量百分比",
+
+"Export"=>"导出",
+"Start"=>"首页",
+"End"=>"末页",
+"Next"=>"下一页",
+"Previous"=>"上一页",
+
+"Validation Error"=>"确认出错",
+"The following fields contain errors"=>"以下项目有误",
+"Save"=>"保存",
+"Required field"=>"必填项",
+"Apply changes"=>"改变生效",
+"Cancel"=>"取消",
+
+/*Login to Issabel*/
+"Welcome to Issabel"=>"欢迎使用Issabel!",
+"Please enter your username and password"=>"请输入用户名及密码",
+"Username"=>"用户名",
+"Password"=>"密码",
+"Submit"=>"提交",
+"Login page"=>"登录页",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group"=>"用户组",
+"User List"=>"用户列表",
+"The group is wrong"=>"用户组不正确",
+"Are you sure you wish to continue?"=>"确定要继续吗?",
+"Edit"=>"编辑",
+"Delete"=>"刪除",
+"Accept"=>"接受",
+"Group Permission"=>"组权限",
+"Directory couldn't be opened"=>"目录无法打开",
+
+/*start menu*/
+"System"=>"系统",
+"System Info"=>"系统信息",
+"User Management"=>"用户管理",
+"Menu Administrator"=>"菜单管理员",
+/*end menu*/
+
+/*Start Language*/
+"Language"=>"语言",
+"Change"=>"改变",
+"Logout"=>"注销",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"选项",
+"Empty field"=>"清空项",
+"Bad Format"=>"格式错误",
+"No option was selected"=>"没有选中任何选项",
+"Octets out of range"=>"八位数超过范围",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+//version 0.8
+//user
+"View User" => "View User",
+
+/*system - date/time*/
+"Date/Time"  =>  "Date/Time",
+
+//load module
+"Load Module"  =>  "Load Module",
+"File name"  =>  "File name",
+"ID for new module (folder name)"  =>  "ID for new module (folder name)",
+"Choose Menu"  =>  "Choose Menu",
+"ID for new menu"  =>  "ID for new menu",
+"Menu Name"  =>  "Menu Name",
+"Defined Menu"  =>  "Defined Menu",
+"New Menu"  =>  "New Menu",
+"Module sucessfully loaded"  =>  "Module sucessfully loaded",
+"Folder name doesn't exist in module file"  =>  "Folder name doesn't exist in module file",
+"Folder configs doesn't exist in module file"  =>  "Folder configs doesn't exist in module file",
+"Folder themes doesn't exist in module file"  =>  "Folder themes doesn't exist in module file",
+"File index.php doesn't exist in module file"  =>  "File index.php doesn't exist in module file",
+"File install.php doesn't exist in module file"  =>  "File install.php doesn't exist in module file",
+//end load module
+
+// Issabel 0.9 
+
+//Inicio SubModule Themes
+"Themes" => "Themes",
+"Change Theme" => "Change Theme",
+//Fin SubModule Themes
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "The Openfire service is not active at this moment. If you want to activate it please ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "The vTiger installation is almost done. To complete it please ",
+"click here" => "click here",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Preferences",
+
+/* Start About Issabel */
+"About Issabel"=>"About Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content"=>"Issabel was created under the premise of becoming a reliable, easy-to-use,
+web-based system for the management of communications over IP. This open
+source software started in Ecuador has become the solution of choice for
+implementations of Voice over IP around the globe.",
+"About Issabel Closed"=>"Close",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Groups",
+"Group List"=>"Group List",
+/*End module Group List*/
+
+/** Issabel 1.0 **/
+
+/*Grouplist*/
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+"total access" => "Total Access",
+"extension user" => "Extension User",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

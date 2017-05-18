@@ -1,0 +1,35 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>El Flash Operator Panel muestra las extensiones, colas y troncales para monitorear el uso de las líneas telefónicas. Cada uno de estos elementos son mostrados en diferentes colores con su respectivo significado:</p>
+
+<ul>
+<li>Amarillo:		Extensión asociada a una cola <i>(Figura 1).</i></li>
+<li>Verde:			Extensión o línea telefónica disponible (no ocupada) <i>(Figura 1).</i></li>
+<li>Rojo: 			Extensión o línea telefónica no disponible (ocupada) <i>(Figura 1).</i></li>
+</ul>
+
+<p>Además, cada extensión o línea telefónica ocupada muestra el contacto externo con quien esta manteniendo una conversación. – ver Extensión 215 conversando con la Extensión 217 en la <i>Figura 1</i>.</p>
+
+<div class="hlp_figures"><img src="../images/help/pbx/es_hlp_fop_1.png" border="0" />
+<p>Figura 1</p></div>
+
+<p>Cuando ubica el mouse sobre una extensión que está manteniendo una conversación con otra, ambas lineas son resaltadas para una fácil identificación. <i>(Figura 2)</i>.</p>
+ 
+<p>El Flash Operator Panel permite también ejecutar acciones autenticando previamente al usuario con una contraseña. Esta contraseña es la misma que se configura inicialmente para la interfaz Web de Issabel.</p>
+ 
+<div class="hlp_figures"><img src="../images/help/pbx/es_hlp_fop_2.png" border="0" />
+<p>Figura 2</p></div>
+
+<p>Es posible transferir llamadas haciendo click en el ícono en forma de teléfono de una extensión y arrastrándola hacia la extensión a donde se quiere hacer la transferencia. <i>(Figura 3)</i></p>
+
+<div class="hlp_figures"><img src="../images/help/pbx/es_hlp_fop_3.png" border="0" />
+<p>Figura 3</p></div>
+</body>
+</html>

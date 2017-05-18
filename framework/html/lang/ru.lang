@@ -1,0 +1,330 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ru.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage" => "Использование диска",
+"Used space" => "Занято",
+"Free space" => "Свободно",
+"Simultaneous calls, memory and CPU" => "Звонки, память и CPU вместе",
+"Sim. calls" => "Одноврем. звонки",
+"CPU usage (%)" => "Загрузка CPU (%)",
+"Mem. usage (MB)" => "Использование памяти (MB)",
+/*System Info*/
+
+"Export" => "Экспорт",
+"Start" => "Начало",
+"End" => "Конец",
+"Next" => "Следующий",
+"Previous" => "Предыдущий",
+
+"Validation Error" => "Ошибка валидации",
+"The following fields contain errors" => "Следующие поля содержат ошибки",
+"Save" => "Сохранить",
+"Required field" => "Обязательное поле",
+"Apply changes" => "Применить изменения",
+"Cancel" => "Отменить",
+
+/*Login to Issabel*/
+"Welcome to Issabel" => "Добро Пожаловать в Issabel",
+"Please enter your username and password" => "Пожалуйста, введите имя пользователя и пароль",
+"Username" => "Имя пользователя",
+"Password" => "Пароль",
+"Submit" => "Отправить",
+"Login page" => "Вход в систему",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group" => "Группа",
+"User List" => "Список пользователей",
+"The group is wrong" => "Неверная группа",
+"Are you sure you wish to continue?" => "Вы уверены что хотите продолжить?",
+"Edit" => "Редактировать",
+"Delete" => "Удалить",
+"Accept" => "Принять",
+"Group Permission" => "Права группы",
+"Users" => "Пользователи",
+"Directory couldn't be opened" => "Директория не может быть открыта",
+/*end User Management*/
+
+/*start menu*/
+"System" => "Система",
+"System Info" => "Системная Информация",
+"User Management" => "Пользователи",
+"Menu Administrator" => "Меню Администратора",
+/*end  menu*/
+
+/*Start Language*/
+"Language" => "Язык",
+"Change" => "Изменить",
+"Logout" => "Выход",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options" => "Опции",
+"Empty field" => "Пустое поле",
+"Bad Format" => "Некорректный Формат",
+"No option was selected" => "Ни одной опции не выбрано",
+"Octets out of range" => "Октеты вне диапазона",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User" => "View User",
+/*end user*/
+
+/*system - date/time*/
+"Date/Time" => "Дата и Время",
+/*end system - date/time*/
+
+/*History*/
+"History" => "История",
+
+/*load module*/
+"Load Module" => "Загрузить Модуль",
+"ID for new module (folder name)" => "ID для нового модуля (имя папки)",
+"Choose Menu" => "Выберите Меню",
+"ID for new menu" => "ID для нового меню",
+"Menu Name" => "Название Меню",
+"Defined Menu" => "Определённое Меню",
+"New Menu" => "Новое Меню",
+"Module sucessfully loaded" => "Модуль успешно загружен",
+"Folder name doesn't exist in module file" => "Имя папки не существует в файле модуля",
+"Folder configs doesn't exist in module file" => "Конфигурационные файлы папки не существуют в файле модуля",
+"Folder themes doesn't exist in module file" => "Темы папки не существуют в файле модуля",
+"File index.php doesn't exist in module file" => "Файл index.php не существует в файле модуля",
+"File install.php doesn't exist in module file" => "Файл install.php не существует в файле модуля",
+/*end load module*/
+
+// Issabel 0.9
+/*Start SubModule Themes*/
+"Themes" => "Темы",
+"Change Theme" => "Изменить Тему",
+/*end SubModule Themes*/
+
+
+/*Module Agenda*/
+"Agenda" => "Планировщик",
+"Calendar" => "Календарь",
+"Address Book" => "Адресная Книга",
+
+/*Module Email*/
+"Email" => "Email",
+"Domains" => "Домены",
+"Accounts" => "Учётные Записи",
+"Relay" => "Relay",
+"Webmail" =>"Webmail",
+"Antispam" => "Antispam",
+"Remote SMTP" => "Удалённый SMTP",
+"Email list" => "Списки Рассылки",
+"Email stats" => "Статистика",
+"Vacations" => "Автоматический Ответ",
+
+/*Module Fax*/
+"Fax" => "Факс",
+
+/*Module PBX*/
+"PBX" => "PBX",
+"PBX Configuration" => "Настройка PBX",
+"Operator Panel" => "Панель Оператора",
+"Voicemail" => "Голосовая почта",
+"Configuration" => "Настройка",
+"Calls Recordings" => "Записи Разговоров",
+"Batch Configurations" => "Групповая Настройка",
+"Endpoint Configurator" => "Настройка Телефонов",
+"Batch of Extensions" => "Группа Внутренних номеров",
+"Conference" => "Конференция",
+"Tools" => "Инструменты",
+"Asterisk-Cli" => "Командная строка Asterisk",
+"Asterisk File Editor" => "Редактор файлов Asterisk",
+"Recordings" => "Запись приветствий",
+"Flash Operator Panel" => "Flash Панель Оператора",
+
+/*Module IM*/
+"IM" => "Мгновенные Cообщения",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "Сервис Openfire не запущен",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*Module Reports*/
+"Reports" => "Отчёты",
+
+"Extras" => "Extras",
+"Addons" => "Дополнения",
+"My Extension" => "Мой Номер",
+"Settings" => "Настройки",
+
+/*Module Security*/
+"Security" => "Безопасность",
+"Firewall" => "Сетевой Экран",
+"Audit" => "Аудит",
+"Weak Keys" => "Слабые пароли",
+"Advanced Settings" => "Расширенные настройки",
+"Firewall Rules" => "Правила Сетевого Экрана",
+"Define Ports" => "Определение Портов",
+"Port Knocking Interface" => "Port Knocking Interface",
+"Port Knocking Users" => "Port Knocking Users",
+
+/*vTigerCRM*/
+
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "The vTiger installation is almost done. To complete it please ",
+"click here" => "click here",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/*Dashboard*/
+"Dashboard" => "Панель Состояния",
+"Dashboard Applet Admin" => "Настройка Панели Состояния",
+
+/*Network*/
+"Network" => "Сеть",
+"Network Parameters" => "Сетевые Настройки",
+"DHCP Server" => "DHCP-Сервер",
+"DHCP Client List" => "Список Клиентов DHCP",
+"Assign IP Address to Host" => "Резервирование DHCP",
+
+/*Shutdown*/
+"Shutdown" => "Выключение",
+
+/*Hardware Detector*/
+"Hardware Detector" => "Обнаружение Оборудования",
+
+/*Updates*/
+"Updates" => "Обновления",
+"Repositories" => "Репозитории",
+"Packages" => "Пакеты",
+
+/*Backup/Restore*/
+"Backup/Restore" => "Резервное Копирование",
+
+/*Preferences*/
+"Preferences" => "Предпочтения",
+"Currency" => "Валюта",
+
+/* Start About Issabel */
+"About Issabel" => "Об Issabel",
+"About Issabel2"=>"Об Issabel",
+"HELP"=>"Помощь",
+"About Issabel Content" => "Issabel was created under the premise of becoming a reliable, easy-to-use,web-based system for the management of communications over IP. This open
+source software started in Ecuador has become the solution of choice for
+implementations of Voice over IP around the globe.",
+"About Issabel Closed" => "Закрыть",
+/* end About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Группы",
+"Group List"=>"Список Групп",
+/*End module Group List*/
+
+/*Grouplist*/
+"administrator" => "Administrator",
+"operator" => "Оператор",
+"extension" => "Extension",
+"total access" => "Полный Доступ",
+"extension user" => "Extension User",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Искать",
+"Show"   => "Показать",
+'md_message_title' => 'Отклонить',
+"ERROR" => "Ошибка",
+"VersionDetails" => "Версия",
+"VersionPackage" => "Версии пакетов",
+"textMode" => "Режим Текст",
+"htmlMode" => "Режим Html",
+"Register" => "Регистрация",
+"Registered" => "Зарегистрирован",
+"Unauthorized" => "Неавторизованный",
+"You are not authorized to access to this page" => "Вы неавторизованны для доступа к этой странице",
+"You need administrator privileges" => "Вам нужны права администратора",
+"Issabel Authentication" => "Issabel Authentication",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "Вам не разрешен доступ к Flash Панели Оператора. Пожалуйста, свяжитесь с администратором.",
+"Advice" => "Advice",
+
+/*Module Call Center*/
+
+"Call Center" => "Контакт-Центр",
+"Reports" => "Отчеты",
+"Forms" => "Формы",
+"Breaks" => "Перерывы",
+"Agent Options" => "Настройки Агента",
+"Ingoing Calls" => "Входящие Вызовы",
+"Outgoing Calls" => "Исходящие Вызовы",
+"Campaigns"  => "Кампании",
+"Do not Call List"  => "Список 'Не Звонить'",
+"External URLs"  => "Внешние URL",
+"Queues"  => "Очереди",
+"Clients"  => "Клиенты",
+"Ingoing Campaigns" => "Входящие Кампании",
+"Agent Console" => "Консоль Агента",
+"Reports Break" => "Отчет о Перерывах",
+"Calls Detail"  => "Детализация Вызовов",
+"Calls per hour" => "Вызовов за час",
+"Calls per Agent" => "Вызовов Агенту",
+"Hold Time" => "Время Удержания",
+"Login Logout" => "Время Входа-Выхода",
+"Ingoing Calls Success" => "Входящие Вызовы Успешно",
+"Graphic Calls per hour" => "График Вызовов за час",
+"Agent Information" => "Информация об Агенте",
+"Agents Monitoring" => "Мониторинг Агентов",
+"Trunks used per hour" => "Занятость транков за час",
+"Incoming calls monitoring" => "Мониторинг входящих вызовов",
+"Campaign monitoring" => "Мониторинг кампании",
+"Agents" => "Агенты",
+"ECCP Users" => "ECCP Пользователи",
+"Callback Extensions" => "Внутренние номера для Обратного вызова",
+"Form Designer" => "Дизайнер Форм",
+"Form Preview" => "Преварительный просмотр Форм",
+
+/*New*/
+"Hide left panel" => "Скрыть левую панель",
+"Load left panel" => "Показать левую панель",
+"Add Bookmark" => "Добавить Закладку",
+"Search modules" => "Поиск модулей",
+"Change Issabel Password" => "Изменить Пароль Issabel",
+"CDR Report" => "Отчёт CDR",
+"Channels Usage" => "Использование Каналов",
+"Billing" => "Биллинг",
+"Rates" => "Тарифы",
+"Billing Report" => "Билинговый отчёт",
+"Destination Distribution" => "Направления",
+"Billing Setup" => "Настройка Биллинга",
+"Asterisk Logs" => "Журнал Asterisk",
+"Graphic Report"  => "Графический Отчёт",
+"Summary"  => "Сводка",
+"Missed Calls"  => "Пропущенные Вызовы"
+);
+?>

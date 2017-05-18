@@ -1,0 +1,20 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Language” of the Menu “Preferences” in Issabel lets us configure the language for the Issabel Web Interface.</p>
+<p>Select the language from the list and click on the “Save” button.</p>
+<br />
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_preferences_language.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+
+
+</body>
+</html>

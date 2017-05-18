@@ -1,0 +1,372 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 gcarrillo Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"System Resources"=>"Recursos del Sistema",
+"Disk usage"=>"Uso del Disco",
+"Used space"=>"Espacio usado",
+"Free space"=>"Espacio libre",
+"Simultaneous calls, memory and CPU"=>"Llamadas simultáneas, memoria y CPU",
+"Sim. calls"=>"Llamadas Sim.",
+"CPU usage (%)"=>"Uso de CPU (%)",
+"Mem. usage (MB)"=>"Uso de Mem. (MB)",
+
+"Export"=>"Exportar",
+"Start"=>"Primero",
+"End"=>"Último",
+"Next"=>"Siguiente",
+"Previous"=>"Anterior",
+
+
+"Validation Error"=>"Error de Validación",
+"The following fields contain errors"=>"Los siguientes campos contienen errores ",
+"Save"=>"Guardar",
+"Required field"=>"Campo requerido",
+"Apply changes"=>"Aplicar cambios",
+"Cancel"=>"Cancelar",
+
+/*Login to Issabel*/
+"Welcome to Issabel"=>"Bienvenido a Issabel",
+"Please enter your username and password"=>"Por favor ingrese su usuario y contraseña",
+"Username"=>"Nombre de Usuario",
+"Password"=>"Contraseña",
+"Submit"=>"Ingresar",
+"Login page"=>"Página de Ingreso",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group"=>"Grupo",
+"Group List"=>"Lista de Grupos",
+"User List"=>"Lista de Usuarios",
+"The group is wrong"=>"El grupo es incorrecto",
+
+
+
+"Are you sure you wish to continue?"=>"¿Está seguro que desea continuar?",
+"Edit"=>"Editar",
+"Delete"=>"Eliminar",
+"Accept"=>"Aceptar",
+"Group Permission"=>"Permisos de Grupo",
+"Users" => "Usuarios",
+"Directory couldn't be opened"=>"No se pudo abrir el directorio",
+/*end User Management*/
+
+/*start menu*/
+"System"=>"Sistema",
+"System Info"=>"Información del Sistema",
+"User Management"=>"Administrar Usuarios",
+"Users"=>"Usuarios",
+"Menu Administrator"=>"Administrador de Menú",
+/*end menu*/
+
+/*Start Language*/
+"Language"=>"Idioma",
+"Change"=>"Cambiar",
+"Logout"=>"Cerrar Sesión",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"Opciones",
+"Empty field"=>"Campo vacío",
+"Bad Format"=>"Formato incorrecto",
+"No option was selected"=>"Opción no seleccionada",
+"Octets out of range"=>"Octetos fuera de rango",
+"Undefined validation type" => "Tipo de validación no definida",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User"=>"Ver usuario",
+/*end user*/
+
+
+/*system - date/time*/
+"Date/Time" => "Fecha/Hora",
+/*end system - date/time*/
+
+/*load module*/
+"Load Module" => "Cargar Menú",
+"ID for new module (folder name)"  =>  "ID para nuevo módulo (nombre de carpeta)",
+"Choose Menu"  =>  "Seleccione Menú",
+"ID for new menu"  =>  "ID para nuevo menú",
+"Menu Name"  =>  "Nombre de Menú",
+"Defined Menu"  =>  "Menú definido",
+"New Menu"  =>  "Nuevo Menú",
+"Module sucessfully loaded"  =>  "Módulo cargado exitosamente",
+"Folder name doesn't exist in module file"  =>  "Nombre de carpeta no existe en archivo de módulo",
+"Folder configs doesn't exist in module file"  =>  "Carpeta configs no existe en archivo de módulo",
+"Folder themes doesn't exist in module file"  => "Carpeta themes no existe en archivo de módulo",
+"File index.php doesn't exist in module file"  =>  "Archivo index.php no existe en archivo de módulo",
+/*end load module*/
+
+
+// Issabel 0.9
+
+/*Start SubModule Themes*/
+"Themes" => "Temas",
+"Change Theme" => "Cambiar Tema",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "El servicio Openfire no está activo en este momento. Si desea activarlo haga ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "El servicio Webmin no está activo en este momento. Si desea activarlo haga ",
+
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "Para finalizar la instalación de vTiger haga ",
+"click here" => "click aquí",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "Para finalizar la instalación de SugarCRM de",
+
+/* Preferences*/
+"Preferences" => "Preferencias",
+
+/* Start About Issabel */
+"About Issabel"=>"Acerca de Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content"=>"Issabel es una Solución de Comunicaciones Unificadas confiable y fácil de utilizar. Este software de código abierto basado en web se ha convertido en la solución predilecta para las implementaciones de Comunicaciones sobre IP en todo el mundo.",
+"About Issabel Closed"=>"Cerrar",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Grupos",
+/*End module Group List*/
+
+/** Issabel 1.0 **/
+/*Start UserList*/
+"administrator" => "Administrador",
+"operator" => "Operador",
+"extension" => "Extensión",
+"total access" => "Acceso Total",
+"extension user" => "Usuario de Extensión",
+/*end UserList*/
+"Title" => "Título",
+"Search" => "Buscar",
+"Show"   => "Mostrar",
+'md_message_title' => 'Descartar',
+"ERROR" => "Error",
+"VersionDetails" => "Versión",
+"VersionPackage" => "Detalles de las versiones de los paquetes",
+"textMode" => "Modo Texto",
+"htmlMode" => "Modo Html",
+"Register" => "Registro",
+"Registered" => "Registrado",
+"Unauthorized" => "No Autorizado",
+"You are not authorized to access to this page" => "Usted no está autorizado a acceder a esta página",
+"You need administrator privileges" => "Usted necesita privilegios de administrador",
+"Issabel Authentication" => "Autenticación de Issabel",
+
+/*new*/
+"Please write your current password." => "Por favor escriba su clave actual.",
+"Please write the new password and confirm the new password." => "Por favor escriba la nueva clave y confirme la misma.",
+"The new password doesn't match with retype new password." => "La clave nueva no es igual con la confirmación de la nueva clave.",
+"Please your session id does not exist. Refresh the browser and try again." => "Por favor su id de session no existe. Refresque el navegador y vuelva a intentar.",
+"Issabel password has been changed." => "Clave de usuario Issabel ha sido cambiada.",
+"Impossible to change your Issabel password." => "Imposible cambiar su clave de usuario Issabel.",
+"Impossible to change your Issabel password. User does not exits or password is wrong" => "Imposible cambiar su clave de usaurio Issabel. Nombre de usuario no existe o la clave es incorrecta",
+"Change Issabel Password" => "Cambiar clave de Issabel",
+"Current Password" => "Clave Actual",
+"New Password" => "Nueva Clave",
+"Retype New Password" => "Confirme la nueva clave",
+"Change" => "Actualizar",
+"Search modules" => "Búsqueda de módulos",
+"Unauthorized" => "No Autorizado",
+"You are not authorized to access this page." => "Usted no está autorizado a acceder a esta página",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "Usted no tiene permisos para acceder al Flash Operator Panel. Por favor contacte a su administrador.",
+"Advice" => "Advertencia",
+"Bookmarks" => "Marcadores",
+"History" => "Historia",
+"The maximum of bookmarks is 5. Please uncheck one in order to add this bookmark" => "El máximo número de marcador es 5. Por favor deseleccione uno para agregar este como marcador",
+"Bookmark has been added." => "Marcador ha sido agregado.",
+"Bookmark cannot be added. Please try again or contact with your elastix administrator and notify the next error: " => "Marcador no pudo se agregado. Por favor intente otra vez o contacte con el administrador de su Issabel y notifique el siguiente error: ",
+"Bookmark has been removed." => "Marcador ha sido removido.",
+"Bookmark cannot be removed. Please try again or contact with your elastix administrator and notify the next error: " => "Marcador no puede ser removido. Por favor intente otra vez o contacte con el administrador de su Issabel y notifique el siguiente error: ",
+"Sending Request" => "Enviando Petición",
+"Request cannot be completed. Please try again or contact with your elastix administrator and notify the next error: " => "Requerimiento no pudo ser completado. Por favor intente otra vez o contacte con el administrador de su elastix y notifique el siguiente error: ",
+"Request has been sent." => "Requerimiento ha sido enviado.",
+"Add Bookmark" => "Agregar Marcador",
+"Remove Bookmark" => "Quitar Marcador",
+"Adding Bookmark" => "Agregando Marcador",
+"Removing Bookmark" => "Quitando Marcador",
+"Hiding left panel" => "Ocultando panel izquierdo",
+"Loading left panel" => "Cargando panel izquierdo",
+"Hide left panel" => "Ocultar panel izquierdo",
+"Load left panel" => "Cargar panel izquierdo",
+"characters left" => "caracteres faltantes",
+"Save Note" => "Guardar Nota",
+"Saving Note" => "Guardando Nota",
+"Loading Note" => "Cargando Nota",
+"Click here to leave a note." => "Click aquí para dejar una nota.",
+"Your session has expired. Press 'Accept' to return to the login page." => "Su sesión ha expirado. Presione 'Aceptar' para regresar a la página de ingreso.",
+"No records match the filter criteria" => "Ningún registro coincide con el criterio de filtrado seleccionado",
+"New Row" => "Nueva Fila",
+"Custom Action" => "Acción Personalizada",
+"Delete Selected" => "Eliminar Seleccionado",
+"Page" => "Página",
+"of" => "de",
+"records" => "registros",
+"Apply Filter" => "Aplicar Filtro",
+"Download" => "Descargar",
+"WARNING" => "ADVERTENCIA",
+"Show Filter" => "Mostrar Filtro",
+"Hide Filter" => "Ocultar Filtro",
+"More Options" => "Más Opciones",
+"Filter applied: " => "Filtro aplicado: ",
+"Filter applied " => "Filtro aplicado: ",
+"Add" => "Agregar",
+"Save All" => "Guardar todo",
+"Key" => "Clave",
+"Value" => "Valor",
+"Network" => "Red",
+"Network Parameters" => "Parámetros de Red",
+"DHCP Server" => "Servidor DHCP",
+"DHCP Client List" => "Lista de Clientes DHCP",
+"Assign IP Address to Host" => "Asignar Dirección IP a Host",
+"Shutdown"  => "Apagar",
+"Hardware Detector"  => "Detector de Hardware",
+"Updates"  => "Actualizaciones",
+"Repositories"  => "Repositorios",
+"Packages"  => "Paquetes",
+"Backup/Restore"  => "Respaldar/Restaurar",
+"Currency"  => "Moneda",
+"Message"  => "Mensaje",
+"Calendar"  => "Calendario",
+"Address Book"  => "Libreta de Direcciones",
+"Domains"  => "Dominios",
+"Accounts"  => "Cuentas",
+"Remote SMTP"  => "SMTP Remoto",
+"Email list"  => "Listas de Correo",
+"Email stats"  => "Estadísticas",
+"Vacations"  => "Vacaciones",
+"Virtual Fax"  => "Fax Virtual",
+"Virtual Fax List"  => "Lista de Fax Virtual",
+"New Virtual Fax"  => "Nuevo Fax Virtual",
+"Send Fax"  => "Enviar Fax",
+"Fax Queue"  => "Cola de Fax",
+"Fax Master"  => "Fax Maestro",
+"Fax Clients"  => "Clientes de Fax",
+"Fax Viewer"  => "Visor de Fax",
+"Email Template"  => "Plantilla de Correo",
+"PBX Configuration"  => "Configuración PBX",
+"Operator Panel"  => "Panel del Operador",
+"Voicemail"  => "Correo de Voz",
+"Calls Recordings"  => "Grabaciones",
+"Batch Configurations"  => "Configuración por Lotes",
+"Endpoint Configurator"  => "Configurador de Endpoint",
+"Batch of Endpoints"  => "Lote de Endpoints",
+"Batch of Extensions"  => "Lote de Extensiones",
+"Conference"  => "Conferencia",
+"Tools"  => "Herramientas",
+"Asterisk File Editor"  => "Editor Archivos Asterisk",
+"Text to Wav"  => "Texto a Wav",
+"Recordings"  => "Grabaciones",
+"Remote Servers"  => "Servidores Remotos",
+"Server Key"  => "Clave del Servidor",
+"Company Information"  => "Información de la Compañía",
+"Create Conference"  => "Crear Conferencia",
+"CDR Report"  => "Reporte CDR",
+"Channels Usage"  => "Uso de Canales",
+"Billing"  => "Facturación",
+"Rates"  => "Tarifas",
+"Billing Report"  => "Reporte de Facturación",
+"Destination Distribution"  => "Distribución de Destinos",
+"Billing Setup"  => "Configuración de Facturación",
+"Graphic Report"  => "Reporte Gráfico",
+"Summary"  => "Resumen",
+"Missed Calls"  => "Llamadas Perdidas",
+"Fax Utilities"  => "Utilidades de Fax",
+"Instant Messaging"  => "Mensajería Instantánea",
+"Agent Console"  => "Consola de Agente",
+"Outgoing Calls"  => "Llamadas Salientes",
+"Campaigns"  => "Campañas",
+"Do not Call List"  => "Lista de No Llamar",
+"External URLs"  => "URLs Externos",
+"Ingoing Calls"  => "Llamadas Entrantes",
+"Queues"  => "Colas",
+"Clients"  => "Clientes",
+"Ingoing Campaigns"  => "Campañas Entrantes",
+"Agent Options"  => "Opciones de Agente",
+"Agents"  => "Agentes",
+"ECCP Users"  => "Usuarios ECCP",
+"Callback Extensions"  => "Extensiones Callback",
+"Breaks"  => "Recesos",
+"Forms"  => "Formularios",
+"Form Designer"  => "Diseñador de Formularios",
+"Form Preview"  => "Vista Previa de Formularios",
+"Reports Break"  => "Reporte de Recesos",
+"Calls Detail"  => "Detalle de Llamadas",
+"Calls per hour"  => "Llamadas por hora",
+"Calls per Agent"  => "Llamadas por Agente",
+"Hold Time"  => "Tiempo de Espera",
+"Login Logout"  => "Tiempo de Sesión",
+"Ingoing Calls Success"  => "Éxito de Llamadas Entrantes",
+"Graphic Calls per hour"  => "Gráfico Llamadas por hora",
+"Agent Information"  => "Información de Agentes",
+"Agents Monitoring"  => "Monitoreo de Agentes",
+"Trunks used per hour"  => "Troncales por hora",
+"Incoming calls monitoring"  => "Monitoreo Llamadas Entrantes",
+"Campaign monitoring"  => "Monitoreo de Campaña",
+"Configuration"  => "Configuración",
+"Downloads"  => "Descargas",
+"Agent"  => "Agente",
+"Customer"  => "Cliente",
+"Admin"  => "Administrador",
+"Calling Cards"  => "Tarjetas Telefónicas",
+"Build Module"  => "Construir Módulo",
+"Delete Module"  => "Eliminar Módulo",
+"Language Admin"  => "Administrar Idioma",
+"Providers Accounts"  => "Cuentas de Proveedores",
+"Settings"  => "Ajustes",
+"Firewall Rules" => "Reglas del Cortafuegos",
+"Define Ports"  => "Definir Puertos",
+"Port Knocking Interfaces"  => "Interfaces Golpeo de Puertos",
+"Port Knocking Users"  => "Usuarios Golpeo de Puertos",
+"Firewall"  => "Cortafuegos",
+"Audit"  => "Auditoría",
+"Weak Keys"  => "Claves Débiles",
+"Advanced Settings"  => "Configuraciones Avanzadas",
+"Email"  => "Correo Electrónico",
+"Reports"  => "Reportes",
+"My Extension"  => "Mi extensión",
+"Security"  => "Seguridad",
+"Asterisk Logs"  => "Logs de Asterisk",
+"Dashboard Applet Admin"  => "Administrador de Applets",
+'Panels' => 'Paneles',
+);
+?>

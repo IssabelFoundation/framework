@@ -1,0 +1,189 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: sv.lang,v 0.1 2008/03/25 00:36:42 IFIT DATA - http://www.ifit.se Exp $ */
+global $arrLang;
+$arrLang=array(
+"Disk usage"=>"Disk användning",
+"Used space"=>"Användt utrymme",
+"Free space"=>"Ledigtutrymme",
+"Simultaneous calls, memory and CPU"=>"Parallella samtal, minne och CPU",
+"Sim. calls"=>"Parallella samtal",
+"CPU usage (%)"=>"CPU användning (%)",
+"Mem. usage (MB)"=>"Minnes. användning (MB)",
+/*System Info*/
+
+"Export"=>"Exportera",
+"Start"=>"Start",
+"End"=>"Slut",
+"Next"=>"Nästa",
+"Previous"=>"Föregående",
+
+"Validation Error"=>"Fel Uppstod Vid Validering",
+"The following fields contain errors"=>"Följande fält innehåller fel",
+"Save"=>"Spara",
+"Required field"=>"Obligatoriskt fält",
+"Apply changes"=>"Tillämpa ändringar",
+"Cancel"=>"Avbryt",
+
+/*Login to Issabel*/
+"Welcome to Issabel"=>"Välkommen till Issabel",
+"Please enter your username and password"=>"Vänligen skriv in ditt användarnamn och lösenord",
+"Username"=>"Användarnamn",
+"Password"=>"Lösenord",
+"Submit"=>"Tillämpa",
+"Login page"=>"Inloggningssidan",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group"=>"Grupp",
+"User List"=>"Användar Lista",
+"The group is wrong"=>"Gruppen är felaktig",
+"Are you sure you wish to continue?"=>"Är du säker på att du vill fortsätta?",
+"Edit"=>"Redigera",
+"Delete"=>"Ta bort",
+"Accept"=>"Acceptera",
+"Group Permission"=>"Grupp rättigheter",
+"Users" => "Users",
+"Directory couldn't be opened"=>"Katalogen kunde inte öppnas",
+/*start User Management*/
+
+/*start menu*/
+"System"=>"System",
+"System Info"=>"System Information",
+"User Management"=>"Användarhantering",
+"Menu Administrator"=>"Meny Administratör",
+/*end menu*/
+
+/*Start Language*/
+"Language"=>"Språk",
+"Change"=>"Ändra",
+"Logout"=>"Loggaut",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"Inställningar",
+"Empty field"=>"Tomt fält",
+"Bad Format"=>"Dåligt format",
+"No option was selected"=>"Du har inte valt något val",
+"Octets out of range"=>"Okteter utom räckvidd",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User"=>"Förhandsgranska Användare",
+/*end user*/
+
+/*system - date/time*/
+"Date/Time" => "Datum/Tid",
+/*system - date/time*/
+
+/*load module*/
+"Load Module" => "Ladda Modul",
+"ID for new module (folder name)" => "ID för ny modul (katalognamn)",
+"Choose Menu" => "Välj Meny",
+"ID for new menu" => "ID för ny meny",
+"Menu Name" => "Meny Namn",
+"Defined Menu" => "Definerad Meny",
+"New Menu" => "Ny Meny",
+"Module sucessfully loaded" => "Lyckad inladdning av modul",
+"Folder name doesn't exist in module file" => "Katalogens namn existerar inte i modul filen",
+"Folder configs doesn't exist in module file" => "Katalogens konfiguration existerar inte i modul filen",
+"Folder themes doesn't exist in module file" => "Katalogens tema existerar inte i modul filen",
+"File index.php doesn't exist in module file" => "Filen index.php existerar inte i modul filen",
+"File install.php doesn't exist in module file" => "Filen install.php existerar inte i modul filen",
+/*end load module*/
+
+// Issabel 0.9 
+/*Start SubModule Themes*/"Themes" => "Teman",
+"Change Theme" => "Byt Tema",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "Openfire tjänsten aktiv för tillfället. Om du vill aktivera det vänligen ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "vTiger installationen är snart klar. För att komplettera ",
+"click here" => "Klicka här",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Preferenser",
+
+/* Start About Issabel */
+"About Issabel"=>"Om Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content"=>"Issabel skapades under premisserna för att bli ett pålitligt, enkelt att använda web-baserat system,för hantering av kommunikation över IP. Detta Open source programvara startades i Ekuador, och har blivit en lösning för implentering av Röst över IP(VoIP) runt världen.",
+"About Issabel Closed"=>"Avsluta",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Grupper",
+"Group List"=>"Grupp Lista",
+/*End module Group List*/
+
+/** Issabel 1.0 **/
+/*Start UserList*/
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+"total access" => "Total Access",
+"extension user" => "Extension User",
+/*end UserList*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

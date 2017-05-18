@@ -1,0 +1,23 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>La opción "Webmail" del menú "Correo Electrónico" permite revisar el buzón de entrada de las cuentas de correo de los dominios creados en Issabel.</p>
+<br />
+<div class="hlp_figures"><img src="../images/help/email/es_hlp_email_webmail.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>Ingrese el nombre de usuario y la contraseña de la cuenta de correo y luego haga click en el botón "Entrar".</p>
+<br />
+<div class="hlp_figures"><img src="../images/help/email/es_hlp_email_webmail_2.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+
+</body>
+</html>

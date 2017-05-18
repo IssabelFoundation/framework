@@ -1,0 +1,35 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The Operator Panel displays the Extensions, Queues and Trunks sections to monitor the usage of phone lines, extensions and queues. Each one of these elements is shown in different colors, each with its own meaning:</p>
+
+<ul>
+<li>Yellow:		Extension associated with a queue <i>(Figure 1).</i></li>
+<li>Green:			Extension or phone line unavailable (not busy) <i>(Figure 1).</i></li>
+<li>Red: 			Extension or phone line unavailable (busy) <i>(Figure 1).</i></li>
+</ul>
+
+<p>In addition, each busy extension shows the external phone number or internal extension with which it is holding a conversation at the moment – see Extension 215 talking with Extension 217 in <i>Figure 1</i>.</p>
+
+<div class="hlp_figures"><img src="../images/help/pbx/fop_1.png" border="0" />
+<p>Figure 1</p></div>
+
+<p>When placing the mouse over a phone line in the Operator Panel, the line is highlighted as well as the extension that is currently using it <i>(Figure 2)</i>.</p>
+ 
+<p>The Panel also allows users to execute actions by previously authenticating via password. This password is the same one that was configured initially for Issabel.</p>
+ 
+<div class="hlp_figures"><img src="../images/help/pbx/fop_2.png" border="0" />
+<p>Figure 2</p></div>
+
+<p>It is possible to transfer calls by clicking on the telephone icon displayed on the phone line through which a call was received, and dragging it towards the telephone icon of the extension to which we want to transfer the call <i>(Figure 3)</i></p>
+
+<div class="hlp_figures"><img src="../images/help/pbx/fop_3.png" border="0" />
+<p>Figure 3</p></div>
+</body>
+</html>

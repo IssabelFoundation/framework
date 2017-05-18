@@ -1,0 +1,197 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com 											 |
+  |                                                                      |
+  | Translate bye: Erwan DESVERGNES - SDCI                               |
+  | erwan.desvergnes@SDCI.fr                                             |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+*/
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage"=>"Iskorištenje diska",
+"Used space"=>"Iskorištenje prostora",
+"Free space"=>"Slobodan prostor",
+"Simultaneous calls, memory and CPU"=>"Istovremeni pozivi, memorija i CPU",
+"Sim. calls"=>"Istovremeni pozivi",
+"CPU usage (%)"=>"Iskorištenje CPU-a (%)",
+"Mem. usage (MB)"=>"Iskorištenje memorije (MB)",
+/*System Info*/
+
+"Export"=>"Izvoz",
+"Start"=>"Početak",
+"End"=>"Kraj",
+"Next"=>"Slijedeći",
+"Previous"=>"Prethodni",
+
+"Validation Error"=>"Pogreška provjere",
+"The following fields contain errors"=>"Slijedeće polje sadržava pogreške",
+"Save"=>"Snimi",
+"Required field"=>"Obvezatno polje",
+"Apply changes"=>"Primjeni izmjene",
+"Cancel"=>"Otkaz",
+
+
+/*Login to Issabel*/
+"Welcome to Issabel"=>"Dobrodošli u Issabel",
+"Please enter your username and password"=>"Molim, unesite vaše korisničko ime i zaporku",
+"Username"=>"Korisničko ime",
+"Password"=>"Zaporka",
+"Submit"=>"Izvrši",
+"Login page"=>"Stranica za prijavu",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group"=>"Grupa",
+"User List"=>"Lista korisnika",
+"The group is wrong"=>"Grupa je pogrešna",
+"Are you sure you wish to continue?"=>"Sigurno želite nastaviti?",
+"Edit"=>"Uređivanje",
+"Delete"=>"Brisanje",
+"Accept"=>"Prihvati",
+"Group Permission"=>"Dozvole za grupu",
+"Users" => "Users",
+"Directory couldn't be opened"=>"Mapa ne može biti otvorena",
+/*end User Management*/
+
+/*start menu*/
+"System"=>"Sustav",
+"System Info"=>"Informacije o sustavu",
+"User Management"=>"Upravljanje korisnicima",
+"Menu Administrator"=>"Administrator izbornika",
+/*end  menu*/
+
+/*Start Language*/
+"Language"=>"Jezik",
+"Change"=>"Izmjena",
+"Logout"=>"Odjava",
+/*end Language*/
+
+
+"Options"=>"Opcije",
+"Empty field"=>"Prazno polje",
+"Bad Format"=>"Neispravan format",
+"No option was selected"=>"Niti jedna mogućnost nije odabrana",
+"Octets out of range"=>"Oktet izlazi iz opsega",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User" => "Pregled korisnika",
+/*end user*/
+
+/*system - date/time*/
+"Date/Time"  =>  "Date/Time",
+/*end system - date/time*/
+
+/*load module*/
+"Load Module"  =>  "Load Module",
+"ID for new module (folder name)"  =>  "ID for new module (folder name)",
+"Choose Menu"  =>  "Choose Menu",
+"ID for new menu"  =>  "ID for new menu",
+"Menu Name"  =>  "Menu Name",
+"Defined Menu"  =>  "Defined Menu",
+"New Menu"  =>  "New Menu",
+"Module sucessfully loaded"  =>  "Module sucessfully loaded",
+"Folder name doesn't exist in module file"  =>  "Folder name doesn't exist in module file",
+"Folder configs doesn't exist in module file"  =>  "Folder configs doesn't exist in module file",
+"Folder themes doesn't exist in module file"  =>  "Folder themes doesn't exist in module file",
+"File index.php doesn't exist in module file"  =>  "File index.php doesn't exist in module file",
+"File install.php doesn't exist in module file"  =>  "File install.php doesn't exist in module file",
+/*end load module*/
+
+
+// Issabel 0.9 
+
+/*Start SubModule Themes*/
+"Themes" => "Teme",
+"Change Theme" => "Promjena teme",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "Openfire servis nije aktivan.",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "vTiger instalacija je skoro pa završena. Kako bi se dovršila, molim ",
+"click here" => "kliknite ovdje",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Svojstva",
+
+/* Start About Issabel */
+"About Issabel"=>"O Issabel-u",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content"=>"Issabel je kreiran pod pretpostavkom postajanja  pouzdanim, jednostavnim za uporabu, web-zasnovanim sustavom za upravljanje komunikacijom preko IP. Ovaj softver otvorenog koda je nastao u Ekvadoru i postao je izabrano rješenje za primjenu VoIP-a na cijeloj zemaljskoj kugli.",
+"About Issabel Closed"=>"Zatvori",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Grupe",
+"Group List"=>"Lista grupa",
+/*End module Group List*/
+
+/** Issabel 1.0 **/
+/*Grouplist*/
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+"total access" => "Total Access",
+"extension user" => "Extension User",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

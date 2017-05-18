@@ -1,0 +1,16 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE menu (id varchar(40), IdParent varchar(40), Link varchar(250), Name varchar(250), Type varchar(20));
+INSERT INTO "menu" VALUES('system','','','System','');
+INSERT INTO "menu" VALUES('sysinfo','system','sysinfo','System Info','module');
+INSERT INTO "menu" VALUES('usermgr','system','usermgr','User Management','module');
+INSERT INTO "menu" VALUES('grouplist','usermgr','','Groups','module');
+INSERT INTO "menu" VALUES('userlist','usermgr','','Users','module');
+INSERT INTO "menu" VALUES('group_permission','usermgr','','Group Permission','module');
+INSERT INTO "menu" VALUES('load_module','system','','Load Module','module');
+INSERT INTO "menu" VALUES('preferences','system','','Preferences','module');
+INSERT INTO "menu" VALUES('language','preferences','','Language','module');
+INSERT INTO "menu" VALUES('time_config','preferences','','Date/Time','module');
+INSERT INTO "menu" VALUES('themes_system','preferences','','Themes','module');
+INSERT INTO "menu" VALUES('example','system','','Example','module');
+COMMIT;

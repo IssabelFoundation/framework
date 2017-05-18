@@ -1,0 +1,85 @@
+#neo-sticky-note {
+	position: absolute;
+	top:150px;
+	left:50%;
+	width: 300px;
+	margin: 25px auto;
+	margin-left: -125px;
+	height: 260px;
+	padding: 15px 15px 15px 15px;
+	background: #f4f9c6;
+	-webkit-box-shadow: 0 2px 12px rgba(0,0,0,.5);
+	-moz-box-shadow: 0 2px 12px rgba(0,0,0,.5);
+	box-shadow: 0 1px 2px #000;
+	z-index:10000;
+	
+	display: none;
+}
+
+#neo-sticky-note::before {
+	content: ' ';
+	display: block;
+	position: absolute;
+	left: 115px;
+	top: -15px;
+	width: 75px;
+	height: 25px;
+	z-index: 2;
+	background-color: rgba(243,245,228,0.5);
+	border: 2px solid rgba(255,255,255,0.5);
+	-webkit-box-shadow: 0 0 5px #888;
+	-moz-box-shadow: 0 0 5px #888;
+	box-shadow: 2px 2px 2px #000;
+	-webkit-transform: rotate(-6deg);
+	-moz-transform: rotate(-6deg);
+	-o-transform: rotate(-6deg);
+}
+#neo-sticky-note-text {
+	position:relative;
+	width:100%;
+	height:200px;
+	margin-top:45px;
+	text-align: left;
+	font: 14px/20px Verdana, Arial, Helvetica, sans-serif;
+	/* font: normal normal normal 30px/36px 'Reenie Beanie', Helvetica, Arial, sans-serif; */
+	color: #000;
+	text-shadow: white 1px 1px 0px;
+	overflow:hidden;
+}
+#neo-sticky-note-text-edit {
+	position:relative;
+	width:100%;
+	height:200px;
+	
+	display: none;
+}
+#neo-sticky-note-text-edit textarea {
+	position:relative;
+	margin-top:45px;
+	width:100%;
+	height:140px;
+	border:1px solid #999;
+	resize:none;
+}
+#neo-sticky-note-text-edit-delete {
+	position:absolute;
+	width:18px;
+	height:15px;
+	top:10px;
+	right:10px;
+        cursor:pointer;
+	background:url(../../../images/bookmarks_equis.png) no-repeat;
+}
+#neo-sticky-note-text-char-count {
+	text-align:right;
+	padding:2px 0px 0px 0px;
+	font: 11px Verdana, Arial,Helvetica,sans-serif;
+	color: #666;
+	text-shadow: 1px 1px #eee;
+}
+#auto-popup{
+	position:absolute;
+	left: 205px;
+	top:  205px;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+
+/* DATEPICKER */
+
+.datepicker-button {
+    position:relative;
+    display: inline;
+    padding: 6px 12px 6px 11px;
+    font-size: 14px;
+    background-color: #57c8f1;
+    border: 1px solid transparent;
+    vertical-align: middle;
+    color: #ffffff;
+    display: inline-block;
+    border-radius: 0px 4px 4px 0px;
+    -moz-border-radius: 0px 4px 4px 0px;
+    -webkit-border-radius: 0px 4px 4px 0px;
+    margin: 6px 6px 6px 0px;
+    float: left;
+}
+
+input.datepicker-input {
+    position: relative;
+    height: 28px;
+    width: 145px;
+    border-left: 1px solid #e2e2e4;
+    border-right: 0px;
+    border-top: 1px solid #e2e2e4;
+    border-bottom: 1px solid #e2e2e4;
+    box-shadow: none;
+    color: #c2c2c2;
+    border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    font-size: 14px;
+    cursor: not-allowed;
+    background-color: #eee;
+    opacity: 1;
+    margin: 6px 0px 6px 6px;
+    float: left;
+}
+
+.datepicker-input input {
+    height: 30px;
+}
+
+span.colorpicker-box {
+    position:relative;
+    height: 28px;
+    width: 30px;
+    display: inline;
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #ffffff;
+    border-left: 1px solid #e2e2e2;
+    border-right: 0px;
+    border-bottom: 1px solid #e2e2e2;
+    border-top: 1px solid #e2e2e2;
+    vertical-align: middle;
+    color: #ffffff;
+    display: inline-block;
+    border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    margin: 6px 0px 6px 6px;
+    float: left;
+
+}

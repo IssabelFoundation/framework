@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p> La opción "Tarjetas Telefónicas" ofrece la posibilidad de proveer servicios de telefonía a clientes y hacer llamadas internacionales a bajo costo a través de un número otorgado por la compañía telefónica. Estas compañías pueden ser las típicas de cada país o negocio especializado en servicios de telefonía.</p>
+<p>En Asterisk2Billing usted cuenta con una interfaz de administración donde puede crear agentes y clientes con sus correspondientes IDs quienes son los que recibirán el servicio de telefonía.</p>
+<div class="hlp_figures"><img src="../images/help/extras/es_calling_cards.png" border="0" />
+<p>Figura 1</p></div>
+<h2>Administrador</h2>
+<p>Las credenciales de administración son:<br />
+<b>Usuario:</b> admin<br />
+<b>Contraseña:</b>La misma contraseña de administración de la interfaz web de Issabel.</p>
+<h2>Agente</h2>
+<p>El agente tiene ciertos privilegios para realizar acciones y es creado por el administrador.</p>
+<h2>Cliente</h2>
+<p>El cliente es creado por el administrador y por el agente si este cuenta con suficientes permisos para hacerlo. Un ID de cuenta es proporcionado al cliente para que pueda realizar llamadas.</p>
+<p> La plataforma de tarjetas telefónicas está basado en Asterisk2Billing. Para más información visite el sitio <a href="http://www.asterisk2billing.org">http://www.asterisk2billing.org</a></p>
+
+</body>
+</html>

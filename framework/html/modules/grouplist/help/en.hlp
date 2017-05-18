@@ -1,0 +1,134 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “Groups” allows you to create and modify all groups that will have access to the Issabel Web Interface. There are 3 default groups of users as follows:</p>
+
+  <ul>
+      <li>Administrator</li>
+      <li>Operator</li>
+      <li>Extension</li>
+  </ul>
+
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_grouplist.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+<p>Each one of these groups represents different levels of access to the Issabel Web Interface. These levels are associated with a set of menus to which a given user will have access. The various access permissions to the menus are better illustrated in the following table:</p>
+
+<table class="inline">
+	<tr>
+		<th> Menu </th><th> Administrator </th><th> Operator </th><th> Extension </th>
+	</tr>
+
+	<tr>
+		<th class="centeralign" colspan="4">  System  </th>
+	</tr>
+	<tr>
+		<td> System Info </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> PBX Configuration </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<td> Network </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+		<td> User Management </td><td> Yes </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Shutdown </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Operator Panel  </th>
+	</tr>
+	<tr>
+		<td> Flash Operator Panel </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Voicemails  </th>
+	</tr>
+	<tr>
+		<td> Asterisk Recording Interface </td><td> Yes </td><td> Yes </td><td> Yes </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Fax  </th>
+	</tr>
+	<tr>
+		<td> Virtual Fax List </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> New Virtual Fax </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Reports  </th>
+	</tr>
+	<tr>
+		<td> CDR Report </td><td> Yes </td><td> Yes </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Channels Usage </td><td> Yes </td><td> Yes </td><td> No </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Billing  </th>
+	</tr>
+	<tr>
+		<td> Rates </td><td> Yes </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<td> Billing Report </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+
+		<td> Destination Distribution </td><td> Yes </td><td> No </td><td> No </td>
+	</tr>
+	<tr>
+		<td> Trunk Configuration </td><td> Yes </td><td> No </td><td> No </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Extras  </th>
+	</tr>
+	<tr>
+		<td> SugarCRM </td><td> Yes </td><td> Yes </td><td> Yes </td>
+
+	</tr>
+	<tr>
+		<td> Calling Cards </td><td> Yes </td><td> Yes </td><td> Yes </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Downloads  </th>
+	</tr>
+	<tr>
+		<td> Softphones </td><td> Yes </td><td> Yes </td><td> Yes </td>
+
+	</tr>
+	<tr>
+		<td> Fax Utilities </td><td> Yes </td><td> Yes </td><td> Yes </td>
+	</tr>
+</table>
+<br />
+<h2>Create a new group</h2>
+<p>To create a new group, click on the button "Create New Group" and fill out the required information.</p>
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_grouplist_new.png" border="0" />
+<p>Figure 2</p></div>
+<br />
+<p>To assign or modify permissions to a group go to the module "Group Permissions".</p>
+</body>
+</html>

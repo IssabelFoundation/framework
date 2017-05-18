@@ -1,0 +1,193 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Davide Lo Leggio                                       |
+  | Email: cerino@smat.it                                                |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  $Id: it.lang,v 1.7 2008/02/18 10:07:17 bmacias@palosanto.com Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage" => "Utilizzo Disco",
+"Used space" => "Spazio Usato",
+"Free space" => "Spazio Libero",
+"Simultaneous calls, memory and CPU" => "Chiamate simultanee, memoria e CPU",
+"Sim. calls" => "Chiamate sim.",
+"CPU usage (%)" => "Utilizzo CPU (%)",
+"Mem. usage (MB)" => "Utilizzo Mem. (MB)",
+
+"Export" => "Esporta",
+"Start" => "Avvia",
+"End" => "Fine",
+"Next" => "Prossimo",
+"Previous" => "Precedente",
+/*System Info*/
+
+"Validation Error" => "Errore di Validazione",
+"The following fields contain errors" => "I seguenti campi contengono errori",
+"Save" => "Salva",
+"Required field" => "Campi Obbligatori",
+"Apply changes" => "Applica le modifiche",
+"Cancel" => "Annulla",
+
+/*Login to Issabel*/
+"Welcome to Issabel" => "Benvenuto in Issabel",
+"Please enter your username and password" => "Perfavore inserisci il tuo utente e password",
+"Username" => "Utente",
+"Password" => "Password",
+"Submit" => "Invia",
+"Login page" => "Pagina di Connessione",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group" => "Gruppo",
+"User List" => "Lista Utenti",
+"The group is wrong" => "Il gruppo è errato",
+"Are you sure you wish to continue?" => "Sei sicuro di voler continuare?",
+"Edit" => "Modifica",
+"Delete" => "Elimina",
+"Accept" => "Accetta",
+"Group Permission" => "Permessi dei Gruppi",
+"Users" => "Utenti",
+"Directory couldn't be opened" => "La cartella non può essere aperta",
+/*start User Management*/
+
+/*start menu*/
+"System" => "Sistema",
+"System Info" => "Informazioni di Sistema",
+"User Management" => "Manutenzione Utenti",
+"Menu Administrator" => "Menù Amministratore",
+/*end menu*/
+
+/*Start Language*/
+"Language" => "Lingua",
+"Change" => "Cambia",
+"Logout" => "Uscita",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options" => "Opzioni",
+"Empty field" => "Spazio Vouto",
+"Bad Format" => "Foremato Errato",
+"No option was selected" => "Nessuna opzione è stata selezionata",
+"Octets out of range" => "Ottetto fuori dai limiti",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User" => "Vedi Utente",
+/*end user*/
+
+/*system - date/time*/
+"Date/Time" => "Data/Ora",
+/*end system - date/time*/
+
+/*load module*/
+"Load Module" => "Carica Modulo",
+"ID for new module (folder name)" => "Identificativo per il nuovo modulo (nome della cartella)",
+"Choose Menu" => "Scegli il Menù",
+"ID for new menu" => "Identificativo per il nuovo menù",
+"Menu Name" => "Nome del Menù",
+"Defined Menu" => "Menu Definito",
+"New Menu" => "Nuovo Menù",
+"Module sucessfully loaded" => "Modulo caricato correttamente",
+"Folder name doesn't exist in module file" => "La cartella name non esiste nel file del modulo",
+"Folder configs doesn't exist in module file" => "La cartella configs non esiste nel file del modulo",
+"Folder themes doesn't exist in module file" => "La cartella themes non esiste nel file del modulo",
+"File index.php doesn't exist in module file" => "Il file index.php non esiste nel file del modulo",
+"File install.php doesn't exist in module file" => "Il File install.php non esiste nel file del modulo",
+/*end load module*/
+
+/*Start SubModule Themes*/
+"Themes" => "Temi",
+"Change Theme" => "Cambia Tema",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "Messaggi Istantanei",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "Il servizio Openfire non è attivo, premere per attivare",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "l\'installzione di vTiger è quasi completa, per completarla perfavore",
+"click here" => "Premi Qui",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Preferenze",
+
+/* Start About Issabel */
+"About Issabel" => "Riguardo Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content" => "Issabel è stato creato sotto la premessa di essere un Sistema di comunicazione Voice over IP basato su Web stabile e semplice da usare. Questo software open source è nato in Equador ed è diventato la soluzione di scelta per implementazioni di Voice over IP in tutto il mondo.",
+"About Issabel Closed" => "Chiuso",
+/* end About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups" => "Gruppi",
+"Group List" => "Lista Gruppi",
+/*end module Group List*/
+
+/*Grouplist*/
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+"total access" => "Total Access",
+"extension user" => "Extension User",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

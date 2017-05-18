@@ -1,0 +1,233 @@
+#!/usr/bin/php 
+<?php
+$directorio_migrate = $argv[1]; //directorio de trabajo para la migracion
+$ruta_bases = "/var/www/db"; //ruta de las bases de sqlite
+$dbpassword = $argv[2];
+ 
+
+#los modulos de elastix que contienen bases que se deben modifcar 
+$modules['elastix-agenda'] = array( 'bases'=>array('calendar.db','address_book.db'));
+$modules['elastix-email_admin'] = array('bases'=>array('email.db'));
+$modules['elastix-pbx'] = array('bases'=>array('endpoint.db','trunk.db'));
+$modules['elastix-reports'] = array('bases'=>array('rate.db'));
+$modules['elastix-system'] = array('bases'=>array('acl.db'));
+$modules['elastix-framework'] = array('bases'=>array('samples.db','settings.db'));
+
+
+/*
+llenamos el arreglo con las versiones de los modulos que contienen bases que nos interesan reparar
+*/
+foreach($modules as $clave => $valor)
+{
+	$modules[$clave] = array('version' => obtenerversionpaquetes($clave));
+}
+
+
+
+if(is_dir($directorio_migrate."/db.new"))
+{
+	exec("rm -rf $directorio_migrate/db.new",$salidacmd,$status);
+}		
+mkdir($directorio_migrate."/db.new");
+
+exec("cp -rf $ruta_bases/* $directorio_migrate/db.new",$salidacmd,$status);
+
+exec("cp -rf $directorio_migrate/db.old/* $ruta_bases/",$salidacmd,$status);
+if($status!=0)
+{
+	echo "Couldn't be restored the olddatabase\n";
+	echo "Update cancelled\n";
+	exit(1);
+}
+
+unset($salidacmd);
+//invocamos a elastix-dbprocess para hacer las reparaciones a la bases que no se hacen en los updates
+exec("elastix-dbprocess \"update\" \"$directorio_migrate/db\" \"1.6.2-37\"",$salidacmd,$status);
+if($status == 0)
+{
+	echo "Completed fisrt part Migration of sqlite database \n";	
+}
+else
+{
+	exec("cp -rf $directorio_migrate/db.new/* $ruta_bases ",$salidacmd,$status);
+	echo "Couldn't de updated database\n";
+	echo "Update cancelled\n";
+	exit(1);
+}
+
+
+reset($modules);
+//hacemos correr la actualizacion de las bases de los modulos que las tengas
+foreach($modules as $clave => $valor)
+{
+	$directorio_modulo=$clave."-".$modules[$clave]["version"];
+	if(existdbupdate($clave,$modules[$clave]["version"])){
+		exec("elastix-dbprocess \"update\" \"/usr/share/elastix/module_installer/$directorio_modulo/setup/db\" \"1.6.2-37\"",$salidacmd,$status);
+		echo "bases del module $clave actualizadas\n";
+	}
+}
+
+
+//seteamos la version correcta en la base settings
+$version = $modules['elastix-framework']["version"];
+unset($salidacmd);
+exec("sqlite3 /var/www/db/settings.db \"select count(key) from settings where key='elastix_version_release';\"",$salidacmd,$status);
+if($status == 0 && $salidacmd[0] != 0)
+{
+	exec("sqlite3 /var/www/db/settings.db \"update settings set value='$version' where key='elastix_version_release';\"",$salidacmd,$status);	
+}
+else
+{
+	//no esta la version anterior setaeda
+	exec("sqlite3 /var/www/db/settings.db \"insert into settings (key, value) values('elastix_version_release','$version');\"",$salidacmd,$status);
+}
+
+//borramos menus anteriores que cambian de nombre
+exec("elastix-menuremove \"hardware_detection\"");
+exec("elastix-menuremove \"endpoint_configuration\"");
+exec("elastix-menuremove \"faxvisor\"");
+exec("elastix-menuremove \"template_email\"");
+
+
+unset($salidacmd);
+//obtenemos todos los rpm elastix que esten instalados
+exec("rpm -qa | grep elastix-",$salidacmd,$status);
+if($status == 0)
+{
+	foreach($salidacmd as $valor)
+	{
+		if(existMenuXML($valor))
+		{
+			echo "Making menu $valor\n";
+			exec("elastix-menumerge \"/usr/share/elastix/module_installer/$valor/menu.xml\"");	
+		}
+	}
+}
+
+unset($salidacmd);
+//corregimos base meetme de mysql usada para conferences que se renombra en el proceso de migracion
+echo ("Runnig change meetme database \n");
+exec("ls /var/lib/mysql.elastix-1.6.dump/*meetme.sql",$salidacmd,$status);
+if($status == 0)
+{
+	if(file_exists($salidacmd[0]))
+	{
+		$meetmedump=basename($salidacmd[0]);
+		if(renameDatabase("meetme", $dbpassword, $directorio_migrate))
+		{
+			$command = "mysql -uroot -p$dbpassword < /var/lib/mysql.elastix-1.6.dump/$meetmedump";
+            		exec($command,$arrConsole,$status);
+			echo ("Finished changing meetme database \n");
+		}
+	}
+}
+
+exit(0);
+
+
+/*funcion que obtine la ultima version de un paquete que este instalada en el equipo
+dado el nombre del paquete
+$name = nombre del paquete
+*/
+function obtenerversionpaquetes($name)
+{
+	exec("rpm -q --queryformat='%{VERSION}-%{RELEASE}' $name",$version,$status);
+	if(preg_match("/^[0-9]+(\.[0-9]+){1,2}\-[0-9]+$/",$version[0],$verifyVersion)){ ///   /^\d+\.\d+\.\d\-\d+$/
+		if($verifyVersion[0] != "" )
+		{	
+			return $verifyVersion[0];
+		}
+			return 0;
+		}
+	return 0;		
+}
+
+/*
+funcion que verifica que exista la carpeta update de un modulo especifo dentro /usr/share/elastix/module_instaler/nombre_modulo_verison
+$name = nombre del modulo
+$version = ultima version del modulo instaldo
+*/
+function existdbupdate($name, $version)
+{
+	if($version == 0)
+	{
+		return false;
+	}
+        $directorio_modulo=$name."-".$version;
+	if(is_dir("/usr/share/elastix/module_installer/$directorio_modulo/setup/db/update"))
+		return true;
+	else
+		return false;
+}
+
+/*
+funcion que recibe el nombre de un paquete elastix y verifica que dentro de su directorio de trabajo exista 
+el archivo menu.xml
+$name = nombre del paquete completo. Ej: elastix-framework-2.x.x-x
+*/
+function existMenuXML($name)
+{
+	if(preg_match("/(a2billing)/",$name,$resultado))
+	{
+		if( is_file("/usr/share/".$resultado[0]."/menu.xml") && (filesize("/usr/share/".$resultado[0]."/menu.xml") != 0) ){
+			echo "Making menu $name\n";
+			exec("elastix-menumerge \"/usr/share/".$resultado[0]."/menu.xml\"",$arrConsole,$status);
+			return false;		
+		}else
+			return false;
+	}
+	
+	if( is_file("/usr/share/elastix/module_installer/$name/menu.xml") && (filesize("/usr/share/elastix/module_installer/$name/menu.xml") != 0) )
+		return true;
+	else
+		return false;
+}
+
+function ismysqlRunning()
+{
+    exec("/sbin/service mysqld status &>/dev/null",$arrConsole,$flagStatus);
+    if($flagStatus == 0)
+        return true;
+    else
+        return false;
+}
+
+//funcion usada para remombrar una base en mysql en caso de que esta exista
+function renameDatabase($dbName, $password, $path_folder)
+{
+    $date = date("YMd_His");
+    $dbNewName = $dbName."_$date";
+    echo "Database $dbName already exist. Renaming to $dbNewName\n";
+
+    if(ismysqlRunning()){
+            $file    = fopen("$path_folder/$dbNewName.dump","w");
+            if($file){
+                $sql = "CREATE DATABASE IF NOT EXISTS $dbNewName;\nUSE $dbNewName;\n";
+                fwrite($file,$sql);
+                fclose($file);
+            }else{
+                echo "Could not create the file $path_folder/$dbNewName.dump The rename action was aborted";
+                return false;
+            }
+            $command = "mysqldump -uroot -p$password $dbName >> $path_folder/$dbNewName.dump";
+            exec($command,$arrConsole,$status);
+            if($status != 0){
+                echo "Could not create a dump file for database $dbName";
+                return false;
+            }
+            $command = "mysql -uroot -p$password < $path_folder/$dbNewName.dump";
+            exec($command,$arrConsole,$status);
+            if($status != 0){
+                echo "Could not rename the database $dbName";
+                return false;
+            }
+            $command = "mysql -uroot -p$password -e 'DROP DATABASE $dbName'";
+            exec($command,$arrConsole,$status);
+            if($status != 0){
+                echo "Could not drop database $dbName";
+                return false;
+            }
+            return true;
+        }
+}
+?>

@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “My Extension" of the Menu “PBX” let you enable and disable Call Waiting, Do Not Disturb, Call Forwarding and Call Monitor Settings features of your extension.</p>
+
+<div><img src="../modules/{$node_id}/images/myextension.png" border="0"></div>
+<div>Figure 1</div>
+<br />
+<b>Configuration: Call Waiting</b>
+<p>For enable the "Call waiting" feature you should check the respective option and for disable you should uncheck it.</p>
+<b>Configuration: Do Not Disturb</b>
+<p>For enable the "Do Not Disturb" feature you should check the respective option and for disable you should uncheck it.</p>
+<b>Configuration: Call Forwarding</b>
+<p>For enable the "Call Forwarding" feature you should check the respective option in according to the type of call forwarding and specify the correct phone number and for disable you should uncheck it.</p>
+<b>Configuration: Call Monitor Settings</b>
+<p>The "Call Monitor Settings" feature allow you check the respective option in according to the type of call recording for incoming and outgoing calls.</p>
+</body>
+</html>
+

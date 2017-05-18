@@ -1,0 +1,36 @@
+[calendar]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[address_book]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[email]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[endpoint]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[trunk]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+
+[acl]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes

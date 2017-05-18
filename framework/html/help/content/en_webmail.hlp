@@ -1,0 +1,23 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option “Webmail” of the Menu “Email” in Issabel lets us check the emails of the configured domains.</p>
+<br />
+<div class="hlp_figures"><img src="../images/help/email/hlp_email_webmail.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+<p>Enter the username and password of the email account, and click on the “Login” button.</p>
+<br />
+<div class="hlp_figures"><img src="../images/help/email/hlp_email_webmail_2.png" border="0" />
+<p>Figure 2</p></div>
+<br />
+
+</body>
+</html>

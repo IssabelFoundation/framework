@@ -1,0 +1,340 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 2.0                                                  |
+  | http://www.elastix.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Goldera Comminication Corp                             |
+  | Email: webmaster@goldera.com.tr                                      |
+  +----------------------------------------------------------------------+
+  $Id: tr.lang,v 1.0 2011/11/13 14:17:00 bmacias Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info: Libreria jpgrapha*/
+"Disk usage"=>"Disk kullanımı",
+"Used space"=>"Kullanılan alan",
+"Free space"=>"Boş alan",
+"Simultaneous calls, memory and CPU"=>"Aynı anda görüşme, hafıza ve işlemci",
+"Sim. calls"=>"Aynı anda görüşme",
+"CPU usage (%)"=>"İşlemci kullanımı (%)",
+"Mem. usage (MB)"=>"Hafıza kullanımı (MB)",
+/*end System Info: Libreria jpgraphap*/
+ 
+"Start"=>"İlk",
+"End"=>"Son",
+"Next"=>"Sonraki",
+"Previous"=>"Önceki",
+"Export"=>"Dışa aktar",
+ 
+"Group" => "Grup",
+"Groups" => "Gruplar",
+"administrator" => "administrator",
+"operator" => "operator",
+"extension" => "extension",
+ 
+ 
+"Group List" => "Grup Listesi",
+"User List" => "Kullanıcı Listesi",
+"Logout" => "Çıkış",
+"Change" => "Değiştir",
+"Title" => "Başlık",
+"Language"=>"Sistem Dili",
+"Load Module" => "Modül Yükle",
+ 
+ 
+"Required field" => "Gerekli alan",
+"Cancel" => "İptal",
+"Apply changes" => "Değişiklikleri uygula",
+"Save" => "Kaydet",
+"Edit" => "Düzenle",
+"Delete" => "Sil",
+"Are you sure you wish to continue?" => "Devam etmek istediğinize emin misiniz?",
+"The following fields contain errors" => "Şu alanlar hatalı",
+"Validation Error" => "Geçerli değil",
+ 
+ 
+ 
+/*Login to Issabel*/
+"Welcome to Issabel"=>"Issabel'e hoş geldiniz",
+"Please enter your username and password"=>"Lütfen kullanıcı adınızı ve şifrenizi giriniz",
+"Username"=>"Kullanıcı Adı",
+"Password"=>"Kullanıcı Parola",
+"Submit"=>"Giriş",
+"Login page"=>"Giriş sayfası",
+/*end Login to Issabel*/
+ 
+/*start menu*/
+"System Info"=>"Sistem bilgisi",
+"User Management"=>"Kullanıcı Yönetimi",
+"Users"=>"Kullanıcılar",
+"Menu Administrator"=>"Menü Yöneticisi",
+"Group Permission" => "Grup Yetkileri",
+/*end menu*/
+ 
+ 
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"Seçenekler",
+"Empty field"=>"Boş alan",
+"Bad Format"=>"Biçim hatalı",
+"No option was selected"=>"Seçenek seçilmedi",
+"Octets out of range" => "Sayılar sınır dışında",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+ 
+/*version 0.8*/
+/*start user*/
+"View User"=>"Kullanıcıyı gör",
+/*end user*/
+ 
+/*system - date/time*/
+"Date/Time" => "Sistem Tarih/Saat",
+/*end system - date/time*/
+ 
+/*load module*/
+"Choose Menu" => "Menü Seçin",
+"ID for new menu" => "Yeni menü için ID",
+"Menu Name" => "Menu Adı",
+"Defined Menu" => "Tanımlı Menü",
+"New Menu" => "Yeni Menü",
+"Module sucessfully loaded" => "Modül başarıyla yüklendi",
+"Folder name doesn't exist in module file" => "Modül dosyasında name klasörü yok",
+"Folder configs doesn't exist in module file" => "Modül dosyasında configs klasörü yok",
+"Folder themes doesn't exist in module file" => "Modül dosyasında themes klasörü yok",
+"File index.php doesn't exist in module file" => "Modül dosyasında index.php yok",
+"File install.php doesn't exist in module file" => "Modül dosyasında install.php yok",
+/*end load module*/
+ 
+// Issabel 0.9 
+/*Start SubModule Themes*/
+"Themes" => "Sistem Teması",
+"Currency" => "Sistem Para Birimi",
+"Change Theme" => "Temayı Değiştir",
+/*end SubModule Themes*/
+ 
+/*Module IM*/
+"IM" => "Mesajlaşma",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "Openfire hizmeti şu anda aktif değil. Çalıştırmak için ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "Webmin hizmeti şu anda aktif değil. Çalıştırmak için ",
+ 
+ 
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "vTiger yüklemesi neredeyse bitti. Tamamlamak için ",
+"click here" => "buraya tıklayın",
+ 
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "SugarCRM yüklemesi neredeyse bitti. Tamamlamak için",
+ 
+/* Menus */
+"System"=>"Sistem",
+"Dashboard Applet Admin"=>"Başlangıç Yerleşim",
+
+"Agenda" => "Ajanda",
+"Calendar" => "Takvim",
+"Address Book" => "Adres Defteri",
+
+"Email" => "e-Posta",
+
+"Fax" => "Faks",
+"Virtual Fax" => "Sanal Faks",
+"Fax Master" => "Uzman Faks",
+"Fax Clients" => "Faks Birimleri",
+"Fax Viewer" => "Faks İzleme",
+"Email Template" => "Posta Taslak",
+
+"bSmart" => "bSmart",
+"Calls Disconnector" => "Çağrı Sonlandırma",
+
+"Reports" => "Genel Raporlar",
+"CDR Report" => "CDR Raporu",
+"Channels Usage" => "Kanal Kullanımı",
+"Billing" => "Ödeme",
+"Asterisk Logs" => "Asterisk Günlük",
+"Graphic Report" => "Grafik Rapor",
+"Summary" => "Özet",
+"Missed Calls" => "Cevapsız Aramalar",
+"Humbug Analytics" => "İkili Analiz",
+
+"Extras" => "Ekstralar",
+"Calling Cards" => "Arama Kartları",
+"Downloads" => "İndirmeler",
+
+"Preferences" => "Özellikler",
+"Backup/Restore" => "Sistem Yedekleme",
+"Dashboard" => "Başlangıç",
+"Network" => "Ağ Sistemi",
+"Shutdown" => "Sistemi Kapat",
+"Halt" => "Sunucuyu Kapat",
+"Reboot" => "Sunucuyu Yeniden Başlat",
+"Proceed..." => "Komutu Çalıştır...",
+
+"Hardware Detector" => "Sistem Kontrol",
+"Updates" => "Sistemi Güncelle",
+
+"Reports Break" => "Mola Süreleri",
+"Calls Detail" => "Çağrı Detayları",
+"Calls per hour" => "Saatlik Çağrı Sayıları",
+"Calls per Agent" => "Kullanıcıya Göre Çağrılar",
+"Hold Time" => "Ortalama Bekleme Süresi",
+"Login Logout" => "Agent Giriş/Çıkış Bilgisi",
+"Ingoing Calls Success" => "Gelen Başarılı Çağrılar",
+"Graphic Calls per hour" => "Saatlik Çağrı Grafiği",
+"Agent Information" => "Agent Bireysel Detay",
+"Trunks used per hour" => "Saatlik HAT Kullanım",
+"Incoming calls monitoring" => "Gelen Arama İzleme",
+
+"Agents" => "Agentlar",
+"Agents Monitoring" => "Agent Ekranı",
+"Monitoring" => "İzleme",
+"Queue" => "Kuyruk No",
+"Waiting calls" => "Bekleyen",
+"Abandoned " => "Kapatılan",
+"Answered" => "Cevaplanan",
+"Finished" => "Biten",
+"Without monitoring" => "İzlenemeyen",
+"Entered" => "Girilen",
+"Campaign monitoring" => "Kampanya İzleme",
+
+"Call Center" => "Çağrı Merkezi",
+"Campaigns" => "Kampanya Listesi",
+"Do not Call List" => "Kara Liste",
+"External URLs" => "Harici URLs",
+
+"Security" => "Güvenlik",
+"Agent Console" => "Agent Giriş",
+"Outgoing Calls" => "Dış Aramalar",
+"Ingoing Calls" => "Gelen Aramalar",
+"Agent Options" => "Agent Ayarları",
+"Breaks" => "Agent Molaları",
+"Forms" => "Agent Formları",
+"Configuration" => "Genel Ayarlar",
+
+"Developer" => "Yazılımcı",
+
+"Addons" => "Eklentiler",
+"Addon Market" => "Eklenti Mağazası",
+"UNINSTALL" => "KALDIR",
+"INSTALL" => "YÜKLE",
+ 
+/* Start About Issabel */
+"About Issabel"=>"Issabel Hakkında",
+"About Issabel2"=>"Bizim hakkımızda",
+"HELP"=>"Yardım",
+"About Issabel Content"=>"Issabel was created under the premise of becoming a reliable, easy-to-use,web-based system for the management of communications over IP. This open source software started in Ecuador has become the solution of choice for implementations of Voice over IP around the globe.",
+"About Issabel Closed"=>"Kapat",
+/* End About Issabel */
+ 
+"Search" => "Ara",
+"Show"   => "Göster",
+'View' => 'Bak',
+'Status' => 'Durum',
+'Type' => 'Tip',
+'Active' => 'Aktif',
+'Filter' => 'Filitre',
+'md_message_title' => 'Yoksay',
+"ERROR" => "Hata",
+"VersionDetails" => "Sürüm",
+"VersionPackage" => "Paket sürüm detayları",
+"textMode" => "Yazı Modu",
+"htmlMode" => "Html Modu",
+"Register" => "Kayıt",
+"Registered" => "Kayıtlı",
+"Unauthorized" => "Yetkisiz",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Yetkilendirme",
+
+/*new*/
+"Please write your current password." => "Kullandığınız parolayı yazın.",
+"Please write the new password and confirm the new password." => "Lütfen yeni parolanızı iki kere girin.",
+"The new password doesn't match with retype new password." => "Girdiğiniz parolalar birbirinden farklı.",
+"Please your session id does not exist. Refresh the browser and try again." => "Please your session id does not exist. Refresh the browser and try again.",
+"Issabel password has been changed." => "Issabel parolası değiştirildi.",
+"Impossible to change your Issabel password." => "Issabel parolanız değiştirilemiyor.",
+"Impossible to change your Issabel password. User does not exist or password is wrong" => "Impossible to change your Issabel password. User does not exist or password is wrong",
+"Change Issabel Password" => "Issabel Parolarını Değiştir",
+"Current Password" => "Geçerli Parola",
+"New Password" => "Yeni Parola",
+"Retype New Password" => "Yeni Parola Tekrar",
+"Change" => "Değiştir",
+"Search modules" => "Modül Ara",
+"Unauthorized" => "Yetkisiz",
+"You are not authorized to access this page." => "Bu ekrana girme yetkiniz yok.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You don't have permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Tavsiye",
+"Bookmarks" => "Favorilerim",
+"History" => "Tarihçe",
+"The maximum of bookmarks is 5. Please uncheck one in order to add this bookmark" => "The maximum of bookmarks is 5. Please uncheck one in order to add this bookmark",
+"Bookmark has been added." => "Favori eklendi.",
+"Bookmark cannot be added. Please try again or contact with your elastix administrator and notify the next error: " => "Bookmark cannot be added. Please try again or contact with your Issabel administrator and notify the next error: ",
+"Bookmark has been removed." => "Favori kaldırıldı.",
+"Bookmark cannot be removed. Please try again or contact with your elastix administrator and notify the next error: " => "Bookmark cannot be removed. Please try again or contact with your Issabel administrator and notify the next error: ",
+"Sending Request" => "Talep Gönderiliyor",
+"Request cannot be completed. Please try again or contact with your elastix administrator and notify the next error: " => "Request cannot be completed. Please try again or contact with your Issabel administrator and notify the next error: ",
+"Request has been sent." => "Talep gönderildi.",
+"Add Bookmark" => "Favori Ekle",
+"Remove Bookmark" => "Favori Kaldır",
+"Adding Bookmark" => "Favori Ekleme",
+"Removing Bookmark" => "Favori Kaldırma",
+"Hiding left panel" => "Sol paneli gizleniyor",
+"Loading left panel" => "Sol panel yükleniyor",
+"Hide left panel" => "Sol paneli gizle",
+"Load left panel" => "Sol paneli göster",
+"characters left" => "karakter geri",
+"Save Note" => "Notu Kaydet",
+"Saving Note" => "Not Kaydediliyor",
+"Loading Note" => "Not Yükleniyor",
+"Click here to leave a note." => "Not eklemek için buraya tıklayın.",
+"Your session has expired. Press 'Accept' to return to the login page." => "Your session has expired. Press 'Accept' to return to the login page.",
+"No records match the filter criteria" => "Aradığınız özelliklerde kayıt bulunamadı",
+"New Row" => "Yeni Satır",
+"Custom Action" => "Özel Eylem",
+"Delete Selected" => "Seçim Silindi",
+"Page" => "Sayfa",
+"of" => "-",
+"records" => "kayıtlar",
+"Apply Filter" => "Filtre Uygula",
+"Download" => "İndir",
+"WARNING" => "UYARI",
+"Show Filter" => "Filtre Göster",
+"Hide Filter" => "Filtre Gizle",
+"More Options" => "Daha Fazla Seçenek",
+"Filter applied: " => "Filtre uygulandı: ",
+"Filter applied " => "Filtre uygulandı ",
+"Voicemail" => "Sesli Mesaj",
+
+"PBX Configuration" => "PBX Ayarları",
+"Calls Recordings" => "Arama Kayıtları",
+"Tools" => "Araçlar",
+"Conference" => "Konferans",
+"Operator Panel" => "Operatör Paneli",
+"Flash Operator Panel" => "Anlık İzleme",
+"My Extension" => "Dahilim"
+
+);
+?>

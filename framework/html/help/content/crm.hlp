@@ -1,0 +1,16 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+<p>The option “SugarCRM” of the Menu “Extras” in Issabel lets us use the information system application, which allows us to administer all that is related to the clients in a company.</p>
+
+<div><img src="../images/help/extras/sugarcrm.jpg" border="0"></div>
+<div>Figure 1</div>
+<br />
+
+<p>Please visit the following link: <a href="http://www.sugarcrm.com/crm/index.php?option=com_docs&edition=OS">SugarCRM.com Documentation</a></p>
+</body>
+</html>

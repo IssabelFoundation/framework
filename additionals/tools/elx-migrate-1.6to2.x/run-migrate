@@ -1,0 +1,220 @@
+#!/bin/bash
+echo "Beginning script to migrate elastix 1.6 to lastest version..."
+
+#Ask for the directory that conatins the script for migration
+
+backup_directory=`dirname $0`
+STAGE_FILE="$backup_directory/stage"
+dbpw=""
+
+inc_stage() {
+	stage=`expr $stage + 1`
+	echo $stage > $STAGE_FILE
+}
+
+checkMysqlPassword(){
+    psw=$1
+	mysql -uroot -p$psw -e 'select version()' > /dev/null 2>&1
+	return $?
+}
+
+#Ask for the mysql root password. If the user no set a password use the password for default of elastix-1.6
+#password=eLaStIx.2oo7
+getMysqlPassword(){
+	dbpw="eLaStIx.2oo7"
+    checkMysqlPassword $dbpw
+	res=$?
+    attempts=0
+	if [[ $res != 0 ]]; then
+		while [[ $res != 0 && $attempts != 3 ]]
+		do
+			echo "The password ($dbpw) is not correct."
+			read -p "Please enter MySQL root's password:" dbpw
+			checkMysqlPassword $dbpw
+			res=$?
+			attempts=`expr $attempts + 1`
+		done
+	fi
+	return $res
+}
+
+if [ -d "$backup_directory" ]; then
+	if [ ! -f "$backup_directory/migrate-mysqldb" ]; then
+		echo "Don't exist file migrate-mysqldb in $backup_directory/"
+		echo "Migration Failed"
+		exit 1
+	fi
+
+	if [ ! -f "$backup_directory/change-repos" ]; then
+		echo "Don't exist file change-repos in $backup_directory/"
+		echo "Migration Failed"
+		exit 1
+	fi
+
+	if [ ! -f "$backup_directory/migrate-sqlitedb" ]; then
+		echo "Don't exi file migrate-sqlitedb in $backup_directory/"
+		echo "Migration Failed"
+		exit 1
+	fi
+
+	if [ ! -d "$backup_directory/db" ]; then
+		echo "Don't exist drectory db in $backup_directory/"
+		echo "Migration Failed"
+		exit 1
+	fi
+else
+	echo "There  is a problem with you current directory"
+	echo "Migration Failed"
+	exit 1
+fi
+
+
+stage=0
+if [ -f $STAGE_FILE ]; then
+	stage=`cat $STAGE_FILE`
+fi
+
+# Stage 0
+if [ $stage -eq 0 ]; then
+	#Giving execute permission to scripts
+	chmod 774 $backup_directory/migrate-mysqldb
+	chmod 774 $backup_directory/change-repos
+	chmod 774 $backup_directory/migrate-sqlitedb
+	echo "*** Stage_0: Remove XEN kernels."
+	lst=""
+	for  krn in `rpm -qa |egrep 'kernel-xen|kernel-xen-devel|kernel-module-dahdi-xen'`
+	do
+			lst=${lst}" "${krn}
+	done
+	rpm -e $lst rhino
+	inc_stage
+	echo "*** Stage_0: Completed successfully."
+fi
+
+# Stage 1
+if [ $stage -eq 1 ]; then
+	echo "Updating elastix-1.6 to lastest version of elastix-1.6"
+	rpm --import http://repoelastix.neocenter.com/elastix/RPM-GPG-KEY-Elastix
+	yum -y update
+	res=$?
+	if [[ $res != 0 ]]; then
+		echo "Can't be update elastix-1.6"
+		echo "Migration Failed"
+		exit 1
+	fi
+	echo "Updated to lastest version of elastix-1.6"
+	inc_stage
+fi
+
+# Stage 2
+if [ $stage -eq 2 ]; then
+	echo "Migrate the MySQL databases."
+	#Script to make backup mysql databases
+	getMysqlPassword
+	res=$?
+	if [ $res -eq 0 ]; then
+		$backup_directory/migrate-mysqldb "$dbpw"
+		res=$?
+	fi
+	if [ $res -eq 1 ]; then
+		echo "Couldn't be migrated mysql database"
+		echo "Migration Failed"
+		exit 1
+	fi
+	echo "Backup of mysql database successfully"
+	inc_stage
+fi
+
+# Stage 3
+if [ $stage -eq 3 ]; then
+	echo "Changing the repos to migrate elastix"
+	echo "$backup_directory"
+	$backup_directory/change-repos
+	res=$?
+	if [[ $res == 1 ]]; then
+		echo "Couldn't be chanced repos"
+		echo "Migration Failed"
+		exit 1
+	fi
+	echo "Repos Elastix were changed successfully"
+	inc_stage
+fi
+
+# Stage 4
+if [ $stage -eq 4 ]; then
+	#Taking a backup of /var/www/db in directory use for migrations
+	echo "Taking backup of directory /var/www/db ... in $backup_directory/db.old"
+	if [[ -d "$backup_directory/db.old" ]]; then
+		rm -rf $backup_directory/db.old
+	fi
+	mkdir $backup_directory/db.old
+	cp -rf /var/www/db/* $backup_directory/db.old/
+	echo "made backup of /var/www/db in $backup_directory/db.old/"
+	inc_stage
+fi
+
+# Stage 5
+if [ $stage -eq 5 ]; then
+	echo "Updating elastix-1.6 to lastest version of elastix"
+	rpm --import http://repoelastix.neocenter.com/elastix/RPM-GPG-KEY-Elastix
+	yum -y update
+	res=$?
+	if [[ $res != 0 ]]; then
+		echo "Can't be updated elastix-1.6 to lastest version of elastix"
+		echo "Migration Failed"
+		exit 1
+	fi
+	echo "Elastix updated to lastest version successfully"
+	inc_stage
+fi
+
+# Stage 6
+if [ $stage -eq 6 ]; then
+	echo "Install rpm elastix"
+	rpm --import http://repoelastix.neocenter.com/elastix/RPM-GPG-KEY-Elastix
+	yum -y install elastix
+	res=$?
+	if [[ $res == 1 ]]; then
+		echo "Can't be installed rpm elastix"
+		echo "Migration Failed"
+		exit 1
+	fi
+	echo "Rpm elastix installed"
+	inc_stage
+fi
+
+# Stage 7
+if [ $stage -eq 7 ]; then
+    echo "Sqlite databases conversion"
+	res=0
+	if [ "$dbpw" == "" ]; then
+		getMysqlPassword
+		res=$?
+	fi
+	if [[ $res = 0 ]]; then
+		$backup_directory/migrate-sqlitedb "$backup_directory" "$dbpw"
+		res=$?
+	fi
+	if [[ $res == 1 ]]; then
+		echo "Sqlite database can't be repaired"
+		echo "Migration Failed"
+		exit 1
+	fi
+	echo "Sqlite database repaired successfully"
+	inc_stage
+fi
+
+rm -f $STAGE_FILE
+rm -rf /var/spool/elastix-mysqldbscripts/*
+echo "Migration Complete Successful!!!..."
+
+
+
+
+
+
+
+
+
+
+

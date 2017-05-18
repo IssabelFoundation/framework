@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <menulist>
+    <menuitem menuid="system" desc="System" order="0"/>
+    <menuitem menuid="usermgr" desc="Users" parent="system" order="4">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="userlist" desc="Users" parent="usermgr" order="41">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+      <privilege name="viewany" desc="View information for all users, not just their own">
+        <grant2group name="administrator" />
+      </privilege>
+      <privilege name="create" desc="Create new users">
+        <grant2group name="administrator" />
+      </privilege>
+      <privilege name="editany" desc="Update information for any user">
+        <grant2group name="administrator" />
+      </privilege>
+      <privilege name="deleteany" desc="Delete any user">
+        <grant2group name="administrator" />
+      </privilege>
+    </menuitem>
+    <menuitem menuid="grouplist" desc="Groups" parent="usermgr" order="42">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="group_permission" desc="Group Permission" parent="usermgr" order="43">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="preferences" desc="Preferences" parent="system" order="10">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="language" desc="Language" parent="preferences" order="101">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="themes_system" desc="Themes" parent="preferences" order="103">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"/>
+      </permissions>
+    </menuitem>
+  </menulist>
+</module>

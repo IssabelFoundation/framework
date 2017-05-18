@@ -1,0 +1,10 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+For more information visit the Manufacturer Site at: <a href="http://www.littlejohnconsulting.com?q=ari">www.littlejohnconsulting.com?q=ari</a>
+</body>
+</html>

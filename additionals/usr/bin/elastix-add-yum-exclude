@@ -1,0 +1,51 @@
+#!/usr/bin/php
+<?php
+
+// Reject if not enough parameters
+if (count($argv) < 3) die("{$argv[0]} /path/to/repofile excludepattern [excludepattern...]\n");
+
+// Reject if destination not writable
+if (!is_writable($argv[1])) die("FATAL: {$argv[1]} not found!\n");
+
+$repofile = array(array());
+$curr_repo = 0;
+
+foreach (file($argv[1]) as $s) {
+	if (preg_match('/^\[.*\]/', $s)) $curr_repo++;
+	$repofile[$curr_repo][] = $s;
+}
+
+for ($rp = 0; $rp < count($repofile); $rp++) {
+	if (count($repofile[$rp]) <= 0) continue;
+	if (!preg_match('/^\[.*\]/', $repofile[$rp][0])) continue;
+
+	$exclude = array_slice($argv, 2);
+	$excludeoffset = NULL;
+	for ($i = 0; $i < count($repofile[$rp]); $i++) {
+		if (strpos($repofile[$rp][$i], 'exclude=') === 0) {
+			$exclude = array_merge($exclude, explode(' ', substr(trim($repofile[$rp][$i]), 8)));
+			array_splice($repofile[$rp], $i, 1);
+			if ($i >= count($repofile[$rp])) break;
+		}
+		if (trim($repofile[$rp][$i]) == '') {
+			$excludeoffset = $i;
+			break;
+		}
+	}
+	$newexclude = 'exclude='.implode(' ', array_unique($exclude))."\n";
+	if (is_null($excludeoffset)) {
+		$repofile[$rp][] = $newexclude;
+	} else {
+		array_splice($repofile[$rp], $excludeoffset, 0, array($newexclude));
+	}
+}
+
+//print_r($repofile);
+$repocontent = array();
+foreach ($repofile as $repo) $repocontent = array_merge($repocontent, $repo);
+if (file_put_contents($argv[1], $repocontent)) {
+	exit(1);
+}
+exit(0);
+
+?>

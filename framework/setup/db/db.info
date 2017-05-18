@@ -1,0 +1,29 @@
+[acl]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[menu]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[register]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[samples]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes
+
+[settings]
+ignore_backup = no
+engine = sqlite3
+path = /var/www/db
+deletable = yes

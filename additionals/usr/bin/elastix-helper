@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$TERM" == "dumb" ] ; then
+    TERM="xterm"
+    export TERM
+fi
+/usr/sbin/close-on-exec.pl sudo -u root /usr/sbin/elastix-helper "$@"

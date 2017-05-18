@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SERVICE=$1
+shift 
+if [ -e /usr/bin/systemctl ] ; then
+    exec /usr/sbin/close-on-exec.pl /usr/bin/systemctl $1 "$SERVICE.service"
+else
+    exec /usr/sbin/close-on-exec.pl /etc/init.d/$SERVICE $@
+fi

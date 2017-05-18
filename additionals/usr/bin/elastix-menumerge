@@ -1,0 +1,145 @@
+#!/usr/bin/php
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+ */
+
+/*
+This script takes one argument that indicates the path to a module.xml or menu.xml
+file. This file indicates the menus that are to be merged into an Elastix menu
+installation. The corresponding folders in /var/www/html/modules/MENU must exist.
+*/
+
+if ($argc < 2) die("Usage: {$_SERVER['argv'][0]} menu.xml\n");
+if (!is_readable($argv[1])) die("FATAL: unable to read $argv[1] \n");
+
+if (!($documentRoot = getenv('ELASTIX_ROOT'))) $documentRoot="/var/www/html";
+require_once("$documentRoot/libs/misc.lib.php");
+require_once("$documentRoot/configs/default.conf.php");
+
+//global variables framework
+global $arrConf;
+global $arrLang;
+require_once("$arrConf[basePath]/libs/paloSantoDB.class.php");
+require_once("$arrConf[basePath]/libs/paloSantoMenu.class.php");
+require_once("$arrConf[basePath]/libs/paloSantoACL.class.php");
+require_once("$arrConf[basePath]/libs/paloSantoInstaller.class.php");
+
+$pDB = new paloDB($arrConf['elastix_dsn']['menu']);
+$pDBACL = new paloDB($arrConf['elastix_dsn']['acl']);
+
+if (!empty($pDB->errMsg)) error_exit("FATAL: menu dsn: {$pDB->errMsg}\n");
+if (!empty($pDBACL->errMsg)) error_exit("FATAL: acl dsn: {$pDBACL->errMsg}\n");
+
+$oMenu = new paloMenu($pDB);
+$oACL = new paloACL($pDBACL);
+$oInstaller = new Installer();
+
+libxml_use_internal_errors(TRUE);
+$xml = simplexml_load_file($argv[1]);
+if ($xml === FALSE) {
+    $err = 'ERR: failed to load '.$argv[1].": \n";
+    foreach(libxml_get_errors() as $error) {
+        $err .= "\t".$error->message."\n";
+    }
+    error_exit($err);
+}
+
+// El documento <module> tiene al menos un <menulist> que contiene al menos un <menuitem>
+if (!isset($xml->menulist)) error_exit("ERR: no menulist found in module document!\n");
+if (!isset($xml->menulist->menuitem)) error_exit("ERR: no menuitem found in menulist!\n");
+foreach ($xml->menulist->menuitem as $xml_menuitem) {
+    // Atributos del elemento <menuitem>
+    $menuitem = array();
+    foreach (array('menuid', 'module', 'parent', 'link', 'order') as $k)
+        $menuitem[$k] = (string)$xml_menuitem[$k];
+    $menuitem['tag'] = (string)$xml_menuitem['desc'];
+    if (empty($menuitem['menuid'])) error_exit("ERR: resource for menuitem is not defined!\n");
+    
+    // Permisos para el <menuitem>
+    $groups = array();
+    if (isset($xml_menuitem->permissions) && isset($xml_menuitem->permissions->group)) {
+        foreach ($xml_menuitem->permissions->group as $xml_group) {
+            $group = array();
+            foreach (array('id', 'name', 'desc') as $k) $group[$k] = (string)$xml_group[$k];
+            $groups[] = $group;
+        }
+    }
+    
+    // Privilegios personalizados del <menuitem>
+    $privileges = array();
+    if (isset($xml_menuitem->privilege)) foreach ($xml_menuitem->privilege as $xml_privilege) {
+        $privilege = array(
+            'grant2group'   =>  array(),
+        );
+        foreach (array('name', 'desc') as $k) $privilege[$k] = (string)$xml_privilege[$k];
+        if (isset($xml_privilege->grant2group)) foreach ($xml_privilege->grant2group as $xml_grant2group) {
+            $privilege['grant2group'][] = (string)$xml_grant2group['name'];
+        }
+        $privileges[] = $privilege;
+    }
+    
+    if ($oMenu->existeMenu($menuitem['menuid'])) {
+        if (!$oInstaller->UpdateMenu($oMenu, $menuitem)) {
+            error_exit("ERR: failed to update menuitem {$menuitem['menuid']} - {$oInstaller->_errMsg}\n");
+        }
+        
+        // TODO: updateResourceMembership crea el recurso ACL pero no modifica grupos, heredado de implementación anterior
+        if ($menuitem['parent'] != '' && !$oInstaller->updateResourceMembership($oACL, $menuitem, $groups)) {
+            error_exit("ERR: failed to update group permissions for menuitem {$menuitem['menuid']} - {$oInstaller->_errMsg}\n");
+        }
+    } else {
+        if (!$oInstaller->addMenu($oMenu, $menuitem)) {
+            error_exit("ERR: failed to create menuitem {$menuitem['menuid']} - {$oInstaller->_errMsg}\n");
+        }
+        
+        if ($menuitem['parent'] != '' && !$oInstaller->addResourceMembership($oACL, $menuitem, $groups)) {
+            error_exit("ERR: failed to add group permissions for menuitem {$menuitem['menuid']} - {$oInstaller->_errMsg}\n");
+        }
+    }
+    
+    if (count($privileges) > 0 && !$oInstaller->addResourcePrivileges($oACL, $menuitem['menuid'], $privileges)) {
+        error_exit("ERR: failed to add custom group privileges for menuitem {$menuitem['menuid']} - {$oInstaller->_errMsg}\n");
+    }
+}
+
+deleteSmartyCompileFiles();
+exit(0);
+
+function deleteSmartyCompileFiles()
+{
+    $files="/var/www/html/var/templates_c/*.php";
+    foreach(glob($files) as $filename)
+        unlink($filename);
+}
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+?>

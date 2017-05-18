@@ -1,0 +1,193 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Jason Papanayotou                                      |
+  | Email: jasonpap@gmail.com                                            |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  $Id: el.lang,v 1.6 2008/02/11 11:07:22 bmacias@palosanto.com Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage" => "Χρήση Δίσκου",
+"Used space" => "Χρησιμοποιημένος Χώρος",
+"Free space" => "Ελεύθερος Χώρος",
+"Simultaneous calls, memory and CPU" => "Ταυτόχρονες Κλήσεις, Μνήμη και Επεξεργαστής",
+"Sim. calls" => "Ταυτόχρονες Κλήσεις ",
+"CPU usage (%)" => "Χρήση Επεξεργαστή (%)",
+"Mem. usage (MB)" => "Χρήση Μνήμης (MB)",
+/*System Info*/
+
+
+"Export" => "Εξαγωγή",
+"Start" => "Εκκίνηση",
+"End" => "Τερματισμός",
+"Next" => "Επόμενο",
+"Previous" => "Προηγούμενο",
+
+
+"Validation Error" => "Σφάλμα Πιστοποίησης",
+"The following fields contain errors" => "Τα ακόλουθα πεδία περιέχουν λάθη",
+"Save" => "Αποθήκευση",
+"Required field" => "Απαιτούμενα Πεδία",
+"Apply changes" => "Εφαρμογή Αλλαγών",
+"Cancel" => "Ακύρωση",
+
+
+/*Login to Issabel*/
+"Welcome to Issabel" => "Καλωσορίσατε στο Issabel",
+"Please enter your username and password" => "Παρακαλώ Πληκτρολογείστε Κωδικό και Όνομα Χρήστη",
+"Username" => "Όνομα Χρήστη",
+"Password" => "Κωδικός",
+"Submit" => "Καταχώρηση",
+"Login page" => "Σελίδα Εισόδου",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Groups" => "Ομάδες",
+"Group" => "Ομάδα",
+"User List" => "Λίστα Χρηστών",
+"The group is wrong" => "Η ομάδα είναι εσφαλμένη",
+"Are you sure you wish to continue?" => "Είστε βέβαιος ότι θέλετε να συνεχίσετε? ",
+"Edit" => "Ρύθμιση",
+"Delete" => "Διαγραφή",
+"Accept" => "Αποδοχή",
+"Group Permission" => "Δικαιώματα Ομάδας",
+"Users" => "Χρήστες",
+
+"Directory couldn't be opened" => "Directory couldn't be opened",
+/*end User Management*/
+
+/*start menu*/
+"System" => "Σύστημα",
+"System Info" => "Πληροφορίες συστήματος",
+"User Management" => "Διαχείρηση χρηστών",
+"Menu Administrator" => "Menu Administrator",
+/*end start menu*/
+
+/*Start Language*/
+"Language" => "Γλώσσα",
+"Logout" => "Έξοδος",
+/*end Language*/
+
+/*version 0.7 - paloSantoValidar.class.php*/
+"Options" => "Options",
+"Empty field" => "Empty field",
+"Bad Format" => "Bad Format",
+"No option was selected" => "No option was selected",
+"Octets out of range" => "Octets out of range",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User" => "View User",
+/*end user*/
+
+/*system - date/time*/
+"Date/Time" => "Date/Time",
+"Change" => "Αλλαγή",
+/*end system - date/time*/
+
+/*load module*/
+"Load Module" => "Φόρτωμα Module",
+"ID for new module (folder name)" => "ID για το νέο module (όνομα φακέλου)",
+"Choose Menu" => "Επιλέξτε μενού",
+"ID for new menu" => "ID για το νέο μενού",
+"Menu Name" => "Όνομα μενού",
+"Defined Menu" => "Defined Menu",
+"New Menu" => "Νέο μενού",
+"Module sucessfully loaded" => "Το Module εγκαταστάθηκε επιτυχώς",
+"Folder name doesn't exist in module file" => "Το όνομα του φακέλου δεν υπάρχει στο αρχείο Module",
+"Folder configs doesn't exist in module file" => "Το αρχείο ρυθμίσεων του φακέλου δεν υπάρχει στο module.",
+"Folder themes doesn't exist in module file" => "Ο φάκελος themes δεν υπάρχει στο αρχείο module",
+"File index.php doesn't exist in module file" => "Το αρχείο index.php δεν υπάρχει στο αρχείο του module",
+"File install.php doesn't exist in module file" => "Το αρχείο install.php δεν υπάρχει στο αρχείο του module",
+/*end load module*/
+
+/*Start SubModule Themes*/
+"Themes" => "Θέματα",
+"Change Theme" => "Αλλαγή θέματος",
+/*end SubModule Themes*/
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "The Openfire service is not active at this moment. If you want to activate it please ",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "The vTiger installation is almost done. To complete it please ",
+"click here" => "click here",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Επιλογές",
+
+/* Start About Issabel */
+"About Issabel" => "Σχετικά με το Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content" => "Issabel was created under the premise of becoming a reliable, easy-to-use,web-based system for the management of communications over IP. This open source software started in Ecuador has become the solution of choice for implementations of Voice over IP around the globe.",
+"About Issabel Closed" => "Close",
+/* end About Issabel */
+
+/*Start module Group List*/
+"Group List" => "Λίστα ομάδων",
+/*end module Group List*/
+
+/*Grouplist*/
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+/*Grouplist*/
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

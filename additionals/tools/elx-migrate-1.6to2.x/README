@@ -1,0 +1,13 @@
+SCRIP MIGRATION ELASTIX 1.6 TO 2.X
+
+1.- Go to console and logging as root
+    	su root
+    	password: xxxxx
+
+2.- Untar the package elx-migrate-1.6to2.x 
+    	tar -xvzf {path_package}/elx-migrate-1.6to2.x
+
+3.- Execute the script run-migrate 
+	{path_package}/elx-migrate-1.6to2.x/run-migrate
+
+

@@ -588,7 +588,14 @@ function generarDSNSistema($sNombreUsuario, $sNombreDB, $ruta_base='')
         if (is_null($sClave)) return NULL;
         return 'mysql://root:'.$sClave.'@localhost/'.$sNombreDB;
     case 'asteriskuser':
-        if(is_file("/etc/freepbx.conf")) {
+        if(is_file("/etc/issabelpbx.conf")) {
+            $pConfig = new paloConfig("/etc", "issabelpbx.conf", "=", "[[:space:]]*=[[:space:]]*");
+            $listaParam = $pConfig->leer_configuracion(FALSE);
+            return $listaParam['$amp_conf[\'AMPDBENGINE\']']['valor']."://".
+                   $listaParam['$amp_conf[\'AMPDBUSER\']']['valor']. ":".
+                   $listaParam['$amp_conf[\'AMPDBPASS\']']['valor']. "@".
+                   $listaParam['$amp_conf[\'AMPDBHOST\']']['valor']. "/".$sNombreDB;
+        } else if(is_file("/etc/freepbx.conf")) {
             $pConfig = new paloConfig("/etc", "freepbx.conf", "=", "[[:space:]]*=[[:space:]]*");
             $listaParam = $pConfig->leer_configuracion(FALSE);
             return $listaParam['$amp_conf[\'AMPDBENGINE\']']['valor']."://".

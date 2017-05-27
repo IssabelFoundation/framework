@@ -50,6 +50,30 @@ if(file_exists("/etc/elastix.conf")){
     }
 }
 
+if(file_exists("/etc/issabel.conf")){
+    $content = array();
+    $rewrite_file = false;
+    $file = file("/etc/issabel.conf");
+    foreach($file as $line){
+	if(preg_match("/^\s*amiadminpwd\s*=\s*(.+)$/",rtrim($line),$matches)){
+	    echo "The key amiadminpwd already exist in /etc/issabel.conf... Nothing to do\n";
+	    $secret = $matches[1];
+	    $dosearch = false;
+	}
+	if(!preg_match("/\n$/",$line)){
+            $rewrite_file = true;
+            $content[] = $line."\n";
+        }
+        else
+            $content[] = $line;
+    }
+    if($rewrite_file){
+        file_put_contents("/etc/issabel.conf",implode("",$content));
+	chown("/etc/issabel.conf","asterisk");
+	chgrp("/etc/issabel.conf","asterisk");
+    }
+}
+
 if($dosearch){
     $ami_file = "manager.conf";
     $secret = "";
@@ -81,6 +105,14 @@ TEMP;
     fclose($fhandler);
     chown("/etc/elastix.conf","asterisk");
     chgrp("/etc/elastix.conf","asterisk");
+
+    $fhandler = fopen("/etc/issabel.conf","a");
+    echo "Writing the key amiadminpwd in /etc/issabel.conf\n";
+    fwrite($fhandler,"amiadminpwd=$secret\n"); 
+    fclose($fhandler);
+    chown("/etc/issabel.conf","asterisk");
+    chgrp("/etc/issabel.conf","asterisk");
+
 }
 checkAmportalFile($secret,$doReload);
 if($doReload)

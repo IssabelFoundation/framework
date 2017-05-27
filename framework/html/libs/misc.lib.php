@@ -504,11 +504,28 @@ function obtenerClaveCyrusAdmin($ruta_base='')
 {
     require_once $ruta_base.'libs/paloSantoConfig.class.php';
 
-	$pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
-	$listaParam = $pConfig->leer_configuracion(FALSE);
-	if (isset($listaParam['cyrususerpwd']))
-		return $listaParam['cyrususerpwd']['valor'];
-	else return 'palosanto'; // Compatibility for updates where /etc/elastix.conf is not available
+    if(is_file("/etc/elastix.conf")) {
+        $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
+        $listaParam = $pConfig->leer_configuracion(FALSE);
+        if (isset($listaParam['cyrususerpwd'])) {
+        $ret = $listaParam['cyrususerpwd']['valor'];
+        } else {
+            $ret = 'palosanto';
+        }
+    }
+
+    if(is_file("/etc/issabel.conf")) {
+        $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
+        $listaParam = $pConfig->leer_configuracion(FALSE);
+        if (isset($listaParam['cyrususerpwd'])) {
+            $ret = $listaParam['cyrususerpwd']['valor'];
+        } else {
+            $ret = 'palosanto';
+        }
+    }
+
+    return $ret;
+
 }
 
 /**

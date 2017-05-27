@@ -346,7 +346,7 @@ class paloConfig
 				    } elseif(preg_match("/^([\$|\@].*)($separador)([^;]+)(;.*)$/",$linea_leida,$tupla)) {
                         $linea_leida = array();
                         $linea_leida["clave"] = rtrim($tupla[1]);
-                        // sacamos comillas simples del freepbx.conf donde entradas comienzan con $
+                        // sacamos comillas simples del freepbx.conf o issabelpbx.conf donde entradas comienzan con $
                         if(substr($tupla[3],0,1)=="'" && substr($tupla[3],-1)=="'") { $tupla[3]=substr($tupla[3],1,-1); }
                         $linea_leida["valor"] = $tupla[3];
                         $linea_leida["separador"]=$tupla[2];

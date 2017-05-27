@@ -550,11 +550,25 @@ function obtenerClaveConocidaMySQL($sNombreUsuario, $ruta_base='')
 
     switch ($sNombreUsuario) {
     case 'root':
-        $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
-        $listaParam = $pConfig->leer_configuracion(FALSE);
-        if (isset($listaParam['mysqlrootpwd']))
-            return $listaParam['mysqlrootpwd']['valor'];
-        else return 'eLaStIx.2oo7'; // Compatibility for updates where /etc/elastix.conf is not available
+        if(is_file("/etc/elastix.conf")) {
+            $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
+            $listaParam = $pConfig->leer_configuracion(FALSE);
+            if (isset($listaParam['mysqlrootpwd'])) {
+                $ret = $listaParam['mysqlrootpwd']['valor'];
+            } else {
+                $ret = 'eLaStIx.2oo7'; 
+            }
+        }
+        if(is_file("/etc/issabel.conf")) {
+            $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
+            $listaParam = $pConfig->leer_configuracion(FALSE);
+            if (isset($listaParam['mysqlrootpwd'])) {
+                $ret = $listaParam['mysqlrootpwd']['valor'];
+            } else {
+                $ret = 'eLaStIx.2oo7'; 
+            }
+        }
+        return $ret;
         break;
     case 'asteriskuser':
         $pConfig = new paloConfig("/etc", "amportal.conf", "=", "[[:space:]]*=[[:space:]]*");
@@ -577,12 +591,25 @@ function obtenerClaveConocidaMySQL($sNombreUsuario, $ruta_base='')
 function obtenerClaveAMIAdmin($ruta_base='')
 {
     require_once $ruta_base.'libs/paloSantoConfig.class.php';
-    $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
-    $listaParam = $pConfig->leer_configuracion(FALSE);
-    if(isset($listaParam["amiadminpwd"]))
-        return $listaParam["amiadminpwd"]['valor'];
-    else
-        return "elastix456";
+
+    if(is_file('/etc/elastix.conf')) {
+        $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
+        $listaParam = $pConfig->leer_configuracion(FALSE);
+        if(isset($listaParam["amiadminpwd"])) {
+            $ret = $listaParam["amiadminpwd"]['valor'];
+        } else {
+            $ret = "elastix456";
+        }
+    }
+    if(is_file('/etc/issabel.conf')) {
+        $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
+        $listaParam = $pConfig->leer_configuracion(FALSE);
+        if(isset($listaParam["amiadminpwd"])) {
+            $ret = $listaParam["amiadminpwd"]['valor'];
+        } else {
+            $ret = "elastix456";
+        }
+    }
 }
 
 /**

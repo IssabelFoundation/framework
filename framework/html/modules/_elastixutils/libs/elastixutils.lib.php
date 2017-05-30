@@ -38,10 +38,10 @@ function obtenerDetallesRPMS()
     $packageClass = array(
         'Kernel'    =>  NULL,
         'Issabel'   =>  array('elastix*'),
-        'RoundCubeMail'  =>  array('RoundCubeMail'),
+        'RoundCubeMail' =>  array('RoundCubeMail'),
         'Mail'          =>  array('postfix', 'cyrus-imapd'),
         'IM'            =>  array('openfire'),
-        'FreePBX'       =>  array('freePBX'),
+        'IssablPBX'     =>  array('issabelPBX'),
         'Asterisk'      =>  array('asterisk', 'asterisk-perl', 'asterisk-addons'),
         'FAX'           =>  array('hylafax', 'iaxmodem'),
         'DRIVERS'       =>  array('dahdi', 'rhino', 'wanpipe-util'),

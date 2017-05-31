@@ -610,6 +610,7 @@ function obtenerClaveAMIAdmin($ruta_base='')
             $ret = "elastix456";
         }
     }
+    return $ret;
 }
 
 /**

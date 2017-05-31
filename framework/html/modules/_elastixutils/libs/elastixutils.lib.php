@@ -37,7 +37,7 @@ function obtenerDetallesRPMS()
 {
     $packageClass = array(
         'Kernel'    =>  NULL,
-        'Issabel'   =>  array('elastix*'),
+        'Issabel'   =>  array('issabel*'),
         'RoundCubeMail' =>  array('RoundCubeMail'),
         'Mail'          =>  array('postfix', 'cyrus-imapd'),
         'IM'            =>  array('openfire'),
@@ -68,10 +68,10 @@ function obtenerDetallesRPMS()
             $result[$sTag][] = explode(' ', trim(`uname -s -r -i`));
     	} elseif ($sTag == 'Issabel') {
     		// El paquete elastix debe ir primero
-            if (isset($packageVersions['elastix']))
-                $result[$sTag][] = $packageVersions['elastix'];
+            if (isset($packageVersions['issabel']))
+                $result[$sTag][] = $packageVersions['issabel'];
             foreach ($packageVersions as $packageName => $fields) {
-            	if (substr($packageName, 0, 8) == 'elastix-')
+            	if (substr($packageName, 0, 8) == 'issabel-')
                     $result[$sTag][] = $fields;
             }
     	} else {

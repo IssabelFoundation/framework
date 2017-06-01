@@ -1014,19 +1014,13 @@ td.botonon {
     border-right: 1px solid #e35332;
     background-color: #dce7f3;
     height: 23px;
-/*     background-image:url(images/fondo_boton_2do_on.gif);
-    background-repeat: repeat-x;*/
 }
 .menulogo2 {
     FONT-FAMILY: verdana, arial, helvetica, sans-serif;
     FONT-SIZE: 9pt;
     BACKGROUND: #ffffff;
     BACKGROUND-IMAGE: url(images/headerbox-bg7.png);
-/*     PADDING-RIGHT: 92px; */
-    border-bottom: #E35332 5px solid;
-/*    PADDING-LEFT: 15px;
-    PADDING-BOTTOM: 0px;
-    PADDING-TOP: 8px;*/
+    border-bottom: #404040 2px solid;
 }
 .fondomenu_headertop {
     background-image: url(images/fondomenu_header.png);

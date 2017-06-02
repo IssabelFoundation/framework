@@ -1,0 +1,43 @@
+diff -ur elastix-framework/additionals/etc/yum.repos.d/Issabel.repo elastix-framework-40/additionals/etc/yum.repos.d/Issabel.repo
+--- elastix-framework/additionals/etc/yum.repos.d/Issabel.repo	2016-12-16 11:32:30.000000000 -0600
++++ elastix-framework-40/additionals/etc/yum.repos.d/Issabel.repo	2017-02-24 15:12:43.759342122 -0600
+@@ -1,31 +1,31 @@
+ [issabel-base]
+ name=Base RPM Repository for Issabel
+-mirrorlist=http://mirror.issabel.org/?release=2.5&arch=$basearch&repo=base
+-#baseurl=http://repo.issabel.org/issabel/2.5/base/$basearch/
++mirrorlist=http://mirror.issabel.org/?release=4&arch=$basearch&repo=base
++#baseurl=http://repo.issabel.org/issabel/4/base/$basearch/
+ gpgcheck=1
+ enabled=1
+ gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+ 
+ [issabel-updates]
+ name=Updates RPM Repository for Issabel
+-mirrorlist=http://mirror.issabel.org/?release=2.5&arch=$basearch&repo=updates
+-#baseurl=http://repo.issabel.org/issabel/2.5/updates/$basearch/
++mirrorlist=http://mirror.issabel.org/?release=4&arch=$basearch&repo=updates
++#baseurl=http://repo.issabel.org/issabel/4/updates/$basearch/
+ gpgcheck=1
+ enabled=1
+ gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+ 
+ [issabel-beta]
+ name=Beta RPM Repository for Issabel
+-mirrorlist=http://mirror.issabel.org/?release=2.5&arch=$basearch&repo=beta
+-#baseurl=http://repo.issabel.org/issabel/2.5/beta/$basearch/
++mirrorlist=http://mirror.issabel.org/?release=4&arch=$basearch&repo=beta
++#baseurl=http://repo.issabel.org/issabel/4/beta/$basearch/
+ #gpgcheck=1
+ enabled=0
+ #gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+ 
+ [issabel-extras]
+ name=Extras RPM Repository for Issabel
+-mirrorlist=http://mirror.issabel.org/?release=2.5&arch=$basearch&repo=extras
+-#baseurl=http://repo.issabel.org/issabel/2.5/extras/$basearch/
++mirrorlist=http://mirror.issabel.org/?release=4&arch=$basearch&repo=extras
++#baseurl=http://repo.issabel.org/issabel/4/extras/$basearch/
+ gpgcheck=1
+ enabled=1
+ gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel

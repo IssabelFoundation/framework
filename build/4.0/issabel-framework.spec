@@ -17,7 +17,6 @@ Requires(pre): perl
 Requires(pre): issabel-firstboot >= 2.3.0-4
 Requires(pre): /sbin/pidof
 Obsoletes: elastix-additionals
-Provides: elastix-additionals
 Conflicts: elastix-system <= 4.0.0-8
 Conflicts: elastix-callcenter <= 2.0.0-16
 Conflicts: elastix-pbx <= 2.2.0-16

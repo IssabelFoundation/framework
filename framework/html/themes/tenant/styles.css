@@ -1020,6 +1020,7 @@ td.botonon {
     FONT-SIZE: 9pt;
     BACKGROUND: #ffffff;
     BACKGROUND-IMAGE: url(images/headerbox-bg7.png);
+    background-repeat: no-repeat;
     border-bottom: #404040 2px solid;
 }
 .fondomenu_headertop {

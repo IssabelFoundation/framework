@@ -282,3 +282,10 @@ div.neo-historybox-tabmid a{
     background:url(../../images/bookmarks_equis.png) no-repeat;
         cursor: pointer;
 }
+
+.form-label-style {
+    color:#E35332; 
+    font-weigth:bold;
+    font-size:13px;
+    font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
+}

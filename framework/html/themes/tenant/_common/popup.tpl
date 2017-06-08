@@ -24,7 +24,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
-  <title>Issabel </title>
+  <title>Issabel</title>
   <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/styles.css">
   <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/help.css">
   <script src="{$WEBCOMMON}js/base.js"></script>

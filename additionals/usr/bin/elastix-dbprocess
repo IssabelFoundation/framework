@@ -404,7 +404,7 @@ function executeSQL($data, $path_folder, $sql_export, $dbName, $action, $passwor
 function copyToFirstBoot($path_folder, $dbName, $action)
 {
     $srcpath = "$path_folder/1_sqlFile.sql";
-    $dstpath = "/var/spool/elastix-mysqldbscripts/{$dbName}_{$action}.sql";
+    $dstpath = "/var/spool/issabel-mysqldbscripts/{$dbName}_{$action}.sql";
     if (!rename($srcpath, $dstpath)) {
         fputs(STDERR, "ERR: failed to move $srcpath to FirstBoot.\n");
         return FALSE;
@@ -420,7 +420,7 @@ function copyToFirstBoot($path_folder, $dbName, $action)
  */
 function deleteFileinFirstBoot($dbName,$action)
 {
-    $fullpath = "/var/spool/elastix-mysqldbscripts/$dbName"."_$action.sql";
+    $fullpath = "/var/spool/issabel-mysqldbscripts/$dbName"."_$action.sql";
     if(file_exists($fullpath)) {
         echo "Removing file $fullpath\n";
         unlink($fullpath);

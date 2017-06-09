@@ -121,7 +121,7 @@ chmod 777 $RPM_BUILD_ROOT/var/www/db/
 chmod 755 $RPM_BUILD_ROOT/usr/share/elastix/privileged
 
 # ** Httpd and Php config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/elastix.conf        $RPM_BUILD_ROOT/etc/httpd/conf.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/issabel.conf        $RPM_BUILD_ROOT/etc/httpd/conf.d/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/elastix-htaccess.conf  $RPM_BUILD_ROOT/etc/httpd/conf.d/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/php.d/elastix.ini                $RPM_BUILD_ROOT/etc/php.d/
 
@@ -231,7 +231,7 @@ if [ -e /etc/yum.repos.d/CentOS-Base.repo ] ; then
     /usr/bin/elastix-add-yum-exclude /etc/yum.repos.d/CentOS-Base.repo 'redhat-logos' 'php53*' 'kernel*'
 fi
 
-# Patch httpd.conf so that User and Group directives in elastix.conf take effect
+# Patch httpd.conf so that User and Group directives in issabel.conf take effect
 sed --in-place "s,User\sapache,#User apache,g" /etc/httpd/conf/httpd.conf
 sed --in-place "s,Group\sapache,#Group apache,g" /etc/httpd/conf/httpd.conf
 
@@ -261,7 +261,7 @@ elif [ $1 -eq 2 ]; then #update
     elastix-dbprocess "update"  "$pathModule/setup/db" "$preversion"
     /sbin/service httpd status > /dev/null 2>&1
     if [ "$?" == "0" ]; then
-    	# Para versiones menores a 2.2.0-15 se debe reiniciar el apache debido a cambios en elastix.conf
+    	# Para versiones menores a 2.2.0-15 se debe reiniciar el apache debido a cambios en issabel.conf
     	compareVersion "$preversion" "2.2.0-15"
     	if [ "$?" == "9" ]; then
         	echo "Restarting apache..."
@@ -270,7 +270,7 @@ elif [ $1 -eq 2 ]; then #update
     fi
 fi
 
-# Se revisa la clave de ami si esta en /etc/elastix.conf
+# Se revisa la clave de ami si esta en /etc/issabel.conf
 search_ami_admin_pwd
 if [ "$?" == "1" ]; then
 	echo "Restarting amportal..."
@@ -384,7 +384,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/search_ami_admin_pwd
 /usr/sbin/elastix-helper
 %config(noreplace) /etc/cron.d/elastix.cron
-%config(noreplace) /etc/httpd/conf.d/elastix.conf
+%config(noreplace) /etc/httpd/conf.d/issabel.conf
 %config(noreplace) /etc/php.d/elastix.ini
 /etc/yum.repos.d/Issabel.repo
 #%config(noreplace) /etc/yum.repos.d/Issabel.repo

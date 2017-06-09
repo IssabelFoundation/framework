@@ -494,7 +494,7 @@ function getParameter($parameter)
 
 /**
  * Función para obtener la clave del Cyrus Admin de Elastix.
- * La clave es obtenida de /etc/elastix.conf
+ * La clave es obtenida de /etc/issabel.conf
  *
  * @param   string  $ruta_base          Ruta base para inclusión de librerías
  *
@@ -504,8 +504,8 @@ function obtenerClaveCyrusAdmin($ruta_base='')
 {
     require_once $ruta_base.'libs/paloSantoConfig.class.php';
 
-    if(is_file("/etc/elastix.conf")) {
-        $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
+    if(is_file("/etc/issabel.conf")) {
+        $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
         $listaParam = $pConfig->leer_configuracion(FALSE);
         if (isset($listaParam['cyrususerpwd'])) {
         $ret = $listaParam['cyrususerpwd']['valor'];
@@ -530,7 +530,7 @@ function obtenerClaveCyrusAdmin($ruta_base='')
 
 /**
  * Función para obtener la clave MySQL de usuarios bien conocidos de Elastix.
- * Los usuarios conocidos hasta ahora son 'root' (sacada de /etc/elastix.conf)
+ * Los usuarios conocidos hasta ahora son 'root' (sacada de /etc/issabel.conf)
  * y 'asteriskuser' (sacada de /etc/amportal.conf)
  *
  * @param   string  $sNombreUsuario     Nombre de usuario para interrogar
@@ -550,13 +550,13 @@ function obtenerClaveConocidaMySQL($sNombreUsuario, $ruta_base='')
 
     switch ($sNombreUsuario) {
     case 'root':
-        if(is_file("/etc/elastix.conf")) {
-            $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
+        if(is_file("/etc/issabel.conf")) {
+            $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
             $listaParam = $pConfig->leer_configuracion(FALSE);
             if (isset($listaParam['mysqlrootpwd'])) {
                 $ret = $listaParam['mysqlrootpwd']['valor'];
             } else {
-                $ret = 'eLaStIx.2oo7'; 
+                $ret = 'iSsAbEl.2o17'; 
             }
         }
         if(is_file("/etc/issabel.conf")) {
@@ -565,7 +565,7 @@ function obtenerClaveConocidaMySQL($sNombreUsuario, $ruta_base='')
             if (isset($listaParam['mysqlrootpwd'])) {
                 $ret = $listaParam['mysqlrootpwd']['valor'];
             } else {
-                $ret = 'eLaStIx.2oo7'; 
+                $ret = 'iSsAbEl.2o17'; 
             }
         }
         return $ret;
@@ -581,7 +581,7 @@ function obtenerClaveConocidaMySQL($sNombreUsuario, $ruta_base='')
 };
 
 /**
- * Función para obtener la clave AMI del usuario admin, obtenida del archivo /etc/elastix.conf
+ * Función para obtener la clave AMI del usuario admin, obtenida del archivo /etc/issabel.conf
  *
  * @param   string  $ruta_base          Ruta base para inclusión de librerías
  *
@@ -592,8 +592,8 @@ function obtenerClaveAMIAdmin($ruta_base='')
 {
     require_once $ruta_base.'libs/paloSantoConfig.class.php';
 
-    if(is_file('/etc/elastix.conf')) {
-        $pConfig = new paloConfig("/etc", "elastix.conf", "=", "[[:space:]]*=[[:space:]]*");
+    if(is_file('/etc/issabel.conf')) {
+        $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
         $listaParam = $pConfig->leer_configuracion(FALSE);
         if(isset($listaParam["amiadminpwd"])) {
             $ret = $listaParam["amiadminpwd"]['valor'];
@@ -616,7 +616,7 @@ function obtenerClaveAMIAdmin($ruta_base='')
 /**
  * Función para construir un DSN para conectarse a varias bases de datos
  * frecuentemente utilizadas en Elastix. Para cada base de datos reconocida, se
- * busca la clave en /etc/elastix.conf o en /etc/amportal.conf según corresponda.
+ * busca la clave en /etc/issabel.conf o en /etc/amportal.conf según corresponda.
  *
  * @param   string  $sNombreUsuario     Nombre de usuario para interrogar
  * @param   string  $sNombreDB          Nombre de base de datos para DNS

@@ -297,8 +297,8 @@ function getMysqlPassword()
 {
     $password = "";
 
-    if(is_file("/etc/elastix.conf")) {
-        $confElastix = new paloConfig("/etc","elastix.conf"," = ","[[:space:]]*=[[:space:]]*");
+    if(is_file("/etc/issabel.conf")) {
+        $confElastix = new paloConfig("/etc","issabel.conf"," = ","[[:space:]]*=[[:space:]]*");
         $contentFile = $confElastix->leer_configuracion();
         if($contentFile) {
             $password = $confElastix->privado_get_valor($contentFile,"mysqlrootpwd");

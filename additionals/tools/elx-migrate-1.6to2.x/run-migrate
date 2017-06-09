@@ -19,9 +19,9 @@ checkMysqlPassword(){
 }
 
 #Ask for the mysql root password. If the user no set a password use the password for default of elastix-1.6
-#password=eLaStIx.2oo7
+#password=iSsAbEl.2o17
 getMysqlPassword(){
-	dbpw="eLaStIx.2oo7"
+	dbpw="iSsAbEl.2o17"
     checkMysqlPassword $dbpw
 	res=$?
     attempts=0

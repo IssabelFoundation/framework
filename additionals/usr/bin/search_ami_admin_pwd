@@ -26,13 +26,13 @@
 
 $dosearch = true;
 $doReload = false;
-if(file_exists("/etc/elastix.conf")){
+if(file_exists("/etc/issabel.conf")){
     $content = array();
     $rewrite_file = false;
-    $file = file("/etc/elastix.conf");
+    $file = file("/etc/issabel.conf");
     foreach($file as $line){
 	if(preg_match("/^\s*amiadminpwd\s*=\s*(.+)$/",rtrim($line),$matches)){
-	    echo "The key amiadminpwd already exist in /etc/elastix.conf... Nothing to do\n";
+	    echo "The key amiadminpwd already exist in /etc/issabel.conf... Nothing to do\n";
 	    $secret = $matches[1];
 	    $dosearch = false;
 	}
@@ -44,9 +44,9 @@ if(file_exists("/etc/elastix.conf")){
             $content[] = $line;
     }
     if($rewrite_file){
-        file_put_contents("/etc/elastix.conf",implode("",$content));
-	chown("/etc/elastix.conf","asterisk");
-	chgrp("/etc/elastix.conf","asterisk");
+        file_put_contents("/etc/issabel.conf",implode("",$content));
+	chown("/etc/issabel.conf","asterisk");
+	chgrp("/etc/issabel.conf","asterisk");
     }
 }
 
@@ -99,12 +99,12 @@ TEMP;
 	$doReload = true;
     }
 
-    $fhandler = fopen("/etc/elastix.conf","a");
-    echo "Writing the key amiadminpwd in /etc/elastix.conf\n";
+    $fhandler = fopen("/etc/issabel.conf","a");
+    echo "Writing the key amiadminpwd in /etc/issabel.conf\n";
     fwrite($fhandler,"amiadminpwd=$secret\n"); 
     fclose($fhandler);
-    chown("/etc/elastix.conf","asterisk");
-    chgrp("/etc/elastix.conf","asterisk");
+    chown("/etc/issabel.conf","asterisk");
+    chgrp("/etc/issabel.conf","asterisk");
 
     $fhandler = fopen("/etc/issabel.conf","a");
     echo "Writing the key amiadminpwd in /etc/issabel.conf\n";

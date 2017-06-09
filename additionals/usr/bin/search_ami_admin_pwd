@@ -74,14 +74,15 @@ if(file_exists("/etc/issabel.conf")){
     }
 }
 
-if($dosearch){
+if ($dosearch) {
+
     $ami_file = "manager.conf";
     $secret = "";
     $files_searched = array();
     if(!search_ami_admin_pwd($ami_file,$secret,$files_searched,$doReload)){
-	//No se encuentra el usuario admin por lo tanto se lo crea con la clave elastix456
-	$secret = "elastix456";
-	$template = <<<TEMP
+    //No se encuentra el usuario admin por lo tanto se lo crea con la clave elastix456
+    $secret = "elastix456";
+    $template = <<<TEMP
 
 [admin]
 secret = elastix456
@@ -90,13 +91,15 @@ permit=127.0.0.1/255.255.255.0
 read = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate
 write = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate
 TEMP;
-	$managerHandler = fopen("/etc/asterisk/manager.conf","a");
-	echo "Creating the user admin in /etc/asterisk/manager.conf\n";
-	fwrite($managerHandler,$template);
-	fclose($managerHandler);
-	chown("/etc/asterisk/manager.conf","asterisk");
-	chgrp("/etc/asterisk/manager.conf","asterisk");
-	$doReload = true;
+        if(file_exists("/etc/asterisk/manager.conf")) {
+            $managerHandler = fopen("/etc/asterisk/manager.conf","a");
+            echo "Creating the user admin in /etc/asterisk/manager.conf\n";
+            fwrite($managerHandler,$template);
+            fclose($managerHandler);
+            chown("/etc/asterisk/manager.conf","asterisk");
+            chgrp("/etc/asterisk/manager.conf","asterisk");
+            $doReload = true;
+        }
     }
 
     $fhandler = fopen("/etc/issabel.conf","a");
@@ -114,7 +117,9 @@ TEMP;
     chgrp("/etc/issabel.conf","asterisk");
 
 }
+
 checkAmportalFile($secret,$doReload);
+
 if($doReload)
   exit(1);
 else

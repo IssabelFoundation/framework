@@ -240,8 +240,8 @@ sed --in-place "s,php_value session.save_path,#php_value session.save_path,g" /e
 
 # ** Uso de elastix-dbprocess ** #
 pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
-preversion=`cat $pathModule/preversion_elastix-framework.info`
-rm -f $pathModule/preversion_elastix-framework.info
+preversion=`cat $pathModule/preversion_framework.info`
+rm -f $pathModule/preversion_framework.info
 
 if [ $1 -eq 1 ]; then #install
     # The installer database

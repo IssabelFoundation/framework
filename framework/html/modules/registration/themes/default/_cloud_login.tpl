@@ -12,14 +12,14 @@
     <div class="info_registration" onclick="showInfoRegistration()">?</div>
         <div id='cloud-login-content'>
            <div id="cloud-login-logo">
-                <img src="modules/{$module_name}/images/issabel_logo_mini.png" alt="elastix logo" />
+                <img src="modules/{$module_name}/images/issabel_logo_mini.png" alt="issabel log" />
             </div>
             <div class="cloud-login-line">
-                <img src="modules/{$module_name}/images/icon_user.png" height="18px" alt="elastix logo" class="cloud-login-img-input"/>
+                <img src="modules/{$module_name}/images/icon_user.png" height="18px" alt="issabel log" class="cloud-login-img-input"/>
                 <input type="text" id="input_user" name="input_user" class="cloud-login-input" defaultVal="{$EMAIL}"/>
             </div>
             <div class="cloud-login-line">
-                <img src="modules/{$module_name}/images/icon_password.png" alt="elastix logo" class="cloud-login-img-input"/>
+                <img src="modules/{$module_name}/images/icon_password.png" alt="issabel log" class="cloud-login-img-input"/>
                 <input type="password" id="input_pass" name="input_pass" class="cloud-login-input" defaultVal="{$PASSWORD}"/>
             </div>
             <div class="cloud-login-line action_register_button" >                

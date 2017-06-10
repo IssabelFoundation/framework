@@ -78,7 +78,7 @@ function themeSetup(&$smarty, $selectedMenu, $pdbACL, $pACL, $idUser)
     $smarty->assign(array(
         "ABOUT_ISSABEL2"            =>  _tr('About Issabel'),
         "HELP"                      =>  _tr('HELP'),
-        "USER_LOGIN"                =>  $_SESSION['elastix_user'],
+        "USER_LOGIN"                =>  $_SESSION['issabel_user'],
         "USER_ID"                   =>  $idUser,
         "CHANGE_PASSWORD"           =>  _tr("Change Issabel Password"),
         "MODULES_SEARCH"            =>  _tr("Search modules"),

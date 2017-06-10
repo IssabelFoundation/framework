@@ -44,7 +44,7 @@ $json = new paloSantoJSON();
 header('Content-Type: application/json');
 
 /***********************User authentication********************************/
-$pACL = new paloACL($arrConf['elastix_dsn']['acl']);
+$pACL = new paloACL($arrConf['issabel_dsn']['acl']);
 if(!empty($pACL->errMsg)){
     header("HTTP/1.1 500 Internal Server Error");
     $json->set_status("ERROR");
@@ -53,12 +53,12 @@ if(!empty($pACL->errMsg)){
     exit;
 }
 
-session_name("elastixSession");
+session_name("issabelSession");
 session_start();
-if (isset($_SESSION['elastix_user']) && isset($_SESSION['elastix_pass'])) {
-    $auth_user = $_SESSION['elastix_user'];
-    $auth_md5pass = $_SESSION['elastix_pass'];
-    $_SERVER['PHP_AUTH_USER'] = $_SESSION['elastix_user'];
+if (isset($_SESSION['issabel_user']) && isset($_SESSION['issabel_pass'])) {
+    $auth_user = $_SESSION['issabel_user'];
+    $auth_md5pass = $_SESSION['issabel_pass'];
+    $_SERVER['PHP_AUTH_USER'] = $_SESSION['issabel_user'];
 } elseif (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] != '') {
     $auth_user = $_SERVER['PHP_AUTH_USER'];
     $auth_md5pass = md5($_SERVER['PHP_AUTH_PW']);

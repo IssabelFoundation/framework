@@ -183,7 +183,7 @@ class paloSantoRegistration {
             return false;
         }
         
-        $h = popen('/usr/bin/elastix-helper elastixkey', 'w');
+        $h = popen('/usr/bin/issabel-helper issabelkey', 'w');
         fwrite($h, $arrResponse[1]); // sid
         pclose($h);           
         $this->updateLinkAutoLogin($arrResponse[2],1);  //link_auto_login, TODO validar
@@ -460,7 +460,7 @@ class paloSantoRegistration {
     }
    
     private function renameKeyFile() {
-        $sComando = '/usr/bin/elastix-helper renamekey';
+        $sComando = '/usr/bin/issabel-helper renamekey';
         $output = $ret = NULL;
         exec($sComando, $output, $ret);
     }

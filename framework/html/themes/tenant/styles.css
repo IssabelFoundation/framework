@@ -1282,7 +1282,7 @@ TABLE.table_data {
 }
 /* Nuevo estilo */
 
-.neo-modal-elastix-popup-blockmask {
+.neo-modal-issabel-popup-blockmask {
     position:absolute;
     z-index:10100;
     background-color:#000;
@@ -1290,7 +1290,7 @@ TABLE.table_data {
     left:0px;
     display:none;
 }
-.neo-modal-elastix-popup-box {
+.neo-modal-issabel-popup-box {
     position:fixed;
     width:440px;
     height:150px;
@@ -1311,7 +1311,7 @@ scrollbar-face-color: #6685CA;
     scrollbar-track-color:#E5E5E5;
     scrollbar-drakshadow-color:#000000;
 }
-.neo-modal-elastix-popup-title {
+.neo-modal-issabel-popup-title {
     position: absolute;
     top:0px;
     left:0px;
@@ -1322,7 +1322,7 @@ scrollbar-face-color: #6685CA;
     font: 13px Verdana, Arial,Helvetica,sans-serif;
     color: #333;
 }
-.neo-modal-elastix-popup-close {
+.neo-modal-issabel-popup-close {
     position: absolute;
     top:12px;
     right:10px;
@@ -1331,7 +1331,7 @@ scrollbar-face-color: #6685CA;
     background:url(../../images/bookmarks_equis.png) no-repeat;
     cursor: pointer;
 }
-.neo-modal-elastix-popup-content {
+.neo-modal-issabel-popup-content {
     position: relative;
     top: 20px;
 }

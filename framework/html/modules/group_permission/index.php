@@ -195,7 +195,7 @@ function reportGroupPermission($smarty, $module_name, $local_templates_dir)
     $bIsAdminGroup = ($id_group == 1);
 
     // Cargar el menú completo
-    $oMenu = new paloMenu($arrConf['elastix_dsn']['menu']);
+    $oMenu = new paloMenu($arrConf['issabel_dsn']['menu']);
     $fullmenu = $oMenu->cargar_menu();
     foreach (array_keys($fullmenu) as $k) $fullmenu[$k]['actions'] = array();
 

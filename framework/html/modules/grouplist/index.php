@@ -43,7 +43,7 @@ function _moduleContent(&$smarty, $module_name)
 
 
     /////conexion a php
-    $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
 
     //folder path for custom templates
     $base_dir=dirname($_SERVER['SCRIPT_FILENAME']);

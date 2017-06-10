@@ -79,23 +79,23 @@ class paloMenu {
     {
     	global $arrConf;
 
-        $uelastix = FALSE;
+        $uissabel = FALSE;
         if (isset($_SESSION)) {
-            $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+            $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
             if (empty($pDB->errMsg)) {
-                $uelastix = get_key_settings($pDB, 'uelastix');
-                $uelastix = ((int)$uelastix != 0);
+                $uissabel = get_key_settings($pDB, 'uissabel');
+                $uissabel = ((int)$uissabel != 0);
             }
             unset($pDB);
         }
 
-        if ($uelastix && isset($_SESSION['elastix_user_permission']))
-            return $_SESSION['elastix_user_permission'];
+        if ($uissabel && isset($_SESSION['issabel_user_permission']))
+            return $_SESSION['issabel_user_permission'];
 
-        if (strpos($arrConf['elastix_dsn']['acl'], 'sqlite3:////') === 0) {
+        if (strpos($arrConf['issabel_dsn']['acl'], 'sqlite3:////') === 0) {
             // Adjuntar base de datos de ACL para acelerar búsqueda
             $bExito = $this->_DB->genQuery('ATTACH DATABASE ? AS acl',
-                array(str_replace('sqlite3:////', '/', $arrConf['elastix_dsn']['acl'])));
+                array(str_replace('sqlite3:////', '/', $arrConf['issabel_dsn']['acl'])));
             if (!$bExito) {
                 $this->errMsg = $this->_DB->errMsg;
                 return NULL;
@@ -126,7 +126,7 @@ INFO_AUTH_MODULO;
             $this->errMsg = $this->_DB->errMsg;
         	return NULL;
         }
-        if (strpos($arrConf['elastix_dsn']['acl'], 'sqlite3:////') === 0) {
+        if (strpos($arrConf['issabel_dsn']['acl'], 'sqlite3:////') === 0) {
             $this->_DB->genQuery('DETACH DATABASE acl');
         }
         foreach ($r as $tupla) {
@@ -167,7 +167,7 @@ INFO_AUTH_MODULO;
             $arrMenuFiltered,
             array_intersect_key($menuPrimerNivel, $menuSuperior));
 
-        if ($uelastix) $_SESSION['elastix_user_permission'] = $arrMenuFiltered;
+        if ($uissabel) $_SESSION['issabel_user_permission'] = $arrMenuFiltered;
         return $arrMenuFiltered;
     }
 

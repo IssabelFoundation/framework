@@ -54,7 +54,7 @@ Requires: mysql
 # commands: /usr/bin/sqlite3
 Requires: sqlite
 
-# FIXME: /usr/local/elastix/sampler.php requieres /usr/sbin/asterisk but
+# FIXME: /usr/local/issabel/sampler.php requieres /usr/sbin/asterisk but
 # elastix-framework should stand by itself without an asterisk dependency.
 
 %description
@@ -86,14 +86,14 @@ mkdir -p $RPM_BUILD_ROOT/var/lib/php/session-asterisk
 
 # ** /usr path ** #
 mkdir -p $RPM_BUILD_ROOT/usr/local/bin
-mkdir -p $RPM_BUILD_ROOT/usr/local/elastix
+mkdir -p $RPM_BUILD_ROOT/usr/local/issabel
 mkdir -p $RPM_BUILD_ROOT/usr/local/sbin
 mkdir -p $RPM_BUILD_ROOT/usr/sbin
 mkdir -p $RPM_BUILD_ROOT/usr/bin
-mkdir -p $RPM_BUILD_ROOT/usr/share/elastix
+mkdir -p $RPM_BUILD_ROOT/usr/share/issabel
 mkdir -p $RPM_BUILD_ROOT/usr/share/pear/DB
-mkdir -p $RPM_BUILD_ROOT/usr/share/elastix/privileged
-mkdir -p $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
+mkdir -p $RPM_BUILD_ROOT/usr/share/issabel/privileged
+mkdir -p $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
 
 # ** /etc path ** #
 mkdir -p $RPM_BUILD_ROOT/etc/cron.d
@@ -109,35 +109,28 @@ mkdir -p $RPM_BUILD_ROOT/etc/init.d
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
 
 # ** Installating modules elastix webinterface ** #
-#mv $RPM_BUILD_DIR/elastix/modules-core/*                                $RPM_BUILD_ROOT/var/www/html/modules/
-
-# ** Installating additionals elastix webinterface ** #
-#mv $RPM_BUILD_DIR/elastix/additionals/db/*                              $RPM_BUILD_ROOT/var/www/db/
-#mv $RPM_BUILD_DIR/elastix/additionals/html/libs/*                       $RPM_BUILD_ROOT/var/www/html/libs/
-#rm -rf $RPM_BUILD_DIR/elastix/additionals/html/libs/
-#mv $RPM_BUILD_DIR/elastix/additionals/html/*                            $RPM_BUILD_ROOT/var/www/html/
 
 chmod 777 $RPM_BUILD_ROOT/var/www/db/
-chmod 755 $RPM_BUILD_ROOT/usr/share/elastix/privileged
+chmod 755 $RPM_BUILD_ROOT/usr/share/issabel/privileged
 
 # ** Httpd and Php config ** #
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/issabel.conf        $RPM_BUILD_ROOT/etc/httpd/conf.d/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/elastix-htaccess.conf  $RPM_BUILD_ROOT/etc/httpd/conf.d/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/php.d/elastix.ini                $RPM_BUILD_ROOT/etc/php.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/issabel-htaccess.conf  $RPM_BUILD_ROOT/etc/httpd/conf.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/php.d/issabel.ini                $RPM_BUILD_ROOT/etc/php.d/
 
 # ** crons config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/cron.d/elastix.cron              $RPM_BUILD_ROOT/etc/cron.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/cron.d/issabel.cron              $RPM_BUILD_ROOT/etc/cron.d/
 chmod 644 $RPM_BUILD_ROOT/etc/cron.d/*
 
 # ** Repos config ** #
-#mv $RPM_BUILD_DIR/elastix-framework/additionals/etc/yum.repos.d/CentOS-Base.repo     $RPM_BUILD_ROOT/usr/share/elastix/
+#mv $RPM_BUILD_DIR/elastix-framework/additionals/etc/yum.repos.d/CentOS-Base.repo     $RPM_BUILD_ROOT/usr/share/issabel/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/yum.repos.d/Issabel.repo         $RPM_BUILD_ROOT/etc/yum.repos.d/
 
 # ** sudoers config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/sudoers                          $RPM_BUILD_ROOT/usr/share/elastix/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/sudoers                          $RPM_BUILD_ROOT/usr/share/issabel/
 
 # ** /usr/local/ files ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/local/elastix/sampler.php        $RPM_BUILD_ROOT/usr/local/elastix/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/local/issabel/sampler.php        $RPM_BUILD_ROOT/usr/local/issabel/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/local/sbin/motd.sh               $RPM_BUILD_ROOT/usr/local/sbin/
 chmod 755 $RPM_BUILD_ROOT/usr/local/sbin/motd.sh
 
@@ -145,29 +138,29 @@ chmod 755 $RPM_BUILD_ROOT/usr/local/sbin/motd.sh
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/share/pear/DB/sqlite3.php                    $RPM_BUILD_ROOT/usr/share/pear/DB/
 
 # ** setup ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/setup/usr/share/elastix/privileged/*   $RPM_BUILD_ROOT/usr/share/elastix/privileged/
-rmdir framework/setup/usr/share/elastix/privileged/ framework/setup/usr/share/elastix
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/setup/usr/share/issabel/privileged/*   $RPM_BUILD_ROOT/usr/share/issabel/privileged/
+rmdir framework/setup/usr/share/issabel/privileged/ framework/setup/usr/share/issabel
 rmdir framework/setup/usr/share framework/setup/usr
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/setup/                                 $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/menu.xml                               $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/setup/                                 $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/menu.xml                               $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
 
-# ** elastix-* file ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/elastix-menumerge            $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/elastix-menuremove           $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/elastix-dbprocess            $RPM_BUILD_ROOT/usr/bin/
+# ** issabel -* file ** #
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-menumerge            $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-menuremove           $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-dbprocess            $RPM_BUILD_ROOT/usr/bin/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/compareVersion		   $RPM_BUILD_ROOT/usr/bin/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/search_ami_admin_pwd             $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/elastix-add-yum-exclude             $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/elastix-notification             $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-add-yum-exclude             $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-notification             $RPM_BUILD_ROOT/usr/bin/
 chmod 755 $RPM_BUILD_ROOT/usr/bin/compareVersion
 chmod 755 $RPM_BUILD_ROOT/usr/bin/search_ami_admin_pwd
 
-# ** Moving elastix_helper
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/elastix-helper               $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/sbin/elastix-helper              $RPM_BUILD_ROOT/usr/sbin/
+# ** Moving issabel_helper
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-helper               $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/sbin/issabel-helper              $RPM_BUILD_ROOT/usr/sbin/
 
-chmod 755 $RPM_BUILD_ROOT/usr/sbin/elastix-helper
-chmod 755 $RPM_BUILD_ROOT/usr/bin/elastix-helper
+chmod 755 $RPM_BUILD_ROOT/usr/sbin/issabel-helper
+chmod 755 $RPM_BUILD_ROOT/usr/bin/issabel-helper
 
 
 # Archivos generic-cloexec y close-on-exec.pl
@@ -181,16 +174,16 @@ mv          $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/logrota
 chmod 644 $RPM_BUILD_ROOT/etc/logrotate.d/*
 
 # File Elastix Access Audit log
-mkdir -p    $RPM_BUILD_ROOT/var/log/elastix
-touch       $RPM_BUILD_ROOT/var/log/elastix/audit.log
-touch	    $RPM_BUILD_ROOT/var/log/elastix/postfix_stats.log
+mkdir -p    $RPM_BUILD_ROOT/var/log/issabel
+touch       $RPM_BUILD_ROOT/var/log/issabel/audit.log
+touch	    $RPM_BUILD_ROOT/var/log/issabel/postfix_stats.log
 
 %pre
 #Para conocer la version de elastix antes de actualizar o instalar
-mkdir -p /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
-touch /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/preversion_framework.info
+mkdir -p /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+touch /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/preversion_framework.info
 if [ $1 -eq 2 ]; then
-    rpm -q --queryformat='%{VERSION}-%{RELEASE}' %{name} > /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/preversion_framework.info
+    rpm -q --queryformat='%{VERSION}-%{RELEASE}' %{name} > /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/preversion_framework.info
 fi
 
 # if not exist add the asterisk group
@@ -222,13 +215,13 @@ chkconfig --del gpm   &> /dev/null
 
 
 # ** Change content of sudoers ** #
-cat   /usr/share/elastix/sudoers > /etc/sudoers
-rm -f /usr/share/elastix/sudoers
+cat   /usr/share/issabel/sudoers > /etc/sudoers
+rm -f /usr/share/issabel/sudoers
 rm -f /etc/yum.repos.d/elastix.repo
 
 # ** Change content of CentOS-Base.repo ** #
 if [ -e /etc/yum.repos.d/CentOS-Base.repo ] ; then
-    /usr/bin/elastix-add-yum-exclude /etc/yum.repos.d/CentOS-Base.repo 'redhat-logos' 'php53*' 'kernel*'
+    /usr/bin/issabel-add-yum-exclude /etc/yum.repos.d/CentOS-Base.repo 'redhat-logos' 'php53*' 'kernel*'
 fi
 
 # Patch httpd.conf so that User and Group directives in issabel.conf take effect
@@ -238,19 +231,19 @@ sed --in-place "s,Group\sapache,#Group apache,g" /etc/httpd/conf/httpd.conf
 # Patch php.conf to remove the assignment to session.save_path in CentOS 7
 sed --in-place "s,php_value session.save_path,#php_value session.save_path,g" /etc/httpd/conf.d/php.conf
 
-# ** Uso de elastix-dbprocess ** #
-pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
+# ** Uso de issabel-dbprocess ** #
+pathModule="/usr/share/issabel/module_installer/%{name}-%{version}-%{release}"
 preversion=`cat $pathModule/preversion_framework.info`
 rm -f $pathModule/preversion_framework.info
 
 if [ $1 -eq 1 ]; then #install
     # The installer database
-    elastixversion=`rpm -q --queryformat='%{VERSION}-%{RELEASE}' elastix`
-    verifyVersion=`echo $elastixversion | grep -oE "^[0-9]+(\.[0-9]+){1,2}-[0-9]+$"`
+    issabelversion=`rpm -q --queryformat='%{VERSION}-%{RELEASE}' issabel`
+    verifyVersion=`echo $issabelversion | grep -oE "^[0-9]+(\.[0-9]+){1,2}-[0-9]+$"`
     if [ "$verifyVersion" == "" ]; then
-	elastix-dbprocess "install" "$pathModule/setup/db"
+	issabel-dbprocess "install" "$pathModule/setup/db"
     else
-	elastix-dbprocess "update"  "$pathModule/setup/db" "$verifyVersion"
+	issabel-dbprocess "update"  "$pathModule/setup/db" "$verifyVersion"
     fi
     /sbin/service httpd status > /dev/null 2>&1
     if [ "$?" == "0" ]; then
@@ -258,7 +251,7 @@ if [ $1 -eq 1 ]; then #install
     	/sbin/service httpd restart > /dev/null 2>&1
     fi
 elif [ $1 -eq 2 ]; then #update
-    elastix-dbprocess "update"  "$pathModule/setup/db" "$preversion"
+    issabel-dbprocess "update"  "$pathModule/setup/db" "$preversion"
     /sbin/service httpd status > /dev/null 2>&1
     if [ "$?" == "0" ]; then
     	# Para versiones menores a 2.2.0-15 se debe reiniciar el apache debido a cambios en issabel.conf
@@ -279,18 +272,18 @@ fi
 
 # Actualizacion About Version Release
 # Verificar si en la base ya existe algo
-if [ "`sqlite3 /var/www/db/settings.db "select count(key) from settings where key='elastix_version_release';"`" = "0" ]; then
-    `sqlite3 /var/www/db/settings.db "insert into settings (key, value) values('elastix_version_release','%{version}-%{release}');"`
+if [ "`sqlite3 /var/www/db/settings.db "select count(key) from settings where key='issabel_version_release';"`" = "0" ]; then
+    `sqlite3 /var/www/db/settings.db "insert into settings (key, value) values('issabel_version_release','%{version}-%{release}');"`
 else
     #Actualizar
-    `sqlite3 /var/www/db/settings.db "update settings set value='%{version}-%{release}' where key='elastix_version_release';"`
+    `sqlite3 /var/www/db/settings.db "update settings set value='%{version}-%{release}' where key='issabel_version_release';"`
 fi
 
 # Para q se actualice smarty (tpl updates)
 rm -rf /var/www/html/var/templates_c/*
 
-# Patch elastix.ini to work around %config(noreplace) in previous versions
-sed --in-place "s,/tmp,/var/lib/php/session-asterisk,g" /etc/php.d/elastix.ini
+# Patch issabel.ini to work around %config(noreplace) in previous versions
+sed --in-place "s,/tmp,/var/lib/php/session-asterisk,g" /etc/php.d/issabel.ini
 if [ $1 -eq 1 ]; then #install
     /sbin/service httpd status > /dev/null 2>&1
     if [ "$?" == "0" ]; then
@@ -300,11 +293,11 @@ if [ $1 -eq 1 ]; then #install
 elif [ $1 -eq 2 ]; then #update
     /sbin/service httpd status > /dev/null 2>&1
     if [ "$?" == "0" ]; then
-        # Para versiones menores a 2.4.0-11 se debe reiniciar el apache debido a cambios en elastix.ini
+        # Para versiones menores a 2.4.0-11 se debe reiniciar el apache debido a cambios en issabel.ini
         # respecto a los archivos de sessiones, por ello tambien hay que reubicarlos
         compareVersion "$preversion" "2.4.0-11"
         if [ "$?" == "9" ]; then
-             # Patch elastix.ini, relocate session files to the new path.
+             # Patch issabel.ini, relocate session files to the new path.
             echo "Session files in the old directory. Starting relocation process..."
             for file_sess in `ls /tmp/sess_*`
             do
@@ -324,11 +317,11 @@ elif [ $1 -eq 2 ]; then #update
 fi
 
 # Merge current menu.xml for userlist custom privileges
-elastix-menumerge $pathModule/menu.xml
+issabel-menumerge $pathModule/menu.xml
 
 # Los archivos de logrotate TIENEN que ser 0644 (http://bugs.elastix.org/view.php?id=2608)
-chmod 644 /etc/logrotate.d/elastixAudit.logrotate
-chmod 644 /etc/logrotate.d/elastixEmailStats.logrotate
+chmod 644 /etc/logrotate.d/issabelAudit.logrotate
+chmod 644 /etc/logrotate.d/issabelEmailStats.logrotate
 
 %preun
 # Reverse the patching of php.conf
@@ -337,10 +330,10 @@ sed --in-place "s,#php_value session.save_path,php_value session.save_path,g" /e
 # Reverse the patching of httpd.conf
 sed --in-place "s,#User\sapache,User apache,g" /etc/httpd/conf/httpd.conf
 sed --in-place "s,#Group\sapache,Group apache,g" /etc/httpd/conf/httpd.conf
-pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
+pathModule="/usr/share/issabel/module_installer/%{name}-%{version}-%{release}"
 if [ $1 -eq 0 ] ; then # Validation for desinstall this rpm
   echo "Dump and delete %{name} databases"
-  elastix-dbprocess "delete" "$pathModule/setup/db"
+  issabel-dbprocess "delete" "$pathModule/setup/db"
 fi
 
 %clean
@@ -351,8 +344,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, asterisk, asterisk)
 /var/www/db
 /var/www/backup
-/var/log/elastix
-/var/log/elastix/*
+/var/log/issabel
+/var/log/issabel/*
 # %config(noreplace) /var/www/db/
 %defattr(-, root, root)
 /var/www/html/configs
@@ -369,32 +362,31 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/panels/README.es
 /var/www/html/var
 /var/www/html/var/.htaccess
-/usr/share/elastix/*
+/usr/share/issabel/*
 /usr/share/pear/DB/sqlite3.php
-/usr/local/elastix/sampler.php
+/usr/local/issabel/sampler.php
 /usr/local/sbin/motd.sh
 /usr/sbin/close-on-exec.pl
-/usr/bin/elastix-menumerge
-/usr/bin/elastix-menuremove
-/usr/bin/elastix-dbprocess
-/usr/bin/elastix-helper
-/usr/bin/elastix-add-yum-exclude
-/usr/bin/elastix-notification
+/usr/bin/issabel-menumerge
+/usr/bin/issabel-menuremove
+/usr/bin/issabel-dbprocess
+/usr/bin/issabel-helper
+/usr/bin/issabel-add-yum-exclude
+/usr/bin/issabel-notification
 /usr/bin/compareVersion
 /usr/bin/search_ami_admin_pwd
-/usr/sbin/elastix-helper
-%config(noreplace) /etc/cron.d/elastix.cron
+/usr/sbin/issabel-helper
+%config(noreplace) /etc/cron.d/issabel.cron
 %config(noreplace) /etc/httpd/conf.d/issabel.conf
-%config(noreplace) /etc/php.d/elastix.ini
+%config(noreplace) /etc/php.d/issabel.ini
 /etc/yum.repos.d/Issabel.repo
 #%config(noreplace) /etc/yum.repos.d/Issabel.repo
-#%config(noreplace) /etc/logrotate.d/elastixAccess.logrotate
-%config(noreplace) /etc/logrotate.d/elastixAudit.logrotate
-%config(noreplace) /etc/logrotate.d/elastixEmailStats.logrotate
-%config /etc/httpd/conf.d/elastix-htaccess.conf
+%config(noreplace) /etc/logrotate.d/issabelAudit.logrotate
+%config(noreplace) /etc/logrotate.d/issabelEmailStats.logrotate
+%config /etc/httpd/conf.d/issabel-htaccess.conf
 /etc/init.d/generic-cloexec
 %defattr(755, root, root)
-/usr/share/elastix/privileged/*
+/usr/share/issabel/privileged/*
 %defattr(770, root, asterisk, 770)
 /var/lib/php/session-asterisk
 %defattr(-, asterisk, asterisk)

@@ -108,16 +108,16 @@ function hide_message_error(){
 
 function ShowModalPopUP(title, width, height, html)
 {
-    $('.neo-modal-elastix-popup-content').html(html);
-    $('.neo-modal-elastix-popup-title').text(title);
+    $('.neo-modal-issabel-popup-content').html(html);
+    $('.neo-modal-issabel-popup-title').text(title);
 
     var maskHeight = $(document).height();
     var maskWidth = $(window).width();
 
-    $('.neo-modal-elastix-popup-blockmask').css({'width':maskWidth,'height':maskHeight});
+    $('.neo-modal-issabel-popup-blockmask').css({'width':maskWidth,'height':maskHeight});
 
-    $('.neo-modal-elastix-popup-blockmask').fadeIn(600);
-    $('.neo-modal-elastix-popup-blockmask').fadeTo("fast",0.8);
+    $('.neo-modal-issabel-popup-blockmask').fadeIn(600);
+    $('.neo-modal-issabel-popup-blockmask').fadeTo("fast",0.8);
 
     var winH = $(window).height();
     var winW = $(window).width();
@@ -129,7 +129,7 @@ function ShowModalPopUP(title, width, height, html)
     var hpad = (winW - width) / 2 - boxpadx;
     if (vpad < minpad) vpad = minpad;
     if (hpad < minpad) hpad = minpad;
-    $('.neo-modal-elastix-popup-content').css({
+    $('.neo-modal-issabel-popup-content').css({
         'position':     'absolute',
         'top':          '40px',
         'bottom':       '20px',
@@ -137,35 +137,35 @@ function ShowModalPopUP(title, width, height, html)
         'right':        '20px'
     });
 //    if (vpad == minpad || hpad == minpad) {
-        $('.neo-modal-elastix-popup-content').css({
+        $('.neo-modal-issabel-popup-content').css({
             'overflow-y':   'auto',
             'overflow-x':   'auto'
         });
 /*    } else {
-        $('.neo-modal-elastix-popup-content').css({
+        $('.neo-modal-issabel-popup-content').css({
             'overflow-y':   'visible',
             'overflow-x':   'visible'
         });
     }
 */
-    $('.neo-modal-elastix-popup-box').css({
+    $('.neo-modal-issabel-popup-box').css({
         'height': winH - 2 * vpad - 2 * boxpady,
         'top': vpad,
         'width': winW - 2 * hpad - 2 * boxpadx,
         'left': hpad,
         'box-sizing': 'content-box' // para tema tenant
         });
-    $('.neo-modal-elastix-popup-box').fadeIn(2000);
-    $('.neo-modal-elastix-popup-close').click(function() {
+    $('.neo-modal-issabel-popup-box').fadeIn(2000);
+    $('.neo-modal-issabel-popup-close').click(function() {
         hideModalPopUP();
     });
 }
 
 function hideModalPopUP()
 {
-    $('.neo-modal-elastix-popup-box').fadeOut(10);
-    $('.neo-modal-elastix-popup-blockmask').fadeOut(20);
-    $('.neo-modal-elastix-popup-content').html("");
+    $('.neo-modal-issabel-popup-box').fadeOut(10);
+    $('.neo-modal-issabel-popup-blockmask').fadeOut(20);
+    $('.neo-modal-issabel-popup-content').html("");
 }
 
 function showPopupCloudLogin(title, width, height)
@@ -188,7 +188,7 @@ function showPopupCloudLogin(title, width, height)
     });
 }
 
-function elastix_blockUI(msg)
+function issabel_blockUI(msg)
 {
 	$.blockUI({
 		message:	"<div style='margin: 10px;'><div align='center'><img src='images/loading2.gif' /></div><div align='center'><span style='font-size: 14px; '>"+msg+"</span></div></div>"
@@ -206,7 +206,7 @@ $(document).ready(function(){
 
     $('#viewDetailsRPMs').click(function() {
         $.get('index.php', {
-            menu:       '_elastixutils',
+            menu:       '_issabelutils',
             action:     'dialogRPM',
             rawmode:    'yes'
         }, function(response) {
@@ -221,7 +221,7 @@ $(document).ready(function(){
     });
     $('a.setadminpassword').click(function () {
         $.get('index.php', {
-            menu:       '_elastixutils',
+            menu:       '_issabelutils',
             action:     'dialogPasswordElastix',
             rawmode:    'yes'
         }, function(response) {
@@ -234,9 +234,9 @@ $(document).ready(function(){
             // La plantilla tiene una referencia a script que llama a changePasswordElastix
        });
     });
-    $('#dialogaboutelastix').click(function() {
+    $('#dialogaboutissabel').click(function() {
         $.get("index.php", {
-            menu:       '_elastixutils',
+            menu:       '_issabelutils',
             action:     'showAboutUs',
             rawmode:    'yes'
         }, function(response) {
@@ -248,11 +248,11 @@ $(document).ready(function(){
         });
     });
 
-    $('#search_module_elastix').autocomplete({
+    $('#search_module_issabel').autocomplete({
     	autoFocus:	true,
     	delay:		0,
     	minLength:	1,
-    	source:		'index.php?menu=_elastixutils&action=search_module&rawmode=yes',
+    	source:		'index.php?menu=_issabelutils&action=search_module&rawmode=yes',
     	focus:		function() { return false; },
     	select:		function(event, ui) { window.open('?menu='+ui.item.value, '_self'); },
 
@@ -319,8 +319,8 @@ function getParameterByName(name) {
 
 }
 
-// Recoger el valor del módulo activo a partir de elastix_framework_module_id
+// Recoger el valor del módulo activo a partir de issabel_framework_module_id
 function getCurrentElastixModule()
 {
-	return $('#elastix_framework_module_id').val();
+	return $('#issabel_framework_module_id').val();
 }

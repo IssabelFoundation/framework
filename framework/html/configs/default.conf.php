@@ -30,20 +30,20 @@
 global $arrConf;
 
 $arrConf['basePath'] = realpath(dirname(__FILE__).'/..');
-$arrConf['elastix_dbdir'] = '/var/www/db';
-$arrConf['elastix_dsn'] = array(
-                                "acl"       =>  "sqlite3:///$arrConf[elastix_dbdir]/acl.db",
-                                "settings"  =>  "sqlite3:///$arrConf[elastix_dbdir]/settings.db",
-                                "menu"      =>  "sqlite3:///$arrConf[elastix_dbdir]/menu.db",
-                                "samples"   =>  "sqlite3:///$arrConf[elastix_dbdir]/samples.db",
+$arrConf['issabel_dbdir'] = '/var/www/db';
+$arrConf['issabel_dsn'] = array(
+                                "acl"       =>  "sqlite3:///$arrConf[issabel_dbdir]/acl.db",
+                                "settings"  =>  "sqlite3:///$arrConf[issabel_dbdir]/settings.db",
+                                "menu"      =>  "sqlite3:///$arrConf[issabel_dbdir]/menu.db",
+                                "samples"   =>  "sqlite3:///$arrConf[issabel_dbdir]/samples.db",
                             );
 $arrConf['theme'] = 'default'; //theme personal para los modulos esencialmente
 
 // Verifico si las bases del framework están, debido a la migración de dichas bases como archivos .db a archivos .sql
-checkFrameworkDatabases($arrConf['elastix_dbdir']);
+checkFrameworkDatabases($arrConf['issabel_dbdir']);
 
 $arrConf['mainTheme'] = load_theme($arrConf['basePath']."/"); //theme para la parte plantilla principal del elastix (se usa para la inclusion de los css)
-$arrConf['elastix_version'] = load_version_elastix($arrConf['basePath']."/"); //la version y le release  del sistema elastix
+$arrConf['issabel_version'] = load_version_issabel($arrConf['basePath']."/"); //la version y le release  del sistema elastix
 $arrConf['defaultMenu'] = 'config';
 $arrConf['language'] = 'en';
 
@@ -51,12 +51,12 @@ $arrConf['language'] = 'en';
  * estar siempre disponibles sin importar el estado del menú. Estos módulos deben
  * funcionar únicamente con requerimientos AJAX, y para consistencia, todo
  * requerimiento a un módulo listado aquí debe usar rawmode=yes.
- * El módulo _elastixutils sirve para contener las utilidades json que
+ * El módulo _issabelutils sirve para contener las utilidades json que
  * atienden requerimientos de varios widgets de la interfaz Elastix. Todo
- * requerimiento nuevo que no sea un módulo debe de agregarse en _elastixutils.
+ * requerimiento nuevo que no sea un módulo debe de agregarse en _issabelutils.
  * El módulo registration atiende las funcionalidades de registro de Elastix.
- * El módulo _elastixpanel redirige la petición al panel indicado por el parámetro panel.*/
-$arrConf['elx_framework_globalmodules'] = array('_elastixutils', 'registration', '_elastixpanel');
+ * El módulo _issabelpanel redirige la petición al panel indicado por el parámetro panel.*/
+$arrConf['elx_framework_globalmodules'] = array('_issabelutils', 'registration', '_issabelpanel');
 
 // cadena_dsn es sólo para compatibilidad con versiones de elastix-callcenter < 2.2.0-6 (Elastix bug #1795)
 $arrConf['cadena_dsn'] = "mysql://asterisk:asterisk@localhost/call_center";

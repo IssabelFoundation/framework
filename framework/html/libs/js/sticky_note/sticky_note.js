@@ -37,9 +37,9 @@ function sticky_note_show() { $("#neo-sticky-note").show(); }
 
 function sticky_note_load()
 {
-	elastix_blockUI($('#get_note_label').val());
+	issabel_blockUI($('#get_note_label').val());
 	request('index.php', {
-		menu:		'_elastixutils',
+		menu:		'_issabelutils',
 		id_menu:	getCurrentElastixModule(),
 		action:		'get_sticky_note',
 		rawmode:	'yes'
@@ -72,9 +72,9 @@ function sticky_note_count_chars()
 function sticky_note_send()
 {
 	var description = $('#neo-sticky-note-textarea').val();
-	elastix_blockUI($('#save_note_label').val());
+	issabel_blockUI($('#save_note_label').val());
     request('index.php', {
-        menu:           '_elastixutils',
+        menu:           '_issabelutils',
         id_menu:        getCurrentElastixModule(),
         action:         'save_sticky_note',
         description:    description,
@@ -89,7 +89,7 @@ function sticky_note_send()
     	$("#neo-sticky-note-text-edit").hide();
     	$("#neo-sticky-note-text").show();
         sticky_note_hide();
-        $('#togglestickynote1').attr('src', 'themes/'+$('#elastix_theme_name').val()+'/images/' 
+        $('#togglestickynote1').attr('src', 'themes/'+$('#issabel_theme_name').val()+'/images/' 
             + ((description != '') ? 'tab_notes_on.png' : 'tab_notes.png'));
     });
 }

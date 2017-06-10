@@ -1,0 +1,6 @@
+/var/log/issabel/postfix_stats.log {
+   missingok
+   rotate 5
+   weekly
+   create 0640 root root
+}

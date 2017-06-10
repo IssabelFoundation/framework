@@ -46,7 +46,7 @@ function _moduleContent(&$smarty, $module_name)
     $templates_dir = (isset($arrConf['templates_dir'])) ? $arrConf['templates_dir'] : 'themes';
     $local_templates_dir = "$base_dir/modules/$module_name/".$templates_dir.'/'.$arrConf['theme'];
 
-    $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
     if (!empty($pDB->errMsg)) {
         return "ERROR DE DB: $pDB->errMsg <br>";
     }
@@ -84,22 +84,22 @@ function listUsers($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
 {
     require_once('libs/paloSantoGrid.class.php');
 
-    $id_user_session = $pACL->getIdUser($_SESSION['elastix_user']);
+    $id_user_session = $pACL->getIdUser($_SESSION['issabel_user']);
 
     /* Un usuario en el grupo de administradores puede ver la lista de todos los
      * usuarios en el sistema. Cualquier otro usuario sólo puede ver su propia
      * información. */
-    $bViewAllUsers = hasModulePrivilege($_SESSION['elastix_user'], $module_name, 'viewany');
+    $bViewAllUsers = hasModulePrivilege($_SESSION['issabel_user'], $module_name, 'viewany');
 
     /* Un usuario en el grupo de administradores puede editar cualquier usuario
      * del sistema. Cualquier otro usuario sólo puede editar su propia
      * información. */
-    $bEditAnyUser = hasModulePrivilege($_SESSION['elastix_user'], $module_name, 'editany');
+    $bEditAnyUser = hasModulePrivilege($_SESSION['issabel_user'], $module_name, 'editany');
 
     /* Un usuario en el grupo de administradores puede borrar cualquier usuario
      * del sistema distinto al propio. Cualquier otro usuario está negado de
      * borrar su usuario. */
-    $bDeleteAnyUser = hasModulePrivilege($_SESSION['elastix_user'], $module_name, 'deleteany');
+    $bDeleteAnyUser = hasModulePrivilege($_SESSION['issabel_user'], $module_name, 'deleteany');
 
     // Ejecutar borrado de usuario si está autorizado
     if (isset($_POST['delete']) && isset($_POST['id_user'])) {
@@ -160,7 +160,7 @@ function listUsers($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
         $grouplist = is_array($arrMembership) ? implode(' ', array_map('ucfirst', array_map('_tr', array_keys($arrMembership)))) : '';
         $arrTmp = array(
             "<input type=\"radio\" name=\"id_user\" value=\"{$user[0]}\" ".(($bDeleteAnyUser && $user[0] != $id_user_session) ? '' : ' disabled="disabled"')." />",
-            ($bEditAnyUser || $user[1] == $_SESSION['elastix_user'])
+            ($bEditAnyUser || $user[1] == $_SESSION['issabel_user'])
                 ? "<a href='?menu={$module_name}&action=edit&id_user=".$user[0]."'>".htmlentities($user[1], ENT_COMPAT, 'UTF-8')."</a>"
                 : htmlentities($user[1], ENT_COMPAT, 'UTF-8'),
             htmlentities($user[2], ENT_COMPAT, 'UTF-8'),
@@ -174,7 +174,7 @@ function listUsers($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
     $oGrid->setData($arrData);
 
     /* Un usuario en el grupo de administradores puede crear nuevos usuarios. */
-    if (hasModulePrivilege($_SESSION['elastix_user'], $module_name, 'create')) {
+    if (hasModulePrivilege($_SESSION['issabel_user'], $module_name, 'create')) {
         $oGrid->addNew("?menu={$module_name}&action=new", _tr('Create New User'), TRUE);
     }
     if ($bDeleteAnyUser) {
@@ -185,7 +185,7 @@ function listUsers($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
 
 function createUser($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
 {
-    if (!hasModulePrivilege($_SESSION['elastix_user'], $module_name, 'create')) {
+    if (!hasModulePrivilege($_SESSION['issabel_user'], $module_name, 'create')) {
         $smarty->assign(array(
             'mb_title'      =>  _tr('ERROR'),
             'mb_message'    =>  _tr('userNoAllowed'),
@@ -203,8 +203,8 @@ function editUser($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
         return '';
     }
 
-    $id_user_session = $pACL->getIdUser($_SESSION['elastix_user']);
-    $privileged = hasModulePrivilege($_SESSION['elastix_user'], $module_name, 'editany');
+    $id_user_session = $pACL->getIdUser($_SESSION['issabel_user']);
+    $privileged = hasModulePrivilege($_SESSION['issabel_user'], $module_name, 'editany');
     if ($id_user != $id_user_session && !$privileged) {
         $smarty->assign(array(
             'mb_title'      =>  _tr('ERROR'),
@@ -219,7 +219,7 @@ function editUser_userExtension($pACL, $smarty, $module_name, $local_templates_d
 {
     global $arrConf;
 
-    $_REQUEST['id_user'] = $pACL->getIdUser($_SESSION['elastix_user']); // HACK
+    $_REQUEST['id_user'] = $pACL->getIdUser($_SESSION['issabel_user']); // HACK
     $smarty->assign('editUserExtension', 'yes');
     $c = editUser($pACL, $smarty, $module_name, $local_templates_dir, $plugins);
     if (isset($_REQUEST['rawmode']) && $_REQUEST['rawmode'] == 'yes') {
@@ -351,9 +351,9 @@ function createEditUser($pACL, $smarty, $module_name, $local_templates_dir, $id_
                 if ((!empty($_POST['password1'])) && ($_POST['password1'] != '********')) {
                     $md5pass = md5($_POST['password1']);
                     if ($r) $r = $pACL->changePassword($id_user, $md5pass);
-                    if ($r && $pACL->getIdUser($_SESSION['elastix_user']) == $id_user) {
+                    if ($r && $pACL->getIdUser($_SESSION['issabel_user']) == $id_user) {
                         // Cambio de clave del propio usuario debe actualizar sesión
-                        $_SESSION['elastix_pass'] = $md5pass;
+                        $_SESSION['issabel_pass'] = $md5pass;
                     }
                 }
 
@@ -447,7 +447,7 @@ function hasModulePrivilege($user, $module, $privilege)
 {
     global $arrConf;
 
-    $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
     $pACL = new paloACL($pDB);
 
     if (method_exists($pACL, 'hasModulePrivilege'))

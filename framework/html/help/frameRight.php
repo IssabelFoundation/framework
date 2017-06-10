@@ -31,7 +31,7 @@ include_once "../configs/default.conf.php";
 
 load_default_timezone();
 
-session_name("elastixSession");
+session_name("issabelSession");
 session_start();
 
 // Load smarty
@@ -69,8 +69,8 @@ if(!empty($_GET['id_nodo'])){
 function menuHijoPorOmision($idMenu)
 {
     $arrMenu = array();
-    if(isset($_SESSION['elastix_user_permission']))
-        $arrMenu = $_SESSION['elastix_user_permission'];
+    if(isset($_SESSION['issabel_user_permission']))
+        $arrMenu = $_SESSION['issabel_user_permission'];
     if(is_array($arrMenu))
     {
         foreach($arrMenu as $k => $menu) {
@@ -86,7 +86,7 @@ function menuHijoPorOmision($idMenu)
 
 function obtenerMenuPadre($idMenu)
 {
-    $arrMenu = $_SESSION['elastix_user_permission'];
+    $arrMenu = $_SESSION['issabel_user_permission'];
     return $arrMenu[$idMenu]['IdParent'];
 }
 

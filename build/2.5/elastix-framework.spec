@@ -277,11 +277,11 @@ fi
 
 # Actualizacion About Version Release
 # Verificar si en la base ya existe algo
-if [ "`sqlite3 /var/www/db/settings.db "select count(key) from settings where key='elastix_version_release';"`" = "0" ]; then
-    `sqlite3 /var/www/db/settings.db "insert into settings (key, value) values('elastix_version_release','%{version}-%{release}');"`
+if [ "`sqlite3 /var/www/db/settings.db "select count(key) from settings where key='issabel_version_release';"`" = "0" ]; then
+    `sqlite3 /var/www/db/settings.db "insert into settings (key, value) values('issabel_version_release','%{version}-%{release}');"`
 else
     #Actualizar
-    `sqlite3 /var/www/db/settings.db "update settings set value='%{version}-%{release}' where key='elastix_version_release';"`
+    `sqlite3 /var/www/db/settings.db "update settings set value='%{version}-%{release}' where key='issabel_version_release';"`
 fi
 
 # Para q se actualice smarty (tpl updates)
@@ -683,7 +683,7 @@ rm -rf $RPM_BUILD_ROOT
   SVN Rev[7462]
 
 * Mon Feb  1 2016 Alex Villacís Lasso <a_villacis@palosanto.com>
-- CHANGED: Framework: added new _elastixutils action to expose telephony user
+- CHANGED: Framework: added new _issabelutils action to expose telephony user
   and password. Intended to be used with Elastix Webphone.
   SVN Rev[7456]
 
@@ -952,10 +952,10 @@ rm -rf $RPM_BUILD_ROOT
 - FIXED: Framework: add Content-Type: application/json to all registration
   responses.
   SVN Rev[7184]
-- CHANGED: Framework: the _elastixutils module is no longer "special". Instead
+- CHANGED: Framework: the _issabelutils module is no longer "special". Instead
   a list is defined in the framework configuration for modules to be provided
   without ACL authorization. This enables functionality to be migrated away from
-  register.php and removes the _elastixutils special case.
+  register.php and removes the _issabelutils special case.
   SVN Rev[7182]
 
 * Tue Oct 13 2015 Alex Villacís Lasso <a_villacis@palosanto.com>
@@ -2003,11 +2003,11 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Apr 25 2013 Alex Villacis Lasso <a_villacis@palosanto.com>
 - CHANGED: Framework: move changePasswordElastix functionality to elastixutils.
   SVN Rev[4859]
-- ADDED: Framework: introduce hidden module _elastixutils. This module will
+- ADDED: Framework: introduce hidden module _issabelutils. This module will
   contain various utilities for widgets in the Elastix Web GUI. This allows
   a cleanup of index.php, by removing functionality that does not belong in
   the router and authorization code. As a proof of concept, the package version
-  query was moved to _elastixutils. In the process, the query was reimplemented
+  query was moved to _issabelutils. In the process, the query was reimplemented
   to issue a single rpm command instead of multiple ones, and achieving a 50%
   speedup. This also makes /usr/bin/versionPaquetes.sh obsolete so it is now
   removed.

@@ -34,13 +34,13 @@ function showPopupCloudRegister(title, width, height)
 
         ShowModalPopUP(title,width,height,arrData['form']);
         $('.tdIdServer').hide();
-        $('.neo-modal-elastix-popup-box').css({
+        $('.neo-modal-issabel-popup-box').css({
             height: '388px',
         });
 
         if(arrData['registered']=="yes-inc"){
             $('.tdIdServer').css("display","");
-            $('.neo-modal-elastix-popup-box').css({
+            $('.neo-modal-issabel-popup-box').css({
               height: '410px',
             });
             showLoading(arrData['msgloading']);

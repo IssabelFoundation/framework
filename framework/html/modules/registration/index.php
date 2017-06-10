@@ -27,7 +27,7 @@
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
   $Id: index.php,v 1.1 2010-08-09 10:08:51 Mercy Anchundia manchundia@palosanto.com Exp $ */
-//include elastix framework
+//include issabel framework
 include_once "libs/paloSantoForm.class.php";
 include_once "libs/paloSantoACL.class.php";
 include_once "libs/paloSantoJSON.class.php";
@@ -51,7 +51,7 @@ function _moduleContent(&$smarty, $module_name) {
 
     //conexion resource
     $pDB = new paloDB($arrConf['dsn_conn_database']);
-    $pDBACL = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDBACL = new paloDB($arrConf['issabel_dsn']['acl']);
 
     //actions
     $action = getAction();
@@ -106,7 +106,7 @@ function viewFormRegister($smarty, $module_name, $local_templates_dir, &$pDB, $a
     $smarty->assign("REQUIRED_FIELD", _tr("Required field"));
     $smarty->assign("INFO_REGISTER", _tr("INFO_REGISTER"));
 
-    $user = isset($_SESSION['elastix_user']) ? $_SESSION['elastix_user'] : "";
+    $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : "";
 
     // Estado de registrado
     // no      = no registrado
@@ -150,7 +150,7 @@ function isRegisteredServer(&$pDB, $arrConf, $pDBACL) {
     $iRegister = $pRegister->isRegisteredInfo();
 
     $pACL = new paloACL($pDBACL);
-    $user = isset($_SESSION['elastix_user']) ? $_SESSION['elastix_user'] : "";
+    $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : "";
 
     $iRegister['auto_popup'] = (
         ($iRegister['registered'] != 'yes-all') &&

@@ -95,7 +95,7 @@ function removeNeoDisplayOnMouseOver(ref){
 <input type="hidden" id="amount_char_label" value="{$AMOUNT_CHARACTERS}" />
 <input type="hidden" id="save_note_label" value="{$MSG_SAVE_NOTE}" />
 <input type="hidden" id="get_note_label" value="{$MSG_GET_NOTE}" />
-<input type="hidden" id="elastix_theme_name" value="{$THEMENAME}" />
+<input type="hidden" id="issabel_theme_name" value="{$THEMENAME}" />
 <input type="hidden" id="lbl_no_description" value="{$LBL_NO_STICKY}" />
 
 <!-- inicio del menú tipo acordeon-->
@@ -127,7 +127,7 @@ function removeNeoDisplayOnMouseOver(ref){
         <!-- Search Bar -->
         <li id="search">
             <form method="get" action="">
-                <input type="text" id="search_module_elastix" name="search_module_elastix" class="search-input" placeholder="{$MODULES_SEARCH}"/>
+                <input type="text" id="search_module_issabel" name="search_module_issabel" class="search-input" placeholder="{$MODULES_SEARCH}"/>
                 <button type="submit">
                     <i class="entypo-search"></i>
                 </button>
@@ -195,7 +195,7 @@ function removeNeoDisplayOnMouseOver(ref){
             <!-- Profile Info -->
             <li class="profile-info dropdown pull-right"><!-- add class "pull-right" if you want to place this from right -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <!--<img  style="border:0px" src="index.php?menu=_elastixutils&action=getImage&ID={$USER_ID}&rawmode=yes" alt="" class="img-circle" width="44" />-->
+                    <!--<img  style="border:0px" src="index.php?menu=_issabelutils&action=getImage&ID={$USER_ID}&rawmode=yes" alt="" class="img-circle" width="44" />-->
             <img  style="border:0px" src="/themes/tenant/images/Icon-user.png" alt="" class="img-circle" width="44" />
                     {$USER_LOGIN}
                 </a>
@@ -242,7 +242,7 @@ function removeNeoDisplayOnMouseOver(ref){
                 <li><a href="#" class="register_link">{$Registered}</a></li>
                 <li><a href="#" id="viewDetailsRPMs"><i class="fa fa-cube"></i>{$VersionDetails}</a></li>
                 <li><a href="http://www.issabel.org" target="_blank"><i class="fa fa-external-link"></i>Issabel Website</a></li>
-                <li><a href="#" id="dialogaboutelastix"><i class="fa fa-info-circle"></i>{$ABOUT_ISSABEL2}</a></li>
+                <li><a href="#" id="dialogaboutissabel"><i class="fa fa-info-circle"></i>{$ABOUT_ISSABEL2}</a></li>
             </ul>
         </li>
 
@@ -294,7 +294,7 @@ function removeNeoDisplayOnMouseOver(ref){
                 </li>
             </ul>
         </li>
-{if $ELASTIX_PANELS}
+{if $ISSABEL_PANELS}
         <!-- SIDEBAR LIST -->
         <li id="header_open_sidebar">
             <a href="#" data-toggle="chat" data-collapse-sidebar="1"><i class="fa fa-th-list"></i></a>
@@ -337,8 +337,8 @@ function removeNeoDisplayOnMouseOver(ref){
 <!-- contenido del modulo-->
 <div id="neo-contentbox">
     <div id="neo-contentbox-maincolumn">
-        <input type="hidden" id="elastix_framework_module_id" value="{if empty($idSubMenu2Selected)}{$idSubMenuSelected}{else}{$idSubMenu2Selected}{/if}" />
-        <input type="hidden" id="elastix_framework_webCommon" value="{$WEBCOMMON}" />
+        <input type="hidden" id="issabel_framework_module_id" value="{if empty($idSubMenu2Selected)}{$idSubMenuSelected}{else}{$idSubMenu2Selected}{/if}" />
+        <input type="hidden" id="issabel_framework_webCommon" value="{$WEBCOMMON}" />
         <div class="neo-module-content">
 
 

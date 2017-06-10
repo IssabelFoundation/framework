@@ -1,4 +1,4 @@
-<form class="elastix-standard-formgrid" id="idformgrid" method="POST" style="margin-bottom:0;" action="{$url}">
+<form class="issabel-standard-formgrid" id="idformgrid" method="POST" style="margin-bottom:0;" action="{$url}">
 {* Botón invisible al inicio del form que impide que el primer botón visible del filtro, frecuentemente Borrar, sea default *}
 <input type="submit" name="" value="" style="height: 0; min-height: 0; font-size: 0; width: 0; border: none; outline: none; padding: 0px; margin: 0px; box-sizing: border-box; float: left;" />
     <div class="neo-table-header-row">
@@ -133,7 +133,7 @@
     {/if}
 
     {*<div class="neo-table-ref-table">*}
-        <table class="elastix-standard-table" align="center" width="100%" >
+        <table class="issabel-standard-table" align="center" width="100%" >
         <thead>
             <tr>
                 {section name=columnNum loop=$numColumns start=0 step=1}
@@ -249,7 +249,7 @@ $(document).ready(function() {
         }
     });
 
-    $('form.elastix-standard-formgrid>table.elastix-standard-table').each(function() {
+    $('form.issabel-standard-formgrid>table.issabel-standard-table').each(function() {
         var wt = $(this).find('thead>tr').width();
         $(this).find('thead>tr>th').each(function () {
             var wc = $(this).width();

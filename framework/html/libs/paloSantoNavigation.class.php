@@ -218,7 +218,7 @@ class paloSantoNavigation extends paloSantoNavigationBase
         if (isset($_GET) && count($_GET) == 1 && isset($_GET['menu'])) {
             $tagstack = array();
             foreach ($this->_selection as $key) $tagstack[] = $this->_menunodes[$key][MENUTAG];
-            $user = isset($_SESSION['elastix_user']) ? $_SESSION['elastix_user'] : 'unknown';
+            $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : 'unknown';
             writeLOG('audit.log', sprintf('NAVIGATION %s: User %s visited "%s" from %s.',
                 $user, $user, implode(' >> ', $tagstack), $_SERVER['REMOTE_ADDR']));
         }

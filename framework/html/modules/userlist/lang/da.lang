@@ -36,7 +36,7 @@ $arrLangModule = array(
     "New User" => "Ny bruger",
     "Edit User" => "Ret bruger",
     "The passwords are empty or don't match" => "Kodeordene er ikke ens.",
-    "The admin user cannot be deleted because is the default Issabel administrator. You can delete any other user." => "Bruger Admin kan ikke slettes. Denne bruger anvendes som standard administrator af ELASTIX. De kan slette alle andre brugere",
+    "The admin user cannot be deleted because is the default Issabel administrator. You can delete any other user." => "Bruger Admin kan ikke slettes. Denne bruger anvendes som standard administrator af ISSABEL. De kan slette alle andre brugere",
     "User List" => "Brugerliste",
     "Real Name" => "Fulde navn",
 );

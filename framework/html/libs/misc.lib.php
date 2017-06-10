@@ -263,20 +263,20 @@ function set_key_settings($pDB,$key,$value)
     return $r ? TRUE : FALSE;
 }
 
-function load_version_elastix($ruta_base='')
+function load_version_issabel($ruta_base='')
 {
     require_once $ruta_base."configs/default.conf.php";
     global $arrConf;
     include_once $ruta_base."libs/paloSantoDB.class.php";
 
     //conectarse a la base de settings para obtener la version y release del sistema elastix
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if(empty($pDB->errMsg)) {
-        $theme=get_key_settings($pDB,'elastix_version_release');
+        $theme=get_key_settings($pDB,'issabel_version_release');
     }
 //si no se encuentra setear solo ?
     if (empty($theme)){
-        set_key_settings($pDB,'elastix_version_release','?');
+        set_key_settings($pDB,'issabel_version_release','?');
         return "?";
     }
     else return $theme;
@@ -305,7 +305,7 @@ function load_theme($ruta_base='')
 
     // Leer el tema de la base de datos settings
     $settings_theme = NULL;
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if (empty($pDB->errMsg)) {
         $settings_theme = get_key_settings($pDB, 'theme');
         if (!preg_match('/^\w+$/', $settings_theme))
@@ -400,7 +400,7 @@ function get_language($ruta_base='')
     $lang="";
 
     //conectarse a la base de settings para obtener el idioma actual
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if(empty($pDB->errMsg)) {
         $lang=get_key_settings($pDB,'language');
     }
@@ -690,7 +690,7 @@ function checkFrameworkDatabases($dbdir)
 
 function writeLOG($logFILE, $log)
 {
-    $logPATH = "/var/log/elastix";
+    $logPATH = "/var/log/issabel";
     $path_of_file = "$logPATH/".$logFILE;
 
     $fp = fopen($path_of_file, 'a+');
@@ -775,10 +775,10 @@ function putMenuAsHistory($pdbACL, $pACL, $uid, $menu)
 {
     global $arrConf;
 
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if (empty($pDB->errMsg)) {
-        $uelastix = get_key_settings($pDB, 'uelastix');
-        if ((int)$uelastix != 0) return TRUE;
+        $uissabel = get_key_settings($pDB, 'uissabel');
+        if ((int)$uissabel != 0) return TRUE;
     }
 
 	$id_resource = $pACL->getResourceId($menu);
@@ -948,10 +948,10 @@ function loadShortcut($pdbACL, $uid, &$smarty)
 {
     global $arrConf;
 
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if (empty($pDB->errMsg)) {
-        $uelastix = get_key_settings($pDB, 'uelastix');
-        if ((int)$uelastix != 0) return '';
+        $uissabel = get_key_settings($pDB, 'uissabel');
+        if ((int)$uissabel != 0) return '';
     }
 
     if($uid === FALSE) return '';

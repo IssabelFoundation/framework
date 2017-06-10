@@ -27,7 +27,7 @@
   +----------------------------------------------------------------------+
   $Id: index.php,v 1.3 2007/07/17 00:03:42 gcarrillo Exp $ */
 
-function spl_elastix_class_autoload($sNombreClase)
+function spl_issabel_class_autoload($sNombreClase)
 {
     if (!preg_match('/^\w+$/', $sNombreClase)) return;
 
@@ -39,7 +39,7 @@ function spl_elastix_class_autoload($sNombreClase)
         }
     }
 }
-spl_autoload_register('spl_elastix_class_autoload');
+spl_autoload_register('spl_issabel_class_autoload');
 
 // Agregar directorio libs de script a la lista de rutas a buscar para require()
 ini_set('include_path', dirname($_SERVER['SCRIPT_FILENAME'])."/libs:".ini_get('include_path'));
@@ -52,14 +52,14 @@ include_once("libs/paloSantoACL.class.php");// Don activate unless you know what
 
 load_default_timezone();
 
-session_name("elastixSession");
+session_name("issabelSession");
 session_start();
 
 if(isset($_GET['logout']) && $_GET['logout']=='yes') {
-    $user = isset($_SESSION['elastix_user'])?$_SESSION['elastix_user']:"unknown";
+    $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"unknown";
     writeLOG("audit.log", "LOGOUT $user: Web Interface logout successful. Accepted logout for $user from $_SERVER[REMOTE_ADDR].");
     session_destroy();
-    session_name("elastixSession");
+    session_name("issabelSession");
     session_start();
     header("Location: index.php");
     exit;
@@ -75,7 +75,7 @@ if(file_exists("langmenus/$lang.lang")){
     $arrLang = array_merge($arrLang,$arrLangMenu);
 }
 
-$pdbACL = new paloDB($arrConf['elastix_dsn']['acl']);
+$pdbACL = new paloDB($arrConf['issabel_dsn']['acl']);
 $pACL = new paloACL($pdbACL);
 
 if(!empty($pACL->errMsg)) {
@@ -93,8 +93,8 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
     if($pACL->authenticateUser($_POST['input_user'], $pass_md5)) {
         session_regenerate_id(TRUE);
 
-        $_SESSION['elastix_user'] = $_POST['input_user'];
-        $_SESSION['elastix_pass'] = $pass_md5;
+        $_SESSION['issabel_user'] = $_POST['input_user'];
+        $_SESSION['issabel_pass'] = $pass_md5;
         header("Location: index.php");
         writeLOG("audit.log", "LOGIN $_POST[input_user]: Web Interface login successful. Accepted password for $_POST[input_user] from $_SERVER[REMOTE_ADDR].");
         exit;
@@ -109,12 +109,12 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
 }
 
 // 2) Autentico usuario
-if (isset($_SESSION['elastix_user']) &&
-    isset($_SESSION['elastix_pass']) &&
-    $pACL->authenticateUser($_SESSION['elastix_user'], $_SESSION['elastix_pass'])) {
+if (isset($_SESSION['issabel_user']) &&
+    isset($_SESSION['issabel_pass']) &&
+    $pACL->authenticateUser($_SESSION['issabel_user'], $_SESSION['issabel_pass'])) {
 
-    $idUser = $pACL->getIdUser($_SESSION['elastix_user']);
-    $pMenu = new paloMenu($arrConf['elastix_dsn']['menu']);
+    $idUser = $pACL->getIdUser($_SESSION['issabel_user']);
+    $pMenu = new paloMenu($arrConf['issabel_dsn']['menu']);
     $arrMenuFiltered = $pMenu->filterAuthorizedMenus($idUser);
     if (!is_array($arrMenuFiltered)) {
         die("FATAL: unable to filter module list for user: ".$pMenu->errMsg);
@@ -148,7 +148,7 @@ if (isset($_SESSION['elastix_user']) &&
 	$smarty->assign("MSG_SAVE_NOTE", _tr("Saving Note"));
 	$smarty->assign("MSG_GET_NOTE", _tr("Loading Note"));
 	$smarty->assign("LBL_NO_STICKY", _tr("Click here to leave a note."));
-    $smarty->assign("ABOUT_ELASTIX", _tr('About Issabel')." ".$arrConf['elastix_version']);
+    $smarty->assign("ABOUT_ISSABEL", _tr('About Issabel')." ".$arrConf['issabel_version']);
 
     $selectedMenu = getParameter('menu');
 
@@ -212,8 +212,8 @@ if (isset($_SESSION['elastix_user']) &&
             }
         }
         $smarty->assign(array(
-            'LBL_ELASTIX_PANELS_SIDEBAR'    =>  _tr('Panels'),
-            'ELASTIX_PANELS'                =>  $panels,
+            'LBL_ISSABEL_PANELS_SIDEBAR'    =>  _tr('Panels'),
+            'ISSABEL_PANELS'                =>  $panels,
         ));
 
         if (file_exists('themes/'.$arrConf['mainTheme'].'/themesetup.php')) {

@@ -61,7 +61,7 @@ function _moduleContent(&$smarty, $module_name)
         ),
     );
     $oForm = new paloForm($smarty, $arrForm);
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if (!empty($pDB->errMsg)) {
         $smarty->assign(array(
             'mb_title'      =>  _tr('Error'),

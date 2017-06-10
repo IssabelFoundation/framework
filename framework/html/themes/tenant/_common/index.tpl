@@ -82,27 +82,27 @@ $(document).ready(function(e) {
 {/literal}{/if}
 
         <!-- Neo Progress Bar -->
-        <div class="neo-modal-elastix-popup-box">
-            <div class="neo-modal-elastix-popup-title"></div>
-            <div class="neo-modal-elastix-popup-close"></div>
-            <div class="neo-modal-elastix-popup-content"></div>
+        <div class="neo-modal-issabel-popup-box">
+            <div class="neo-modal-issabel-popup-title"></div>
+            <div class="neo-modal-issabel-popup-close"></div>
+            <div class="neo-modal-issabel-popup-content"></div>
         </div>
-        <div class="neo-modal-elastix-popup-blockmask"></div>
-{if $ELASTIX_PANELS}
+        <div class="neo-modal-issabel-popup-blockmask"></div>
+{if $ISSABEL_PANELS}
         <div id="chat" class="fixed">
             <div class="chat-inner">
                 <h2 class="chat-header">
                     <a href="#" class="chat-close"><i class="entypo-cancel"></i></a>
                     <i class="entypo-users"></i>
                     {* TODO: i18n *}
-                    <span id="panel-header-text">{$LBL_ELASTIX_PANELS_SIDEBAR|escape:html}</span>
+                    <span id="panel-header-text">{$LBL_ISSABEL_PANELS_SIDEBAR|escape:html}</span>
                 </h2>
-                <div id="elastix-panels" class="panel-group joined">
-                    {foreach from=$ELASTIX_PANELS key=panelname item=paneldata name=elastixpanel}
+                <div id="issabel-panels" class="panel-group joined">
+                    {foreach from=$ISSABEL_PANELS key=panelname item=paneldata name=issabelpanel}
                     <div class="panel">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#elastix-panels" href="#elastix-panel-{$panelname}">
+                                <a data-toggle="collapse" data-parent="#issabel-panels" href="#issabel-panel-{$panelname}">
                                     {if $paneldata.iconclass}
                                     <i class="{$paneldata.iconclass}"></i>
                                     {elseif $paneldata.icon}
@@ -116,7 +116,7 @@ $(document).ready(function(e) {
                                 </a>
                             </h4>
                         </div>
-                        <div id="elastix-panel-{$panelname}" class="panel-collapse collapse{if $smarty.foreach.elastixpanel.first} in{/if}">
+                        <div id="issabel-panel-{$panelname}" class="panel-collapse collapse{if $smarty.foreach.issabelpanel.first} in{/if}">
                             <div class="panel-body">{$paneldata.content}</div>
                         </div>
                     </div>

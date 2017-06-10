@@ -58,7 +58,7 @@ function _moduleContent(&$smarty, $module_name)
     $local_templates_dir="$base_dir/modules/$module_name/".$templates_dir.'/'.$arrConf['theme'];
 
     // se conecta a la base
-    $pDB = new paloDB($arrConf['elastix_dsn']['settings']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['settings']);
     if(!empty($pDB->errMsg)) {
         $smarty->assign("mb_message", _tr("Error when connecting to database")."<br/>".$pDB->errMsg);
     }

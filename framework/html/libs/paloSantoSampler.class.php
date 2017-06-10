@@ -57,7 +57,7 @@ class paloSampler {
     function paloSampler()
     {
         global $arrConf;
-        $this->rutaDB = $arrConf['elastix_dsn']['samples'];
+        $this->rutaDB = $arrConf['issabel_dsn']['samples'];
         //instanciar clase paloDB
         $pDB = new paloDB($this->rutaDB);
         if(!empty($pDB->errMsg)) {

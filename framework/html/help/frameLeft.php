@@ -37,14 +37,14 @@ include_once("../libs/paloSantoMenu.class.php");
 
 load_default_timezone();
 
-session_name("elastixSession");
+session_name("issabelSession");
 session_start();
 
 global $arrConf;
 
-$pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+$pDB = new paloDB($arrConf['issabel_dsn']['acl']);
 
-$pDBMenu = new paloDB($arrConf['elastix_dsn']['menu']);
+$pDBMenu = new paloDB($arrConf['issabel_dsn']['menu']);
 $pMenu = new paloMenu($pDBMenu);
 $arrMenu = $pMenu->cargar_menu();
 
@@ -56,8 +56,8 @@ $pACL = new paloACL($pDB);
 
 $arrTmp = array();
 
-if(!empty($_SESSION['elastix_user'])) {
-    $idUser = $pACL->getIdUser($_SESSION['elastix_user']);
+if(!empty($_SESSION['issabel_user'])) {
+    $idUser = $pACL->getIdUser($_SESSION['issabel_user']);
     //- TODO: Mejorar el siguiente bloque. Seguro debe de haber una forma mas
     //-       eficiente de hacerlo
     //- Primero me barro todos los submenus

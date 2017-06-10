@@ -173,8 +173,8 @@ class Installer
         exec("rm -rf $documentRoot/var/templates_c/*",$arrConsole,$flagStatus);
 
         //STEP 2: Update menus elastix permission.
-        if(isset($_SESSION['elastix_user_permission']))
-          unset($_SESSION['elastix_user_permission']);
+        if(isset($_SESSION['issabel_user_permission']))
+          unset($_SESSION['issabel_user_permission']);
 
         return $flagStatus;
     }

@@ -23,7 +23,7 @@ js/
 Funciones javascript que deben incluirse para implementar el panel. Estos
 archivos deben ser incluidos de forma manual por un tag <script> en el HTML
 inicial del panel. En jQuery el contenido del panel está dentro del tag <div>
-seleccionado con: 'div#elastix-panel-{NOMBRE_DEL_MODULO} > div.panel-body' .
+seleccionado con: 'div#issabel-panel-{NOMBRE_DEL_MODULO} > div.panel-body' .
 
 lang/
 Traducciones de idioma para los textos a usar en el panel. El formato de archivo
@@ -81,15 +81,15 @@ la operación entre las múltiples posibles. Para construir una peticion AJAX qu
 invoque la acción, se deben especificar de la siguiente manera (GET/POST):
 
 $.post('index.php', {
-    menu: '_elastixpanel',
-    elastixpanel: {NOMBRE_DEL_MODULO},
+    menu: '_issabelpanel',
+    issabelpanel: {NOMBRE_DEL_MODULO},
     action: {ACCION},
     param1: {...},
     param2: {...},
     param3: {...}
 }, function(data) {});
 
-El valor de menu es siempre '_elastixpanel'. El parámetro elastixpanel es
+El valor de menu es siempre '_issabelpanel'. El parámetro issabelpanel es
 obligatorio y se usa para elegir el panel en cuestión. El parámetro action es
 obligatorio y se usa para invocar a la función handleJSON_ACCION dentro de la
 clase del módulo. Los parámetros adicionales param1..paramN dependen del panel.

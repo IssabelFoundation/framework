@@ -187,7 +187,7 @@ class SOAPhandler
             return false;
         }
 
-        $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+        $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
         $pACL = new paloACL($pDB);
         if(!empty($pACL->errMsg)) {
             $this->errorMSG["fc"] = 'UNAUTHORIZED';

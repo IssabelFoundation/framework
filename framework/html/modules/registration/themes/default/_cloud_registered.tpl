@@ -4,7 +4,7 @@
     <div class="div_content_style">
     <div class="title_login_register">{$registered_server}</div>
         <div class="cloud-login-line" style="height: 84px">
-            <img src="modules/{$module_name}/images/issabel_logo_mini.png" alt="elastix logo" />
+            <img src="modules/{$module_name}/images/issabel_logo_mini.png" alt="issabel log" />
         </div>
 
         <div class="div_table_style">

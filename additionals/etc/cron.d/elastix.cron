@@ -1,1 +1,0 @@
-*/5 * * * *  root /usr/bin/php -q /usr/local/elastix/sampler.php

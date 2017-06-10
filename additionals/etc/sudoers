@@ -96,4 +96,4 @@ asterisk ALL = NOPASSWD: /sbin/shutdown
 asterisk ALL = NOPASSWD: /sbin/service
 asterisk ALL = NOPASSWD: /sbin/chkconfig
 
-asterisk ALL = NOPASSWD: /usr/sbin/elastix-helper
+asterisk ALL = NOPASSWD: /usr/sbin/issabel-helper

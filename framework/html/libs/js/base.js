@@ -231,7 +231,7 @@ $(document).ready(function(){
 
             ShowModalPopUP(arrData['title'], 380, 160, arrData['html']);
 
-            // La plantilla tiene una referencia a script que llama a changePasswordElastix
+            // La plantilla tiene una referencia a script que llama a changePasswordIssabel
        });
     });
     $('#dialogaboutissabel').click(function() {

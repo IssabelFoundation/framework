@@ -94,7 +94,7 @@ function handleJSON_dialogPasswordElastix($smarty, $local_templates_dir, $module
     return $jsonObject->createJSON();
 }
 
-function handleJSON_changePasswordElastix($smarty, $local_templates_dir, $module_name)
+function handleJSON_changePasswordIssabel($smarty, $local_templates_dir, $module_name)
 {
     $jsonObject = new PaloSantoJSON();
     $output = setUserPassword();

@@ -14,7 +14,7 @@ $(document).ready(function() {
 
         request('index.php', {
             menu:           '_issabelutils',
-            action:         'changePasswordElastix',
+            action:         'changePasswordIssabel',
             oldPassword:    oldPass,
             newPassword:    newPass,
             newRePassword:  newPassRe

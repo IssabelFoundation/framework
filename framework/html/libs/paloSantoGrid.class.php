@@ -270,7 +270,7 @@ class paloSantoGrid {
      * los valores indicados en $arrFilter.
      *
      * La presentación exacta del control de desactivación de filtro puede variar
-     * con el tema de Elastix, pero los temas estándar muestran el control como
+     * con el tema de Issabel, pero los temas estándar muestran el control como
      * un rectángulo rosado con bordes redondeados, un mensaje indicado por el
      * parámetro $msg, y una equis correspondiente al hipervínculo en sí.
      *

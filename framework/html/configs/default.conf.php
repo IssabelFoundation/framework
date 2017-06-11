@@ -46,9 +46,9 @@ $arrConf['language'] = 'en';
  * funcionar únicamente con requerimientos AJAX, y para consistencia, todo
  * requerimiento a un módulo listado aquí debe usar rawmode=yes.
  * El módulo _issabelutils sirve para contener las utilidades json que
- * atienden requerimientos de varios widgets de la interfaz Elastix. Todo
+ * atienden requerimientos de varios widgets de la interfaz Issabel. Todo
  * requerimiento nuevo que no sea un módulo debe de agregarse en _issabelutils.
- * El módulo registration atiende las funcionalidades de registro de Elastix.
+ * El módulo registration atiende las funcionalidades de registro de Issabel.
  * El módulo _issabelpanel redirige la petición al panel indicado por el parámetro panel.*/
 $arrConf['elx_framework_globalmodules'] = array('_issabelutils', 'registration', '_issabelpanel');
 

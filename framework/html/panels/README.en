@@ -1,12 +1,12 @@
-Panel support for Elastix sidebar
+Panel support for Issabel sidebar
 -----------------------------------------------------------
 
-The Elastix framework supports displaying a sidebar in the web interface since
+The Issabel framework supports displaying a sidebar in the web interface since
 elastix-framework-2.5.0-15 and elastix-framework-4.0.0-13 (for themes tenant,
 blackmin, elastixneo, elastixwave, giox). This sidebar can display one or more
 panels with content and controls for custom actions. These panels are always
 available (if the panel code chooses to display it) regardless of the logged-in
-user or the displayed Elastix module. The following is the implemented API model
+user or the displayed Issabel module. The following is the implemented API model
 for these custom panels.
 
 File organization
@@ -26,7 +26,7 @@ selected with: 'div#issabel-panel-{MODULE_NAME} > div.panel-body' .
 lang/
 Language translations for the texts to use in the panel. The translation file
 format is identical to the files used by the standard modules. These files will
-be automatically loaded by the Elastix framework, and therefore it is not
+be automatically loaded by the Issabel framework, and therefore it is not
 required to call load_language_module() in the panel code.
 
 tpl/
@@ -62,7 +62,7 @@ array('title' => "...", 'content' => "...", 'iconclass' => "...", 'icon' => "...
 
 The values for title and content are mandatory. Either icon or iconclass can be
 specified, but if both are specified, iconclass takes precedence. The value of
-icon is a path to an icon file, relative from the base URL of the Elastix
+icon is a path to an icon file, relative from the base URL of the Issabel
 framework. The value of iconclass is a CSS class definition to be applied to an
 <i> tag in order to use a fonticon, either one of the supplied ones (Font Awesome
 or Entypo) or a custom one (to be manually included by the panel). For example,

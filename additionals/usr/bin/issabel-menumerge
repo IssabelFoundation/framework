@@ -24,7 +24,7 @@
 
 /*
 This script takes one argument that indicates the path to a module.xml or menu.xml
-file. This file indicates the menus that are to be merged into an Elastix menu
+file. This file indicates the menus that are to be merged into an Issabel menu
 installation. The corresponding folders in /var/www/html/modules/MENU must exist.
 */
 

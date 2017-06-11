@@ -1,9 +1,9 @@
-Soporte para paneles en la barra lateral de Elastix
+Soporte para paneles en la barra lateral de Issabel
 -----------------------------------------------------------
 
 Desde las versiones de elastix-framework-2.5.0-15 y elastix-framework-4.0.0-13
 está soportada la visualización de una barra lateral en la interfaz web de
-Elastix (para los temas tenant, blackmin, elastixneo, elastixwave, giox). En
+Issabel (para los temas tenant, blackmin, elastixneo, elastixwave, giox). En
 esta barra lateral se pueden colocar uno o más paneles con contenido y controles
 para acciones personalizadas. Estos paneles siempre están disponibles (si el
 código del panel decide mostrarlo) sin importar el usuario logoneado o el módulo
@@ -28,7 +28,7 @@ seleccionado con: 'div#issabel-panel-{NOMBRE_DEL_MODULO} > div.panel-body' .
 lang/
 Traducciones de idioma para los textos a usar en el panel. El formato de archivo
 de traducción es idéntico al de los archivos usados por los módulos ordinarios.
-Estos archivos serán cargados automáticamente por el framework de Elastix, y
+Estos archivos serán cargados automáticamente por el framework de Issabel, y
 por lo tanto no es necesario llamar a load_language_module() dentro del código.
 
 tpl/
@@ -66,7 +66,7 @@ array('title' => "...", 'content' => "...", 'iconclass' => "...", 'icon' => "...
 Los valores de title y content son obligatorios. Se puede especificar cualquiera
 de icon o iconclass, pero si se especifican ambos, iconclass toma precedencia.
 El valor de icon es una ruta a un archivo de icono, relativa al URL base del
-framework de Elastix. El valor de iconclass es una definición de clase CSS que
+framework de Issabel. El valor de iconclass es una definición de clase CSS que
 será aplicada a un tag <i> para hacer uso de un font de iconos, ya sea uno
 disponible (Font Awesome o Entypo), o uno personalizado (a ser incluido
 manualmente por el panel). Por ejemplo, para hacer aparecer una patita de gato,

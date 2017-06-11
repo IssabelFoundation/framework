@@ -104,10 +104,10 @@ mkdir -p $RPM_BUILD_ROOT/etc/init.d
 
 
 ## ** Step 2: Installation of files and folders ** ##
-# ** Installating framework elastix webinterface ** #
+# ** Installating framework issabel webinterface ** #
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
 
-# ** Installating modules elastix webinterface ** #
+# ** Installating modules issabel webinterface ** #
 
 chmod 777 $RPM_BUILD_ROOT/var/www/db/
 chmod 755 $RPM_BUILD_ROOT/usr/share/issabel/privileged

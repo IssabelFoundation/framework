@@ -95,7 +95,7 @@ class SOAPhandler
         $this->errorMSG        = NULL;
         $this->objSOAPServer   = NULL;
         $this->wsdlName        = "genericName_WSDL";
-        $this->targetNamespace = "http://www.elastix.org/webservices";
+        $this->targetNamespace = "http://cloud.issabel.org/webservices";
         header('Content-Type: text/xml; charset=utf-8');
     }
 

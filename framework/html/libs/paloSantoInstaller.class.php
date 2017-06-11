@@ -168,7 +168,7 @@ class Installer
         //STEP 1: Delete tmp templates of smarty.
         exec("rm -rf $documentRoot/var/templates_c/*",$arrConsole,$flagStatus);
 
-        //STEP 2: Update menus elastix permission.
+        //STEP 2: Update menus issabel permission.
         if(isset($_SESSION['issabel_user_permission']))
           unset($_SESSION['issabel_user_permission']);
 

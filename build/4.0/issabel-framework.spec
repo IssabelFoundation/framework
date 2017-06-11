@@ -55,7 +55,7 @@ Requires: mysql
 Requires: sqlite
 
 # FIXME: /usr/local/issabel/sampler.php requieres /usr/sbin/asterisk but
-# elastix-framework should stand by itself without an asterisk dependency.
+# issabel-framework should stand by itself without an asterisk dependency.
 
 %description
 Issabel is a Web based software to administrate a PBX based in open source programs
@@ -105,7 +105,6 @@ mkdir -p $RPM_BUILD_ROOT/etc/init.d
 
 ## ** Step 2: Installation of files and folders ** ##
 # ** Installating framework elastix webinterface ** #
-#rm -rf $RPM_BUILD_DIR/elastix-framework/framework/html/modules/userlist/  # Este modulo no es el modificado para soporte de correo, eso se encuentra en modules-core
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
 
 # ** Installating modules elastix webinterface ** #
@@ -123,7 +122,6 @@ mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/cron.d/issabel.c
 chmod 644 $RPM_BUILD_ROOT/etc/cron.d/*
 
 # ** Repos config ** #
-#mv $RPM_BUILD_DIR/elastix-framework/additionals/etc/yum.repos.d/CentOS-Base.repo     $RPM_BUILD_ROOT/usr/share/issabel/
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/yum.repos.d/Issabel.repo         $RPM_BUILD_ROOT/etc/yum.repos.d/
 
 # ** sudoers config ** #

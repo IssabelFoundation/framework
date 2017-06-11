@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 1.0-16                                               |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
@@ -61,7 +61,7 @@ function obtenerDetallesRPMS()
     		// Caso especial
             $result[$sTag][] = explode(' ', trim(`uname -s -r -i`));
     	} elseif ($sTag == 'Issabel') {
-    		// El paquete elastix debe ir primero
+    		// El paquete Issabel debe ir primero
             if (isset($packageVersions['issabel']))
                 $result[$sTag][] = $packageVersions['issabel'];
             foreach ($packageVersions as $packageName => $fields) {

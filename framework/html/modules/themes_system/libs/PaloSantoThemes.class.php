@@ -83,7 +83,7 @@ class PaloSantoThemes
     }
 
     /**
-     * Procedimiento para obtener de la base settings el tema actual de elastix
+     * Procedimiento para obtener de la base settings el tema actual de Issabel
      *
      * @return string    nombre del tema actual si lo encontro, vacio si no
      */
@@ -94,7 +94,7 @@ class PaloSantoThemes
     }
 
     /**
-     * Procedimiento para actualizar el tema actual de elastix
+     * Procedimiento para actualizar el tema actual de Issabel
      *
      * @param   $sTheme        Nombre del tema a cambiar
      *

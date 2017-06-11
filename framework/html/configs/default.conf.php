@@ -36,8 +36,8 @@ $arrConf['theme'] = 'default'; //theme personal para los modulos esencialmente
 // Verifico si las bases del framework están, debido a la migración de dichas bases como archivos .db a archivos .sql
 checkFrameworkDatabases($arrConf['issabel_dbdir']);
 
-$arrConf['mainTheme'] = load_theme($arrConf['basePath']."/"); //theme para la parte plantilla principal del elastix (se usa para la inclusion de los css)
-$arrConf['issabel_version'] = load_version_issabel($arrConf['basePath']."/"); //la version y le release  del sistema elastix
+$arrConf['mainTheme'] = load_theme($arrConf['basePath']."/"); //theme para la parte plantilla principal de Issabel (se usa para la inclusion de los css)
+$arrConf['issabel_version'] = load_version_issabel($arrConf['basePath']."/"); //la version y le release del sistema Issabel
 $arrConf['defaultMenu'] = 'config';
 $arrConf['language'] = 'en';
 

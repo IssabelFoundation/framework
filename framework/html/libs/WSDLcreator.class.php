@@ -131,7 +131,7 @@ class WSDLcreator
     private $ns_wsdl;
 
     /**
-     * Prefix namespace for elastix
+     * Prefix namespace for issabel
      *
      * @var object
      */
@@ -165,7 +165,7 @@ class WSDLcreator
      * @param  string   $targetNamespace   URN of namespace target WSDL.
      * @param  string   $soapAddress       Address location WSDL functions implementation.
      */
-    public function WSDLcreator($nameWSDL, $targetNamespace="http://www.elastix.org/webservices", $soapAddress)
+    public function WSDLcreator($nameWSDL, $targetNamespace="http://cloud.issabel.org/webservices", $soapAddress)
     {
         /*
             PRIMITIVE DATA TYPES
@@ -383,14 +383,14 @@ class WSDLcreator
         // Create Document XML with namespace
         // xsd  for namespace (schema),  http://www.w3.org/2001/XMLSchema
         // soap for namespace (soap),    http://schemas.xmlsoap.org/wsdl/soap/
-        // elx  for namespace (elastix), ex. http://www.elastix.org/webservices/
+        // elx  for namespace (issabel), ex. http://cloud.issabel.org/webservices/
         try{
             $doc  = new DOMDocument("1.0","UTF-8");
             $root = $doc->createElementNS($this->ns_wsdl,"{$this->prefix_ns_wsdl}:definitions");
             $doc->appendChild($root);
             $doc->createAttributeNS($this->ns_schema,      "{$this->prefix_ns_schema}:schema");
             $doc->createAttributeNS($this->ns_soap, "{$this->prefix_ns_soap}:soap");
-            $doc->createAttributeNS($this->targetNamespace,                  "{$this->prefix_ns_elx}:elastix");
+            $doc->createAttributeNS($this->targetNamespace,                  "{$this->prefix_ns_elx}:issabel");
 
             $attrname = $doc->createAttribute('name'); //WSDL name Attribute
             $root->appendChild($attrname);

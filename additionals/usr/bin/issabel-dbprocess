@@ -291,18 +291,18 @@ function getMysqlPassword()
     $password = "";
 
     if(is_file("/etc/issabel.conf")) {
-        $confElastix = new paloConfig("/etc","issabel.conf"," = ","[[:space:]]*=[[:space:]]*");
-        $contentFile = $confElastix->leer_configuracion();
+        $confIssabel = new paloConfig("/etc","issabel.conf"," = ","[[:space:]]*=[[:space:]]*");
+        $contentFile = $confIssabel->leer_configuracion();
         if($contentFile) {
-            $password = $confElastix->privado_get_valor($contentFile,"mysqlrootpwd");
+            $password = $confIssabel->privado_get_valor($contentFile,"mysqlrootpwd");
         }
     }
 
     if(is_file("/etc/issabel.conf")) {
-        $confElastix = new paloConfig("/etc","issabel.conf"," = ","[[:space:]]*=[[:space:]]*");
-        $contentFile = $confElastix->leer_configuracion();
+        $confIssabel = new paloConfig("/etc","issabel.conf"," = ","[[:space:]]*=[[:space:]]*");
+        $contentFile = $confIssabel->leer_configuracion();
         if($contentFile) {
-            $password = $confElastix->privado_get_valor($contentFile,"mysqlrootpwd");
+            $password = $confIssabel->privado_get_valor($contentFile,"mysqlrootpwd");
         }
     }
 

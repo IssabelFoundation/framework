@@ -336,7 +336,7 @@ function load_theme($ruta_base='')
     }
 
     if (is_null($chosen_theme)) {
-        die('No themes found under '.$ruta_base.'themes/. At least one theme must exist for Elastix GUI.');
+        die('No themes found under '.$ruta_base.'themes/. At least one theme must exist for Issabel GUI.');
     }
 
     // Guardar nuevo tema elegido, si es distinto del leído
@@ -487,7 +487,7 @@ function getParameter($parameter)
 }
 
 /**
- * Función para obtener la clave del Cyrus Admin de Elastix.
+ * Función para obtener la clave del Cyrus Admin de Issabel.
  * La clave es obtenida de /etc/issabel.conf
  *
  * @param   string  $ruta_base          Ruta base para inclusión de librerías
@@ -523,7 +523,7 @@ function obtenerClaveCyrusAdmin($ruta_base='')
 }
 
 /**
- * Función para obtener la clave MySQL de usuarios bien conocidos de Elastix.
+ * Función para obtener la clave MySQL de usuarios bien conocidos de Issabel.
  * Los usuarios conocidos hasta ahora son 'root' (sacada de /etc/issabel.conf)
  * y 'asteriskuser' (sacada de /etc/amportal.conf)
  *
@@ -609,7 +609,7 @@ function obtenerClaveAMIAdmin($ruta_base='')
 
 /**
  * Función para construir un DSN para conectarse a varias bases de datos
- * frecuentemente utilizadas en Elastix. Para cada base de datos reconocida, se
+ * frecuentemente utilizadas en Issabel. Para cada base de datos reconocida, se
  * busca la clave en /etc/issabel.conf o en /etc/amportal.conf según corresponda.
  *
  * @param   string  $sNombreUsuario     Nombre de usuario para interrogar

@@ -22,7 +22,7 @@
   $Id: email.conf.php,v 1.1.1.1 2007/07/06 21:31:56 gcarrillo Exp $ */
 
 
-$configPostfix2 = isPostfixToElastix2();// in misc.lib.php
+$configPostfix2 = isPostfixToIssabel2();// in misc.lib.php
 $clave = obtenerClaveCyrusAdmin("/var/www/html/");
 
 if(!$configPostfix2){

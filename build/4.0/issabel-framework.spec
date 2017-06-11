@@ -173,13 +173,13 @@ mv          $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/logrota
 # Los archivos de logrotate TIENEN que ser 0644 (http://bugs.elastix.org/view.php?id=2608)
 chmod 644 $RPM_BUILD_ROOT/etc/logrotate.d/*
 
-# File Elastix Access Audit log
+# File Issabel Access Audit log
 mkdir -p    $RPM_BUILD_ROOT/var/log/issabel
 touch       $RPM_BUILD_ROOT/var/log/issabel/audit.log
 touch	    $RPM_BUILD_ROOT/var/log/issabel/postfix_stats.log
 
 %pre
-#Para conocer la version de elastix antes de actualizar o instalar
+#Para conocer la version de issabel antes de actualizar o instalar
 mkdir -p /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
 touch /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/preversion_framework.info
 if [ $1 -eq 2 ]; then

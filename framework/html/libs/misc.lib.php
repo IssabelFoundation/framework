@@ -653,7 +653,7 @@ function generarDSNSistema($sNombreUsuario, $sNombreDB, $ruta_base='')
     return NULL;
 }
 
-function isPostfixToElastix2(){
+function isPostfixToIssabel2(){
     $pathImap    = "/etc/imapd.conf";
     $vitualDomain = "virtdomains: yes";
     $band = TRUE;

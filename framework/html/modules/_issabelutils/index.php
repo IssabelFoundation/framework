@@ -75,7 +75,7 @@ function handleJSON_versionRPM($smarty, $local_templates_dir, $module_name)
     return $json->encode(obtenerDetallesRPMS());
 }
 
-function handleJSON_dialogPasswordElastix($smarty, $local_templates_dir, $module_name)
+function handleJSON_dialogPasswordIssabel($smarty, $local_templates_dir, $module_name)
 {
     $smarty->assign(array(
         'CURRENT_PASSWORD'      =>  _tr('Current Password'),

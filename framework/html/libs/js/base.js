@@ -222,7 +222,7 @@ $(document).ready(function(){
     $('a.setadminpassword').click(function () {
         $.get('index.php', {
             menu:       '_issabelutils',
-            action:     'dialogPasswordElastix',
+            action:     'dialogPasswordIssabel',
             rawmode:    'yes'
         }, function(response) {
             var arrData = response.message;

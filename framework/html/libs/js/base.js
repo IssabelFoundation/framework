@@ -320,7 +320,7 @@ function getParameterByName(name) {
 }
 
 // Recoger el valor del módulo activo a partir de issabel_framework_module_id
-function getCurrentElastixModule()
+function getCurrentIssabelModule()
 {
 	return $('#issabel_framework_module_id').val();
 }

@@ -40,7 +40,7 @@ function sticky_note_load()
 	issabel_blockUI($('#get_note_label').val());
 	request('index.php', {
 		menu:		'_issabelutils',
-		id_menu:	getCurrentElastixModule(),
+		id_menu:	getCurrentIssabelModule(),
 		action:		'get_sticky_note',
 		rawmode:	'yes'
 	}, false, function(description, statusResponse, error) {
@@ -75,7 +75,7 @@ function sticky_note_send()
 	issabel_blockUI($('#save_note_label').val());
     request('index.php', {
         menu:           '_issabelutils',
-        id_menu:        getCurrentElastixModule(),
+        id_menu:        getCurrentIssabelModule(),
         action:         'save_sticky_note',
         description:    description,
         popup:          $('#neo-sticky-note-auto-popup').is(':checked') ? 1 : 0,

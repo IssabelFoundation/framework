@@ -6,10 +6,6 @@
   +----------------------------------------------------------------------+
   | Copyright (c) 1997-2003 Palosanto Solutions S. A.                    |
   +----------------------------------------------------------------------+
-  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
-  | Telfs. 2283-268, 2294-440, 2284-356                                  |
-  | Guayaquil - Ecuador                                                  |
-  +----------------------------------------------------------------------+
   | Este archivo fuente está sujeto a las políticas de licenciamiento    |
   | de Palosanto Solutions S. A. y no está disponible públicamente.      |
   | El acceso a este documento está restringido según lo estipulado      |
@@ -19,7 +15,7 @@
   | de hacerlo, comuníquese con nosotros, podría estar infringiendo      |
   | la ley sin saberlo.                                                  |
   +----------------------------------------------------------------------+
-  | Autores: Alberto Santos <asantos@palosanto.com>              |
+  | Autores: Alberto Santos <asantos@palosanto.com>                      |
   +----------------------------------------------------------------------+
   $Id: search_ami_admin_pwd,v 1.1 20011/12/01 23:49:36 alberto Exp $
 */

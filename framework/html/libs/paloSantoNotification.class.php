@@ -2,15 +2,11 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
  Codificación: UTF-8
 +----------------------------------------------------------------------+
-| Elastix version 0.5                                                  |
-| http://www.elastix.com                                               |
+| Issabel version 4.0.0                                                |
+| http://www.issabel.org                                               |
 +----------------------------------------------------------------------+
+| Copyright (c) 2017 Issabel Foundation                                |
 | Copyright (c) 2006 Palosanto Solutions S. A.                         |
-+----------------------------------------------------------------------+
-| Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
-| Telfs. 2283-268, 2294-440, 2284-356                                  |
-| Guayaquil - Ecuador                                                  |
-| http://www.palosanto.com                                             |
 +----------------------------------------------------------------------+
 | The contents of this file are subject to the General Public License  |
 | (GPL) Version 2 (the "License"); you may not use this file except in |

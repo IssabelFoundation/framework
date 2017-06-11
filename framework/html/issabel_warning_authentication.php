@@ -1,21 +1,9 @@
 <?php
-$theme         = isset($content['theme'])?$content['theme']:"elastixneo";
+$theme = isset($content['theme'])?$content['theme']:"elastixneo";
 $size = "100%";
 $styleBody = "";
 $styleDiv = "";
 switch($theme){
-   case "elastixwave":
-          $image = "/themes/elastixwave/images/logo_elastix.gif";
-          break;
-    case "default":
-          $image = "/images/logo_elastix.png";
-          break;
-    case "elastixneo":
-          $image = "/themes/elastixneo/images/issabel_logo_mini2.png";
-          $size = "1270px";
-          $styleBody = "style='background-image:url(/themes/elastixneo/images/bgbodytest.png);'";
-          $styleDiv = "style='background:#FFFFFF; height:100%; width:1270px;'";
-          break;
     default:
           $image = "/images/issabel_logo_mini2.png";
           break;

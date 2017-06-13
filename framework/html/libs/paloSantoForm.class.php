@@ -295,17 +295,29 @@ class paloForm
             $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
         if ($bIngresoActivo) {
+
             $listaOpts = array();
-            $keyVals = is_array($varValue)
-                ? $varValue
-                : array($varValue);
+            $keyVals = is_array($varValue) ? $varValue : array($varValue);
+
             if (is_array($arrVars['INPUT_EXTRA_PARAM'])) {
+
                 foreach($arrVars['INPUT_EXTRA_PARAM'] as $idSeleccion => $nombreSeleccion) {
-                    $listaOpts[] = sprintf(
-                        '<option value="%s" %s>%s</option>',
-                        htmlentities($idSeleccion, ENT_COMPAT, 'UTF-8'),
-                        in_array((string)$idSeleccion, $keyVals) ? 'selected="selected"' : '',
-                        htmlentities($nombreSeleccion, ENT_COMPAT, 'UTF-8'));
+                    if(is_array($nombreSeleccion)) {
+                        $optgroup = $idSeleccion;
+                        foreach($nombreSeleccion as $idSeleccion => $nombreSeleccion) {
+                            $listaOpts[$optgroup][] = sprintf(
+                                '<option value="%s" %s>%s</option>',
+                                htmlentities($idSeleccion, ENT_COMPAT, 'UTF-8'),
+                                in_array((string)$idSeleccion, $keyVals) ? 'selected="selected"' : '',
+                                htmlentities($nombreSeleccion, ENT_COMPAT, 'UTF-8'));
+                        }
+                    } else {
+                        $listaOpts[] = sprintf(
+                            '<option value="%s" %s>%s</option>',
+                            htmlentities($idSeleccion, ENT_COMPAT, 'UTF-8'),
+                            in_array((string)$idSeleccion, $keyVals) ? 'selected="selected"' : '',
+                            htmlentities($nombreSeleccion, ENT_COMPAT, 'UTF-8'));
+                    }
                 }
             }
             $sNombreSelect = $varName_escaped;
@@ -314,6 +326,18 @@ class paloForm
                 $sAttrMultiple = 'multiple="multiple"';
                 $sNombreSelect .= '[]';
             }
+
+            if (count($listaOpts) <> count($listaOpts, COUNT_RECURSIVE)) {
+                $opciones="";
+                foreach($listaOpts as $group=>$opt) {
+                      $opciones.="<optgroup label='$group'>";
+                      $opciones.= implode("\n",$opt);
+                      $opciones.="</optgroup>";
+                }
+            } else {
+                $opciones = implode("\n",$listaOpts);
+            }
+
             $strInput = sprintf(
                 '<select name="%s" id="%s" %s %s %s>%s</select>',
                 $sNombreSelect,
@@ -325,7 +349,7 @@ class paloForm
                 (isset($arrVars['ONCHANGE']) && $arrVars['ONCHANGE'] != '')
                     ? "onchange='{$arrVars['ONCHANGE']}'"
                     : '',
-                implode("\n", $listaOpts));
+                $opciones);
         } else {
             $strInput = is_array($varValue)
                 ? '| '.implode(' | ',

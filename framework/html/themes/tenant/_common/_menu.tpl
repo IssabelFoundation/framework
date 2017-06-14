@@ -322,8 +322,8 @@ function removeNeoDisplayOnMouseOver(ref){
         {/if}
    {/foreach}
    <li id="tenant-help">
-    <!-- <a class="" href="#" onclick="popUp('help/?id_nodo={if !empty($idSubMenu2Selected)}{$idSubMenu2Selected}&name_nodo={$nameSubMenu2Selected}{else}{$idSubMenuSelected}&name_nodo={$nameSubMenuSelected}{/if}','1000','460')"> -->
-	<a href="http://help.issabel.org" target="_bank">
+    <a class="" href="#" onclick="popUp('help/?id_nodo={if !empty($idSubMenu2Selected)}{$idSubMenu2Selected}&name_nodo={$nameSubMenu2Selected}{else}{$idSubMenuSelected}&name_nodo={$nameSubMenuSelected}{/if}','1000','460')"> 
+	<!--a href="http://help.issabel.org" target="_bank"-->
         <i class="fa fa-support"></i>
     </a>
    </li>

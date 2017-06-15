@@ -592,7 +592,7 @@ function obtenerClaveAMIAdmin($ruta_base='')
         if(isset($listaParam["amiadminpwd"])) {
             $ret = $listaParam["amiadminpwd"]['valor'];
         } else {
-            $ret = "elastix456";
+            $ret = "issabel789";
         }
     }
     if(is_file('/etc/issabel.conf')) {
@@ -601,7 +601,7 @@ function obtenerClaveAMIAdmin($ruta_base='')
         if(isset($listaParam["amiadminpwd"])) {
             $ret = $listaParam["amiadminpwd"]['valor'];
         } else {
-            $ret = "elastix456";
+            $ret = "issabel789";
         }
     }
     return $ret;

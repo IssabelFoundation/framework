@@ -76,12 +76,12 @@ if ($dosearch) {
     $secret = "";
     $files_searched = array();
     if(!search_ami_admin_pwd($ami_file,$secret,$files_searched,$doReload)){
-    //No se encuentra el usuario admin por lo tanto se lo crea con la clave elastix456
-    $secret = "elastix456";
+    //No se encuentra el usuario admin por lo tanto se lo crea con la clave issabel789
+    $secret = "issabel789";
     $template = <<<TEMP
 
 [admin]
-secret = elastix456
+secret = issabel789
 deny=0.0.0.0/0.0.0.0
 permit=127.0.0.1/255.255.255.0
 read = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate
@@ -150,9 +150,9 @@ function search_ami_admin_pwd($ami_file,&$secret,&$files_searched,&$doReload)
 	}
 	elseif(preg_match("/^\s*\[\w+\]\s*(;.*)?$/",rtrim($line))){
 	    if($admin_found && !$secret_found){
-		echo "Secret not found for user admin... Adding the default key \"elastix456\" to admin\n";
-		writeSecret("elastix456",$admin_line,$path_file);
-		$secret = "elastix456";
+		echo "Secret not found for user admin... Adding the default key \"issabel789\" to admin\n";
+		writeSecret("issabel789",$admin_line,$path_file);
+		$secret = "issabel789";
 		$doRelaod = true;
 	    }
 	    $admin_found = false;
@@ -166,9 +166,9 @@ function search_ami_admin_pwd($ami_file,&$secret,&$files_searched,&$doReload)
 	}
     }
     if($admin_found && !$secret_found){
-	echo "Secret not found for user admin... Adding the default key \"elastix456\" to admin\n";
-	writeSecret("elastix456",$admin_line,$path_file);
-	$secret = "elastix456";
+	echo "Secret not found for user admin... Adding the default key \"issabel789\" to admin\n";
+	writeSecret("issabel789",$admin_line,$path_file);
+	$secret = "issabel789";
 	$doReload = true;
     }
     return $admin_at_least_once_found;

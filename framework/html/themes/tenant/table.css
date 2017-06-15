@@ -9,8 +9,8 @@ button {
     position: relative;
     float: left;
     color: #ffffff;
-    background-color:#57c8f1;
-    border: 1px solid #57c8f1;
+    background-color:#373e4a;
+    border: 1px solid #373e4a;
     margin: 3px 3px 3px 3px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -125,7 +125,7 @@ table.issabel-standard-table>tfoot>tr
     FONT-FAMILY: verdana, arial, helvetica, sans-serif;
     color: #eee;
     text-align: left;
-/*    background-color: #5d626d;*/
+/*    background-color: #666699;*/
     height: 32px;
 }
 
@@ -134,7 +134,7 @@ table.issabel-standard-table>tfoot>tr>td
 {
     text-indent: 8px;
     padding: 4px 4px 4px 4px;
-    background-color: #5d626d;
+    background-color: #666699;
 }
 table.issabel-standard-table>thead>tr>th,
 table.issabel-standard-table>tfoot>tr>th
@@ -148,7 +148,7 @@ table.issabel-standard-table>tfoot>tr>th
     text-indent: 8px;
     padding: 4px 4px 4px 4px;
     color: #eee;
-    background-color: #5d626d;
+    background-color: #666699;
 }
 table.issabel-standard-table>thead>tr>th:first-child
 {

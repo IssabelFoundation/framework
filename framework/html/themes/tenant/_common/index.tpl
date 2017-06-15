@@ -21,6 +21,7 @@
     <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}libs/js/sticky_note/sticky_note.css" />
     <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/table.css" />
     <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/rightbar.css" />
+    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/purple.css">
 
     {$HEADER_LIBS_JQUERY}
         <!--<script type='text/javascript' src="{$WEBCOMMON}js/base.js"></script>-->

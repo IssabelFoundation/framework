@@ -188,7 +188,7 @@ function removeNeoDisplayOnMouseOver(ref){
 
 <!-- inicio del head principal-->
 <div class="main-content">
-<div style="height:72px;background-color:#efefef;padding:15px;">
+<div style="height:83px;background-color:#373e4a;padding:15px;">
     <!-- Profile Info and Notifications -->
     <span style='float:right; text-align:right; padding:0px 5px 0px 0px; width:175px;' class="col-md-6 col-sm-8 clearfix">
         <ul style='float:right;' class="user-info pull-none-xsm">

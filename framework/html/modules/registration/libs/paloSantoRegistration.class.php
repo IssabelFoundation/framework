@@ -278,8 +278,6 @@ class paloSantoRegistration {
                 $info['sid']   = "";
         }
  
-        $info['label'] = _tr("Registered");
-        $info['color'] = "#008800";
         $key = substr(md5(microtime()),rand(0,26),20);
         $info['sid']   = trim($key);            
         

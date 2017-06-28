@@ -2196,6 +2196,7 @@ function readNoti(id)
             id_noti:     id
     }, function(response) {
         $('#notibell').removeClass('faa-shake').removeClass('animated');
+        $('#notiitem'+id).hide();
     });
 }
 

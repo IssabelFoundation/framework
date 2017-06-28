@@ -180,6 +180,20 @@ function handleJSON_get_sticky_note($smarty, $local_templates_dir, $module_name)
     return $jsonObject->createJSON();
 }
 
+function handleJSON_readNoti($smarty, $local_templates_dir, $module_name)
+{
+    global $arrConf;
+    $jsonObject = new PaloSantoJSON();
+    $id_noti = getParameter("id_noti");
+    if (!empty($id_noti)) {
+        $pdbACL = new paloDB($arrConf['issabel_dsn']['acl']);
+        $pNot = new paloNotification($pdbACL);
+        $pNot->deleteNotification('', $id_noti);
+    }
+    return '';
+}
+
+
 function handleJSON_saveNeoToggleTab($smarty, $local_templates_dir, $module_name)
 {
     $jsonObject = new PaloSantoJSON();

@@ -261,7 +261,7 @@ function removeNeoDisplayOnMouseOver(ref){
         <!-- notification dropdown end -->
         <li id="header_notification_bar" class="profile-info dropdown pull-right notifications" style="float: none !important;">
             <a data-toggle="dropdown" class="" href="#">
-                <i class="fa fa-bell-o"></i>
+                <i id='notibell' class="fa fa-bell-o {$ANIMATE_NOTIFICATION}"></i>
             </a>
             <ul class="dropdown-menu">
 
@@ -273,7 +273,7 @@ function removeNeoDisplayOnMouseOver(ref){
                     <ul>
                         {foreach from=$NOTIFICATIONS.NOTIFICATIONS_PUBLIC item=NOTI}
                             <li class="{if $NOTI.level == "info"}notification-info{elseif $NOTI.level == "warning"}notification-warning{elseif $NOTI.level == "error"}notification-danger{/if}">
-                                <a href="#"><i class="{if $NOTI.level == "info"}fa fa-info{elseif $NOTI.level == "warning"}fa fa-warning{elseif $NOTI.level == "error"}fa fa-ban{/if}"></i>{$NOTI.content}</a>
+                                <a href="#" onclick='readNoti("{$NOTI.id}")'><i class="{if $NOTI.level == "info"}fa fa-info{elseif $NOTI.level == "warning"}fa fa-warning{elseif $NOTI.level == "error"}fa fa-ban{/if}"></i>{$NOTI.content}</a>
                             </li>
                         {foreachelse}
                             <li><p>{$NOTIFICATIONS.TXT_NO_NOTIFICATIONS}</p></li>

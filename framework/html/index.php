@@ -42,6 +42,7 @@ include_once("libs/misc.lib.php");
 include_once "configs/default.conf.php";
 include_once "libs/paloSantoDB.class.php";
 include_once "libs/paloSantoMenu.class.php";
+include_once "libs/paloSantoNotification.class.php";
 include_once("libs/paloSantoACL.class.php");// Don activate unless you know what you are doing. Too risky!
 
 load_default_timezone();
@@ -143,6 +144,16 @@ if (isset($_SESSION['issabel_user']) &&
 	$smarty->assign("MSG_GET_NOTE", _tr("Loading Note"));
 	$smarty->assign("LBL_NO_STICKY", _tr("Click here to leave a note."));
     $smarty->assign("ABOUT_ISSABEL", _tr('About Issabel')." ".$arrConf['issabel_version']);
+
+    // notifications
+    $pNot = new paloNotification($pdbACL);
+    $notis = $pNot->listPublicNotifications();
+
+    if(count($notis)>0) {
+        $smarty->assign("ANIMATE_NOTIFICATION", "faa-shake animated");
+    } else {   
+        $smarty->assign("ANIMATE_NOTIFICATION", "");
+    }
 
     $selectedMenu = getParameter('menu');
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/neon-core.css">
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/neon-theme.css">
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/neon-forms.css">
+    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/font-awesome-animation.min.css">
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/custom.css">
 
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/styles.css" />

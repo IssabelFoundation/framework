@@ -2186,3 +2186,16 @@ function hide_loading_bar()
     $loading_bar.addClass('progress-is-hidden');
     $pct.width(0).data('pct');
 }
+
+function readNoti(id)
+{
+    $.get("index.php", {
+            menu:       '_issabelutils',
+            action:     'readNoti',
+            rawmode:    'yes',
+            id_noti:     id
+    }, function(response) {
+        $('#notibell').removeClass('faa-shake').removeClass('animated');
+    });
+}
+

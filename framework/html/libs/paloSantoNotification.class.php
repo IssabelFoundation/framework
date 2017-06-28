@@ -49,7 +49,7 @@ class paloNotification
     function listPublicNotifications($limit = NULL)
     {
         $sql = 'SELECT id, datetime_create, level, id_user, id_resource, content '.
-            'FROM acl_notification WHERE id_user IS NULL ORDER BY datetime_create DESC';
+            'FROM acl_notification WHERE (id_user IS NULL OR id_user="") ORDER BY datetime_create DESC';
         $param = array();
         if (!is_null($limit)) {
             $sql .= ' LIMIT ? OFFSET 0';
@@ -82,8 +82,15 @@ class paloNotification
 
     function getNotification($id_user, $id_notification)
     {
-        $sql = 'SELECT id, datetime_create, level, id_user, id_resource, content '.
-                'FROM acl_notification WHERE AND id = ?';
+
+        if($id_user=='') {
+            $sql = 'SELECT id, datetime_create, level, id_user, id_resource, content '.
+                   'FROM acl_notification WHERE (id_user = "" OR id_user IS NULL) AND id = ?';
+        } else {
+            $sql = 'SELECT id, datetime_create, level, id_user, id_resource, content '.
+                   'FROM acl_notification WHERE id_user = ? AND id = ?';
+        }
+
         $param = array($id_notification);
         $tupla = $this->_DB->getFirstRowQuery($sql, TRUE, $param);
         if (!is_array($tupla)) {
@@ -104,8 +111,13 @@ class paloNotification
     function deleteNotification($id_user, $id_notification)
     {
         if (!$this->getNotification($id_user, $id_notification)) return FALSE;
-        $sql = 'DELETE FROM acl_notification WHERE id_user = ? AND id_notification = ?';
-        $param = array($id_user, $id_notification);
+        if($id_user=='') {
+            $sql = 'DELETE FROM acl_notification WHERE (id_user IS NULL OR id_user="") AND id = ?';
+            $param = array($id_notification);
+        } else {
+            $sql = 'DELETE FROM acl_notification WHERE id_user = ? AND id = ?';
+            $param = array($id_user, $id_notification);
+        }
         if (!$this->_DB->genQuery($sql, $param)) {
             $this->errMsg = $this->_DB->errMsg;
             return FALSE;

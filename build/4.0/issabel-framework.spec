@@ -3,7 +3,7 @@ Summary: Issabel is a Web based software to administrate a PBX based in open sou
 Name: issabel-%{modname}
 Vendor: Issabel Foundation
 Version: 4.0.0
-Release: 1
+Release: 2
 License: GPL
 Group: Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz

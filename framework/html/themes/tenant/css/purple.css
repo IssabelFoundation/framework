@@ -547,4 +547,17 @@ body .horizontal-menu header.navbar .navbar-inner > ul > li#search .search-input
 body .horizontal-menu header.navbar > ul > li#search .search-input:-ms-input-placeholder {
   color: #e6e0f0;
 }
-
+.panel-neon {
+  border-color: #522b76;
+}
+.panel-neon > .panel-heading{
+  background-color: #522b76;
+  color: #f0f0f0;
+}
+.alert-neon {
+    background-color: #1F3247;
+    color: #fff;
+}
+.alert-neon  a {
+   color: #ee0;
+}

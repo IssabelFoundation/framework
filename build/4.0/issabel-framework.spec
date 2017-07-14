@@ -15,6 +15,7 @@ Requires(pre): php, php-gd, php-pear, php-xml, php-mysql, php-pdo, php-imap, php
 Requires(pre): httpd, mysql-server, ntp, mod_ssl
 Requires(pre): perl
 Requires(pre): issabel-firstboot >= 2.3.0-4
+Requires: issabelPBX
 Requires(pre): /sbin/pidof
 Obsoletes: elastix-additionals
 Conflicts: elastix-system <= 4.0.0-8

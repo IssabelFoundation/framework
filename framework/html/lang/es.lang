@@ -358,6 +358,7 @@ $arrLang=array(
 "Advanced Settings"  => "Configuraciones Avanzadas",
 "Email"  => "Correo Electrónico",
 "Reports"  => "Reportes",
+"HTTPS Certificate (Let's Encrypt)" => "Certificado HTTPS (Let's Encrypt)",
 "My Extension"  => "Mi extensión",
 "Security"  => "Seguridad",
 "Asterisk Logs"  => "Logs de Asterisk",

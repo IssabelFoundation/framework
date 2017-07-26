@@ -26,10 +26,10 @@
   $Id: ca.lang,v 1.5 2008/02/17 11:45:00 bmacias Exp $ */
 global $arrLangModule;
 $arrLangModule=array(
-"Language"=>"Idioma",
-"Select language"=>"Seleccionar idioma",
-"Change"=>"Canviar",
-"Continue"=>"Continuar",
-"You can't change language"=>"No pot canviar l'idioma",
+"Language"=>"语言",
+"Select language"=>"选择语言",
+"Change"=>"修改",
+"Continue"=>"继续",
+"You can't change language"=>"不能修改语言",
 );
 ?>

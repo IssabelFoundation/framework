@@ -28,77 +28,77 @@
 global $arrLang;
 $arrLang=array(
 /*System Info*/
-"Disk usage"=>"Utilització del disc",
-"Used space"=>"Espai utilitzat",
-"Free space"=>"Espai lliure",
-"No records found"=>"No s'ha trobat resultats",
-"Simultaneous calls, memory and CPU"=>"Trucades simultànees, memòria i CPU",
-"Sim. calls"=>"Trucades Sim.",
-"CPU usage (%)"=>"Utilització de la CPU (%)",
-"Mem. usage (MB)"=>"Utilització de la mem. (MB)",
+"Disk usage"=>"存储空间使用状态",
+"Used space"=>"已使用空间",
+"Free space"=>"剩余空间",
+"No records found"=>"没有发现记录",
+"Simultaneous calls, memory and CPU"=>"并发呼叫，内存，CPU",
+"Sim. calls"=>"并发呼叫。",
+"CPU usage (%)"=>"CPU使用情况(%)",
+"Mem. usage (MB)"=>"内存使用情况。(MB)",
 /*System Info*/
 
 /*Navegacion: offset*/
-"Export"=>"Exportar",
-"Start"=>"Inici",
-"End"=>"Fi",
-"Next"=>"Següent",
-"Previous"=>"Anterior",
+"Export"=>"导出",
+"Start"=>"起始",
+"End"=>"结束",
+"Next"=>"下一个",
+"Previous"=>"前一个",
 /*end Navegacion: offset*/
 
-"administrator" => "Administrator",
-"operator" => "Operator",
-"extension" => "Extension",
-"total access" => "Total Access",
-"extension user" => "Extension User",
-"Group Permission"=>"Permisos de Grup",
-"Logout"=>"Tancar sessió",
-"Change"=>"Canviar",
-"Language"=>"Idioma",
+"administrator" => "管理员",
+"operator" => "接线员",
+"extension" => "分机",
+"total access" => "总访问",
+"extension user" => "分机用户",
+"Group Permission"=>"组权限",
+"Logout"=>"退出",
+"Change"=>"修改",
+"Language"=>"语言设置",
 
 
-"Validation Error"=>"Error de validació",
-"The following fields contain errors"=>"Els següents camps contenen errors",
-"Save"=>"Guardar",
-"Required field"=>"Camp requerit",
-"Apply changes"=>"Guardar els canvis",
-"Cancel"=>"Cancel·lar",
+"Validation Error"=>"校验错误",
+"The following fields contain errors"=>"以下值域包含错误设置",
+"Save"=>"保存",
+"Required field"=>"必填项",
+"Apply changes"=>"点击修改",
+"Cancel"=>"取消",
 
 /*Login to Issabel*/
-"Welcome to Issabel"=>"Benvingut a Issabel",
-"Please enter your username and password"=>"Si us plau, entra l'usuari i la clau d'accés",
-"Username"=>"Nom d'usuari",
-"Password"=>"Clau d'accés",
-"Submit"=>"Enviar",
-"Login page"=>"Pàgina d'entrada",
+"Welcome to Issabel"=>"欢迎使用Issabel",
+"Please enter your username and password"=>"请输入用户名和密码",
+"Username"=>"用户名称",
+"Password"=>"密码",
+"Submit"=>"提交",
+"Login page"=>"登录界面",
 /*end Login to Issabel*/
 
 /*start User Management*/
-"Login"=>"Entrar",
-"Group"=>"Grup",
-"User List"=>"Llista d'usuaris",
-"The group is wrong"=>"El grup és incorrecte",
+"Login"=>"登录",
+"Group"=>"组",
+"User List"=>"用户列表",
+"The group is wrong"=>"组错误",
 "Are you sure you wish to continue?"=>"¿Està segur de continuar?",
-"Edit"=>"Editar",
-"Delete"=>"Eliminar",
-"Accept"=>"Acceptar",
+"Edit"=>"编辑",
+"Delete"=>"删除",
+"Accept"=>"接受",
 "Directory couldn't be opened"=>"No s'ha pogut obrir el directori",
 /*end User Management*/
 
 
 /*start menu*/
-"System"=>"Sistema",
-"System Info"=>"Informació del Sistema",
-"User Management"=>"Administrar Usuaris",
-"Menu Administrator"=>"Administrador del Menú",
+"System"=>"系统",
+"System Info"=>"系统信息",
+"User Management"=>"用户管理",
+"Menu Administrator"=>"管理员菜单",
 /*end menu*/
 
 
 /*version 0.7*/
 /*start paloSantoValidar.class.php*/
-"Options"=>"Opcions",
-"Empty field"=>"Camp vuit",
-"Bad Format"=>"Format incorrecte",
+"Options"=>"选项",
+"Empty field"=>"值域为空",
+"Bad Format"=>"格式错误",
 "No option was selected"=>"Cap Opció seleccionada",
 "Octets out of range"=>"Octets fora de rang",
 "Undefined validation type" => "Undefined validation type",
@@ -106,21 +106,21 @@ $arrLang=array(
 
 /*version 0.8*/
 /*start user*/
-"View User"=>"Veure usuari",
+"View User"=>"查看用户",
 /*start user*/
 
 /*system - date/time*/
-"Date/Time" => "Data/Hora",
+"Date/Time" => "日期/时间",
 /*end system - date/time*/
 
 //load module
-"Load Module" => "Carregar Mòdul;",
+"Load Module" => "加载模块;",
 "ID for new module (folder name)"  =>  "ID pel nou mòdul (nom de carpeta)",
-"Choose Menu"  =>  "Seleccioni Menu",
+"Choose Menu"  =>  "选择菜单",
 "ID for new menu"  =>  "ID pel nou Menu",
-"Menu Name"  =>  "Nom del Menu",
-"Defined Menu"  =>  "Menu definit",
-"New Menu"  =>  "Nou Menu",
+"Menu Name"  =>  "菜单名",
+"Defined Menu"  =>  "已定义的菜单",
+"New Menu"  =>  "新菜单",
 "Module sucessfully loaded"  =>  "Mòdul carregat correctament",
 "Folder name doesn't exist in module file"  =>  "El Nom de la carpeta no exiteix a l'arxiu del mòdul",
 "Folder configs doesn't exist in module file"  =>  "La configuració de la carpeta no exiteix a l'arxiu del mòdul",
@@ -129,8 +129,8 @@ $arrLang=array(
 "File install.php doesn't exist in module file"  =>  "L'arxiu install.php no exiteix a l'arxiu del mòdul",
 
 //Themes
-"Themes" => "Temes",
-"Change Theme" => "Canviar Tema",
+"Themes" => "模板",
+"Change Theme" => "修改模板",
 
 /*Module IM*/
 "IM" => "IM",
@@ -142,25 +142,25 @@ $arrLang=array(
 /*vTigerCRM*/
 "vTigerCRM" => "vTigerCRM",
 "The vTiger installation is almost done. To complete it please" => "Para finalizar la instalació de vTiger faci",
-"click here" => "click aquí",
+"click here" => "点击这里",
 
 /*Sugarcrm*/
 "SugarCRM" => "SugarCRM",
 "The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
 
 /* Preferences*/
-"Preferences" => "Preferències",
+"Preferences" => "偏好",
 
 /* Start About Issabel */
-"About Issabel"=>"Sobre Issabel",
-"About Issabel2"=>"About us",
-"HELP"=>"Help",
+"About Issabel"=>"关于Issabel",
+"About Issabel2"=>"关于我们",
+"HELP"=>"获得帮助",
 "About Issabel Content"=>"Issabel va ser creat sota la premisa de ser un sistema d'us per
 comunicacions basades en IP que sigui accesible des del Web, confiable y
 fàcil d'usar. Aquest software de còdi obert iniciat a l'Ecuador s'ha
 convertit en la solució preferida per implementacions de Veu sobre IP
 a tot el mon.",
-"About Issabel Closed"=>"Tancar",
+"About Issabel Closed"=>"关闭",
 /* End About Issabel */
 
 //Issabel 0.9.1

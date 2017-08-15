@@ -324,3 +324,13 @@ function getCurrentIssabelModule()
 {
 	return $('#issabel_framework_module_id').val();
 }
+
+//modificado por hgmnetwork.com para poder marcar y desmarcar todas las grabaciones , faxes y voicemail a la vez. o cualquier pagina que use checkbox
+
+function seleccionar_checkbox(activar){
+    for (x=0;x<document.forms[0].elements.length;x++){
+        if(document.forms[0].elements[x].type == "checkbox"){
+            document.forms[0].elements[x].checked=activar
+        }
+    }
+ }

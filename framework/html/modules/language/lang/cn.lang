@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
@@ -22,8 +22,10 @@
   $Id: cn.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
 global $arrLangModule;
 $arrLangModule=array(
-"Select language"=>"选择语言",
-"Continue"=>"继续",
-"You can't change language"=>"你不能改变语言",
+  "Language"=>"语言",
+  "Select language"=>"选择语言",
+  "Change"=>"修改",
+  "Continue"=>"继续",
+  "You can't change language"=>"不能修改语言",
 );
 ?>

@@ -2,10 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 1.0-16                                               |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  | Copyright (c) 2017 Issabel Foundation                                |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
   | (GPL) Version 2 (the "License"); you may not use this file except in |
@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-*/
+$Id: br.lang,v 1.0 2017/09/05 23:00:00 Ibinetwork Informatica rafael@ibinetwork.com.br $ */
 global $arrLangModule;
 $arrLangModule = array(
     'Undefined panel action' => 'Ação indefinida',

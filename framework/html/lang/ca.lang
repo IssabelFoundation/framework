@@ -1,0 +1,191 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Translate bye:  Jaume Ponsa - Sistemes i Xarxes Informatiques Calidae|
+  |        (Caldes de Montbui, Barcelona)                                |
+  |                                                                      |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Issabel Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: ca.lang,v 1.5 2008/02/17 11:45:00 bmacias Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage"=>"Utilització del disc",
+"Used space"=>"Espai utilitzat",
+"Free space"=>"Espai lliure",
+"No records found"=>"No s'ha trobat resultats",
+"Simultaneous calls, memory and CPU"=>"Trucades simultànees, memòria i CPU",
+"Sim. calls"=>"Trucades Sim.",
+"CPU usage (%)"=>"Utilització de la CPU (%)",
+"Mem. usage (MB)"=>"Utilització de la mem. (MB)",
+/*System Info*/
+
+/*Navegacion: offset*/
+"Export"=>"Exportar",
+"Start"=>"Inici",
+"End"=>"Fi",
+"Next"=>"Següent",
+"Previous"=>"Anterior",
+/*end Navegacion: offset*/
+
+"administrator" => "Administrator",
+"operator" => "Operator",
+"extension" => "Extension",
+"total access" => "Total Access",
+"extension user" => "Extension User",
+"Group Permission"=>"Permisos de Grup",
+"Logout"=>"Tancar sessió",
+"Change"=>"Canviar",
+"Language"=>"Idioma",
+
+
+"Validation Error"=>"Error de validació",
+"The following fields contain errors"=>"Els següents camps contenen errors",
+"Save"=>"Guardar",
+"Required field"=>"Camp requerit",
+"Apply changes"=>"Guardar els canvis",
+"Cancel"=>"Cancel·lar",
+
+/*Login to Issabel*/
+"Welcome to Issabel"=>"Benvingut a Issabel",
+"Please enter your username and password"=>"Si us plau, entra l'usuari i la clau d'accés",
+"Username"=>"Nom d'usuari",
+"Password"=>"Clau d'accés",
+"Submit"=>"Enviar",
+"Login page"=>"Pàgina d'entrada",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Login"=>"Entrar",
+"Group"=>"Grup",
+"User List"=>"Llista d'usuaris",
+"The group is wrong"=>"El grup és incorrecte",
+"Are you sure you wish to continue?"=>"¿Està segur de continuar?",
+"Edit"=>"Editar",
+"Delete"=>"Eliminar",
+"Accept"=>"Acceptar",
+"Directory couldn't be opened"=>"No s'ha pogut obrir el directori",
+/*end User Management*/
+
+
+/*start menu*/
+"System"=>"Sistema",
+"System Info"=>"Informació del Sistema",
+"User Management"=>"Administrar Usuaris",
+"Menu Administrator"=>"Administrador del Menú",
+/*end menu*/
+
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options"=>"Opcions",
+"Empty field"=>"Camp vuit",
+"Bad Format"=>"Format incorrecte",
+"No option was selected"=>"Cap Opció seleccionada",
+"Octets out of range"=>"Octets fora de rang",
+"Undefined validation type" => "Undefined validation type",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User"=>"Veure usuari",
+/*start user*/
+
+/*system - date/time*/
+"Date/Time" => "Data/Hora",
+/*end system - date/time*/
+
+//load module
+"Load Module" => "Carregar Mòdul;",
+"ID for new module (folder name)"  =>  "ID pel nou mòdul (nom de carpeta)",
+"Choose Menu"  =>  "Seleccioni Menu",
+"ID for new menu"  =>  "ID pel nou Menu",
+"Menu Name"  =>  "Nom del Menu",
+"Defined Menu"  =>  "Menu definit",
+"New Menu"  =>  "Nou Menu",
+"Module sucessfully loaded"  =>  "Mòdul carregat correctament",
+"Folder name doesn't exist in module file"  =>  "El Nom de la carpeta no exiteix a l'arxiu del mòdul",
+"Folder configs doesn't exist in module file"  =>  "La configuració de la carpeta no exiteix a l'arxiu del mòdul",
+"Folder themes doesn't exist in module file"  => "Els temes de la carpeta no exiteix a l'arxiu del mòdul",
+"File index.php doesn't exist in module file"  =>  "L'arxiu index.php no exiteix a l'arxiu del mòdul",
+"File install.php doesn't exist in module file"  =>  "L'arxiu install.php no exiteix a l'arxiu del mòdul",
+
+//Themes
+"Themes" => "Temes",
+"Change Theme" => "Canviar Tema",
+
+/*Module IM*/
+"IM" => "IM",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "El servei Openfire no està actiu.",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "The Webmin service is not active at this moment. If you want to activate it please ",
+
+/*vTigerCRM*/
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "Para finalizar la instalació de vTiger faci",
+"click here" => "click aquí",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
+
+/* Preferences*/
+"Preferences" => "Preferències",
+
+/* Start About Issabel */
+"About Issabel"=>"Sobre Issabel",
+"About Issabel2"=>"About us",
+"HELP"=>"Help",
+"About Issabel Content"=>"Issabel va ser creat sota la premisa de ser un sistema d'us per
+comunicacions basades en IP que sigui accesible des del Web, confiable y
+fàcil d'usar. Aquest software de còdi obert iniciat a l'Ecuador s'ha
+convertit en la solució preferida per implementacions de Veu sobre IP
+a tot el mon.",
+"About Issabel Closed"=>"Tancar",
+/* End About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Groups"=>"Grups",
+/*End module Group List*/
+
+"Title" => "Title",
+"Search" => "Search",
+"Show"   => "Show",
+'md_message_title' => 'Dismiss',
+"ERROR" => "Error",
+"VersionDetails" => "Version",
+"VersionPackage" => "Details of package versions",
+"textMode" => "Text Mode",
+"htmlMode" => "Html Mode",
+"Register" => "Register",
+"Registered" => "Registered",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access to this page" => "You are not authorized to access to this page",
+"You need administrator privileges" => "You need administrator privileges",
+"Issabel Authentication" => "Issabel Authentication",
+"Unauthorized" => "Unauthorized",
+"You are not authorized to access this page." => "You are not authorized to access this page.",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Advice" => "Advice"
+);
+?>

@@ -20,7 +20,6 @@ echo ""
 echo "Welcome to Issabel "
 echo "----------------------------------------------------"
 echo ""
-#echo "For access to the Issabel web GUI use this URL"
 echo "Issabel is a product meant to be configured through a web browser."
 echo "Any changes made from within the command line may corrupt the system"
 echo "configuration and produce unexpected behavior; in addition, changes"
@@ -28,6 +27,7 @@ echo "made to system files through here may be lost when doing an update."
 echo ""
 echo "To access your Issabel System, using a separate workstation (PC/MAC/Linux)"
 echo "Open the Internet Browser using the following URL:"
+echo ""
 
 cont=0
 for x in $INTFCNET
@@ -46,7 +46,7 @@ do
 		# ww* for wireless wan interfaces
 		# sl* for lineal serial interfaces
 		eth*|en*|ww*|wl*|sl*)
-			IPADDR[$cont]=`LANG=C /sbin/ip addr show dev $x | perl -ne 'print $1 if /inet (\d+\.\d+.\d+.\d+)/;'`
+			IPADDR[$cont]=`LANG=C /sbin/ip addr show dev $x | perl -ne 'print "$1\n" if /inet (\d+\.\d+.\d+.\d+)/;'`
 		;;
 	esac
 	let "cont++"

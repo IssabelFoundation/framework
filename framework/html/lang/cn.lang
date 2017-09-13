@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
@@ -17,7 +17,6 @@
   | the License for the specific language governing rights and           |
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
-  | The Original Code is: Issabel Open Source.                           |
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
   $Id: cn.lang,v 1.6 2007/09/05 00:36:42 gcarrillo Exp $ */
@@ -96,10 +95,10 @@ $arrLang=array(
 "Date/Time"  =>  "Date/Time",
 
 //load module
-"Load Module"  =>  "Load Module",
-"File name"  =>  "File name",
+"Load Module"  =>  "加载模块",
+"File name"  =>  "文件名称",
 "ID for new module (folder name)"  =>  "ID for new module (folder name)",
-"Choose Menu"  =>  "Choose Menu",
+"Choose Menu"  =>  "选择菜单",
 "ID for new menu"  =>  "ID for new menu",
 "Menu Name"  =>  "Menu Name",
 "Defined Menu"  =>  "Defined Menu",
@@ -115,8 +114,8 @@ $arrLang=array(
 // Issabel 0.9 
 
 //Inicio SubModule Themes
-"Themes" => "Themes",
-"Change Theme" => "Change Theme",
+"Themes" => "主题",
+"Change Theme" => "修改主题",
 //Fin SubModule Themes
 
 /*Module IM*/
@@ -136,31 +135,31 @@ $arrLang=array(
 "The SugarCRM installation is almost done. To complete it please" => "The SugarCRM installation is almost done. To complete it please",
 
 /* Preferences*/
-"Preferences" => "Preferences",
+"Preferences" => "偏好",
 
 /* Start About Issabel */
-"About Issabel"=>"About Issabel",
-"About Issabel2"=>"About us",
+"About Issabel"=>"关于 Issabel",
+"About Issabel2"=>"关于 us",
 "HELP"=>"Help",
 "About Issabel Content"=>"Issabel was created under the premise of becoming a reliable, easy-to-use,
 web-based system for the management of communications over IP. This open
 source software started in Ecuador has become the solution of choice for
 implementations of Voice over IP around the globe.",
-"About Issabel Closed"=>"Close",
+"About Issabel Closed"=>"关闭",
 /* End About Issabel */
 
 //Issabel 0.9.1
 /*Start module Group List*/
-"Groups"=>"Groups",
-"Group List"=>"Group List",
+"Groups"=>"组",
+"Group List"=>"组列表",
 /*End module Group List*/
 
 /** Issabel 1.0 **/
 
 /*Grouplist*/
-"administrator" => "Administrator",
-"operator" => "Operator",
-"extension" => "Extension",
+"administrator" => "管理员",
+"operator" => "接线员",
+"extension" => "分机",
 "total access" => "Total Access",
 "extension user" => "Extension User",
 /*Grouplist*/
@@ -169,10 +168,10 @@ implementations of Voice over IP around the globe.",
 "Show"   => "Show",
 'md_message_title' => 'Dismiss',
 "ERROR" => "Error",
-"VersionDetails" => "Version",
+"VersionDetails" => "版本",
 "VersionPackage" => "Details of package versions",
-"textMode" => "Text Mode",
-"htmlMode" => "Html Mode",
+"textMode" => "Text 模式",
+"htmlMode" => "Html 模式",
 "Register" => "Register",
 "Registered" => "Registered",
 "Unauthorized" => "Unauthorized",

@@ -34,7 +34,9 @@ if(is_file("/etc/elastix.key")) {
     }
 }
 
-chmod('/etc/issabel.key', 0600);
-chown('/etc/issabel.key', 'asterisk');
-chgrp('/etc/issabel.key', 'asterisk');
+if(!is_file("/etc/issabel.key")) {
+    chmod('/etc/issabel.key', 0600);
+    chown('/etc/issabel.key', 'asterisk');
+    chgrp('/etc/issabel.key', 'asterisk');
+}
 ?>

@@ -20,7 +20,7 @@ mirrorlist=http://mirror.issabel.org/?release=2.5&arch=$basearch&repo=beta
 #baseurl=http://repo.issabel.org/issabel/2.5/beta/$basearch/
 #gpgcheck=1
 enabled=0
-#gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
 
 [issabel-extras]
 name=Extras RPM Repository for Issabel

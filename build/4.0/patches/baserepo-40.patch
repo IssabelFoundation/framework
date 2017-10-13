@@ -30,7 +30,7 @@ diff -ur elastix-framework/additionals/etc/yum.repos.d/Issabel.repo elastix-fram
 +#baseurl=http://repo.issabel.org/issabel/4/beta/$basearch/
  #gpgcheck=1
  enabled=0
- #gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+ gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
  
  [issabel-extras]
  name=Extras RPM Repository for Issabel

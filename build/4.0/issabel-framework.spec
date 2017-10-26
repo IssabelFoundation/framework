@@ -343,8 +343,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, asterisk, asterisk)
 /var/www/db
 /var/www/backup
-/var/log/issabel
-/var/log/issabel/*
+/var/log/issabel/audit.log
+/var/log/issabel/postfix_stats.log
 # %config(noreplace) /var/www/db/
 %defattr(-, root, root)
 /var/www/html/configs

@@ -236,6 +236,11 @@ class paloACL {
                 $arrParam = array($username,$description,$md5_password,$extension);
                 if ($this->_DB->genQuery($sPeticionSQL,$arrParam)) {
                     $bExito = TRUE;
+                    if(is_file("/usr/share/issabel/privileged/prosodygroup")) {
+                        $sComando = '/usr/bin/issabel-helper prosodygroup';
+                        $output = $ret = NULL;
+                        exec($sComando, $output, $ret);
+                    }
                 } else {
                     $this->errMsg = $this->_DB->errMsg;
                 }
@@ -366,6 +371,13 @@ class paloACL {
                     break;
                 }
             }
+
+            if(is_file("/usr/share/issabel/privileged/prosodygroup")) {
+                $sComando = '/usr/bin/issabel-helper prosodygroup';
+                $output = $ret = NULL;
+                exec($sComando, $output, $ret);
+            }
+
         }
         return $bExito;
     }

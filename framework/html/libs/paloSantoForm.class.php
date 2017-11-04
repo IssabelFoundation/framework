@@ -19,7 +19,9 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoForm.class.php,v 1.4 2007/05/09 01:07:03 gcarrillo Exp $ */
+  $Id: paloSantoForm.class.php,v 1.4 2007/05/09 01:07:03 gcarrillo Exp $
+  $Id: paloSantoForm.class.php,v 1.5 2007/11/04 17:01:03 fpereira  Exp $
+  */
 
 /* A continuacion se ilustra como luce un tipico elemento del arreglo $this->arrFormElements
 "subject"  => array(
@@ -76,6 +78,19 @@
                 "VALIDATION_TYPE"        => "",
                 "EDITABLE"               => "yes",
                 "VALIDATION_EXTRA_PARAM" => "")
+
+"rate"      => array(      
+                "LABEL"                  => _tr("Rate"),
+                "REQUIRED"               => "yes",
+                "INPUT_TYPE"             => "RANGE",
+                "INPUT_EXTRA_PARAM"      => array("class" => "form-control", "onchange" => "showRate()"),
+                "EDITABLE"               => "si",
+                "MIN"                    => "100",
+                "MAX"                    => "250",
+                "STEP"                   => "10",
+                "VALIDATION_TYPE"        => "numeric",
+                "VALIDATION_EXTRA_PARAM" => ""),
+                
 */
 
 require_once("misc.lib.php");
@@ -290,6 +305,32 @@ class paloForm
         }
         return "<div class='radio_buttonset_elx'>".implode("\n", $listaRadio)."</div>";
     }
+
+    /*
+      START
+      Support for input type range
+      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+      Mod: Federico Pereira <fpereira@iperfex.com>
+    */
+    protected function _form_widget_RANGE($bIngresoActivo, $varName, $varValue,
+        $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
+    {
+        return $bIngresoActivo
+            ? sprintf(
+                '<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',
+                $varName_escaped,
+                $varName_escaped,
+                isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1,
+                isset($arrVars['MAX']) ? (int)$arrVars['MAX'] : 10,
+                isset($arrVars['STEP']) ? (int)$arrVars['STEP'] : 1,
+                $varValue_escaped,
+                $attrstring,
+                $varValue_escaped)
+            : $varValue_escaped;
+    }
+    /*
+      END
+    */
 
     protected function _form_widget_SELECT($bIngresoActivo, $varName, $varValue,
             $arrVars, $varName_escaped, $varValue_escaped, $attrstring)

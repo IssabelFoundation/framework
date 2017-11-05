@@ -316,7 +316,6 @@ class paloForm
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
         if($bIngresoActivo){
-        echo "activo ->".$bIngresoActivo."<-";
                 return $bIngresoActivo
                 ? sprintf(
                         '<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',

@@ -315,18 +315,28 @@ class paloForm
     protected function _form_widget_RANGE($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
-        return $bIngresoActivo
-            ? sprintf(
-                '<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',
-                $varName_escaped,
-                $varName_escaped,
-                isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1,
-                isset($arrVars['MAX']) ? (int)$arrVars['MAX'] : 10,
-                isset($arrVars['STEP']) ? (int)$arrVars['STEP'] : 1,
-                $varValue_escaped,
-                $attrstring,
-                $varValue_escaped)
-            : $varValue_escaped;
+        if($bIngresoActivo){
+        echo "activo ->".$bIngresoActivo."<-";
+                return $bIngresoActivo
+                ? sprintf(
+                        '<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',
+                        $varName_escaped,
+                        $varName_escaped,
+                        isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1,
+                        isset($arrVars['MAX']) ? (int)$arrVars['MAX'] : 10,
+                        isset($arrVars['STEP']) ? (int)$arrVars['STEP'] : 1,
+                        $varValue_escaped,
+                        $attrstring,
+                        $varValue_escaped)
+                : $varValue_escaped;
+        }else{
+                $id_name = $varName_escaped;
+                $min = isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1;
+                $max = isset($arrVars['MAX']) ? (int)$arrVars['MAX'] : 10;
+                $step = isset($arrVars['STEP']) ? (int)$arrVars['STEP'] : 1;
+                $value = $varValue_escaped;
+                return '<input type="range" id="'.$id_name.'" name="'.$id_name.'" min="'.$min.'" max="'.$max.'" step="'.$step.'"  value="'.$varValue_escaped.'" '.$attrstring.' disabled />';
+        }
     }
     /*
       END

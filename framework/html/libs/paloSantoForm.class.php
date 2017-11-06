@@ -89,7 +89,7 @@
                 "MAX"                    => "250",
                 "STEP"                   => "10",
                 "VALIDATION_TYPE"        => "numeric",
-                "VALIDATION_EXTRA_PARAM" => "",)
+                "VALIDATION_EXTRA_PARAM" => "",
                 "DEBUG"                  => TRUE)
 
 "voice"   => array(      

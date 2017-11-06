@@ -89,7 +89,20 @@
                 "MAX"                    => "250",
                 "STEP"                   => "10",
                 "VALIDATION_TYPE"        => "numeric",
-                "VALIDATION_EXTRA_PARAM" => ""),
+                "VALIDATION_EXTRA_PARAM" => "",)
+                "DEBUG"                  => TRUE)
+
+"voice"   => array(      
+                "LABEL"                  => _tr("Voice"),
+                "REQUIRED"               => "yes",
+                "INPUT_TYPE"             => "CUSTOM_INPUT",
+                "HTML_TAGS"              => "select",  //example1: select //example2: input type='text'
+                "SUPPORT_VALUE"          => "no",   // yes/no  example support value <input type="submit" value="Submit"> // example <select id="test" name="test"></select> no support value.
+                "INPUT_EXTRA_PARAM"      => array("class" => "js-example-data-array form-control"),
+                "VALIDATION_TYPE"        => "text",
+                "VALIDATION_EXTRA_PARAM" => "",
+                "EDITABLE"               => "si",
+                "DEBUG"                  => FALSE)
                 
 */
 
@@ -315,6 +328,10 @@ class paloForm
     protected function _form_widget_RANGE($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
+        if($arrVars['DEBUG']){
+                print_r($arrVars);
+        }
+      
         if($bIngresoActivo){
                 return $bIngresoActivo
                 ? sprintf(
@@ -341,6 +358,53 @@ class paloForm
       END
     */
 
+     /*
+      START
+      CUSTOM_INPUT
+      https://www.w3schools.com/tags/
+      Create: Federico Pereira <fpereira@iperfex.com>
+    */
+    protected function _form_widget_CUSTOM_INPUT($bIngresoActivo, $varName, $varValue,
+        $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
+    {
+
+        if($arrVars['DEBUG']){
+                print_r($arrVars);
+        }
+
+        if($bIngresoActivo){
+                return $bIngresoActivo
+                //1 - tipe tag  - HTML_TAGS
+                //2 - id -
+                //3 - name
+                //4 - value (if it is supported. For more information visit: https://www.w3schools.com/tags )
+                //5 - attributes (which attribute type class, style, etc ...)
+                //6 - $varValue_escaped  (  select + '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' )
+                //7 - end tag.
+                ? sprintf(
+                        '<%s id="%s" name="%s" %s %s> %s %s',
+                        $arrVars['HTML_TAGS'],
+                        $varName_escaped,
+                        $varName_escaped,
+                        ($arrVars['SUPPORT_VALUE'] == 'yes') ? 'value="'.$varValue_escaped.'"' : '',
+                        $attrstring,
+                        ($arrVars['HTML_TAGS'] == 'select') ? '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' : '',
+                        ($arrVars['HTML_TAGS'] == 'select') ? '</'.$arrVars['HTML_TAGS'].'>' : ''
+                        )
+                : $varValue_escaped;
+        }else{
+                $tag = $arrVars['HTML_TAGS'];
+                $id_name = $varName_escaped;
+                $value = ($arrVars['SUPPORT_VALUE'] == 'yes') ? 'value="'.$varValue_escaped.'"' : '';
+                $value2 = ($arrVars['HTML_TAGS'] == 'select') ? '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' : '';
+                $tagend = ($arrVars['HTML_TAGS'] == 'select') ? '</'.$arrVars['HTML_TAGS'].'>' : '';
+                return '<'.$tag.' id="'.$id_name.'" name="'.$id_name.'" '.$value.' '.$attrstring.' disabled> '.$value2.' '.$tagend;
+        }
+    }
+    /*
+      END
+    */
+  
     protected function _form_widget_SELECT($bIngresoActivo, $varName, $varValue,
             $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {

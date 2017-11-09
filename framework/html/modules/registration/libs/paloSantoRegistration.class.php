@@ -452,9 +452,11 @@ class paloSantoRegistration {
     }
    
     private function renameKeyFile() {
-        $sComando = '/usr/bin/issabel-helper renamekey';
-        $output = $ret = NULL;
-        exec($sComando, $output, $ret);
+        if(is_file("/etc/elastix.key")) {
+            $sComando = '/usr/bin/issabel-helper renamekey';
+            $output = $ret = NULL;
+            exec($sComando, $output, $ret);
+        }
     }
  
     private function getDataServerRegistration() {

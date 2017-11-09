@@ -339,11 +339,9 @@ class paloForm
         if($arrVars['DEBUG']){
                 print_r($arrVars);
         }
-      
-        if($bIngresoActivo){
-                return $bIngresoActivo
-                ? sprintf(
-                        '<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',
+
+        return $bIngresoActivo
+            ? sprintf('<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',
                         $varName_escaped,
                         $varName_escaped,
                         isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1,
@@ -352,21 +350,21 @@ class paloForm
                         $varValue_escaped,
                         $attrstring,
                         $varValue_escaped)
-                : $varValue_escaped;
-        }else{
-                $id_name = $varName_escaped;
-                $min = isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1;
-                $max = isset($arrVars['MAX']) ? (int)$arrVars['MAX'] : 10;
-                $step = isset($arrVars['STEP']) ? (int)$arrVars['STEP'] : 1;
-                $value = $varValue_escaped;
-                return '<input type="range" id="'.$id_name.'" name="'.$id_name.'" min="'.$min.'" max="'.$max.'" step="'.$step.'"  value="'.$varValue_escaped.'" '.$attrstring.' disabled />';
-        }
+            : sprintf('<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s disabled />',
+                        $varName_escaped,
+                        $varName_escaped,
+                        isset($arrVars['MIN']) ? (int)$arrVars['MIN'] : 1,
+                        isset($arrVars['MAX']) ? (int)$arrVars['MAX'] : 10,
+                        isset($arrVars['STEP']) ? (int)$arrVars['STEP'] : 1,
+                        $varValue_escaped,
+                        $attrstring,
+                        $varValue_escaped);
     }
     /*
       END
     */
 
-     /*
+    /*
       START
       CUSTOM_INPUT
       https://www.w3schools.com/tags/
@@ -380,39 +378,35 @@ class paloForm
                 print_r($arrVars);
         }
 
-        if($bIngresoActivo){
-                return $bIngresoActivo
-                //1 - tipe tag  - HTML_TAGS
-                //2 - id -
-                //3 - name
-                //4 - value (if it is supported. For more information visit: https://www.w3schools.com/tags )
-                //5 - attributes (which attribute type class, style, etc ...)
-                //6 - $varValue_escaped  (  select + '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' )
-                //7 - end tag.
-                ? sprintf(
-                        '<%s id="%s" name="%s" %s %s> %s %s',
+        return $bIngresoActivo
+        //1 - tipe tag  - HTML_TAGS
+        //2 - id -
+        //3 - name
+        //4 - value (if it is supported. For more information visit: https://www.w3schools.com/tags )
+        //5 - attributes (which attribute type class, style, etc ...)
+        //6 - $varValue_escaped  (  select + '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' )
+        //7 - end tag.
+            ? sprintf('<%s id="%s" name="%s" %s %s> %s %s',
                         $arrVars['HTML_TAGS'],
                         $varName_escaped,
                         $varName_escaped,
                         ($arrVars['SUPPORT_VALUE'] == 'yes') ? 'value="'.$varValue_escaped.'"' : '',
                         $attrstring,
                         ($arrVars['HTML_TAGS'] == 'select') ? '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' : '',
-                        ($arrVars['HTML_TAGS'] == 'select') ? '</'.$arrVars['HTML_TAGS'].'>' : ''
-                        )
-                : $varValue_escaped;
-        }else{
-                $tag = $arrVars['HTML_TAGS'];
-                $id_name = $varName_escaped;
-                $value = ($arrVars['SUPPORT_VALUE'] == 'yes') ? 'value="'.$varValue_escaped.'"' : '';
-                $value2 = ($arrVars['HTML_TAGS'] == 'select') ? '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' : '';
-                $tagend = ($arrVars['HTML_TAGS'] == 'select') ? '</'.$arrVars['HTML_TAGS'].'>' : '';
-                return '<'.$tag.' id="'.$id_name.'" name="'.$id_name.'" '.$value.' '.$attrstring.' disabled> '.$value2.' '.$tagend;
-        }
+                        ($arrVars['HTML_TAGS'] == 'select') ? '</'.$arrVars['HTML_TAGS'].'>' : '')
+            : sprintf('<%s id="%s" name="%s" %s %s disabled > %s %s',
+                        $arrVars['HTML_TAGS'],
+                        $varName_escaped,
+                        $varName_escaped,
+                        ($arrVars['SUPPORT_VALUE'] == 'yes') ? 'value="'.$varValue_escaped.'"' : '',
+                        $attrstring,
+                        ($arrVars['HTML_TAGS'] == 'select') ? '<option value="'.$varValue_escaped.'">'.$varValue_escaped.'</option>' : '',
+                        ($arrVars['HTML_TAGS'] == 'select') ? '</'.$arrVars['HTML_TAGS'].'>' : '');
     }
     /*
       END
     */
-  
+
     protected function _form_widget_SELECT($bIngresoActivo, $varName, $varValue,
             $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {

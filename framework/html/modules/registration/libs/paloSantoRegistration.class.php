@@ -399,7 +399,7 @@ class paloSantoRegistration {
         if (function_exists("xdebug_disable"))
             xdebug_disable();
 
-        return @new SoapClient($this->_webserviceURL);
+        return @new SoapClient($this->_webserviceURL, array( "connection_timeout" => 5 ));
     }
 
     public function processGetDataRegister() {

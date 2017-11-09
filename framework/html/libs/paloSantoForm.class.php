@@ -243,25 +243,33 @@ class paloForm
     protected function _form_widget_TEXTAREA($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
-        return $bIngresoActivo
-            ? sprintf(
-                '<textarea name="%s" rows="%s" cols="%s" %s>%s</textarea>',
-                $varName_escaped,
-                isset($arrVars['ROWS']) ? (int)$arrVars['ROWS'] : 3,
-                isset($arrVars['COLS']) ? (int)$arrVars['COLS'] : 20,
-                $attrstring,
-                $varValue_escaped)
-            : $varValue_escaped;
+                return $bIngresoActivo
+                ? sprintf('<textarea id="%s" name="%s" rows="%s" cols="%s" %s>%s</textarea>',
+                        $varName_escaped,
+                        $varName_escaped,
+                        isset($arrVars['ROWS']) ? (int)$arrVars['ROWS'] : 3,
+                        isset($arrVars['COLS']) ? (int)$arrVars['COLS'] : 20,
+                        $attrstring,
+                        $varValue_escaped)
+                : sprintf('<textarea id="%s" name="%s" rows="%s" cols="%s" %s disabled >%s</textarea>',
+                        $varName_escaped,
+                        $varName_escaped,
+                        isset($arrVars['ROWS']) ? (int)$arrVars['ROWS'] : 3,
+                        isset($arrVars['COLS']) ? (int)$arrVars['COLS'] : 20,
+                        $attrstring,
+                        $varValue_escaped);
     }
 
     protected function _form_widget_TEXT($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
-        return $bIngresoActivo
-            ? sprintf('<input type="text" name="%s" value="%s" %s />',
-                $varName_escaped, $varValue_escaped, $attrstring)
-            : $varValue_escaped;
+                return $bIngresoActivo
+                 ? sprintf('<input type="text" id="%s" name="%s" value="%s" %s />',
+                        $varName_escaped, $varName_escaped, $varValue_escaped, $attrstring)
+                : sprintf('<input type="text" id="%s" name="%s" value="%s" %s disabled />',
+                        $varName_escaped, $varName_escaped, $varValue_escaped, $attrstring);
     }
+
 
     protected function _form_widget_CHECKBOX($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)

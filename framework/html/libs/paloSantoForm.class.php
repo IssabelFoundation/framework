@@ -336,9 +336,6 @@ class paloForm
     protected function _form_widget_RANGE($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
-        if($arrVars['DEBUG']){
-                print_r($arrVars);
-        }
 
         return $bIngresoActivo
             ? sprintf('<input type="range" id="%s" name="%s" min="%s" max="%s" step="%s" value="%s" %s %s />',
@@ -373,10 +370,6 @@ class paloForm
     protected function _form_widget_CUSTOM_INPUT($bIngresoActivo, $varName, $varValue,
         $arrVars, $varName_escaped, $varValue_escaped, $attrstring)
     {
-
-        if($arrVars['DEBUG']){
-                print_r($arrVars);
-        }
 
         return $bIngresoActivo
         //1 - tipe tag  - HTML_TAGS

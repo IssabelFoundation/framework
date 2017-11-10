@@ -1499,13 +1499,15 @@ function fit_main_content_height()
         
         if(isxs())
         {    
-            if(typeof reset_mail_container_height != 'undefined')
+            if(typeof reset_mail_container_height != 'undefined') {
                 reset_mail_container_height();
-            return;
+                return;
+            }
             
-            if(typeof fit_calendar_container_height != 'undefined')
+            if(typeof fit_calendar_container_height != 'undefined') {
                 reset_calendar_container_height();
-            return;
+                return;
+            }
         }
         
         var sm_height  = public_vars.$sidebarMenu.outerHeight(),

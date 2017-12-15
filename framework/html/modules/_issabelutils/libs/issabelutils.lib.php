@@ -36,7 +36,7 @@ function obtenerDetallesRPMS()
         'Mail'          =>  array('postfix', 'cyrus-imapd'),
         'IM'            =>  array('openfire'),
         'IssablPBX'     =>  array('issabelPBX'),
-        'Asterisk'      =>  array('asterisk', 'asterisk-perl', 'asterisk-addons'),
+        'Asterisk'      =>  array('asterisk*'),
         'FAX'           =>  array('hylafax', 'iaxmodem'),
         'DRIVERS'       =>  array('dahdi', 'rhino', 'wanpipe-util'),
 
@@ -45,7 +45,7 @@ function obtenerDetallesRPMS()
     foreach ($packageClass as $packageLists) {
     	if (is_array($packageLists)) $sCommand .= ' '.implode(' ', array_map('escapeshellarg', $packageLists));
     }
-    $sCommand .= ' | sort';
+    $sCommand .= ' | sort -V';
     $output = $retval = NULL;
     exec($sCommand, $output, $retval);
     $packageVersions = array();
@@ -66,6 +66,11 @@ function obtenerDetallesRPMS()
                 $result[$sTag][] = $packageVersions['issabel'];
             foreach ($packageVersions as $packageName => $fields) {
             	if (substr($packageName, 0, 8) == 'issabel-')
+                    $result[$sTag][] = $fields;
+            }
+        } elseif ($sTag == 'Asterisk') {
+            foreach ($packageVersions as $packageName => $fields) {
+                if (substr($packageName, 0, 8) == 'asterisk')
                     $result[$sTag][] = $fields;
             }
     	} else {

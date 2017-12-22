@@ -3,7 +3,7 @@ Summary: Issabel is a Web based software to administrate a PBX based in open sou
 Name: issabel-%{modname}
 Vendor: Issabel Foundation
 Version: 4.0.0
-Release: 4
+Release: 5
 License: GPL
 Group: Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
@@ -192,6 +192,12 @@ if [ $? = 1 ]; then
     /usr/sbin/groupadd -r -f asterisk
 else
     echo "   0:group asterisk already present"
+fi
+
+# At this point the asterisk group must already exist
+if ! grep -q asterisk: /etc/passwd ; then
+    echo -e "Adding new user asterisk..."
+    /usr/sbin/useradd -r -g asterisk -c "Asterisk PBX" -s /sbin/nologin -d %{_localstatedir}/lib/asterisk asterisk
 fi
 
 # No modificamos nada, el usuario lo crean los paquetes asterisk

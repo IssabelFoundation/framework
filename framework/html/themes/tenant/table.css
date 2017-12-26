@@ -202,9 +202,9 @@ table.issabel-standard-table>tbody>tr>td {
 
 .neo-table-action{
     border:0px;
-    background-color:transparent;
+    background-color:#ddd;
     cursor:pointer;
-    padding: 0px;
+    padding: 0 10px 0 10px;
     vertical-align: middle;
     font: 13px Verdana, Arial,Helvetica,sans-serif;
     color:#444;

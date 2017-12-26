@@ -4,7 +4,7 @@
     <div class="neo-table-header-row">
         {foreach from=$arrActions key=k item=accion name=actions}
             {if $accion.type eq 'link'}
-                <a href="{$accion.task}" class="neo-table-action" {if !empty($accion.onclick)} onclick="{$accion.onclick}" {/if} >
+                <a href="{$accion.task}" class="x-neo-table-action" {if !empty($accion.onclick)} onclick="{$accion.onclick}" {/if} >
                     <div class="neo-table-header-row-filter">
                     <button type="button" name="{$accion.task}" value="{$accion.alt}" class="neo-table-toolbar-button" {if !empty($accion.ocolor)} style="background-color:#{$accion.ocolor}; border:1px solid #{$accion.ocolor};" {/if}>
                        {if !empty($accion.iconclass)}<i class="{$accion.iconclass}"></i> {elseif !empty($accion.icon)}<img border="0" src="{$accion.icon}" align="absmiddle"  />{/if}{$accion.alt}

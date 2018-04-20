@@ -185,7 +185,7 @@ $arrLang=array(
 "Retype New Password" => "Confirma Senha",
 "Change" => "Alterar",
 "Search modules" => "Buscar módulos",
-"Unauthorized" => "Unauthorized",
+"Unauthorized" => "Não Autorizado",
 "You are not authorized to access this page." => "You are not authorized to access this page.",
 "You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You don't have permissions to access to Flash Operator Panel. Please contact your administrator.",
 "Advice" => "Aviso",
@@ -302,4 +302,3 @@ $arrLang=array(
 "Only administrators can delete CDRs" => "Somente administradores podem apagar relatórios de ligações",
 );
 ?>
-

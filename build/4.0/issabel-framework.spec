@@ -197,7 +197,7 @@ fi
 # At this point the asterisk group must already exist
 if ! grep -q asterisk: /etc/passwd ; then
     echo -e "Adding new user asterisk..."
-    /usr/sbin/useradd -r -g asterisk -c "Asterisk PBX" -s /sbin/nologin -d %{_localstatedir}/lib/asterisk asterisk
+    /usr/sbin/useradd -r -g asterisk -c "Asterisk PBX" -s /bin/bash -d %{_localstatedir}/lib/asterisk asterisk
 fi
 
 # No modificamos nada, el usuario lo crean los paquetes asterisk

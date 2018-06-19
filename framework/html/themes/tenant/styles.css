@@ -74,6 +74,11 @@ input:focus,textarea:focus, select:focus {
         background-color: #fff;
         border-color: #1d8df6;
 }
+
+input[type=submit]:focus {
+            background-color: #000;
+}
+
 SELECT {
     border: 1px solid #BCBCBC;
     COLOR: #333333;

@@ -30,6 +30,9 @@
             <div class="cloud-login-line" >
                 <a class="cloud-link_subscription" href="#" >{$FORGET_PASSWORD}</a>
             </div>
+            <div class="cloud-login-line" >
+                {$REGISTER_RECOMMENDATION}
+            </div>
              
             <div id="msnTextErr" align="center"></div>
             

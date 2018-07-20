@@ -84,6 +84,7 @@ $arrLangModule=array(
 "Customer could not be created" => "Account could not be created.", 
 "Installation data could not be saved" => "Installation data could not be saved.",    
 "SIGN_UP"=>"Sign Up",
-"INFO_REGISTER" =>"You must be logged in to install Addons"
+"INFO_REGISTER" =>"You must be logged in to install Addons",
+"By singing up you will be able to install addons and get professional support" => "By singing up you will be able to install addons and get professional support"
 );
 ?>

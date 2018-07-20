@@ -99,6 +99,7 @@ function viewFormRegister($smarty, $module_name, $local_templates_dir, &$pDB, $a
     $smarty->assign("BY", _tr("by"));
     $smarty->assign("REQUIRED_FIELD", _tr("Required field"));
     $smarty->assign("INFO_REGISTER", _tr("INFO_REGISTER"));
+    $smarty->assign("REGISTER_RECOMMENDATION", _tr("By singing up you will be able to install addons and get professional support"));
 
     $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : "";
 

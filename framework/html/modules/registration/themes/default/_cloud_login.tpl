@@ -28,7 +28,7 @@
                 <input type="hidden" name="msgtmp" id="msgtmp" value="{$sending}" />
             </div>
             <div class="cloud-login-line" >
-                <a class="cloud-link_subscription" href="http://my.issabel.com/forgot.php" >{$FORGET_PASSWORD}</a>
+                <a class="cloud-link_subscription" href="https://my.issabel.com/forgot.php" >{$FORGET_PASSWORD}</a>
             </div>
             <div class="cloud-login-line" >
                 {$REGISTER_RECOMMENDATION}

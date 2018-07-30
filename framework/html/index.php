@@ -88,6 +88,11 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
     if($pACL->authenticateUser($_POST['input_user'], $pass_md5)) {
         session_regenerate_id(TRUE);
 
+        $iauth = new IssabelAuth();
+        list($access_token,$refresh_token) = $iauth->acquire_jwt_token($_POST['input_user'],$_POST['input_pass']);
+        $_SESSION['access_token']  = $access_token;
+        $_SESSION['refresh_token'] = $refresh_token;
+
         $_SESSION['issabel_user'] = $_POST['input_user'];
         $_SESSION['issabel_pass'] = $pass_md5;
         header("Location: index.php");
@@ -151,7 +156,7 @@ if (isset($_SESSION['issabel_user']) &&
 
     if(count($notis)>0) {
         $smarty->assign("ANIMATE_NOTIFICATION", "faa-shake animated");
-    } else {   
+    } else {
         $smarty->assign("ANIMATE_NOTIFICATION", "");
     }
 

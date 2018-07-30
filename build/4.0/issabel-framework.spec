@@ -366,6 +366,7 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/panels/README.en
 /var/www/html/panels/README.es
 /var/www/html/var
+/var/www/html/pbxapi
 /var/www/html/var/.htaccess
 /usr/share/issabel/*
 /usr/share/pear/DB/sqlite3.php

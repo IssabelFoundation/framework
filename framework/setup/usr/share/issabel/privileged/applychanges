@@ -1,0 +1,11 @@
+#!/usr/bin/php
+<?php
+
+if(is_executable("/usr/sbin/amportal")) {
+    system('/usr/sbin/amportal a r');
+
+
+}
+exit(0);
+
+?>

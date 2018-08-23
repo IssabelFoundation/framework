@@ -95,8 +95,8 @@ Send a GET request to _/pbxapi/extensions_
     {
             "dial": "SIP/1000",
             "extension": "1000",
-            "name": "Antilope",
-            "secret": "El@st!x123",
+            "name": "Tony",
+            "secret": "6bs0sPut0079",
             "tech": "sip"
 
     },
@@ -104,7 +104,7 @@ Send a GET request to _/pbxapi/extensions_
             "dial": "SIP/1001",
             "extension": "1001",
             "name": "Jose",
-            "secret": "El@st!x123",
+            "secret": "Issab3l2018",
             "tech": "sip"
 
     },

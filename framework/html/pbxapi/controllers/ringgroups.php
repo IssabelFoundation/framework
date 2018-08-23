@@ -61,7 +61,7 @@ class ringgroups extends rest {
         $EXTEN = ($method=='INSERT')?$post['extension']:$f3->get('PARAMS.id');
         $NAME  = isset($post['name'])?$post['name']:$EXTEN;
 
-        $valid_strategies = array('ringall','ringall-prim','hunt','hunt-prim','memoryhunt','memoryhunt-prim','firstavailable','firstnotonphone');
+        $valid_strategies = array( 'ringall', 'ringall-prim', 'hunt', 'hunt-prim', 'memoryhunt', 'memoryhunt-prim', 'firstavailable', 'firstnotonphone');
         if(!isset($post['strategy'])) {
             $post['strategy']='ringall';
         }
@@ -232,18 +232,18 @@ class ringgroups extends rest {
 
         } else {
 
-            // Exising user with specified extension/id, this is aun UPDATE
+            // Exising ringgroup with specified extension/id, this is aun UPDATE
 
-            // Populate variable with existing values from entry in users table
+            // Populate variable with existing values from entry in ringgroups table
             // and override stored values with passed ones
             $this->data->copyTo('currentvalues');
 
             foreach($f3->get('currentvalues') as $key=>$val) {
-                 $input[$key] = isset($input[$key])?$input[$key]:$f3->get('currentvalues')[$key];
+                $input[$key] = isset($input[$key])?$input[$key]:$f3->get('currentvalues')[$key];
             }
 
             $input['extension'] = $f3->get('PARAMS.id');
-            $this->create_ringgroup   ($f3, $input, 'UPDATE');
+            $this->create_ringgroup($f3, $input, 'UPDATE');
 
             $this->applyChanges($input);
         }
@@ -251,9 +251,6 @@ class ringgroups extends rest {
     }
 
     public function post($f3) {
-
-        // Users table is the one to track extensions, if there is a user entry asume extension is already created
-        // in related tables devices and sip
 
         $db = $f3->get('DB');
 
@@ -290,12 +287,12 @@ class ringgroups extends rest {
         $this->checkValidExtension($f3,$EXTEN);
 
         // Create proper entries in DB and ASTDB
-        $this->create_ringgroup   ($f3, $input, 'INSERT');
+        $this->create_ringgroup($f3, $input, 'INSERT');
 
         $this->applyChanges($input);
 
         // Return new entity in Location header
-        $loc    = $f3->get('REALM');
+        $loc = $f3->get('REALM');
         header("Location: $loc/".$EXTEN, true, 201);
         die();
 
@@ -305,7 +302,7 @@ class ringgroups extends rest {
 
         $db  = $f3->get('DB');;
 
-        // Because the users table in IssabelPBX does not have a primary key, we have to override
+        // Because tables in IssabelPBX generaly lack a primary key, we have to override
         // the rest class DELETE method and pass the condition as a filter
 
         if($f3->get('PARAMS.id')=='') {
@@ -330,7 +327,7 @@ class ringgroups extends rest {
                 die();
             }
 
-            // Delete from users table using SQL Mapper
+            // Delete from ringgroups table using SQL Mapper
             try {
                 $this->data->erase($this->id_field."=".$oneid);
             } catch(\PDOException $e) {
@@ -382,7 +379,6 @@ class ringgroups extends rest {
 
         */
 
-        // TODO: check valid extension range and no collision with other destinations
         return true;
 
     }

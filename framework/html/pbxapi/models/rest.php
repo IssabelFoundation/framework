@@ -46,6 +46,15 @@ class rest {
             die();
         }
 
+        if($this->extension_field<>'') {
+            $this->field_map[$this->extension_field]='extension';
+        }
+
+        if($this->name_field<>'') {
+            $this->field_map[$this->name_field]='name';
+        }
+
+
     }
 
     function get($f3, $from_child) {
@@ -191,6 +200,7 @@ class rest {
         $f3->set('INPUT',$input);
 
         $field_map_reverse = array_flip($this->field_map);
+
         foreach($input as $key=>$val) {
             if(array_key_exists($key,$field_map_reverse)) {
                 unset($input[$key]);

@@ -327,10 +327,12 @@ class rest {
                 // Consider QUERY url fields as comma separated list of fields to show (besides default ones in controller)
                 parse_str($f3->QUERY, $qparams);
                 if(isset($qparams['fields'])) {
+                    $field_map_reverse = array_flip($this->field_map);
                     $otherfields = $f3->split($qparams['fields']);
                     foreach ($otherfields as $extrafield) {
-                        if(isset($obj->$extrafield)) {
-                            $record[$extrafield] = $obj->$extrafield;
+                        $realfield = isset($field_map_reverse[$extrafield])?$field_map_reverse[$extrafield]:$extrafield;
+                        if(isset($obj->$realfield)) {
+                            $record[$extrafield] = $obj->$realfield;
                         }
                     }
                 }

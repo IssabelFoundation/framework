@@ -20,6 +20,8 @@ class rest {
 
     protected $list_fields = array();
 
+    protected $field_map = array();
+
     protected $db;
 
     function __construct($f3) {
@@ -77,6 +79,11 @@ class rest {
 
                 foreach ($this->list_fields as $extrafield) {
                     $record[$extrafield] = $obj->$extrafield;
+
+                    if(isset($this->field_map[$extrafield])) {
+                        unset($record[$extrafield]);
+                        $record[$this->field_map[$extrafield]]=$obj->$extrafield;
+                    } 
                 }
 
                 // Consider QUERY url fields as comma separated list of fields to show (besides default ones in controller)
@@ -137,11 +144,29 @@ class rest {
             die();
         }
 
+        if($f3->get('SERVER.CONTENT_TYPE')=='application/json') {
+            parse_str($f3->get('BODY'),$input);
+            reset($input);
+            $first_key = key($input);
+            $input = json_decode($first_key,true);
+        } else {
+            $input = $f3->get('POST');
+        }
+
+        $field_map_reverse = array_flip($this->field_map);
+        foreach($input as $key=>$val) {
+            if(array_key_exists($key,$field_map_reverse)) {
+                unset($input[$key]);
+                $input[$field_map_reverse[$key]]=$val;
+            }
+        } 
+
+        $f3->set('INPUT',$input);
+
         try {
 
-            $this->data->copyFrom('POST');
+            $this->data->copyFrom('INPUT');
             $this->data->save();
-
 
             if(isset($this->data->id)) {
                 $mapid = $this->data->id;
@@ -150,25 +175,6 @@ class rest {
             }
             // 201 CREATED
             header("Location: $loc/".$mapid, true, 201);
-            die();
-
-        } catch(\PDOException $e) {
-
-            //$err=$e->errorInfo;
-            //print_r($err);
-
-
-            $this->data->copyFrom('POST');
-            $this->data->save();
-
-            if ($this->data->dry()) {
-                echo "error\n";
-            }
-
-            echo $this->db->log();
-
-            // 201 CREATED
-            header("Location: $loc/".$this->data->id, true, 201);
             die();
 
         } catch(\PDOException $e) {
@@ -206,8 +212,22 @@ class rest {
         }
 
         parse_str($f3->get('BODY'),$input);
+
+        if($f3->get('SERVER.CONTENT_TYPE')=='application/json') {
+            reset($input);
+            $first_key = key($input);
+            $input = json_decode($first_key,true);
+        }
+
         $f3->set('INPUT',$input);
 
+        $field_map_reverse = array_flip($this->field_map);
+        foreach($input as $key=>$val) {
+            if(array_key_exists($key,$field_map_reverse)) {
+                unset($input[$key]);
+                $input[$field_map_reverse[$key]]=$val;
+            }
+        }
 
         try {
             $this->data->copyFrom('INPUT');

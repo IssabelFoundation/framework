@@ -268,9 +268,9 @@ class rest {
         try {
             $this->data->copyFrom('INPUT');
             $this->data->update();
-            die();
         } catch(\PDOException $e) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
+            die();
         }
 
         //$this->data->load(array('id=?',$f3->get('PARAMS.id')));

@@ -93,6 +93,11 @@ class rest {
                     foreach ($otherfields as $extrafield) {
                         if(isset($obj->$extrafield)) {
                             $record[$extrafield] = $obj->$extrafield;
+
+                            if(isset($this->field_map[$extrafield])) {
+                                unset($record[$extrafield]);
+                                $record[$this->field_map[$extrafield]]=$obj->$extrafield;
+                            }
                         }
                     }
                 }
@@ -124,6 +129,28 @@ class rest {
 
                 $final = array();
                 $final['results'] = $this->data->cast();
+
+                $propid    = $this->id_field;
+                $propname  = $this->name_field;
+                $extenname = $this->extension_field;
+
+                unset($final['results'][$propid]);
+                unset($final['results'][$propname]);
+                $final['results']['id']          = $this->data->$propid;
+                $final['results']['name']        = $this->data->$propname;
+                if($this->dest_field<>'') {
+                    $final['results']['destination'] = $this->data->destination;
+                    unset($final['results'][$this->dest_field]);
+                }
+
+ 
+                foreach($final['results'] as $key=>$val) {
+                    if(isset($this->field_map[$key])) {
+                        unset($final['results'][$key]);
+                        $final['results'][$this->field_map[$key]]=$val;
+                    }
+                }
+
                 header('Content-Type: application/json;charset=utf-8');
                 echo json_encode($final);
 

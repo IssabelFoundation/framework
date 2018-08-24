@@ -48,7 +48,7 @@ class rest {
 
     }
 
-    function get($f3) {
+    function get($f3,$from_child=0) {
 
         // GET record or collection
 
@@ -108,11 +108,16 @@ class rest {
             // for security reasons we wrap results array into one object
             // https://www.owasp.org/index.php/AJAX_Security_Cheat_Sheet#Always_return_JSON_with_an_Object_on_the_outside
 
-            $final = array();
-            $final['results'] = $results;
-            header('Content-Type: application/json;charset=utf-8');
-            echo json_encode($final);
-            die();
+            if($from_child==0) {
+                $final = array();
+                $final['results'] = $results;
+                header('Content-Type: application/json;charset=utf-8');
+                echo json_encode($final);
+                die();
+            } else {
+               // return data to child class
+               return $results;
+            }
 
         } else {
 
@@ -151,11 +156,13 @@ class rest {
                     }
                 }
 
-                header('Content-Type: application/json;charset=utf-8');
-                echo json_encode($final);
+                if($from_child==0) { 
+                    header('Content-Type: application/json;charset=utf-8');
+                    echo json_encode($final);
+                } else {
+                    return $final;
+                }
 
-                #header('Content-Type: application/json;charset=utf-8');
-                #echo json_encode($this->data->cast());
             }
         }
     }
@@ -232,23 +239,25 @@ class rest {
 
         $this->data->load(array($this->id_field.'=?',$f3->get('PARAMS.id')));
 
-
         if ($this->data->dry()) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
             die();
         }
 
-        parse_str($f3->get('BODY'),$input);
-
         if($f3->get('SERVER.CONTENT_TYPE')=='application/json') {
-            reset($input);
-            $first_key = key($input);
-            $input = json_decode($first_key,true);
+            $input = json_decode($f3->get('BODY'),true);
+            if(json_last_error() !== JSON_ERROR_NONE) {
+                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                die();
+            }
+        } else {
+            parse_str($f3->get('BODY'),$input);
         }
 
         $f3->set('INPUT',$input);
 
         $field_map_reverse = array_flip($this->field_map);
+
         foreach($input as $key=>$val) {
             if(array_key_exists($key,$field_map_reverse)) {
                 unset($input[$key]);

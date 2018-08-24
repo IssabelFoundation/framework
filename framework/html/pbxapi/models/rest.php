@@ -167,7 +167,7 @@ class rest {
         }
     }
 
-    function post($f3) {
+    function post($f3,$from_child=0) {
 
         // INSERT record
 
@@ -179,13 +179,16 @@ class rest {
         }
 
         if($f3->get('SERVER.CONTENT_TYPE')=='application/json') {
-            parse_str($f3->get('BODY'),$input);
-            reset($input);
-            $first_key = key($input);
-            $input = json_decode($first_key,true);
+            $input = json_decode($f3->get('BODY'),true);
+            if(json_last_error() !== JSON_ERROR_NONE) {
+                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                die();
+            }
         } else {
-            $input = $f3->get('POST');
+            parse_str($f3->get('BODY'),$input);
         }
+
+        $f3->set('INPUT',$input);
 
         $field_map_reverse = array_flip($this->field_map);
         foreach($input as $key=>$val) {
@@ -207,15 +210,19 @@ class rest {
             } else {
                 $mapid = $this->data[$this->id_field];
             }
-            // 201 CREATED
-            header("Location: $loc/".$mapid, true, 201);
-            die();
+
+            if($from_child==0) {
+                // 201 CREATED
+                header("Location: $loc/".$mapid, true, 201);
+                die();
+            } else {
+                return $mapid;
+            }
 
         } catch(\PDOException $e) {
 
             //echo $db->log();
             $err=$e->errorInfo;
-            print_r($err);
 
             if ($e->getCode() != 23000) {
                 // when trying to insert duplicate
@@ -270,13 +277,8 @@ class rest {
             $this->data->update();
         } catch(\PDOException $e) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-            die();
         }
 
-        //$this->data->load(array('id=?',$f3->get('PARAMS.id')));
-        //header("Access-Control-Allow-Origin: *");
-        //header('Content-Type: application/json;charset=utf-8');
-        //echo json_encode($this->data->cast());
     }
 
     function delete($f3) {

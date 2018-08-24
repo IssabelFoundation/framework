@@ -48,7 +48,7 @@ class rest {
 
     }
 
-    function get($f3,$from_child=0) {
+    function get($f3, $from_child) {
 
         // GET record or collection
 
@@ -108,7 +108,7 @@ class rest {
             // for security reasons we wrap results array into one object
             // https://www.owasp.org/index.php/AJAX_Security_Cheat_Sheet#Always_return_JSON_with_an_Object_on_the_outside
 
-            if($from_child==0) {
+            if(is_array($from_child)) {
                 $final = array();
                 $final['results'] = $results;
                 header('Content-Type: application/json;charset=utf-8');
@@ -167,7 +167,7 @@ class rest {
         }
     }
 
-    function post($f3,$from_child=0) {
+    function post($f3,$from_child) {
 
         // INSERT record
 
@@ -211,7 +211,7 @@ class rest {
                 $mapid = $this->data[$this->id_field];
             }
 
-            if($from_child==0) {
+            if(is_array($from_child)) {
                 // 201 CREATED
                 header("Location: $loc/".$mapid, true, 201);
                 die();

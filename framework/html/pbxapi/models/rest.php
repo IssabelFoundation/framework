@@ -255,9 +255,12 @@ class rest {
             }
 
             if(is_array($from_child)) {
+
+                $this->applyChanges($input);
                 // 201 CREATED
                 header("Location: $loc/$mapid", true, 201);
                 die();
+
             } else {
                 return $mapid;
             }
@@ -317,6 +320,8 @@ class rest {
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
         }
 
+        $this->applyChanges($input);
+
     }
 
     function delete($f3) {
@@ -341,8 +346,14 @@ class rest {
             try {
                 $this->data->erase();
             } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
+
+                $query = "DELETE FROM ".$this->table." WHERE `".$this->id_field."`=?";
+                try {
+                    $this->db->exec($query,array($oneid));
+                } catch(\PDOException $e) {
+                    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+                    die();
+                }
             }
 
         }

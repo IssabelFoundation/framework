@@ -465,7 +465,8 @@ class rest {
             if(isset($input[$key])) {
                 if(is_array($val)) {
                     if(!in_array($input[$key],$val)) {
-                        $input[$key]=$val[0];
+                        header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                        die();
                     }
                 } else {
                     if(method_exists($this,$val)) {
@@ -482,7 +483,7 @@ class rest {
         if($f3->get('SERVER.CONTENT_TYPE')=='application/json') {
             $input = json_decode($f3->get('BODY'),true);
             if(json_last_error() !== JSON_ERROR_NONE) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request', true, 422);
                 die();
             }
         } else {

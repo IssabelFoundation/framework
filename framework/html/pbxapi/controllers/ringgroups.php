@@ -53,8 +53,10 @@ class ringgroups extends rest {
 
 
     protected $validations = array(
-        'strategy' => array('ringall','ringall-prim','hunt','hunt-prim','memoryhunt','memoryhunt-prim','firstavailable','firstnotonphone'),
-        'extension_list' => 'check_valid_extension'
+        'strategy'  => array('ringall','ringall-prim','hunt','hunt-prim','memoryhunt','memoryhunt-prim','firstavailable','firstnotonphone'),
+        'recording' => array('always','never','dontcare'),
+        'ring_time' => 'is_less_than_300',
+        'change_callerid' => array('default','fixed','extern','did','forcedid'),
     );
 
     protected $defaults   = array(
@@ -89,7 +91,6 @@ class ringgroups extends rest {
 
         // Use always CORS header, no matter the outcome
         $f3->set('CORS.origin','*');
-        //header("Access-Control-Allow-Origin: *");
 
         // If not authorized it will die out with 403 Forbidden
         $localauth = new authorize();
@@ -266,24 +267,6 @@ class ringgroups extends rest {
 
     }
 
-    public function check_valid_extension($data) {
-
-        $input = explode("-",$data);
-        $validlist=array();
-
-        foreach($input as $thisexten) {
-            if(in_array($thisexten,$this->allextensions)) {
-                $validlist[]=$thisexten;
-            }
-        }
-        if(count($validlist)==0) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
-        }
-        return implode("-",$validlist);
-
-    }
-
     private function check_required_fields($f3,$input) {
 
         // Required post fields
@@ -291,19 +274,6 @@ class ringgroups extends rest {
             header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
             die();
         }
-
-        // check we have at least one valid extension
-        $validlist=array();
-        foreach($input['extension_list'] as $thisexten) {
-            if(in_array($thisexten,$this->allextensions)) {
-                $validlist[]=$thisexten;
-            }
-        }
-        if(count($validlist)==0) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
-        }
-
 
     }
 
@@ -318,13 +288,25 @@ class ringgroups extends rest {
     }
 
     public function checked($data) {
-        if($data==1 || $data=="1" || $data==strtolower("yes")) { return 'CHECKED'; } else { return ''; }
+        if($data==1 || $data=="1" || $data==strtolower("on")) { return 'CHECKED'; } else { return 'off'; }
     }
 
     public function presentation_checked($data) {
-        if($data=='CHECKED') { return 'yes'; } else { return 'no'; }
+        if($data=='CHECKED') { return 'on'; } else { return 'off'; }
     }
 
+    public function is_less_than_300($data) {
+        if(!is_numeric($data)) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            die();
+        } else {
+            if($data<1 || $data>300) {
+                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                die();
+            }
+        }
+        return $data;
+    }
 
 }
 

@@ -45,13 +45,13 @@ exit(0);
 ## USAGE
 
 You must send GET/POST/PUT and DELETE requests to http://yourserver/pbxapi/resource in order to perform actions. As any
-restful API, you can specify an ID to retrieve or act on one particular item.
+restful API, you can specify an ID to retrieve or act on one particular item, in the form http://yourserver/pbxapi/resource/id
 
 Verbs that accept the item id to be specified are GET, DELETE and PUT
 
-So you can get one particular item, delete one particular item, or update on eparticular item.
+So you can get, delete or update one particular item.
 
-POST does not allow an ID as it will create a new resource on the next available ID.
+POST does not allow an ID as it will create a new resource on the next available ID and return a Location header with the newly created id.
 
 
 ### Authentication
@@ -95,7 +95,7 @@ Send a GET request to _/pbxapi/extensions_
     {
             "dial": "SIP/1000",
             "extension": "1000",
-            "name": "Tony",
+            "name": "Antonio",
             "secret": "6bs0sPut0079",
             "tech": "sip"
 
@@ -123,16 +123,7 @@ Send a GET request to _/pbxapi/extensions_
             "secret": "05c7b12a812d3c1ee6df50794c512451",
             "tech": "sip"
 
-    },
-    {
-            "dial": "SIP/1010",
-            "extension": "1010",
-            "name": "Perro",
-            "secret": "1234",
-            "tech": "sip"
-
     }
-
         ]
 
 }
@@ -199,13 +190,13 @@ There is no response body
 
 ##### Apply changes
 
+Any time you create, update or delete a new extension, the PBX will apply the changes/configuration automatically. If you want to disable this (because you are doing a batch of calls for example), then you must pass the reload variable with value 1 or true
 
 
 #### CREATE A NEW EXTENSION (specifying extension number)
 
 Send a PUT request to _/pbxapi/extensions/{extension}_ with the same variables as POST. If {extension} already exists, it will perform an update of data. Remember that variables should be sent in JSON format in the request body.
 
-Any time you create a new extension, the PBX will apply the changes/configuration automatically. If you want to disable this (because you are doing a batch of calls for example), then you must pass the reload variable with value 1 or true
 
 *Example*
 
@@ -236,7 +227,6 @@ HTTP Status: HTTP/1.1 200 OK
 *Response*
 
 There is no response body
-
 
 
 #### DELETE AN EXTENSION

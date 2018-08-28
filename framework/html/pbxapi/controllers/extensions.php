@@ -47,7 +47,7 @@ class extensions extends rest {
 
     }
 
-    public function get($f3) {
+    public function get($f3, $from_child=0) {
 
         $db = $f3->get('DB');
         $rows = array();
@@ -301,7 +301,7 @@ class extensions extends rest {
 
     }
 
-    public function post($f3) {
+    public function post($f3, $from_child=0) {
 
         // Users table is the one to track extensions, if there is a user entry asume extension is already created
         // in related tables devices and sip
@@ -430,23 +430,6 @@ class extensions extends rest {
         }
 
         $this->applyChanges($input);
-    }
-
-    private function applyChanges($input) {
-        $reload=1;
-        if(isset($input['reload'])) {
-            if($input['reload']!=1 && $input['reload']!='true') {
-                $reload=0;
-            }
-        }
-        if($reload==1) {
-            // do reload!
-            if(is_file("/usr/share/issabel/privileged/applychanges")) {
-                $sComando = '/usr/bin/issabel-helper applychanges';
-                $output = $ret = NULL;
-                exec($sComando, $output, $ret);
-            }
-        }
     }
 
     private function generateRandomString($length = 10) {

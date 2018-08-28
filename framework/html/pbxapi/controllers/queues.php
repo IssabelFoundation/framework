@@ -385,7 +385,7 @@ class queues extends rest {
         }
     }
 
-    public function get($f3) {
+    public function get($f3, $from_child=0) {
 
         // GET record or collection
 
@@ -396,6 +396,7 @@ class queues extends rest {
         $i=0;
         $addfields=array();
         $joinfields=array();
+
         foreach($this->details_fields as $field) {
            $addfields[$field]="IFNULL(q$i.data,'') AS `$field`";
            $joinfields[$field]=" LEFT JOIN queues_details q$i on q$i.id=extension AND q$i.keyword='$field' ";
@@ -451,6 +452,40 @@ class queues extends rest {
                      unset($rows[$idx][$fld]);
                      $rows[$idx][$this->field_map[$fld]]=$val;
                 } 
+            }
+        }
+
+        if($f3->get('PARAMS.id')=='') {
+            // for collection show only listed or queried fields
+            parse_str($f3->QUERY, $qparams);
+            if(isset($qparams['fields'])) {
+                if($qparams['fields']=='*') {
+                    $otherfields = array_merge($this->config_fields,$this->details_fields);
+                } else {
+                    $otherfields = $f3->split($qparams['fields']);
+                }
+            }
+            $otherfields[]='extension';
+            $otherfields[]='name';
+            $otherfields[] = 'static_members';
+            $otherfields[] = 'dynamic_members';
+
+            foreach($otherfields as $key) {
+                $otherfields[] = isset($this->field_map[$key])?$this->field_map[$key]:$key;
+            }
+
+            $listfields=array();
+            foreach($this->list_fields as $key) {
+                $listfields[] = isset($this->field_map[$key])?$this->field_map[$key]:$key;
+            }
+            $allfields = array_merge($listfields,$otherfields);
+
+            foreach($rows as $idx=>$row) {
+                foreach($row as $key=>$val) {
+                    if(!in_array($key,$allfields)) {
+                        unset($rows[$idx][$key]);
+                    }
+                }
             }
         }
 
@@ -552,7 +587,7 @@ class queues extends rest {
 
     }
 
-    public function post($f3) {
+    public function post($f3, $from_child=0) {
 
         $db = $f3->get('DB');
 
@@ -665,23 +700,6 @@ class queues extends rest {
             }
         }
         return $astdb;
-    }
-
-    private function applyChanges($input) {
-        $reload=1;
-        if(isset($input['reload'])) {
-            if($input['reload']!=1 && $input['reload']!='true') {
-                $reload=0;
-            }
-        }
-        if($reload==1) {
-            // do reload!
-            if(is_file("/usr/share/issabel/privileged/applychanges")) {
-                $sComando = '/usr/bin/issabel-helper applychanges';
-                $output = $ret = NULL;
-                exec($sComando, $output, $ret);
-            }
-        }
     }
 
     private function expand_static_member($memb) {

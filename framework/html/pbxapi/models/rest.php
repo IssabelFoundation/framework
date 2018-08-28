@@ -191,7 +191,7 @@ class rest {
 
                 $final['results'] = $this->presentation_transform_values($f3,$final['results']);
 
-                if($from_child==0) { 
+                if(is_array($from_child)) { 
                     header('Content-Type: application/json;charset=utf-8');
                     echo json_encode($final);
                 } else {

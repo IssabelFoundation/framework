@@ -17,8 +17,25 @@ class outboundroutes extends rest {
         'seq'         => 'sequence'
     );
 
+    protected $transforms = array(
+        'emergency_route'    => 'checked',
+        'intracompany_route' => 'checked',
+    );
+
+    protected $presentation_transforms = array(
+        'emergency_route'    => 'presentation_checked',
+        'intracompany_route' => 'presentation_checked',
+    );
+
+    protected $validations = array(
+        'password' => 'only_digits',
+        'outbound_callerid_mode' => array('override_extension',''),
+    );
+
     private function check_required_fields($f3,$input) {
+
         $db = $f3->get('DB');
+
         if(isset($input['trunks'])) {
 
             $all_trunks = $this->get_trunks($f3);
@@ -37,6 +54,37 @@ class outboundroutes extends rest {
                     header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
                     die();
                 }
+            }
+        }
+
+        // reject patterns that are non numeric
+        if(isset($input['patterns'])) {
+            if(count($input['patterns'])>0) {
+                $fields = array('match_callerid', 'prepend_digits');
+                foreach($input['patterns'] as $idx=>$element) {
+                    foreach($fields as $field) {
+                        if(isset($input['patterns'][$idx][$field])) {
+                            $without_digits = preg_replace("/[^0-9]/", "", $input['patterns'][$idx][$field]);
+                            if($input['patterns'][$idx][$field]<>$without_digits) {
+                                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                                die();
+                            }
+                        }
+                    }
+                }
+                $fields = array('match_pattern_pass', 'match_pattern_prefix');
+                foreach($input['patterns'] as $idx=>$element) {
+                    foreach($fields as $field) {
+                        if(isset($input['patterns'][$idx][$field])) {
+                            $without_digits = preg_replace("/[^0-9]XZN\]\[\./i", "", $input['patterns'][$idx][$field]);
+                            if($input['patterns'][$idx][$field]<>$without_digits) {
+                                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                                die();
+                            }
+                        }
+                    }
+                }
+ 
             }
         }
     }
@@ -237,6 +285,18 @@ class outboundroutes extends rest {
             $query = "INSERT INTO outbound_route_trunks (`".implode("`,`",$fields)."`) VALUES (".implode(",",$marks).")"; 
             $db->exec($query,$vals);
         }
+    }
+
+    public function checked($data) {
+        if($data==1 || $data=="1" || $data==strtolower("on")) { return 'YES'; } else { return 'off'; }
+    }
+
+    public function presentation_checked($data) {
+        if($data=='YES') { return 'on'; } else { return 'off'; }
+    }
+
+    public function only_digits($data) {
+        return preg_replace("/[^0-9]/", "", $data);
     }
 
 }

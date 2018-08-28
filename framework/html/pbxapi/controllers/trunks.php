@@ -5,6 +5,7 @@ class trunks extends rest {
     protected $id_field   = 'trunkid';
     protected $name_field = 'name';
     protected $dest_field = "";
+    protected $list_fields = array('tech','channelid');
     protected $extension_field = '';
 }
 

@@ -174,7 +174,7 @@ class rest {
                 $final['results']['id']          = $this->data->$propid;
                 $final['results']['name']        = $this->data->$propname;
                 if($propexten<>'') {
-                    $final['results']['etension']    = $this->data->$propexten;
+                    $final['results']['extension']    = $this->data->$propexten;
                 }
 
                 if($this->dest_field<>'') {

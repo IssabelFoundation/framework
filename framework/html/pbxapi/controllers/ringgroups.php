@@ -10,16 +10,76 @@ class ringgroups extends rest {
     protected $list_fields     = array('grplist','strategy');
     protected $initial_exten_n = '600';
     protected $alldestinations = array();
+    protected $search_field    = 'description';
     protected $allextensions   = array();
     protected $conn;
     protected $ami;
 
+    protected $field_map = array(
+        'changecid'             => 'change_callerid',
+        'fixedcid'              => 'fixed_callerid',
+        'grplist'               => 'extension_list',
+        'grptime'               => 'ring_time',
+        'grppre'                => 'cid_name_prefix',
+        'annmsg_id'             => 'announce_id',
+        'alertinfo'             => 'alert_info',
+        'cfignore'              => 'ignore_call_forward_settings',
+        'cwignore'              => 'skip_busy_agent',
+        'cpickup'               => 'enable_call_pickup',
+        'remotealert_id'        => 'remote_announce_id',
+        'postdest'              => 'destination_if_no_answer',
+        'ringing'               => 'music_on_hold_ringing',
+        'needsconf'             => 'confirm_calls',
+        'grpnum'                => 'extension',
+        'description'           => 'name',
+        'toolate_id'            => 'too_late_announce_id'
+    );
+
+    protected $transforms = array( 
+        'extension_list'               => 'implode_array',
+        'confirm_calls'                => 'checked',
+        'enable_call_pickup'           => 'checked',
+        'ignore_call_forward_settings' => 'checked',
+        'skip_busy_agent'              => 'checked',
+    );
+
+    protected $presentation_transforms = array( 
+        'extension_list'               => 'explode_array',
+        'confirm_calls'                => 'presentation_checked',
+        'enable_call_pickup'           => 'presentation_checked',
+        'ignore_call_forward_settings' => 'presentation_checked',
+        'skip_busy_agent'              => 'presentation_checked',
+    );
+
+
+    protected $validations = array(
+        'strategy' => array('ringall','ringall-prim','hunt','hunt-prim','memoryhunt','memoryhunt-prim','firstavailable','firstnotonphone'),
+        'extension_list' => 'check_valid_extension'
+    );
+
+    protected $defaults   = array(
+        'change_callerid'               =>  'default',
+        'too_late_announce_id'          =>  0,
+        'announce_id'                   =>  0,
+        'cid_name_prefix'               =>  '',
+        'ring_time'                     =>  20,
+        'destination_if_no_answer'      =>  'app-blackhole,hangup,1',
+        'alert_info'                    =>  '',
+        'remote_announce_id'            =>  0,
+        'confirm_calls'                 =>  '',
+        'music_on_hold_ringing'         =>  'Ring',
+        'ignore_call_forward_settings'  =>  '',
+        'skip_busy_agent'               =>  '',
+        'enable_call_pickup'            =>  '',
+        'strategy'                      =>  'ringall'
+    );
+
     function __construct($f3) {
 
-        $mgrpass    = $f3->get('MGRPASS');
-
+        $mgrpass     = $f3->get('MGRPASS');
         $this->ami   = new asteriskmanager();
         $this->conn  = $this->ami->connect("localhost","admin",$mgrpass);
+
         if(!$this->conn) {
            header($_SERVER['SERVER_PROTOCOL'] . ' 502 Service Unavailable', true, 502);
            die();
@@ -55,129 +115,22 @@ class ringgroups extends rest {
 
     }
 
-    private function create_ringgroup($f3,$post,$method='INSERT') {
+    public function get($f3, $from_child=0) {
 
         $db = $f3->get('DB');
-        $EXTEN = ($method=='INSERT')?$post['extension']:$f3->get('PARAMS.id');
-        $NAME  = isset($post['name'])?$post['name']:$EXTEN;
 
-        $valid_strategies = array( 'ringall', 'ringall-prim', 'hunt', 'hunt-prim', 'memoryhunt', 'memoryhunt-prim', 'firstavailable', 'firstnotonphone');
-        if(!isset($post['strategy'])) {
-            $post['strategy']='ringall';
-        }
-        if(!in_array($post['strategy'],$valid_strategies)) {
-            $post['strategy']='ringall';
-        }
+        $rows = parent::get($f3,1);
 
-        $valid_ringing = array('Ring','default'); // TODO: Get List of valid music on hold classes instead of listing only default
-        if(!isset($post['ringing'])) {
-            $post['ringing']='Ring';
-        }
-        if(!in_array($post['ringing'],$valid_strategies)) {
-            $post['ringing']='Ring';
+        // Get ASTDB entries
+        $res = $this->ami->DatabaseShow('RINGGROUP');
+        foreach($res as $key=>$val) {
+            $partes = preg_split("/\//",$key);
+            $astdb[$partes[3]][$partes[2]]=$val;
         }
 
-        if(!isset($post['ringtimer'])) {
-            $post['ringtimer']='20';
-        }
-
-        if(!isset($post['changecid'])) {
-            $post['changecid']='default';
-        }
-
-        if(!isset($post['fixedcid'])) {
-            $post['fixedcid']='';
-        }
-
-        // check to see if group list has valid extension numbers and discars invalid ones
-        $validlist=array();
-        foreach($post['grplist'] as $thisexten) {
-            if(in_array($thisexten,$this->allextensions)) {
-                $validlist[]=$thisexten;
-            }
-        }
-        if(count($validlist)==0) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
-        }
-        $group_list = implode("-",$validlist);
-
-        $amidb = array(
-            "RINGGROUP/$EXTEN:changecid:${post['changecid']}",
-            "RINGGROUP/$EXTEN:fixedcid:${post['fixedcid']}",
-        );
-
-        if($method=='INSERT') {
-
-            $query = 'INSERT INTO ' . $this->table . ' (' . $this->id_field . ', ' . $this->name_field . ', grplist, grptime, ringing, strategy, alertinfo, remotealert_id, needsconf, toolate_id, cwignore, cfignore, cpickup, grppre, annmsg_id)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-            $db->exec($query, array( 1 => $EXTEN, 2=> $NAME, 3 => $group_list, 4 => $post['ringtimer'], 5=>$post['ringing'], 6 => $post['strategy'], 7=>'', 8=>'0', 9=>'', 10=>'', 11=>'', 12=>'', 13=>'', 14=>'', 15=>'0'));
-
-            foreach($amidb as &$valor) {
-                list ($family,$key,$value) = preg_split("/:/",$valor,3);
-                $this->ami->DatabasePut($family,$key,$value);
-            }
-
-        } else {
-
-            $query = 'UPDATE '.$this->table.' SET '.$this->name_field.'=?, grplist=?, grptime=?, ringing=?, strategy=?  WHERE '.$this->id_field.'=?';
-            $db->exec($query, array(1=>$NAME, 2=>$group_list, 3=>$post['ringtimer'], 4=>$post['ringing'],5=>$post['strategy'],6=>$EXTEN));
-
-            foreach($amidb as &$valor) {
-                list ($family,$key,$value) = preg_split("/:/",$valor,3);
-                $modkey = preg_replace("/\//","_",$key);
-                if(isset($post[$modkey])) {
-                    $value = $post[$modkey];
-                    $this->ami->DatabaseDel($family,$key);
-                    $this->ami->DatabasePut($family,$key,$value);
-                }
-            }
-        }
-    }
-
-    public function get($f3) {
-
-        $db = $f3->get('DB');
-        $rows = array();
-
-        // GET record or collection
-
-        // Retrieve ASTDB entries for RingGroup to return in result Object
-        $astdb  = array();
-
-        $query=  "SELECT ".$this->id_field." AS extension, ".$this->name_field." AS name, strategy, grptime AS ringtimer, grplist, ringing FROM ringgroups WHERE 1=1 ";
-
-        if($f3->get('PARAMS.id')=='') {
-            // collection
-
-            // Get ASTDB entries
-            $res = $this->ami->DatabaseShow('RINGGROUP');
-            foreach($res as $key=>$val) {
-                $partes = preg_split("/\//",$key);
-                $astdb[$partes[3]][$partes[2]]=$val;
-            }
-
-            // Get SQL data
-            $rows = $db->exec($query);
-
-        } else {
-            // individual record
-
-            $id    = $f3->get('PARAMS.id');
-
-            // Get ASTDB entries
-            $astdb['changecid'][$id] = $this->ami->DatabaseGet("RINGGROUP/$id",'changecid');
-            $astdb['fixedcid'][$id]  = $this->ami->DatabaseGet("RINGGROUP/$id",'fixedcid');
-
-            // Get SQL data
-            $query.= "AND grpnum=:id";
-            $rows = $db->exec($query,array(':id'=>$id));
-        }
-
-        foreach($rows as $idx=>$row) {
-            $ring_extensions = preg_split("/-/",$row['grplist']);
-            $rows[$idx]['grplist']=$ring_extensions;
-            $rows[$idx]['changecid']=$astdb['changecid'][$row['extension']];
-            $rows[$idx]['fixedcid']=$astdb['fixedcid'][$row['extension']];
+        foreach($rows as $idx=>$data) {
+            $rows[$idx]['change_callerid']=$astdb['changecid'][$data['extension']];
+            $rows[$idx]['fixed_callerid']=$astdb['fixedcid'][$data['extension']];
         }
 
         // final json output
@@ -192,108 +145,65 @@ class ringgroups extends rest {
 
         $db = $f3->get('DB');
 
-        // Expect JSON data, if its not good, fail
-        $input = json_decode($f3->get('BODY'),true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
+        $input = $this->parse_input_data($f3);
+
+        parent::put($f3,1);
+
+        $ringgroup = $f3->get('PARAMS.id');
+
+        $amidb = array();
+
+        if(isset($input['change_callerid'])) {
+            $amidb[] = "RINGGROUP/$ringgroup:changecid:${input['change_callerid']}";
         }
 
-        // Put *requires* and id resource to be SET, as it will be used to update or insert with specified id
-        if($f3->get('PARAMS.id')=='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-            die();
+        if(isset($input['fixed_callerid'])) {
+            $amidb[] = "RINGGROUP/$ringgroup:fixedcid:${input['fixed_callerid']}";
         }
 
-        // Required post fields
-        if(!isset($input['grplist'])) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
+        foreach($amidb as &$valor) {
+            list ($family,$key,$value) = preg_split("/:/",$valor,3);
+            $this->ami->DatabaseDel($family,$key);
+            $this->ami->DatabasePut($family,$key,$value);
         }
 
-        $EXTEN = $f3->get('PARAMS.id');
-        $this->data->load(array($this->id_field.'=?',$EXTEN));
-
-        if ($this->data->dry()) {
-
-            // No entry with that extension/id, this is an INSERT, extension number is the one in the URL
-
-            $this->checkValidExtension($f3,$f3->get('PARAMS.id'));
-
-            $input['extension'] = $f3->get('PARAMS.id');
-            $this->create_ringgroup   ($f3, $input, 'INSERT');
-
-            $this->applyChanges($input);
-
-            // Return new entity in Location header
-            $loc    = $f3->get('REALM');
-            header("Location: $loc/".$EXTEN, true, 201);
-            die();
-
-        } else {
-
-            // Exising ringgroup with specified extension/id, this is aun UPDATE
-
-            // Populate variable with existing values from entry in ringgroups table
-            // and override stored values with passed ones
-            $this->data->copyTo('currentvalues');
-
-            foreach($f3->get('currentvalues') as $key=>$val) {
-                $input[$key] = isset($input[$key])?$input[$key]:$f3->get('currentvalues')[$key];
-            }
-
-            $input['extension'] = $f3->get('PARAMS.id');
-            $this->create_ringgroup($f3, $input, 'UPDATE');
-
-            $this->applyChanges($input);
-        }
+        $this->applyChanges($input);
 
     }
 
-    public function post($f3) {
+    public function post($f3, $from_child=0) {
 
         $db = $f3->get('DB');
 
-        // Expect JSON data, if its not good, fail
-        $input = json_decode($f3->get('BODY'),true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
+        $input = $this->parse_input_data($f3);
+
+        $this->check_required_fields($f3,$input);
+
+        $ringgroup = parent::post($f3,1);
+
+        // Set default values if not passed via request, defaults uses the mapped/human readable field name
+        $input = $this->fill_with_defaults($f3,$input);
+
+        if($ringgroup<>'') {
+            $amidb = array(
+                "RINGGROUP/$ringgroup:changecid:${input['change_callerid']}",
+                "RINGGROUP/$ringgroup:fixedcid:${input['fixed_callerid']}",
+            );
+        } else {
+            $amidb = array();
         }
 
-        // If post has an ID, fail, it will create a new resource with next available id
-        if($f3->get('PARAMS.id')!='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-            die();
+        foreach($amidb as &$valor) {
+            list ($family,$key,$value) = preg_split("/:/",$valor,3);
+            $this->ami->DatabaseDel($family,$key);
+            $this->ami->DatabasePut($family,$key,$value);
         }
-
-        // Required post fields
-        if(!isset($input['grplist'])) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
-        }
-
-        // Get next extension number from the users table, including gap extensions
-        $idfield = $this->id_field;
-        $query = "SELECT cast($idfield AS unsigned)+1 AS extension FROM ringgroups mo WHERE NOT EXISTS ";
-        $query.= "(SELECT NULL FROM ringgroups mi WHERE cast(mi.$idfield AS unsigned) = CAST(mo.$idfield AS unsigned)+ 1) ";
-        $query.= "ORDER BY CAST($idfield AS unsigned) LIMIT 1";
-        $rows  = $db->exec($query);
-        $EXTEN = $rows[0]['extension'];
-        if($EXTEN=='') { $EXTEN=$this->initial_exten_n; }
-        $input['extension'] = $EXTEN;
-
-        // Check if extension number is valid and it has no collitions
-        $this->checkValidExtension($f3,$EXTEN);
-
-        // Create proper entries in DB and ASTDB
-        $this->create_ringgroup($f3, $input, 'INSERT');
 
         $this->applyChanges($input);
 
         // Return new entity in Location header
         $loc = $f3->get('REALM');
-        header("Location: $loc/".$EXTEN, true, 201);
+        header("Location: $loc/".$ringgroup, true, 201);
         die();
 
     }
@@ -302,7 +212,7 @@ class ringgroups extends rest {
 
         $db  = $f3->get('DB');;
 
-        // Because tables in IssabelPBX generaly lack a primary key, we have to override
+        // Because the users table in IssabelPBX does not have a primary key, we have to override
         // the rest class DELETE method and pass the condition as a filter
 
         if($f3->get('PARAMS.id')=='') {
@@ -327,7 +237,7 @@ class ringgroups extends rest {
                 die();
             }
 
-            // Delete from ringgroups table using SQL Mapper
+            // Delete from users table using SQL Mapper
             try {
                 $this->data->erase($this->id_field."=".$oneid);
             } catch(\PDOException $e) {
@@ -342,23 +252,6 @@ class ringgroups extends rest {
         $this->applyChanges($input);
     }
 
-    private function applyChanges($input) {
-        $reload=1;
-        if(isset($input['reload'])) {
-            if($input['reload']!=1 && $input['reload']!='true') {
-                $reload=0;
-            }
-        }
-        if($reload==1) {
-            // do reload!
-            if(is_file("/usr/share/issabel/privileged/applychanges")) {
-                $sComando = '/usr/bin/issabel-helper applychanges';
-                $output = $ret = NULL;
-                exec($sComando, $output, $ret);
-            }
-        }
-    }
-
     private function checkValidExtension($f3,$extension) {
 
         $db = $f3->get('DB');
@@ -368,20 +261,70 @@ class ringgroups extends rest {
             die();
         }
 
-        /*
-        // Check ringgroup limit restriction, fail if reached
-        $rows = $db->exec("SELECT count(*) AS cuantos FROM users HAVING cuantos<?",array(1=>$this->extension_limit));
-
-        if(count($rows)==0) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 507 Insufficient Storage', true, 507);
-            die();
-        }
-
-        */
-
+        // TODO: check valid extension range and no collision with other destinations
         return true;
 
     }
+
+    public function check_valid_extension($data) {
+
+        $input = explode("-",$data);
+        $validlist=array();
+
+        foreach($input as $thisexten) {
+            if(in_array($thisexten,$this->allextensions)) {
+                $validlist[]=$thisexten;
+            }
+        }
+        if(count($validlist)==0) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            die();
+        }
+        return implode("-",$validlist);
+
+    }
+
+    private function check_required_fields($f3,$input) {
+
+        // Required post fields
+        if(!isset($input['extension_list'])) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            die();
+        }
+
+        // check we have at least one valid extension
+        $validlist=array();
+        foreach($input['extension_list'] as $thisexten) {
+            if(in_array($thisexten,$this->allextensions)) {
+                $validlist[]=$thisexten;
+            }
+        }
+        if(count($validlist)==0) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            die();
+        }
+
+
+    }
+
+    public function implode_array($data) {
+        $return = implode("-",$data);
+        return $return;
+    }
+
+    public function explode_array($data) {
+        $return = explode("-",$data);
+        return $return;
+    }
+
+    public function checked($data) {
+        if($data==1 || $data=="1" || $data==strtolower("yes")) { return 'CHECKED'; } else { return ''; }
+    }
+
+    public function presentation_checked($data) {
+        if($data=='CHECKED') { return 'yes'; } else { return 'no'; }
+    }
+
 
 }
 

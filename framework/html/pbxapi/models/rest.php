@@ -483,7 +483,7 @@ class rest {
         if($f3->get('SERVER.CONTENT_TYPE')=='application/json') {
             $input = json_decode($f3->get('BODY'),true);
             if(json_last_error() !== JSON_ERROR_NONE) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request', true, 422);
+                header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request', true, 400);
                 die();
             }
         } else {

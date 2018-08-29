@@ -9,6 +9,7 @@ class extensions extends rest {
     protected $conn;
     protected $ami;
     protected $extension_limit = 500;
+    protected $allextensions;
 
     function __construct($f3) {
 
@@ -44,6 +45,17 @@ class extensions extends rest {
         if(is_readable('/var/www/db/extlimit')) {
             $this->extension_limit = intval(file_get_contents("/var/www/db/extlimit"));
         }
+
+        $rows = $this->db->exec("SELECT * FROM alldestinations");
+        foreach($rows as $row) {
+            $this->alldestinations[]=$row['extension'];
+            if($row['type']=='extension') {
+                $this->allextensions[]=$row['extension'];
+            }
+        }
+
+
+
 
     }
 
@@ -336,13 +348,17 @@ class extensions extends rest {
         }
         */
 
-        // Get next extension number from the users table, including gap extensions
-        $query = "SELECT cast(extension AS unsigned)+1 AS extension FROM users mo WHERE NOT EXISTS ";
-        $query.= "(SELECT NULL FROM users mi  WHERE  cast(mi.extension AS unsigned) = CAST(mo.extension AS unsigned)+ 1) ";
-        $query.= "ORDER BY CAST(extension AS unsigned) LIMIT 1";
-        $rows  = $db->exec($query);
-        $EXTEN = $rows[0]['extension'];
-        $input['extension'] = $EXTEN;
+        if(isset($input['extension'])) {
+            $EXTEN = $input['extension'];
+        } else {
+            // Get next extension number from the users table, including gap extensions
+            $query = "SELECT cast(extension AS unsigned)+1 AS extension FROM users mo WHERE NOT EXISTS ";
+            $query.= "(SELECT NULL FROM users mi  WHERE  cast(mi.extension AS unsigned) = CAST(mo.extension AS unsigned)+ 1) ";
+            $query.= "ORDER BY CAST(extension AS unsigned) LIMIT 1";
+            $rows  = $db->exec($query);
+            $EXTEN = $rows[0]['extension'];
+            $input['extension'] = $EXTEN;
+        }
 
         // Check if extension number is valid and it has no collitions
         $this->checkValidExtension($f3,$EXTEN);
@@ -383,7 +399,7 @@ class extensions extends rest {
 
         $input = json_decode($f3->get('BODY'),true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request', true, 400);
             die();
         }
 
@@ -456,7 +472,11 @@ class extensions extends rest {
             die();
         }
 
-        // TODO: check valid extension range and no collision with other destinations
+        if(in_array($extension,$this->allextensions)) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            die();
+        }
+
         return true;
 
     }

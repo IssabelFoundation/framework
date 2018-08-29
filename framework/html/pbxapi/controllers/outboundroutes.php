@@ -20,6 +20,7 @@ class outboundroutes extends rest {
     protected $transforms = array(
         'emergency_route'    => 'checked',
         'intracompany_route' => 'checked',
+        'name' => 'no_spaces',
     );
 
     protected $presentation_transforms = array(
@@ -30,6 +31,12 @@ class outboundroutes extends rest {
     protected $validations = array(
         'password' => 'only_digits',
         'outbound_callerid_mode' => array('override_extension',''),
+    );
+
+    protected $defaults = array(
+        'outbound_callerid' => '',
+        'music_on_hold_class' => 'default',
+        'destination' => 'app-blackhole,hangup,1'
     );
 
     private function check_required_fields($f3,$input) {
@@ -136,34 +143,53 @@ class outboundroutes extends rest {
             $original_results[$idx]['trunks']=count($rows)>0?$rows:array();
         }
 
+        $final['results']=$original_results;
+
         header('Content-Type: application/json;charset=utf-8');
-        echo json_encode($original_results);
+        echo json_encode($final);
     }
 
     public function delete($f3) {
 
         $db = $f3->get('DB');
 
-        parent::delete($f3);
 
         $allids = $f3->get('PARAMS.id');
 
-        $query = "DELETE FROM outbound_route_patterns WHERE route_id IN (?)";
+        $arrids  = preg_split("/,/",$allids);
+        $cuantos = count($arrids);
+
+
+        $repl    = str_repeat('?,',$cuantos);
+        $repl    = substr($repl,0,-1);
+       
+        $query = "DELETE FROM outbound_route_patterns WHERE route_id IN ($repl)";
+
         try {
-            $db->exec($query,array(1=>$allids));
+            $db->exec($query,$arrids);
         } catch(\PDOException $e) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
             die();
         }
 
-        $query = "DELETE FROM outbound_route_trunks WHERE route_id IN (?)";
+        $query = "DELETE FROM outbound_route_trunks WHERE route_id IN ($repl)";
         try {
-            $db->exec($query,array(1=>$allids));
+            $db->exec($query,$arrids);
         } catch(\PDOException $e) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
             die();
         }
 
+        $query = "DELETE FROM outbound_route_sequence WHERE route_id IN ($repl)";
+
+        try {
+            $db->exec($query,$arrids);
+        } catch(\PDOException $e) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+            die();
+        }
+
+        parent::delete($f3);
     }
 
     public function put($f3) {
@@ -215,13 +241,33 @@ class outboundroutes extends rest {
             }
         }
 
+        $this->insert_sequence($f3,$route_id);
+
         $this->applyChanges($input);
  
     }
 
+    private function insert_sequence($f3,$route_id) {
+        $db = $f3->get('DB');
+        $query = "SELECT max(seq) AS seq FROM outbound_route_sequence";
+        $row = $db->exec($query,array($route_id));
+
+        $lastseq = $row[0]['seq'];
+
+        if($lastseq=='') { 
+            $lastseq=0;
+        } else {
+             $lastseq = intval($lastseq);
+             $lastseq = $lastseq+1;
+        }
+
+        $query = "INSERT INTO outbound_route_sequence VALUES(?,?)";
+        $db->exec($query,array($route_id,$lastseq));
+    }
+
     private function insert_patterns($f3,$input,$route_id) {
 
-        $db   = $f3->get('DB');
+        $db = $f3->get('DB');
 
         $defaults = array ( 
            'match_pattern_prefix' => '',
@@ -297,6 +343,10 @@ class outboundroutes extends rest {
 
     public function only_digits($data) {
         return preg_replace("/[^0-9]/", "", $data);
+    }
+
+    public function no_spaces($data) {
+        return preg_replace("/[^A-Za-z0-9_-]/", "", $data);
     }
 
 }

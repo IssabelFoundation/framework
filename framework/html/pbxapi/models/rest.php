@@ -217,13 +217,15 @@ class rest {
 
         // Get next extension number from proper table, filling gaps if any
         $extenfield = $this->extension_field;
-        $query = "SELECT cast($extenfield AS unsigned)+1 AS extension FROM ".$this->table." mo WHERE NOT EXISTS ";
-        $query.= "(SELECT NULL FROM ".$this->table." mi WHERE cast(mi.$extenfield AS unsigned) = CAST(mo.$extenfield AS unsigned)+ 1) ";
-        $query.= "ORDER BY CAST($extenfield AS unsigned) LIMIT 1";
-        $rows  = $this->db->exec($query);
-        $EXTEN = $rows[0]['extension'];
-        if($EXTEN=='') { $EXTEN=$this->initial_exten_n; }
-        $input['extension'] = $EXTEN;
+        if($extenfield<>'') {
+            $query = "SELECT cast($extenfield AS unsigned)+1 AS extension FROM ".$this->table." mo WHERE NOT EXISTS ";
+            $query.= "(SELECT NULL FROM ".$this->table." mi WHERE cast(mi.$extenfield AS unsigned) = CAST(mo.$extenfield AS unsigned)+ 1) ";
+            $query.= "ORDER BY CAST($extenfield AS unsigned) LIMIT 1";
+            $rows  = $this->db->exec($query);
+            $EXTEN = $rows[0]['extension'];
+            if($EXTEN=='') { $EXTEN=$this->initial_exten_n; }
+            $input['extension'] = $EXTEN;
+        }
 
         // Transform values passed if needed
         $input = $this->transform_values($f3,$input);

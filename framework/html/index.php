@@ -171,9 +171,9 @@ if (isset($_SESSION['issabel_user']) &&
         return;
     }
 
-    /* El módulo pbxadmin que integra a FreePBX no construye enlaces con
+    /* El módulo pbxadmin que integra a IssabelPBX no construye enlaces con
      * parámetros menu, ni con config.php en todos los casos. Por lo tanto, los
-     * usos sucesivos de enlaces en FreePBX embebido requiren recordar que se
+     * usos sucesivos de enlaces en IssabelPBX embebido requiren recordar que se
      * sirven a través de pbxadmin. */
     if (empty($selectedMenu) && !empty($_SESSION['menu']))
         $selectedMenu = $_SESSION['menu'];

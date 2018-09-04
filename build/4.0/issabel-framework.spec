@@ -241,6 +241,10 @@ pathModule="/usr/share/issabel/module_installer/%{name}-%{version}-%{release}"
 preversion=`cat $pathModule/preversion_framework.info`
 rm -f $pathModule/preversion_framework.info
 
+# Set random pbxapi key
+RANDKEY=%(date +%s | sha256sum | base64 | head -c 64 ; echo)
+sed --in-place "s,da893kasdfam43k29akdkfaFFlsdfhj23rasdf,$RANDKEY,g" /var/www/html/pbxapi/index.php
+
 if [ $1 -eq 1 ]; then #install
     # The installer database
     issabelversion=`rpm -q --queryformat='%{VERSION}-%{RELEASE}' issabel`

@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: index.php, Tue 04 Sep 2018 09:48:46 AM EDT, nicolas@issabel.com
+  $Id: index.php, Tue 04 Sep 2018 05:56:55 PM EDT, nicolas@issabel.com
 */
 
 $f3=require('lib/base.php');
@@ -45,7 +45,7 @@ $f3->set('MGRPASS',$mgrpass);
 $f3->set('DB', new DB\SQL( 'mysql:host=localhost;port=3306;dbname=asterisk', 'root', $dbpass, $options));
 
 $f3->set('JWT_KEY', 'da893kasdfam43k29akdkfaFFlsdfhj23rasdf');
-$f3->set('JWT_EXPIRES', 60 * 1440);
+$f3->set('JWT_EXPIRES', 60 * 60);
 
 $f3->route('GET /','help->display');
 

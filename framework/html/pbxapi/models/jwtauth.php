@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: jwtauth.php, Tue 04 Sep 2018 05:42:05 PM EDT, nicolas@issabel.com
+  $Id: jwtauth.php, Tue 04 Sep 2018 05:57:11 PM EDT, nicolas@issabel.com
 */
 
 use Firebase\JWT\JWT;
@@ -113,7 +113,7 @@ class jwtauth {
 
                 $tokenrefresh = array(
                     'iat' => $time,
-                    'exp' => $time + ( $exp * 2 ),
+                    'exp' => $time + ( $exp * 24 ),
                     'data' => [ ]
                 );
 

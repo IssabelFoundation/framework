@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: rest.php, Tue 04 Sep 2018 09:49:38 AM EDT, nicolas@issabel.com
+  $Id: rest.php, Tue 02 Oct 2018 09:52:15 AM EDT, nicolas@issabel.com
 */
 
 class rest {
@@ -240,9 +240,9 @@ class rest {
 
         $input = $this->parse_input_data($f3);
 
-        // Get next extension number from proper table, filling gaps if any
+        // Get next extension number from proper table, filling gaps if any and only if extension was not specified
         $extenfield = $this->extension_field;
-        if($extenfield<>'') {
+        if($extenfield<>'' && !isset($input['extension'])) {
             $query = "SELECT cast($extenfield AS unsigned)+1 AS extension FROM ".$this->table." mo WHERE NOT EXISTS ";
             $query.= "(SELECT NULL FROM ".$this->table." mi WHERE cast(mi.$extenfield AS unsigned) = CAST(mo.$extenfield AS unsigned)+ 1) ";
             $query.= "ORDER BY CAST($extenfield AS unsigned) LIMIT 1";

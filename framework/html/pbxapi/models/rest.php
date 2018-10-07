@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: rest.php, Tue 02 Oct 2018 09:52:15 AM EDT, nicolas@issabel.com
+  $Id: rest.php, Sat 06 Oct 2018 10:16:32 PM EDT, nicolas@issabel.com
 */
 
 class rest {
@@ -214,13 +214,14 @@ class rest {
                     }
                 }
 
-                $final['results'] = $this->presentation_transform_values($f3,$final['results']);
+                $record = $this->presentation_transform_values($f3,$final['results']);
 
                 if(is_array($from_child)) { 
                     header('Content-Type: application/json;charset=utf-8');
+                    $final['results'] = $record;
                     echo json_encode($final);
                 } else {
-                    return $final;
+                    return array($record);
                 }
 
             }

@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: trunks.php, Sat 06 Oct 2018 10:19:05 PM EDT, nicolas@issabel.com
+  $Id: trunks.php, Mon 08 Oct 2018 04:17:37 PM EDT, nicolas@issabel.com
 */
 
 class trunks extends rest {
@@ -49,7 +49,12 @@ class trunks extends rest {
         'outcid'             => 'outbound_callerid',
         'keepcid'            => 'callerid_options',
         'dialoutprefix'      => 'dialout_prefix',
-        'continue'           => 'continue_if_busy',
+        'continue'           => 'continue_if_busy'
+    );
+
+    protected $defaults = array(
+        'technology' => 'sip',
+        'callerid_options' => 'off'
     );
 
     function __construct($f3) {
@@ -96,8 +101,7 @@ class trunks extends rest {
 
         $db = $f3->get('DB');
 
-        $original_results= parent::get($f3,1);
-
+        $original_results = parent::get($f3,1);
 
         // get ASTDB trunk dial options
         $res = $this->ami->DatabaseShow('TRUNK');
@@ -115,7 +119,7 @@ class trunks extends rest {
             }
 
             //get dial patters
-            $query = "SELECT * FROM trunk_dialpatterns WHERE trunkid=?";
+            $query = "SELECT match_pattern_prefix,match_pattern_pass,prepend_digits,seq FROM trunk_dialpatterns WHERE trunkid=?";
             $rows = $db->exec($query,array($trunkid));
             foreach($rows as $idx2=>$datapattern) {
                 foreach($datapattern as $key=>$val) {
@@ -157,6 +161,230 @@ class trunks extends rest {
         die();
     }
 
-}
+    public function post($f3, $from_child=0) {
 
+        $db = $f3->get('DB');
+
+        $input = $this->parse_input_data($f3);
+
+        $this->check_required_fields($f3,$input);
+
+        $trunkid = parent::post($f3,1);
+
+        if($trunkid==0) {
+            // original fpbx table is badly designed and lacks an auto increment primary key, we must
+            // change the trunkid field after default insertion to the next available number
+            // the real fix will be up update the trunks table schema settings autoincrement 
+            $query = "UPDATE trunks a, (SELECT COUNT(*) cnt FROM trunks) b SET a.trunkid=b.cnt WHERE a.trunkid=0";
+            $db->exec($query);
+            $rows = $this->db->exec("SELECT COUNT(*) cnt FROM trunks");
+            $trunkid = $rows[0]['cnt'];
+        }
+
+        if(isset($input['patterns'])) {
+            if(count($input['patterns'])>0) {
+                $this->insert_patterns($f3,$input,$trunkid);
+            }
+        }
+
+        $this->insert_user_peer($f3,$input,$trunkid);
+
+        $amidb = array();
+
+        if(isset($input['dial_options'])) {
+            $amidb[] = "TRUNK/$trunkid:dialopts:${input['dial_options']}";
+        }
+
+        foreach($amidb as &$valor) {
+            list ($family,$key,$value) = preg_split("/:/",$valor,3);
+            $this->ami->DatabaseDel($family,$key);
+            $this->ami->DatabasePut($family,$key,$value);
+        }
+
+        $this->applyChanges($input);
+
+    }
+
+    public function put($f3) {
+
+        $db = $f3->get('DB');
+
+        parent::put($f3);
+
+        $input = $this->parse_input_data($f3);
+
+        $this->check_required_fields($f3,$input);
+
+        $trunkid = $f3->get('PARAMS.id');
+
+        if(isset($input['patterns'])) {
+            if(count($input['patterns'])>0) {
+                $this->insert_patterns($f3,$input,$trunkid);
+            }
+        }
+
+        $this->insert_user_peer($f3,$input,$trunkid);
+
+        $amidb = array();
+
+        if(isset($input['dial_options'])) {
+            $amidb[] = "TRUNK/$trunkid:dialopts:${input['dial_options']}";
+        }
+
+        foreach($amidb as &$valor) {
+            list ($family,$key,$value) = preg_split("/:/",$valor,3);
+            $this->ami->DatabaseDel($family,$key);
+            $this->ami->DatabasePut($family,$key,$value);
+        }
+
+        $this->applyChanges($input);
+    }
+
+    public function delete($f3) {
+
+        $db = $f3->get('DB');
+
+        $allids = $f3->get('PARAMS.id');
+
+        $arrids  = preg_split("/,/",$allids);
+        $cuantos = count($arrids);
+
+        $repl    = str_repeat('?,',$cuantos);
+        $repl    = substr($repl,0,-1);
+
+        $query = "DELETE FROM trunk_dialpatterns WHERE trunkid IN ($repl)";
+
+        try {
+            $db->exec($query,$arrids);
+        } catch(\PDOException $e) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+            die();
+        }
+
+        foreach($arrids as $trunkid) {
+            $this->ami->DatabaseDel("TRUNK/$trunkid", 'dialopts');
+        }
+
+        parent::delete($f3);
+    }
+
+
+    private function insert_user_peer($f3,$input,$trunkid) {
+
+        $db = $f3->get('DB');
+
+        if(!isset($input['technology'])) {
+             $rows = $this->db->exec("SELECT tech FROM trunks WHERE trunkid=?",array($trunkid));
+             $input['technology']=$rows[0]['tech'];
+        }
+
+        if($input['technology']<>'sip') { return; }
+
+        if(isset($input['user'])) {
+            $tid = "tr-user-".intval($trunkid);
+
+            $db->exec("DELETE FROM sip WHERE id=?",array($tid));
+            foreach($input['user'] as $key=>$val) {
+                $query = "INSERT INTO sip (id,keyword,data) VALUES (?,?,?)";
+                $db->exec($query,array($tid,$key,$val));
+            }
+        } 
+
+        if(isset($input['peer'])) {
+            $tid = "tr-peer-".intval($trunkid);
+            $db->exec("DELETE FROM sip WHERE id=?",array($tid));
+            foreach($input['peer'] as $key=>$vval) {
+                $query = "INSERT INTO sip (id,keyword,data) VALUES (?,?,?)";
+                $db->exec($query,array($tid,$key,$val));
+            }
+        }
+
+        if(isset($input['register'])) {
+            $tid = "tr-reg-".intval($trunkid);
+            $db->exec("DELETE FROM sip WHERE id=?",array($tid));
+            $db->exec("INSERT INTO sip (id,keyword,data) VALUES (?,?,?)",array($tid,'register',$input['register']));
+        }
+     
+    }
+
+    private function insert_patterns($f3,$input,$trunkid) {
+
+        $db = $f3->get('DB');
+
+        $defaults = array ( 
+           'match_pattern_prefix' => '',
+           'match_pattern_pass' => '',
+           'prepend_digits' => '',
+           'seq' =>  -1
+        );
+
+        $query = "DELETE FROM trunk_dialpatterns WHERE trunkid=?";
+        $db->exec($query,array($trunkid));
+
+        $cnt=1;
+        foreach($input['patterns'] as $idx=>$data) {
+
+            $fields = array();
+            $vals   = array();
+            $marks  = array();
+
+            $fields[] = 'trunkid';
+            $vals[]   = $trunkid;
+            $marks[]  = '?';
+            foreach($defaults as $key=>$val) {
+                $final_key = isset($this->field_map[$key])?$this->field_map[$key]:$key;
+                $final_val = isset($data[$final_key])?$data[$final_key]:$val;
+
+                if($key=='seq') { $final_val=$cnt; } 
+                $fields[] = $key;
+                $marks[]  = '?';
+                $vals[]   = $final_val;
+
+            }
+            $query = "INSERT INTO trunk_dialpatterns (`".implode("`,`",$fields)."`) VALUES (".implode(",",$marks).")"; 
+            $db->exec($query,$vals);
+            $cnt++;
+        }
+    }
+
+    private function check_required_fields($f3,$input) {
+
+        $db = $f3->get('DB');
+
+        if(!isset($input['channel_name'])) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+            die();
+        }
+
+        // reject patterns that are non numeric
+        if(isset($input['patterns'])) {
+            if(count($input['patterns'])>0) {
+                $fields = array('prepend_digits');
+                foreach($input['patterns'] as $idx=>$element) {
+                    foreach($fields as $field) {
+                        if(isset($input['patterns'][$idx][$field])) {
+                            $without_digits = preg_replace("/[^0-9]/", "", $input['patterns'][$idx][$field]);
+                            if($input['patterns'][$idx][$field]<>$without_digits) {
+                                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                                die();
+                            }
+                        }
+                    }
+                }
+                $fields = array('match_pattern_pass', 'match_pattern_prefix');
+                foreach($input['patterns'] as $idx=>$element) {
+                    foreach($fields as $field) {
+                        if(isset($input['patterns'][$idx][$field])) {
+                            $without_digits = preg_replace("/[^0-9]XZN\]\[\./i", "", $input['patterns'][$idx][$field]);
+                            if($input['patterns'][$idx][$field]<>$without_digits) {
+                                header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
+                                die();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 

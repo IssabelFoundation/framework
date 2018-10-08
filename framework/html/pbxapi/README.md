@@ -11,6 +11,8 @@
 		5. [Update](#extensions_update)
 		6. [Delete](#extensions_delete)
 	3. [Ring Groups](#ringgroups)
+		1. [Retrieve All](#ringgroups_retrieve_all)
+		2. [Retrieve One](#ringgroups_retrieve_one)
 
 <a name='installation'></a>
 ## INSTALLATION 
@@ -293,6 +295,7 @@ There is no response body
 This resource lets you access ring groups on your Issabel PBX system:
 
 
+<a name='ringgroups_retrieve_all'></a>
 #### RETRIEVE ALL RING GROUPS
 
 Send a GET request to /pbxapi/ringgroups
@@ -322,6 +325,7 @@ Send a GET request to /pbxapi/ringgroups
 }
 ```
 
+<a name='ringgroups_retrieve_one'></a>
 #### RETRIEVE ONE PARTICULAR RING GROUP DISPLAYING ALL AVAILABLE FIELDS
 
 Some entities have lots of configuration fields available. For making things simpler, default views will list the most important/key fields from a particular entity. If you want to display all available fields, you can append fields=* at the end of the URI to get all fields, or you can also list a a specific list of fields delimited by commas. Here is an example to get ring groups with all available fields:

@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: trunks.php, Mon 08 Oct 2018 04:17:37 PM EDT, nicolas@issabel.com
+  $Id: trunks.php, Tue 04 Sep 2018 09:54:59 AM EDT, nicolas@issabel.com
 */
 
 class trunks extends rest {
@@ -54,7 +54,8 @@ class trunks extends rest {
 
     protected $defaults = array(
         'technology' => 'sip',
-        'callerid_options' => 'off'
+        'callerid_options' => 'off',
+        'user_context' => 'notneeded'
     );
 
     function __construct($f3) {
@@ -175,10 +176,12 @@ class trunks extends rest {
             // original fpbx table is badly designed and lacks an auto increment primary key, we must
             // change the trunkid field after default insertion to the next available number
             // the real fix will be up update the trunks table schema settings autoincrement 
-            $query = "UPDATE trunks a, (SELECT COUNT(*) cnt FROM trunks) b SET a.trunkid=b.cnt WHERE a.trunkid=0";
-            $db->exec($query);
-            $rows = $this->db->exec("SELECT COUNT(*) cnt FROM trunks");
+            $rows = $this->db->exec("SELECT MAX(trunkid) cnt FROM trunks");
             $trunkid = $rows[0]['cnt'];
+            $trunkid++;
+
+            $query = "UPDATE trunks SET trunkid=? WHERE trunkid=0";
+            $db->exec($query,array($trunkid));
         }
 
         if(isset($input['patterns'])) {
@@ -262,10 +265,18 @@ class trunks extends rest {
         }
 
         foreach($arrids as $trunkid) {
+
+            $rows = $this->db->exec("SELECT tech FROM trunks WHERE trunkid=?",array($trunkid));
+            if($rows[0]['tech']=='sip') {
+                $db->exec("DELETE FROM sip WHERE id = ?",array("tr-user-$trunkid"));
+                $db->exec("DELETE FROM sip WHERE id = ?",array("tr-peer-$trunkid"));
+                $db->exec("DELETE FROM sip WHERE id = ?",array("tr-reg-$trunkid"));
+            }
             $this->ami->DatabaseDel("TRUNK/$trunkid", 'dialopts');
         }
 
         parent::delete($f3);
+
     }
 
 

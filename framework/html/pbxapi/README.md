@@ -13,6 +13,12 @@
 	3. [Ring Groups](#ringgroups)
 		1. [Retrieve All](#ringgroups_retrieve_all)
 		2. [Retrieve One](#ringgroups_retrieve_one)
+		3. [Insert with automatic extension assignment](#ringgroups_insert)
+		4. [Insert specifying extension number](#ringgroups_insertspecify)
+		5. [Update](#ringgroups_update)
+		6. [Delete](#ringgroups_delete)
+
+***
 
 <a name='installation'></a>
 ## INSTALLATION 
@@ -60,6 +66,7 @@ exit(0);
 ?>
 ```
 
+***
 
 <a name='usage'></a>
 ## USAGE 
@@ -104,6 +111,8 @@ export TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjExMTQyODksImV4cC
 Access token expires after some time, once that happens, you will receive an 'expired' status response. You can then use
 the refresh token to get a new access token without needing to enter user/password credentials again. The resource location
 to renew your access token is */pbxapi/authenticate/renewtoken?refresh_token={refresh_token}*
+
+***
 
 <a name='extensions'></a>
 ### Extensions
@@ -289,6 +298,8 @@ HTTP Status: HTTP/1.1 200 OK
 
 There is no response body
 
+***
+
 <a name='ringgroups'></a>
 ### Ring Groups
 
@@ -366,6 +377,7 @@ Some entities have lots of configuration fields available. For making things sim
 }
 ```
 
+<a name='ringgroups_insert'></a>
 #### CREATE A NEW RING GROUP (without specifying extension number)
 
 Send a POST request to _/pbxapi/ringgroups_
@@ -392,6 +404,71 @@ Variables should be sent in JSON format, with the header application/json
 HTTP Status:   HTTP/1.1 201 Created  
 HTTP Location header: https://localhost/pbxapi/ringgroups/{extension}  
 (where {extension} is the next available extension number automatically selected by the system )  
+
+*Response*
+
+There is no response body
+
+<a name='ringgroups_insertspecify'></a>
+#### CREATE A NEW RING GROUP (specifying extension number)
+
+Send a PUT request to _/pbxapi/ringgroups/{extension}_ with the same variables as POST. If {extension} already exists, it will perform an update of data. Remember that variables should be sent in JSON format in the request body.
+
+
+*Example*
+
+>curl -v -k -X PUT -d '{"name":"Sales","strategy":"ringall","extension_list":["200","201"]}'  -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" https://localhost/pbxapi/ringgrouops/600
+
+*Return*
+
+HTTP Status: HTTP/1.1 200 OK  
+HTTP Location header: https://localhost/pbxapi/ringgroups/{extension}  
+Location is only set if the resource was created instead of updated  
+
+*Response*
+
+There is no response body
+
+
+<a name='ringgroups_update'></a>
+#### UPDATE A RING GROUP
+
+Send a PUT request to _/pbxapi/ringgroups/{extension}_ passing the variables you want to update where {extension} already exists on the system, otherwise it will be insert a new one. The following example will change the name for ring group 600 to "NewName":
+
+*Example*
+
+>curl -v -k -X PUT -d '{"name":"NewName"}'  -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" https://localhost/pbxapi/ringgroups/600
+
+*Return*
+
+HTTP Status: HTTP/1.1 200 OK
+
+*Response*
+
+There is no response body
+
+
+<a name='extensions_delete'></a>
+#### DELETE A RING GROUP
+
+Send a DELETE request to */pbxapi/ringgroups/{extension},[{more},{extensions}]*
+
+Notice that you can specify one or multiple ring group extensions  separated by comma.
+
+*Example*
+
+Delete ring group 600:
+
+>curl -v -L -k -X DELETE -H "Authorization: Bearer $TOKEN" https://localhost/pbxapi/ringgroups/600
+
+
+Delete ring groups 600 and 610:
+
+>curl -v -L -k -X DELETE -H "Authorization: Bearer $TOKEN" https://localhost/pbxapi/ringgroups/600,610
+
+*Return*
+
+HTTP Status: HTTP/1.1 200 OK
 
 *Response*
 

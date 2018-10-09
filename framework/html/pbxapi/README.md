@@ -92,7 +92,7 @@ send a POST request to _/pbxapi/authenticate_ with the admin and password as pos
 
 *Response*
 
-```
+```json
 { 
   "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjExMTQyODksImV4cCI6MTUyMTIwMDY4OSwiZGF0YSI6eyJuYW1lIjoiYWRtaW4ifX0.5cF825r08UHsaw9odM3up9l4oiEZF7ufGaa6xjZl9H4",
   "expires_in": 86400,
@@ -129,7 +129,8 @@ Send a GET request to _/pbxapi/extensions_
 >curl -s -k -H "Authorization: Bearer $TOKEN" https://localhost/pbxapi/extensions | python -m json.tool
 
 *Response:*
-```
+
+```json
 {
     "results": [
     {
@@ -180,7 +181,7 @@ Send a GET request to _/pbxapi/extensions/id_ where id is the extension number
 
 *Response*
 
-```
+```json
 {
     "results": [
     {
@@ -316,7 +317,7 @@ Send a GET request to /pbxapi/ringgroups
 >curl -s -k -H "Authorization: Bearer $TOKEN://localhost/pbxapi/ringgroups | python -m json.tool
 
 *Response:*
-```
+```json
 {
     "results": [
         {
@@ -344,7 +345,7 @@ Some entities have lots of configuration fields available. For making things sim
 >curl -s -k -H "Authorization: Bearer $TOKEN" https://localhost/pbxapi/ringgroups/600?fields=* | python -m json.tool
 
 *Response:*
-```
+```json
 {
     "results": [
         {

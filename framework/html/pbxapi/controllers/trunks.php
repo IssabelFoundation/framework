@@ -132,11 +132,11 @@ class trunks extends rest {
             }
             $original_results[$idx]['patterns']=count($rows)>0?$rows:array();
 
-            if($data['technology']=='sip') {
+            if($data['technology']=='sip' || $data['technology']=='iax') {
                 $peer = array();
                 $user = array();
                 $register = '';
-                $query = "SELECT * FROM sip WHERE id LIKE 'tr%-$trunkid'";
+                $query = "SELECT * FROM ".$data['technology']." WHERE id LIKE 'tr%-$trunkid'";
                 $detrows = $this->db->exec($query);
                 foreach($detrows as $row) {
                     if(preg_match("/^tr-peer/",$row['id'])) {
@@ -267,10 +267,10 @@ class trunks extends rest {
         foreach($arrids as $trunkid) {
 
             $rows = $this->db->exec("SELECT tech FROM trunks WHERE trunkid=?",array($trunkid));
-            if($rows[0]['tech']=='sip') {
-                $db->exec("DELETE FROM sip WHERE id = ?",array("tr-user-$trunkid"));
-                $db->exec("DELETE FROM sip WHERE id = ?",array("tr-peer-$trunkid"));
-                $db->exec("DELETE FROM sip WHERE id = ?",array("tr-reg-$trunkid"));
+            if($rows[0]['tech']=='sip' || $rows[0]['tech']=='iax') {
+                $db->exec("DELETE FROM ".$rows[0]['tech']." WHERE id = ?",array("tr-user-$trunkid"));
+                $db->exec("DELETE FROM ".$rows[0]['tech']." WHERE id = ?",array("tr-peer-$trunkid"));
+                $db->exec("DELETE FROM ".$rows[0]['tech']." WHERE id = ?",array("tr-reg-$trunkid"));
             }
             $this->ami->DatabaseDel("TRUNK/$trunkid", 'dialopts');
         }
@@ -289,31 +289,33 @@ class trunks extends rest {
              $input['technology']=$rows[0]['tech'];
         }
 
-        if($input['technology']<>'sip') { return; }
+
+        if($input['technology']<>'sip' && $input['technology']<>'iax') { return; }
+
 
         if(isset($input['user'])) {
             $tid = "tr-user-".intval($trunkid);
 
-            $db->exec("DELETE FROM sip WHERE id=?",array($tid));
+            $db->exec("DELETE FROM ".$input['technology']." WHERE id=?",array($tid));
             foreach($input['user'] as $key=>$val) {
-                $query = "INSERT INTO sip (id,keyword,data) VALUES (?,?,?)";
+                $query = "INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)";
                 $db->exec($query,array($tid,$key,$val));
             }
         } 
 
         if(isset($input['peer'])) {
             $tid = "tr-peer-".intval($trunkid);
-            $db->exec("DELETE FROM sip WHERE id=?",array($tid));
-            foreach($input['peer'] as $key=>$vval) {
-                $query = "INSERT INTO sip (id,keyword,data) VALUES (?,?,?)";
+            $db->exec("DELETE FROM ".$input['technology']." WHERE id=?",array($tid));
+            foreach($input['peer'] as $key=>$val) {
+                $query = "INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)";
                 $db->exec($query,array($tid,$key,$val));
             }
         }
 
         if(isset($input['register'])) {
             $tid = "tr-reg-".intval($trunkid);
-            $db->exec("DELETE FROM sip WHERE id=?",array($tid));
-            $db->exec("INSERT INTO sip (id,keyword,data) VALUES (?,?,?)",array($tid,'register',$input['register']));
+            $db->exec("DELETE FROM ".$input['technology']." WHERE id=?",array($tid));
+            $db->exec("INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)",array($tid,'register',$input['register']));
         }
      
     }

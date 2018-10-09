@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: rest.php, Sat 06 Oct 2018 10:16:32 PM EDT, nicolas@issabel.com
+  $Id: rest.php, Tue 09 Oct 2018 08:57:07 AM EDT, nicolas@issabel.com
 */
 
 class rest {
@@ -386,6 +386,7 @@ class rest {
 
         }
 
+        $this->applyChanges($input);
     }
 
     public function search($f3) {

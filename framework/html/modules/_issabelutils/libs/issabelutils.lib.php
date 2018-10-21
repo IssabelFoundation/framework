@@ -140,7 +140,7 @@ function searchModulesByName()
     if (isset($_REQUEST['term'])) $name = $_REQUEST['term'];
     if (isset($_REQUEST['name_module_search'])) $name = $_REQUEST['name_module_search'];
     $result = array();
-    $arrIdMenues = array();
+    //$arrIdMenues = array();
     $lang=get_language();
     global $arrLang;
 
@@ -213,7 +213,7 @@ function changeMenuColorByUser()
          * implementa correctamente que el recurso que posee el color de menú
          * es themes_system. */
         $arrResult['status'] = $pACL->saveUserProfileProperty($uid, 'themes_system', 'menuColor', $color);
-        $arrResult['msg'] = $arrResult['status'] ? _tr("OK") : _tr("ERROR DE DB: ").$pDB->errMsg;
+        $arrResult['msg'] = $arrResult['status'] ? _tr("OK") : _tr("ERROR DE DB: ").$pACL->errMsg;
     }
     return $arrResult;
 }
@@ -247,7 +247,7 @@ SQL_LEER_BOOKMARKS_ACTUALES;
     $arr_result1 = $pdbACL->fetchTable($bookmarks, TRUE, array($uid));
     if ($arr_result1 === FALSE) return $arrResult;
 
-    $arrIDS = array();
+    //$arrIDS = array();
     foreach ($arr_result1 as $key => $value) {
         if($value['id_menu'] == $id_resource)
             $exist = true;
@@ -290,6 +290,7 @@ SQL_LEER_BOOKMARKS_ACTUALES;
  * @return array con la informacion como mensaje y estado de resultado
  * @param string $menu nombre del menu al cual se le va a agregar la nota
  * @param string $description contenido de la nota que se desea agregar o editar
+ * @param string $popup nombre del popup
  *
  * @author Eduardo Cueva
  * @author ecueva@palosanto.com
@@ -302,7 +303,7 @@ function saveStickyNote($menu, $description, $popup)
     $arrResult['msg'] = _tr("Please your session id does not exist. Refresh the browser and try again.");
     if($menu != ""){
         $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
-        global $arrConf;
+        //global $arrConf;
         $pdbACL = new paloDB($arrConf['issabel_dsn']['acl']);
         $pACL = new paloACL($pdbACL);
         $id_resource = $pACL->getResourceId($menu);
@@ -405,4 +406,4 @@ function saveNeoToggleTabByUser($menu, $action_status)
     }
     return $arrResult;
 }
-?>
+

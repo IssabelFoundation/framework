@@ -12,7 +12,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
 Requires(pre): /sbin/chkconfig, /etc/sudoers, sudo
 Requires(pre): php, php-gd, php-pear, php-xml, php-mysql, php-pdo, php-imap, php-soap
-Requires(pre): httpd, mysql-server, ntp, mod_ssl
+Requires(pre): httpd, mariadb-server, ntp, mod_ssl
 Requires(pre): perl
 Requires(pre): issabel-firstboot >= 2.3.0-4
 #Requires: issabelPBX

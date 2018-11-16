@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Tue 04 Sep 2018 09:53:19 AM EDT, nicolas@issabel.com
+  $Id: extensions.php, Fri 16 Nov 2018 05:50:34 PM EST, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -34,7 +34,7 @@ class extensions extends rest {
     protected $conn;
     protected $ami;
     protected $extension_limit = 500;
-    protected $allextensions;
+    protected $allextensions   = array();
 
     function __construct($f3) {
 

@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.3 2007/07/17 00:03:42 gcarrillo Exp $ */
-
+  $Id: index.php, Tue 20 Nov 2018 10:13:26 AM EST, nicolas@issabel.com
+*/
 function spl_issabel_class_autoload($sNombreClase)
 {
     if (!preg_match('/^\w+$/', $sNombreClase)) return;
@@ -143,11 +143,11 @@ if (isset($_SESSION['issabel_user']) &&
     $smarty->assign("LOGOUT", _tr('Logout'));
     $smarty->assign("VersionDetails", _tr('VersionDetails'));
     $smarty->assign("VersionPackage", _tr('VersionPackage'));
-	$smarty->assign("AMOUNT_CHARACTERS", _tr("characters left"));
-	$smarty->assign("SAVE_NOTE", _tr("Save Note"));
-	$smarty->assign("MSG_SAVE_NOTE", _tr("Saving Note"));
-	$smarty->assign("MSG_GET_NOTE", _tr("Loading Note"));
-	$smarty->assign("LBL_NO_STICKY", _tr("Click here to leave a note."));
+    $smarty->assign("AMOUNT_CHARACTERS", _tr("characters left"));
+    $smarty->assign("SAVE_NOTE", _tr("Save Note"));
+    $smarty->assign("MSG_SAVE_NOTE", _tr("Saving Note"));
+    $smarty->assign("MSG_GET_NOTE", _tr("Loading Note"));
+    $smarty->assign("LBL_NO_STICKY", _tr("Click here to leave a note."));
     $smarty->assign("ABOUT_ISSABEL", _tr('About Issabel')." ".$arrConf['issabel_version']);
 
     // notifications
@@ -251,7 +251,7 @@ if (isset($_SESSION['issabel_user']) &&
         $smarty->display("_common/index.tpl");
     }
 } else {
-	$rawmode = getParameter("rawmode");
+    $rawmode = getParameter("rawmode");
     if(isset($rawmode) && $rawmode=='yes'){
         include_once "libs/paloSantoJSON.class.php";
         $jsonObject = new PaloSantoJSON();
@@ -263,17 +263,17 @@ if (isset($_SESSION['issabel_user']) &&
     }
     else{
         $oPn = new paloSantoNavigation(array(), $smarty);
-		$oPn->putHEAD_JQUERY_HTML();
-		$smarty->assign("THEMENAME", $arrConf['mainTheme']);
-		$smarty->assign("currentyear",date("Y"));
-		$smarty->assign("PAGE_NAME", _tr('Login page'));
-		$smarty->assign("WELCOME", _tr('Welcome to Issabel'));
-		$smarty->assign("ENTER_USER_PASSWORD", _tr('Please enter your username and password'));
-		$smarty->assign("USERNAME", _tr('Username'));
-		$smarty->assign("PASSWORD", _tr('Password'));
-		$smarty->assign("SUBMIT", _tr('Submit'));
+        $oPn->putHEAD_JQUERY_HTML();
+        $smarty->assign("THEMENAME", $arrConf['mainTheme']);
+        $smarty->assign("currentyear",date("Y"));
+        $smarty->assign("PAGE_NAME", _tr('Login page'));
+        $smarty->assign("WELCOME", _tr('Welcome to Issabel'));
+        $smarty->assign("ENTER_USER_PASSWORD", _tr('Please enter your username and password'));
+        $smarty->assign("USERNAME", _tr('Username'));
+        $smarty->assign("PASSWORD", _tr('Password'));
+        $smarty->assign("SUBMIT", _tr('Submit'));
 
-		$smarty->display("_common/login.tpl");
-	}
+        $smarty->display("_common/login.tpl");
+    }
 }
 ?>

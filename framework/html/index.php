@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Tue 20 Nov 2018 10:13:26 AM EST, nicolas@issabel.com
+  $Id: index.php, Fri 23 Nov 2018 03:46:48 PM EST, nicolas@issabel.com
 */
 function spl_issabel_class_autoload($sNombreClase)
 {
@@ -45,6 +45,7 @@ include_once "libs/paloSantoMenu.class.php";
 include_once "libs/paloSantoNotification.class.php";
 include_once("libs/paloSantoACL.class.php");// Don activate unless you know what you are doing. Too risky!
 
+$pp = new IssabelFirstBoot();
 load_default_timezone();
 
 session_name("issabelSession");

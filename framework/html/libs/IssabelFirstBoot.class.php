@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel Foundation     |
   +----------------------------------------------------------------------+
-  $Id: IssabelFirstBoot.class.php, Fri 23 Nov 2018 03:51:24 PM EST, nicolas@issabel.com
+  $Id: IssabelFirstBoot.class.php, Wed 06 Mar 2019 09:07:54 PM EST, nicolas@issabel.com
 */
 
 class IssabelFirstBoot {
@@ -593,7 +593,17 @@ if(typeof(lang[userLang]) !== 'undefined') {
     if(typeof(lang[userLang][curtitle]) !== 'undefined') {
         document.title = lang[userLang][curtitle];
     }
+} else {
+    // default to english
+    var elms = document.getElementsByClassName('translate');
+    for(var i=0; i<elms.length;i++) {
+       el = elms[i];
+       if (el.dataset) {
+           el.innerHTML = el.dataset.text;
+       }
+    }
 }
+
 function notpattern(el,confirmel) {
     el.setCustomValidity(el.validity.patternMismatch ? lang[userLang]['Must contain at least one uppercase letter, one lowercase leter and a number'] : ''); if(el.checkValidity()) { confirmel.pattern = el.value; }
 }

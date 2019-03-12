@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel Foundation     |
   +----------------------------------------------------------------------+
-  $Id: IssabelFirstBoot.class.php, Wed 06 Mar 2019 09:07:54 PM EST, nicolas@issabel.com
+  $Id: IssabelFirstBoot.class.php, Tue 12 Mar 2019 02:08:18 PM EDT, nicolas@issabel.com
 */
 
 class IssabelFirstBoot {
@@ -64,15 +64,15 @@ class IssabelFirstBoot {
             $rootpwd    = $post['rootpwd'];
             $mariadbpwd = $post['mariadbpwd'];
 
-            if(!preg_match("/^[a-zA-Z\d]+$/", $consolepwd)) {
+            if(!preg_match("/^[a-zA-Z\d@]+$/", $consolepwd)) {
                 die('no');
             }
 
-            if(!preg_match("/^[a-zA-Z\d]+$/", $rootpwd)) {
+            if(!preg_match("/^[a-zA-Z\d@]+$/", $rootpwd)) {
                 die('no');
             }
 
-            if(!preg_match("/^[a-zA-Z\d]+$/", $mariadbpwd)) {
+            if(!preg_match("/^[a-zA-Z\d@]+$/", $mariadbpwd)) {
                 die('no');
             }
 

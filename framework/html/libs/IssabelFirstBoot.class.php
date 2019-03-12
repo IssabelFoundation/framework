@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel Foundation     |
   +----------------------------------------------------------------------+
-  $Id: IssabelFirstBoot.class.php, Tue 12 Mar 2019 02:08:18 PM EDT, nicolas@issabel.com
+  $Id: IssabelFirstBoot.class.php, Tue 12 Mar 2019 03:10:12 PM EDT, nicolas@issabel.com
 */
 
 class IssabelFirstBoot {
@@ -46,7 +46,7 @@ class IssabelFirstBoot {
             $this->lang['es']['Issabel Initial Setup']='Configuración Inicial Issabel';
             $this->lang['es']['Setting Passwords. Please wait.']='Estableciendo contraseñas. Por favor espere.';
             $this->lang['es']['Passwords do not match']='Las contraseñas no coinciden';
-            $this->lang['es']['Must contain at least one uppercase letter, one lowercase leter and a number']='Debe contener al menos una letra mayúscula, una minúscula y un número';
+            $this->lang['es']['Must contain at least one uppercase letter, one lowercase letter and a number. No symbols allowed.']='Debe contener al menos una letra mayúscula, una minúscula y un número. No se permiten símbolos.';
 
             $this->_show_form($_POST);
             die();
@@ -86,15 +86,32 @@ class IssabelFirstBoot {
             die();
         }
 
+        $phplang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
         $langarray = "var lang = {};\n";
+
+        $missing_lang = array('en');
+        if(!isset($this->lang[$phplang])) {
+            $missing_lang[]=$phplang;
+        }
+        $missing_lang = array_unique($missing_lang);
+
+        foreach($missing_lang as $iso) {
+            $langarray.="lang['$iso']={}\n";
+            foreach($this->lang['es'] as $text=>$trans) {
+                $langarray.="lang['$iso']['$text']='".$text."';\n";
+            }
+        }
+
         foreach($this->lang as $iso=>$data) {
             $langarray.="lang['$iso']={}\n";
             foreach($data as $text => $value) {
                 $langarray.="lang['$iso']['$text']='".$value."';\n";
             }
+            $langarray.="if(typeof(lang['$iso']['Passwords do not match'])==='undefined') { lang['$iso']['Passwords do not match']='Passwords do not match'; }";
+            $langarray.="if(typeof(lang['$iso']['Must contain at least one uppercase letter, one lowercase letter and a number. No symbols allowed.'])==='undefined') { lang['$iso']['Must contain at least one uppercase letter, one lowercase letter and a number. No symbols allowed.']='Must contain at least one uppercase letter, one lowercase letter and a number. No symbols allowed.'; }";
         }
-        $langarray.="if(typeof(lang['$iso']['Passwords do not match'])==='undefined') { lang['$iso']['Passwords do not match']='Passwords do not match'; }";
-        $langarray.="if(typeof(lang['$iso']['Must contain at least one uppercase letter, one lowercase leter and a number'])==='undefined') { lang['$iso']['Must contain at least one uppercase letter, one lowercase leter and a number']='Must contain at least one uppercase letter, one lowercase leter and a number'; }";
+
 
 echo "
 
@@ -468,14 +485,14 @@ margin-left:15px !important;
                 <div class='form-group'>
                   <div class='input-group'>
                     <span class='input-group-addon'><i class='glyphicon glyphicon-lock color-blue'></i></span>
-                    <input id='rootpwd' name='rootpwd' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$' required  placeholder='password' class='form-control' type='password' onchange=\"notpattern(this, form.rootpwd_confirm)\">
+                    <input id='rootpwd' name='rootpwd' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\dA-Za-z@]{8,}' required  placeholder='password' class='form-control' type='password' onchange=\"notpattern(this, form.rootpwd_confirm)\">
                   </div>
                 </div>
 
                 <div class='form-group'>
                   <div class='input-group'>
                     <span class='input-group-addon'><i class='glyphicon glyphicon-lock color-blue'></i></span>
-                    <input id='rootpwd_confirm' name='rootpwd_confirm' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$' required placeholder='confirm password' class='form-control' type='password' onchange=\"notmatch(this)\">
+                    <input id='rootpwd_confirm' name='rootpwd_confirm' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\dA-Za-z@]{8,}' required placeholder='confirm password' class='form-control' type='password' onchange=\"notmatch(this)\">
                   </div>
                 </div>
 
@@ -492,14 +509,14 @@ margin-left:15px !important;
                 <div class='form-group'>
                   <div class='input-group'>
                     <span class='input-group-addon'><i class='glyphicon glyphicon-lock color-blue'></i></span>
-                    <input id='mariadbpwd' name='mariadbpwd' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$' required placeholder='password' class='form-control' type='password' onchange=\"notpattern(this, form.mariadbpwd_confirm)\">
+                    <input id='mariadbpwd' name='mariadbpwd' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\dA-Za-z@]{8,}' required placeholder='password' class='form-control' type='password' onchange=\"notpattern(this, form.mariadbpwd_confirm)\">
                   </div>
                 </div>
 
                 <div class='form-group'>
                   <div class='input-group'>
                     <span class='input-group-addon'><i class='glyphicon glyphicon-lock color-blue'></i></span>
-                    <input id='mariadbpwd_confirm' required name='mariadbpwd_confirm'  pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$' placeholder='confirm password' class='form-control' type='password' onchange=\"notmatch(this)\">
+                    <input id='mariadbpwd_confirm' required name='mariadbpwd_confirm'  pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\dA-Za-z@]{8,}' placeholder='confirm password' class='form-control' type='password' onchange=\"notmatch(this)\">
                   </div>
                 </div>
 
@@ -518,14 +535,14 @@ margin-left:15px !important;
                 <div class='form-group'>
                   <div class='input-group'>
                     <span class='input-group-addon'><i class='glyphicon glyphicon-lock color-blue'></i></span>
-                    <input id='consolepwd' name='consolepwd' placeholder='password' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$' class='form-control' type='password' required  onchange=\"notpattern(this, form.consolepwd_confirm)\">
+                    <input id='consolepwd' name='consolepwd' placeholder='password' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\dA-Za-z@]{8,}' class='form-control' type='password' required  onchange=\"notpattern(this, form.consolepwd_confirm)\">
                   </div>
                 </div>
 
                 <div class='form-group'>
                   <div class='input-group'>
                     <span class='input-group-addon'><i class='glyphicon glyphicon-lock color-blue'></i></span>
-                    <input id='consolepwd_confirm' name='consolepwd_confirm' pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$' placeholder='confirm password' class='form-control' type='password' required  onchange=\"notmatch(this)\">
+                    <input id='consolepwd_confirm' name='consolepwd_confirm' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\dA-Za-z@]{8,}' placeholder='confirm password' class='form-control' type='password' required  onchange=\"notmatch(this)\">
                   </div>
                 </div>
 
@@ -605,7 +622,7 @@ if(typeof(lang[userLang]) !== 'undefined') {
 }
 
 function notpattern(el,confirmel) {
-    el.setCustomValidity(el.validity.patternMismatch ? lang[userLang]['Must contain at least one uppercase letter, one lowercase leter and a number'] : ''); if(el.checkValidity()) { confirmel.pattern = el.value; }
+    el.setCustomValidity(el.validity.patternMismatch ? lang[userLang]['Must contain at least one uppercase letter, one lowercase letter and a number. No symbols allowed.'] : ''); if(el.checkValidity()) { confirmel.pattern = el.value; }
 }
 
 

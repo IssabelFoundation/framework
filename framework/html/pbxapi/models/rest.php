@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: rest.php, Tue 09 Oct 2018 08:57:07 AM EDT, nicolas@issabel.com
+  $Id: rest.php, Fri 05 Apr 2019 06:06:16 PM EDT, nicolas@issabel.com
 */
 
 class rest {
@@ -495,7 +495,7 @@ class rest {
                 if(is_array($val)) {
                     if(!in_array($input[$key],$val)) {
                         header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-                        die();
+                        die($key);
                     }
                 } else {
                     if(method_exists($this,$val)) {

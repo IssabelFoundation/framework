@@ -11,7 +11,7 @@ CREATE TABLE acl_membership (
   id_group INTEGER   NOT NULL default '0'
 );
 INSERT INTO "acl_membership" VALUES(1,1,1);
-CREATE TABLE acl_user (id INTEGER PRIMARY KEY, name varchar(50), description varchar(180), md5_password varchar(50), extension varchar(20));
+CREATE TABLE acl_user (id INTEGER PRIMARY KEY, name varchar(50), description varchar(180), md5_password varchar(50), extension varchar(1000));
 INSERT INTO "acl_user" VALUES(1,'admin',NULL,'7a5210c173ea40c03205a5de7dcd4cb0',NULL);
 CREATE TABLE acl_user_permission (id INTEGER PRIMARY KEY, id_action int(11), id_user int(11), id_resource int(11));
 CREATE TABLE acl_resource (id INTEGER PRIMARY KEY, name varchar(50), description varchar(180));

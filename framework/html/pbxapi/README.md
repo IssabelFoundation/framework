@@ -110,7 +110,7 @@ export TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjExMTQyODksImV4cC
 
 Access token expires after some time, once that happens, you will receive an 'expired' status response. You can then use
 the refresh token to get a new access token without needing to enter user/password credentials again. The resource location
-to renew your access token is */pbxapi/authenticate/renewtoken?refresh_token={refresh_token}*
+to renew your access token is */pbxapi/authenticate/renewtoken?refresh_token={refresh_token}&access_token={expired_access_token}*
 
 ***
 

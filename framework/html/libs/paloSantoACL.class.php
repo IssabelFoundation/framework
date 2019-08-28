@@ -887,6 +887,8 @@ class paloACL {
     function setUserExtension($username, $extension)
     {
         $sql = 'UPDATE acl_user SET extension = ? WHERE name = ?';
+        //hgmnetwork.com transformamos el valor de $extension en un campo de texto separado por ; para permitir 1 usuario y varias extensiones  
+        $extension=implode(";", $extension);
         $r = $this->_DB->genQuery($sql, array($extension, $username));
         if (!$r) {
             $this->errMsg = $this->_DB->errMsg;

@@ -294,7 +294,7 @@ $(document).ready(function(){
         // Mostrar el popup si no está registrado
         if (arrData.auto_popup) $('a.register_link').click();
     });
-    $('a.register_link').click(function() { showPopupCloudLogin('',540,335); });
+    $('a.register_link').click(function() { showPopupCloudLogin('',540,375); });
 });
 
 //Si se presiona enter se hace un submit al formulario para que se aplica el filtro

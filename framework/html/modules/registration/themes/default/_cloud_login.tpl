@@ -23,7 +23,7 @@
                 <input type="password" id="input_pass" name="input_pass" class="cloud-login-input" defaultVal="{$PASSWORD}"/>
             </div>
             <div class="cloud-login-line action_register_button" >                
-                <input type="button" name="input_signup" class="cloud-signup-button" onclick="showPopupCloudRegister('{$registration}',540,388)" value="{$SIGNUP_ACTION}" style="margin-left:20px" />
+                <input type="button" name="input_signup" class="cloud-signup-button" onclick="showPopupCloudRegister('{$registration}',540,375)" value="{$SIGNUP_ACTION}" style="margin-left:20px" />
                 <input type="button" name="input_register" class="cloud-login-button" onclick="registrationByAccount();" value="{$REGISTER_ACTION}"/>
                 <input type="hidden" name="msgtmp" id="msgtmp" value="{$sending}" />
             </div>
@@ -33,7 +33,9 @@
             <div class="cloud-login-line" >
                 {$REGISTER_RECOMMENDATION}
             </div>
-             
+            <div class="cloud-login-line" >
+                {$PATREON}
+            </div>
             <div id="msnTextErr" align="center"></div>
             
             <div class="cloud-footernote"><a href="http://www.issabel.org" style="text-decoration: none;" target='_blank'>Issabel</a> {$ISSABEL_LICENSED} <a href="http://www.opensource.org/licenses/gpl-license.php" style="text-decoration: none;" target='_blank'>GPL</a>. 2006 - {$currentyear}.</div>

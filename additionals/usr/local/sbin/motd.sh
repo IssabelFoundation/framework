@@ -66,3 +66,7 @@ else
 fi
 
 echo -e "\e[0m"
+
+echo -e "\e[1mYour opportunity to give back: \e[4mhttp://www.patreon.com/issabel\e[0m"
+echo -e " "
+

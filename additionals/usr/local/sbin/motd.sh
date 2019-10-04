@@ -16,9 +16,12 @@ fi
 MSJ_NO_IP_DHCP="If you could not get a DHCP IP address please type setup and select \"Network configuration\" to set up a static IP."
 INTFCNET=`ls -A /sys/class/net/`
 
-echo ""
-echo "Welcome to Issabel "
-echo "----------------------------------------------------"
+echo -e "\e[1m" 
+echo -e "                                O \e[96m@ \e[91m@"
+echo -e "                                \e[31m@ \e[35m@ \e[39mO"
+echo -e "                                \e[33m@ \e[39mO O"
+echo -e "                                  O  "
+echo -e "                               \e[1mIssabel \e[0m "
 echo ""
 echo "Issabel is a product meant to be configured through a web browser."
 echo "Any changes made from within the command line may corrupt the system"
@@ -27,7 +30,7 @@ echo "made to system files through here may be lost when doing an update."
 echo ""
 echo "To access your Issabel System, using a separate workstation (PC/MAC/Linux)"
 echo "Open the Internet Browser using the following URL:"
-echo ""
+echo -e "\e[4m"
 
 cont=0
 for x in $INTFCNET
@@ -62,4 +65,4 @@ else
    done
 fi
 
-echo ""
+echo -e "\e[0m"

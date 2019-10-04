@@ -23,7 +23,7 @@
                 <input type="password" id="input_pass" name="input_pass" class="cloud-login-input" defaultVal="{$PASSWORD}"/>
             </div>
             <div class="cloud-login-line action_register_button" >                
-                <input type="button" name="input_signup" class="cloud-signup-button" onclick="showPopupCloudRegister('{$registration}',540,375)" value="{$SIGNUP_ACTION}" style="margin-left:20px" />
+                <input type="button" name="input_signup" class="cloud-signup-button" onclick="showPopupCloudRegister('{$registration}',540,405)" value="{$SIGNUP_ACTION}" style="margin-left:20px" />
                 <input type="button" name="input_register" class="cloud-login-button" onclick="registrationByAccount();" value="{$REGISTER_ACTION}"/>
                 <input type="hidden" name="msgtmp" id="msgtmp" value="{$sending}" />
             </div>

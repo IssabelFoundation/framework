@@ -35,7 +35,7 @@ function showPopupCloudRegister(title, width, height)
         ShowModalPopUP(title,width,height,arrData['form']);
         $('.tdIdServer').hide();
         $('.neo-modal-issabel-popup-box').css({
-            height: '375px',
+            height: '405px',
         });
 
         if(arrData['registered']=="yes-inc"){

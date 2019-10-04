@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
@@ -20,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Fri 04 Oct 2019 03:42:09 PM EDT, nicolas@issabel.com
-//include issabel framework
+  $Id: index.php, Fri 04 Oct 2019 05:11:07 PM EDT, nicolas@issabel.com
+*/
 include_once "libs/paloSantoForm.class.php";
 include_once "libs/paloSantoACL.class.php";
 include_once "libs/paloSantoJSON.class.php";

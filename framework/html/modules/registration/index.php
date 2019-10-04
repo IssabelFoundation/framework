@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2010-08-09 10:08:51 Mercy Anchundia manchundia@palosanto.com Exp $ */
+  $Id: index.php, Fri 04 Oct 2019 02:26:22 PM EDT, nicolas@issabel.com
 //include issabel framework
 include_once "libs/paloSantoForm.class.php";
 include_once "libs/paloSantoACL.class.php";
@@ -99,7 +99,7 @@ function viewFormRegister($smarty, $module_name, $local_templates_dir, &$pDB, $a
     $smarty->assign("BY", _tr("by"));
     $smarty->assign("REQUIRED_FIELD", _tr("Required field"));
     $smarty->assign("INFO_REGISTER", _tr("INFO_REGISTER"));
-    $smarty->assign("REGISTER_RECOMMENDATION", _tr("By singing up you will be able to install addons and get professional support"));
+    $smarty->assign("REGISTER_RECOMMENDATION", _tr("By signing up you will be able to install addons and get professional support"));
 
     $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : "";
 

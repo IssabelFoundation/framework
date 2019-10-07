@@ -100,6 +100,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%
 mkdir -p $RPM_BUILD_ROOT/etc/cron.d
 mkdir -p $RPM_BUILD_ROOT/etc/httpd/conf.d
 mkdir -p $RPM_BUILD_ROOT/etc/php.d
+mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 mkdir -p $RPM_BUILD_ROOT/etc/yum.repos.d
 mkdir -p $RPM_BUILD_ROOT/etc/init.d
 
@@ -127,6 +128,9 @@ mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/yum.repos.d/Issa
 
 # ** sudoers config ** #
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/sudoers                          $RPM_BUILD_ROOT/usr/share/issabel/
+
+# ** profile login server info ** #
+mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/profile.d/login-info.sh          $RPM_BUILD_ROOT/etc/profile.d/
 
 # ** /usr/local/ files ** #
 mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/local/issabel/sampler.php        $RPM_BUILD_ROOT/usr/local/issabel/
@@ -386,6 +390,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/compareVersion
 /usr/bin/search_ami_admin_pwd
 /usr/sbin/issabel-helper
+%config(noreplace) /etc/profile.d/login-info.sh
 %config(noreplace) /etc/cron.d/issabel.cron
 %config(noreplace) /etc/httpd/conf.d/issabel.conf
 %config(noreplace) /etc/php.d/issabel.ini

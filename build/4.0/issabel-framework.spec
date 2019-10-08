@@ -224,7 +224,7 @@ chkconfig --del gpm   &> /dev/null
 
 
 # ** Change content of sudoers ** #
-cat   /usr/share/issabel/sudoers > /etc/sudoers
+cat   /usr/share/issabel/sudoers > /etc/sudoers.d/issabel
 rm -f /usr/share/issabel/sudoers
 rm -f /etc/yum.repos.d/elastix.repo
 

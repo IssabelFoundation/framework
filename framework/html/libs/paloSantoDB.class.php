@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoDB.class.php,v 1.2 2007/09/07 00:20:03 bmacias Exp $ */
+  $Id: paloSantoDB.class.php, Fri 25 Oct 2019 12:34:23 PM EDT, nicolas@issabel.com
 
 // La siguiente clase es una clase prototipo... Usela bajo su propio riesgo
 class paloDB {
@@ -62,6 +62,7 @@ class paloDB {
                 $dsn = "$engine:dbname=".$dsninfo['database'].";host=".$dsninfo['hostspec'];
                 $this->engine = $engine;
             }
+            if($engine=='mysql') { $dsn.=";charset=utf8mb4"; }
 
             $user       = $dsninfo['username'];
             $password   = $dsninfo['password'];

@@ -56,7 +56,7 @@ else
    arr=$(echo ${IPADDR[@]} | tr " " "\n")
    for IPs in $arr
    do
-	  echo "http://$IPs"
+	  echo "https://$IPs"
    done
 fi
 

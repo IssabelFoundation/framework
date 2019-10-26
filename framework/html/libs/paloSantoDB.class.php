@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoDB.class.php, Fri 25 Oct 2019 12:34:23 PM EDT, nicolas@issabel.com
-
+  $Id: paloSantoDB.class.php, Fri 25 Oct 2019 02:58:28 PM EDT, nicolas@issabel.com
+*/
 // La siguiente clase es una clase prototipo... Usela bajo su propio riesgo
 class paloDB {
 

@@ -12,7 +12,7 @@ processes_total=`ps aux | wc -l`
 processes_user=`ps -U ${user} u | wc -l`
 
 root_total=`df -h / | awk '/\// {print $(NF-4)}'`
-root_usedgb=`df -h / | awk '/\// {print $(NF-3)}' | sed 's/[^0-9\.]//'`
+root_usedgb=`df -h / | awk '/\// {print $(NF-3)}' | sed 's/[^0-9\.,]//'`
 root_used=`df -h / | awk '/\// {print $(NF-1)}' | sed 's/[^0-9]//'`
 root_used_print=$(printf "%3.0f%%" $root_used)
 root_free=$(expr 100 - $root_used)

@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -120,7 +119,7 @@ class asteriskmanager
         return $parameters;
     }
 
-    function connect($server=NULL, $username=NULL, $secret=NULL, $events='off')
+    function connect($server=NULL, $username=NULL, $secret=NULL, $events='off', &$errors)
     {
         // use config if not specified
         if(is_null($server))   $server = $this->config['asmanager']['server'];
@@ -142,6 +141,7 @@ class asteriskmanager
         if(!$this->socket)
         {
             $this->log("Unable to connect to manager {$this->server}:{$this->port} ($errno): $errstr");
+            $errors[]=array('status'=>'500','source'=>'Asterisk Manager','detail'=>"Unable to connect to manager {$this->server}:{$this->port} ($errno): $errstr");
             return false;
         }
 
@@ -150,22 +150,19 @@ class asteriskmanager
         if($str == false) {
             // a problem.
             $this->log("Asterisk Manager header not received.");
+            $errors[]=array('status'=>'500','source'=>'Asterisk Manager','detail'=>'Connection header not received');
             return false;
         }
+
         // If its an old asterisk, we do not receive resopnse from UserEvents so we have to signal this somehow
         if(preg_match("/Asterisk Call Manager\/1.0/",$str)) {
             $this->waits_for_response = 0;
         }
+
         // login
         $res = $this->send_request('login', array('Username'=>$username, 'Secret'=>$secret, 'Events'=>$events));
-
-        if(false) {
-            $this->log("Failed to login.");
-            $this->disconnect();
-            return false;
-        }
-
         if($res['Response']=='Error') {
+            $errors[]=array('status'=>'500','source'=>'Asterisk Manager','detail'=>$res['Message'],'verbose'=>"$server,$username,$secret");
             return false;
         }
 

@@ -116,8 +116,6 @@ class trunks extends rest {
                         $register = $row['data'];
                     }
                 }
-                unset($peer['account']);
-                unset($user['account']);
                 $original_results[$idx]['peer']=$peer;
                 $original_results[$idx]['user']=$user;
                 if($register<>'') { $original_results[$idx]['register']=$register; } else { $original_results[$idx]['register']=""; }
@@ -284,15 +282,15 @@ class trunks extends rest {
              $input['technology']=$rows[0]['tech'];
         }
 
+
         if($input['technology']<>'sip' && $input['technology']<>'iax') { return; }
+
 
         if(isset($input['user'])) {
             $tid = "tr-user-".intval($trunkid);
-            $pid = $input['channel_name'];
-            $db->exec("DELETE FROM ".$input['technology']." WHERE id=?",array($tid)); 
-            $db->exec("INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)",array($tid,'account',$pid));
+
+            $db->exec("DELETE FROM ".$input['technology']." WHERE id=?",array($tid));
             foreach($input['user'] as $key=>$val) {
-                if($key=='account') continue;
                 $query = "INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)";
                 $db->exec($query,array($tid,$key,$val));
             }
@@ -300,11 +298,8 @@ class trunks extends rest {
 
         if(isset($input['peer'])) {
             $tid = "tr-peer-".intval($trunkid);
-            $pid = $input['channel_name'];
             $db->exec("DELETE FROM ".$input['technology']." WHERE id=?",array($tid));
-            $db->exec("INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)",array($tid,'account',$pid));
             foreach($input['peer'] as $key=>$val) {
-                if($key=='account') continue;
                 $query = "INSERT INTO ".$input['technology']." (id,keyword,data) VALUES (?,?,?)";
                 $db->exec($query,array($tid,$key,$val));
             }

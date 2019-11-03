@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -22,11 +21,43 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: ivrs.php, Tue 04 Sep 2018 09:53:35 AM EDT, nicolas@issabel.com
+  $Id: writequeuelog.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-class ivrs extends rest {
-    protected $table      = "pbx_ivr";
-    protected $extension_field = 'extension';
-    protected $dest_field = 'CONCAT("pbx-ivr-",id,",s,1")';
+class writequeuelog extends rest {
+
+    protected $table      = 'writequeuelog';
+    protected $id_field   = 'qlog_id';
+    protected $name_field = 'description';
+    protected $extension_field = '';
+    protected $list_fields  = array('qlog_event','description','dest');
+
+    protected $provides_destinations = true;
+    protected $context               = 'app-writequeuelog';
+    protected $category              = 'Write a line into queue_log';
+
+    protected $field_map = array(
+        'dest'                    => 'destination',
+        'qlog_uniqueid'           => 'uniqueid',
+        'qlog_queue'              => 'queue',
+        'qlog_agent'              => 'agent',
+        'qlog_event'              => 'event',
+        'qlog_extra'              => 'extra',
+    );
+
+    public function getDestinations($f3) {
+        $ret = array();
+        if($this->provides_destinations == true) {
+            $res = $this->get($f3,1);
+            $entity = ($this->category<>'')?$this->category:get_class($this);
+            foreach($res as $key=>$val) {
+                $ext = ($this->extension_field<>'')?$val['extension']:$val['id'];
+                $ret[$entity][]=array('name'=>$val['name'], 'destination'=>$this->context.','.$ext.',1');
+            }
+        }
+        return $ret;
+    }
+
 }
+
+

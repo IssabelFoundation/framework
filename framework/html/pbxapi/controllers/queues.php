@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -31,14 +30,16 @@ class queues extends rest {
     protected $id_field        = 'extension';
     protected $name_field      = 'descr';
     protected $extension_field = 'extension';
-    protected $dest_field      = 'CONCAT("ext-queues",",",extension,",1")';
     protected $list_fields     = array('timeout','strategy');
     protected $initial_exten_n = '2000';
     protected $alldestinations = array();
+    protected $search_field    = 'descr';
     protected $allextensions   = array();
     protected $staticmembers   = array();
-    protected $conn;
-    protected $ami;
+
+    protected $provides_destinations = true;
+    protected $context               = 'ext-queues';
+    protected $category              = 'Queues';
 
     // fields from queues_config table
     protected $config_fields = array( 
@@ -79,6 +80,12 @@ class queues extends rest {
         'autopausedelay',
         'autopauseunavail',
         'cron_schedule',
+        'cron_minute',
+        'cron_hour',
+        'cron_dow',
+        'cron_dom',
+        'cron_month',
+        'cron_random',
         'eventmemberstatus',
         'eventwhencalled',
         'joinempty',
@@ -179,8 +186,8 @@ class queues extends rest {
         'callconfirm_id'               => 'call_confirm_announce_id',
         'cron_schedule'                => 'cron_schedule',
         'cwignore'                     => 'skip_busy_agents',
-        'dest'                         => 'destination',
-        'destcontinue'                 => 'destination_on_continue',
+        'dest'                         => 'failover_destination',
+        'destcontinue'                 => 'continue_destination',
         'eventmemberstatus'            => 'event_member_status',
         'eventwhencalled'              => 'event_when_called',
         'ivr_id'                       => 'breakout_ivr_id',
@@ -192,11 +199,11 @@ class queues extends rest {
         'strategy'                     => 'ring_strategy',
         'maxwait'                      => 'max_wait',
         'memberdelay'                  => 'member_delay',
-        'monitor-format'               => 'monitor_format',
+        'monitor-format'               => 'recording_format',
         'monitor-join'                 => 'monitor_join',
-        'monitor_heard'                => 'monitor_heard',
-        'monitor_spoken'               => 'monitor_spoken',
-        'monitor_type'                 => 'monitor_type',
+        'monitor_heard'                => 'caller_volume_adjustment',
+        'monitor_spoken'               => 'agent_volume_adjustment',
+        'monitor_type'                 => 'recording_mode',
         'penaltymemberslimit'          => 'penalty_members_limit',
         'periodic-announce-frequency'  => 'periodic_announce_frequency',
         'qnoanswer'                    => 'queue_no_answer',
@@ -212,7 +219,7 @@ class queues extends rest {
         'ringinuse'                    => 'ring_busy_members',
         'servicelevel'                 => 'service_level',
         'skip_joinannounce'            => 'skip_join_announce',
-        'timeoutpriority'              => 'timeout_priority',
+        'timeoutpriority'              => 'max_wait_mode',
         'timeoutrestart'               => 'timeout_restart',
         'togglehint'                   => 'generate_device_hints',
         'wrapuptime'                   => 'wrapup_time',
@@ -220,59 +227,77 @@ class queues extends rest {
         'descr'                        => 'name',
         'password'                     => 'password',
         'timeout'                      => 'timeout',
-        'weight'                       => 'weight'
+        'weight'                       => 'weight',
+        'cron_minute'                  => 'cron_minute',
+        'cron_hour'                    => 'cron_hour',
+        'cron_dom'                     => 'cron_dom',
+        'cron_dow'                     => 'cron_dow',
+        'cron_month'                   => 'cron_month',
+        'cron_random'                  => 'cron_random',
     );
 
-    function __construct($f3) {
+    protected $validations = array(
+        'ring_strategy'         => array('ringall','leastrecent','fewestcalls','random','rrmemory','rrordered','linear','wrandom'),
+        'join_emmpty'           => array('yes','no','strict','penalty,paused,invalid,unavailable,inuse,ringing','loose'),
+        'leave_when_emmpty'     => array('yes','no','strict','penalty,paused,invalid,unavailable,inuse,ringing','loose'),
+        'auto_pause'            => array('yes','no','all'),
+        'music_on_hold_ringing' => array(0,1,2),
+        'skip_join_announce'    => array(0,1,2),
+        'cron_dow'              => 'checkCronDow',
+        'cron_dom'              => 'checkCronDom',
+        'cron_minute'           => 'checkCronMinute',
+        'cron_hour'             => 'checkCronHour',
+        'cron_month'            => 'checkCronMonth',
+    );
 
-        $mgrpass    = $f3->get('MGRPASS');
+    protected $transforms = array(
+        'generate_device_hints'                => 'enabled',
+        'call_confirm'                         => 'enabled',
+        'wait_time_prefix'                     => 'enabled',
+        'restrict_dynamic_agents'              => 'enabled',
+        'agent_restrictions'                   => 'agent_restrictions',
+        'skip_busy_agents'                     => 'skip_busy_agents',
+        'music_on_hold_ringing'                => 'music_on_hold_ringing',
+        'recording_mode'                       => 'recording_mode',
+        'answered_elsewhere'                   => 'enabled',
+        'max_wait_mode'                        => 'max_wait_mode',
+        'cron_random'                          => 'cron_random',
+    );
 
-        $this->ami   = new asteriskmanager();
-        $this->conn  = $this->ami->connect("localhost","admin",$mgrpass);
-        if(!$this->conn) {
-           header($_SERVER['SERVER_PROTOCOL'] . ' 502 Service Unavailable', true, 502);
-           die();
-        }
+    protected $presentationTransforms = array(
+        'generate_device_hints'                => 'presentation_enabled',
+        'call_confirm'                         => 'presentation_enabled',
+        'wait_time_prefix'                     => 'presentation_enabled',
+        'restrict_dynamic_agents'              => 'presentation_enabled',
+        'agent_restrictions'                   => 'presentation_agent_restrictions',
+        'skip_busy_agents'                     => 'presentation_skip_busy_agents',
+        'music_on_hold_ringing'                => 'presentation_music_on_hold_ringing',
+        'recording_mode'                       => 'presentation_recording_mode',
+        'answered_elsewhere'                   => 'presentation_enabled',
+        'max_wait_mode'                        => 'presentation_max_wait_mode',
+        'cron_random'                          => 'presentation_cron_random',
+    );
 
-        $this->db  = $f3->get('DB');
+    function __construct($f3, $ami_connect=0, $sql_mapper=1) {
 
-        // Use always CORS header, no matter the outcome
-        $f3->set('CORS.origin','*');
-        //header("Access-Control-Allow-Origin: *");
+        parent::__construct($f3,1,1);
 
-        // If not authorized it will die out with 403 Forbidden
-        $localauth = new authorize();
-        $localauth->authorized($f3);
-
-        try {
-            $this->data = new DB\SQL\Mapper($this->db,$this->table);
-            if($this->dest_field<>'') {
-                $this->data->destination=$this->dest_field;
-            }
-        } catch(Exception $e) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-            die();
-        }
-
-        $rows = $this->db->exec("SELECT * FROM alldestinations");
-        foreach($rows as $row) {
-            $this->alldestinations[]=$row['extension'];
-            if($row['type']=='extension') {
-                $this->allextensions[]=$row['extension'];
-            }
-        }
+        $alldest = new extensions($f3);
+        $this->allextensions = $alldest->getExtensions($f3);
 
         // Static members 
         $rows = $this->db->exec("SELECT id AS exten,GROUP_CONCAT(data separator '^') as member FROM queues_details WHERE keyword='member' GROUP BY id");
         foreach($rows as $row) {
             $this->staticmembers[$row['exten']]=$row['member'];
         }
-
     }
 
     private function create_queue($f3,$post,$method='INSERT') {
 
-        $db = $f3->get('DB');
+        $errors = array();
+        $db  = $f3->get('DB');
+        $ami = $f3->get('AMI');
+
         $EXTEN = ($method=='INSERT')?$post['extension']:$f3->get('PARAMS.id');
 
         // check to see if static member list has valid extension numbers and bails out if one invalid is found 
@@ -281,8 +306,8 @@ class queues extends rest {
                 list($exten,$penalty) = preg_split("/,/",$thisexten);
                 $output = preg_replace( '/[^0-9]/', '', $exten );
                 if(!in_array($output,$this->allextensions)) {
-                    header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-                    die();
+                    $errors[]=array('status'=>'422','source'=>'static_members','detail'=>'Inexistent extension found in list');
+                    $this->dieWithErrors($errors);
                 }
             }
         }
@@ -295,11 +320,23 @@ class queues extends rest {
                 list($exten,$penalty) = preg_split("/,/",$thisexten);
                 $output = preg_replace( '/[^0-9]/', '', $exten );
                 if(!in_array($output,$this->allextensions)) {
-                    header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-                    die();
+                    $errors[]=array('status'=>'422','source'=>'dynamic_members','detail'=>'Inexistent extension found in list');
+                    $this->dieWithErrors($errors);
                 } else {
                     $amidb[] = "QPENALTY/$EXTEN/agents:$exten:$penalty";
                 }
+            }
+        }
+
+        // check cron_schedule value and remove other entires that we do not want inserted depending on its value
+        if($post['cron_schedule']<>'custom') {
+            unset($post['cron_dom']);
+            unset($post['cron_hour']);
+            unset($post['cron_dow']);
+            unset($post['cron_month']);
+            unset($post['cron_minute']);
+            if($post['cron_schedule']=='never' || $post['cron_schedule']=="reboot") {
+                unset($post['cron_random']);
             }
         }
 
@@ -327,8 +364,10 @@ class queues extends rest {
             try {
                 $db->exec($query, $fldconfigval);
             } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
+                $msg  = $e->getMessage();
+                $code = $e->getCode();
+                $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+                $this->dieWithErrors($errors);
             }
 
             foreach($this->details_fields as $field) {
@@ -340,8 +379,10 @@ class queues extends rest {
                 try {
                     $db->exec($query, array($EXTEN,$keyword,$data));
                 } catch(\PDOException $e) {
-                    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                    die();
+                    $msg  = $e->getMessage();
+                    $code = $e->getCode();
+                    $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+                    $this->dieWithErrors($errors);
                 }
 
             }
@@ -370,8 +411,10 @@ class queues extends rest {
             try {
                 $db->exec($query, $fldconfigval);
             } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
+                $msg  = $e->getMessage();
+                $code = $e->getCode();
+                $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+                $this->dieWithErrors($errors);
             }
 
             // Update queues_details table
@@ -382,31 +425,37 @@ class queues extends rest {
                 try {
                     $db->exec($query,array($EXTEN,$keyword,$data));
                 } catch(\PDOException $e) {
-                    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                    die();
+                    $msg  = $e->getMessage();
+                    $code = $e->getCode();
+                    $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+                    $this->dieWithErrors($errors);
                 }
             }
         }
 
         // Set static members on queues_details
+        $alreadyset=array();
         foreach($post['static_members'] as $data) {
-
             $data = $this->expand_static_member($data);
-   
-            $query = 'INSERT INTO queues_details (id,keyword,data) VALUES (?,?,?)';
-            try {
-                $db->exec($query,array($EXTEN,'member',$data));
-            } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
+            if(!in_array($data,$alreadyset)) {  // prevent a duplicate agent passed to trigger a 500 error
+                $query = 'INSERT INTO queues_details (id,keyword,data) VALUES (?,?,?)';
+                try {
+                    $db->exec($query,array($EXTEN,'member',$data));
+                } catch(\PDOException $e) {
+                    $msg  = $e->getMessage();
+                    $code = $e->getCode();
+                    $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+                    $this->dieWithErrors($errors);
+                }
             }
+            $alreadyset[]=$data;
         }
 
-        $this->ami->DatabaseDelTree('QPENALTY/'.$EXTEN);
+        $ami->DatabaseDelTree('QPENALTY/'.$EXTEN);
         foreach($amidb as &$valor) {
             list ($family,$key,$value) = preg_split("/:/",$valor,3);
-            $this->ami->DatabaseDel($family,$key);
-            $this->ami->DatabasePut($family,$key,$value);
+            $ami->DatabaseDel($family,$key);
+            $ami->DatabasePut($family,$key,$value);
         }
     }
 
@@ -434,7 +483,7 @@ class queues extends rest {
         $tablef  = implode(",",$this->config_fields);
         $query = "SELECT ".$this->id_field." AS extension, ".$this->name_field." AS name, $tablef, $joinedf FROM queues_config $joinedj WHERE 1=1 ";
 
-        $astdb = $this->get_astdb_qpenalty();
+        $astdb = $this->get_astdb_qpenalty($f3);
 
         if($f3->get('PARAMS.id')=='') {
             // collection
@@ -478,6 +527,7 @@ class queues extends rest {
                      $rows[$idx][$this->field_map[$fld]]=$val;
                 } 
             }
+            $rows[$idx] = $this->presentationTransformValues($f3,$rows[$idx]);
         }
 
         if($f3->get('PARAMS.id')=='') {
@@ -514,29 +564,126 @@ class queues extends rest {
             }
         }
 
-        // final json output
-        $final = array();
-        $final['results'] = $rows;
-        header('Content-Type: application/json;charset=utf-8');
-        echo json_encode($final);
-        die();
+        if(is_array($from_child)) {
+            $this->outputSuccess($rows);
+        } else {
+            return $rows;
+        }
     }
 
-    public function put($f3) {
+    public function search($f3, $from_child=0) {
 
+        // SEARCH record or collection based on GET function
+
+        if($f3->get('PARAMS.term')=='') {
+            $errors[]=array('status'=>'405','detail'=>'Search term not provided');
+            $this->dieWithErrors($errors);
+        }
+
+        $db = $f3->get('DB');
+        $rows = array();
+
+        // Build SQL query with fields from both tables
+        $i=0;
+        $addfields=array();
+        $joinfields=array();
+
+        foreach($this->details_fields as $field) {
+           $addfields[$field]="IFNULL(q$i.data,'') AS `$field`";
+           $joinfields[$field]=" LEFT JOIN queues_details q$i on q$i.id=extension AND q$i.keyword='$field' ";
+           $i++;
+        }
+
+        $joinedf = implode(",",$addfields);
+        $joinedj = implode(" ",$joinfields);
+
+        $tablef  = implode(",",$this->config_fields);
+        $query = "SELECT ".$this->id_field." AS extension, ".$this->name_field." AS name, $tablef, $joinedf FROM queues_config $joinedj WHERE ".$this->search_field." LIKE ?";
+
+        $astdb = $this->get_astdb_qpenalty($f3);
+
+        $rows = $db->exec($query,array("%".$f3->get('PARAMS.term')."%"));
+
+        // Add astdb to response and reformat field results if needed
+        foreach($rows as $idx=>$row) {
+            $agents = isset($astdb[$row['extension']]['agents'])?$astdb[$row['extension']]['agents']:array();
+            $rows[$idx]['dynamic_members']=$agents;
+            $rows[$idx]['restrict_dynamic_agents']=$astdb[$row['extension']]['dynmemberonly'];
+
+            // convert static members db config to abstract config (tech)number,penalty 
+            if(isset($this->staticmembers[$row['extension']])) {
+                $el = preg_split("/\^/",$this->staticmembers[$row['extension']]);
+                foreach($el as $memb) {
+                    $allstaticmembers[]=$this->reduce_static_member($memb);
+                }
+                $rows[$idx]['static_members']=$allstaticmembers;
+            } else {
+                $rows[$idx]['static_members']=array();
+            }
+            
+            foreach($row as $fld=>$val) {
+                if(isset($this->field_map[$fld])) {
+                     unset($rows[$idx][$fld]);
+                     $rows[$idx][$this->field_map[$fld]]=$val;
+                } 
+            }
+            $rows[$idx] = $this->presentationTransformValues($f3,$rows[$idx]);
+        }
+
+        if($f3->get('PARAMS.id')=='') {
+            // for collection show only listed or queried fields
+            parse_str($f3->QUERY, $qparams);
+            if(isset($qparams['fields'])) {
+                if($qparams['fields']=='*') {
+                    $otherfields = array_merge($this->config_fields,$this->details_fields);
+                } else {
+                    $otherfields = $f3->split($qparams['fields']);
+                }
+            }
+            $otherfields[]='extension';
+            $otherfields[]='name';
+            $otherfields[] = 'static_members';
+            $otherfields[] = 'dynamic_members';
+
+            foreach($otherfields as $key) {
+                $otherfields[] = isset($this->field_map[$key])?$this->field_map[$key]:$key;
+            }
+
+            $listfields=array();
+            foreach($this->list_fields as $key) {
+                $listfields[] = isset($this->field_map[$key])?$this->field_map[$key]:$key;
+            }
+            $allfields = array_merge($listfields,$otherfields);
+
+            foreach($rows as $idx=>$row) {
+                foreach($row as $key=>$val) {
+                    if(!in_array($key,$allfields)) {
+                        unset($rows[$idx][$key]);
+                    }
+                }
+            }
+        }
+
+        $this->outputSuccess($rows);
+    }
+
+    public function put($f3,$from_child) {
+
+        $errors = array();
         $db = $f3->get('DB');
 
         // Expect JSON data, if its not good, fail
         $input = json_decode($f3->get('BODY'),true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
+            $error = json_last_error();
+            $errors[]=array('status'=>'400','detail'=>'Could not decode JSON','code'=>$error);
+            $this->dieWithErrors($errors);
         }
 
         // Put *requires* and id resource to be SET, as it will be used to update or insert with specified id
         if($f3->get('PARAMS.id')=='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-            die();
+            $errors[]=array('status'=>'405','detail'=>'Unable to update. Missing record id');
+            $this->dieWithErrors($errors);
         }
 
         $EXTEN = $f3->get('PARAMS.id');
@@ -546,7 +693,7 @@ class queues extends rest {
 
             // No entry with that extension/id, this is an INSERT, extension number is the one in the URL
 
-            $this->checkValidExtension($f3,$f3->get('PARAMS.id'));
+            $this->dieExtensionDuplicate($f3,$f3->get('PARAMS.id'));
 
             $input['extension'] = $f3->get('PARAMS.id');
             $input['descr']     = isset($input['name'])?$input['name']:$input['extension']; // set default name if not specified
@@ -576,6 +723,11 @@ class queues extends rest {
             }
             $allfields = $f3->merge('currentvalues',$morefields);
 
+            $input = $this->flatten($input);
+            $input = $this->transformValues($f3,$input);
+            $input = $this->validateValues($f3,$input);
+            $input = $this->unflatten($input);
+
             foreach($allfields as $key=>$val) {
                 $input[$key] = isset($input[$this->field_map[$key]])?$input[$this->field_map[$key]]:$allfields[$key];
                 if($key<>$this->field_map[$key]) { unset($input[$this->field_map[$key]]); }
@@ -584,7 +736,9 @@ class queues extends rest {
             // if no static member is set, populate with current
             if(!isset($input['static_members'])) {
                 if(isset($this->staticmembers[$f3->get('PARAMS.id')])) {
-                    $input['static_members']=$this->staticmembers[$f3->get('PARAMS.id')];
+                    $member_string = $this->staticmembers[$f3->get('PARAMS.id')];
+                    $membs = explode("^",$member_string);
+                    $input['static_members']=array_map(array($this,'reduce_static_member'),$membs);
                 } else {
                     $input['static_members']=array();
                 }
@@ -592,7 +746,7 @@ class queues extends rest {
             unset($input['member']);  // discard table entry as it will be processed specially in create_queue
 
             // if not dynamic members are specified, pass stored ones
-            $astdb = $this->get_astdb_qpenalty();
+            $astdb = $this->get_astdb_qpenalty($f3);
             if(!isset($input['dynamic_members'])) {
                 if(isset($astdb[$f3->get('PARAMS.id')]['agents'])) {
                     $input['dynamic_members']=$astdb[$f3->get('PARAMS.id')]['agents']; 
@@ -602,11 +756,8 @@ class queues extends rest {
             } 
 
             $input['restrict_dynamic_agents'] = isset($input['restrict_dynamic_agents'])?$input['restrict_dynamic_agents']:$astdb[$f3->get('PARAMS.id')]['dynmemberonly'];
-
             $input['extension'] = $f3->get('PARAMS.id');
-
             $this->create_queue($f3, $input, 'UPDATE');
-
             $this->applyChanges($input);
         }
 
@@ -614,19 +765,21 @@ class queues extends rest {
 
     public function post($f3, $from_child=0) {
 
+        $errors = array();
         $db = $f3->get('DB');
 
         // Expect JSON data, if its not good, fail
         $input = json_decode($f3->get('BODY'),true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
+            $error = json_last_error();
+            $errors[]=array('status'=>'400','detail'=>'Could not decode JSON','code'=>$error);
+            $this->dieWithErrors($errors);
         }
 
         // If post has an ID, fail, it will create a new resource with next available id
         if($f3->get('PARAMS.id')!='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-            die();
+            $errors[]=array('status'=>'400','detail'=>'We refuse to insert a record if a resource id is passed. For update use the PUT method instead.');
+            $this->dieWithErrors($errors);
         }
 
         // Get next queue number from queues_config table, filling gaps if any
@@ -640,7 +793,7 @@ class queues extends rest {
         $input['extension'] = $EXTEN;
 
         // Check if extension number is valid and it has no collitions
-        $this->checkValidExtension($f3,$EXTEN);
+        $this->dieExtensionDuplicate($f3,$EXTEN);
 
         // Set default name if not specified
         $input['descr'] = isset($input['name'])?$input['name']:$input['extension'];
@@ -658,23 +811,26 @@ class queues extends rest {
 
     }
 
-    public function delete($f3) {
+    public function delete($f3,$from_child) {
 
+        $errors    = array();
         $db  = $f3->get('DB');;
+        $ami = $f3->get('AMI');;
 
         // for queues we have two tables, queues_config and queues_details so we cannot rely only
         // on f3 abastraction classes
 
         // Delete requires and ID to be passed
         if($f3->get('PARAMS.id')=='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed', true, 405);
-            die();
+            $errors[]=array('status'=>'405','detail'=>'Cannot delete if no ID is supplied');
+            $this->dieWithErrors($errors);
         }
 
         $input = json_decode($f3->get('BODY'),true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 422 Unprocessable Entity', true, 422);
-            die();
+            $error = json_last_error();
+            $errors[]=array('status'=>'400','detail'=>'Could not decode JSON','code'=>$error);
+            $this->dieWithErrors($errors);
         }
 
         $allids = explode(",",$f3->get('PARAMS.id'));
@@ -683,39 +839,44 @@ class queues extends rest {
 
             $this->data->load(array($this->id_field.'=?',$oneid));
 
-            if ($this->data->dry()) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-                die();
+            if($this->data->dry()) {
+                $errors[]=array('status'=>'404','detail'=>'Could not find a record to delete');
+                $this->dieWithErrors($errors);
             }
 
             // Delete from queues table using SQL Mapper
             try {
                 $this->data->erase($this->id_field."=".$oneid);
             } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
+                $msg  = $e->getMessage();
+                $code = $e->getCode();
+                $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+                $this->dieWithErrors($errors);
             }
 
             // Delete all relevant ASTDB entries
-            $this->ami->DatabaseDelTree('QPENALTY/'.$oneid);
+            $ami->DatabaseDelTree('QPENALTY/'.$oneid);
         }
 
         // Delete data from queues_details table
         try {
             $db->exec("DELETE FROM queues_details WHERE id IN (?)",array(1=>$allids));
         } catch(\PDOException $e) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-            die();
+            $msg  = $e->getMessage();
+            $code = $e->getCode();
+            $errors[]=array('status'=>'500','detail'=>$msg, 'code'=>$code);
+            $this->dieWithErrors($errors);
         }
 
         $this->applyChanges($input);
     }
 
-    private function get_astdb_qpenalty() {
+    private function get_astdb_qpenalty($f3) {
         // Get ASTDB entries frokm QPENALTY and populate an array
         // (Used for dynamic member configuration)
+        $ami  = $f3->get('AMI');;
         $astdb = array();
-        $res = $this->ami->DatabaseShow('QPENALTY');
+        $res = $ami->DatabaseShow('QPENALTY');
         foreach($res as $key=>$val) {
             $partes = preg_split("/\//",$key);
             if($partes[3]=='agents') {
@@ -767,17 +928,164 @@ class queues extends rest {
         return $member;
     }
 
-    private function checkValidExtension($f3,$extension) {
+    public function enabled($data) {
+        if($data==1 || $data=="1" || $data==strtolower("on") || $data==strtolower("yes")) { return '1'; } else { return '0'; }
+    }
 
-        $db = $f3->get('DB');
+    public function presentation_enabled($data) {
+        if($data=='1') { return 'yes'; } else { return 'no'; }
+    }
 
-        if(in_array($extension,$this->alldestinations)) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 409 Conflict', true, 409);
-            die();
+    public function agent_restrictions($data) {
+        $rest = array('call_as_dialed'=>'0','no_followme_or_forward'=>'1','extensions_only'=>'2');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
         }
+        return '0';
+    }
 
-        return true;
+    public function presentation_agent_restrictions($data) {
+        $rest = array('0'=>'call_as_dialed','1'=>'no_followme_or_forward','2'=>'extensions_only');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return $rest['0'];
+    }
 
+    public function skip_busy_agents($data) {
+        $rest = array('no'=>'0','yes'=>'1','yes_ringinuse_no'=>'2','queue_calls_only'=>'3');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return '0';
+    }
+
+    public function presentation_skip_busy_agents($data) {
+        $rest = array('0'=>'no','1'=>'yes','2'=>'yes_ringinuse_no','3'=>'queue_calls_only');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return $rest['0'];
+    }
+
+    public function music_on_hold_ringing($data) {
+        $rest = array('moh_only'=>'0','ring_only'=>'1','agent_ringing'=>'2');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return '0';
+    }
+
+    public function presentation_music_on_hold_ringing($data) {
+        $rest = array('0'=>'moh_only','1'=>'ring_only','2'=>'agent_ringing');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return $rest['0'];
+    }
+
+    public function recording_mode($data) {
+        $rest = array('include_hold_time'=>'','after_answered'=>'b');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return '0';
+    }
+
+    public function presentation_recording_mode($data) {
+        $rest = array(''=>'include_hold_time','b'=>'after_answered');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return $rest['0'];
+    }
+
+    public function max_wait_mode($data) {
+        $rest = array('strict'=>'app','loose'=>'conf');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return '0';
+    }
+
+    public function presentation_max_wait_mode($data) {
+        $rest = array('app'=>'strict','loose'=>'conf');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return $rest['0'];
+    }
+
+    public function cron_random($data) {
+        $rest = array('yes'=>'true','no'=>'false');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return '0';
+    }
+
+    public function presentation_cron_random($data) {
+        $rest = array('true'=>'yes','false'=>'no',''=>'no');
+        if(array_key_exists($data,$rest)) {
+            return $rest[$data];
+        }
+        return $rest['0'];
+    }
+
+    public function checkCronDow($data,$field,&$errors) {
+
+        foreach($data as $valor) {
+            if(is_numeric($valor) && intval($valor)>=0 && intval($valor)<=6) {
+               //
+            } else {
+                $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Valid range: 0-6');
+            }
+        }
+        return implode(",",$data);
+    }
+
+    public function checkCronDom($data,$field,&$errors) {
+        foreach($data as $valor) {
+            if(is_numeric($valor) && intval($valor)>=1 && intval($valor)<=31) {
+               //
+            } else {
+                $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Valid range: 1-31');
+            }
+        }
+        return implode(",",$data);
+    }
+
+    public function checkCronMinute($data,$field,&$errors) {
+        foreach($data as $valor) {
+            if(is_numeric($valor) && intval($valor)>=0 && intval($valor)<=59) {
+               //
+            } else {
+                $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Valid range: 0-59');
+            }
+        }
+        return implode(",",$data);
+    }
+
+    public function checkCronHour($data,$field,&$errors) {
+        foreach($data as $valor) {
+            if(is_numeric($valor) && intval($valor)>=0 && intval($valor)<=23) {
+               //
+            } else {
+                $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Valid range: 0-23');
+            }
+        }
+        return implode(",",$data);
+    }
+
+    public function checkCronMonth($data) {
+        foreach($data as $valor) {
+            if(is_numeric($valor) && intval($valor)>=1 && intval($valor)<=12) {
+               //
+            } else {
+                $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Valid range: 1-12');
+            }
+        }
+        return implode(",",$data);
     }
 
 }

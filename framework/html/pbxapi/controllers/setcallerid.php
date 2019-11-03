@@ -21,100 +21,70 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: conferences.php, Tue 04 Sep 2018 09:52:52 AM EDT, nicolas@issabel.com
+  $Id: setcallerid.php, Tue 04 Sep 2018 09:54:43 AM EDT, nicolas@issabel.com
 */
 
-class conferences extends rest {
-    protected $table           = 'meetme';
-    protected $id_field        = 'exten';
-    protected $extension_field = 'exten';
+class setcallerid extends rest {
+
+    protected $table           = "setcid";
+    protected $id_field        = 'cid_id';
     protected $name_field      = 'description';
+    protected $extension_field = '';
+    protected $list_fields     = array('cid_num','cid_name','variables','dest');
     protected $search_field    = 'description';
-    protected $initial_exten_n = '500';
 
     protected $provides_destinations = true;
-    protected $context         = 'ext-meetme';
-    protected $category        = 'Conferences';
-    protected $required_fields = array('extension');
-
-    protected $used_extensions = array();
-    protected $get_all         = 0;
-
-    protected $sql_preparation_queries = array(
-        'ALTER TABLE meetme ADD PRIMARY KEY (exten)'
-    );
-
-    protected $options = array(
-        'T' => 'talker_detection',
-        'w' => 'wait_for_leader',
-        'o' => 'talker_optimization',
-        'q' => 'quiet_mode',
-        'c' => 'announce_user_count',
-        'i' => 'announce_user_join_leave',
-        'M' => 'music_on_hold',
-        's' => 'allow_menu',
-        'r' => 'record',
-        'm' => 'join_muted'
-    );
+    protected $context               = 'app-setcid';
+    protected $category              = 'Set CallerID';
 
     protected $field_map = array(
-        'userpin'             => 'user_pin',
-        'adminpin'            => 'admin_pin',
-        'joinmsg_id'          => 'join_message_id',
-        'users'               => 'max_participants',
-        'music'               => 'music_on_hold_class'
+        'cid_num'             => 'callerid_number',
+        'cid_name'            => 'callerid_name',
+        'dest'                => 'destination',
     );
 
-    protected $defaults = array(
-        'admin_pin'        => '',
-        'user_pin'         => '',
-        'options'          => '',
-        'music'            => 'inherit',
-        'join_message_id'  => 0,
-        'max_participants' => 10
+    protected $transforms = array( 
+    );
+
+    protected $presentationTransforms = array( 
     );
 
     public function get($f3, $from_child=0) {
 
         $db = $f3->get('DB');
 
-        $original_results = parent::get($f3,1);
+        $rows = parent::get($f3,1);
 
-        foreach($original_results as $idx=>$data) {
-            $curopt = str_split($original_results[$idx]['options']);
-            unset($original_results[$idx]['options']);
-
-            // default all options to no/disable
-            foreach($this->options as $key=>$val) {
-                $original_results[$idx]['options'][$val]='no';
-            }
-
-            foreach($curopt as $opt) {
-                if(array_key_exists($opt,$this->options)) {
-                    $original_results[$idx]['options'][$this->options[$opt]]='yes';
+        foreach($rows as $idx=>$data) {
+            if($data['variables']<>'') {
+                $variables = array();
+                $partes = preg_split("/,/",$data['variables']);
+                foreach($partes as $entry) {
+                    list ($var,$val) = preg_split("/=/",$entry);
+                    $var = trim($var);
+                    $val = trim($val);
+                    $variables[]=array('name'=>$var,'value'=>$val);
                 }
+                unset($rows[$idx]['variables']);
+                $rows[$idx]['variables']=$variables; 
             }
         }
 
         if(is_array($from_child)) {
-            $this->outputSuccess($original_results);
+            $this->outputSuccess($rows);
         } else {
-            return $original_results;
+            return $rows;
         }
-
     }
 
     public function put($f3,$from_child) {
-
-        $errors = array();
-        $db = $f3->get('DB');
 
         if($f3->get('PARAMS.id')=='') {
             $errors[]=array('status'=>'405','detail'=>'Unable to update. Missing record id');
             $this->dieWithErrors($errors);
         }
-        $oneid = $f3->get('PARAMS.id');
-        $this->data->load(array($this->id_field.'=?',$oneid));
+
+        $this->data->load(array($this->id_field.'=?',$f3->get('PARAMS.id')));
 
         if ($this->data->dry()) {
             $errors[]=array('status'=>'404','detail'=>'Could not find a record to update');
@@ -123,9 +93,17 @@ class conferences extends rest {
 
         $input = $this->parseInputData($f3);
 
-        $newopts = $input['options'];
-        unset($input['options']);
-        $input['options'] = $this->setOptions($newopts);
+        // convert variable array to flat string for db storage
+        if(isset($input['variables'])) {
+            if(is_array($input['variables'])) {
+                $vars = array();
+                foreach($input['variables'] as $idx=>$data) {
+                    $vars[]=$data['name'].'='.$data['value'];
+                }
+                $stringvars = implode(",",$vars);
+                $input['variables']=$stringvars;
+            }
+        }
 
         $input = $this->flatten($input);
         $input = $this->transformValues($f3,$input);
@@ -147,16 +125,20 @@ class conferences extends rest {
         } catch(\PDOException $e) {
             $msg  = $e->getMessage();
             $code = $e->getCode();
-            $errors[]=array('status'=>'400','detail'=>$msg,'code'=>$code);
+            $errors[]=array('status'=>'400','detail'=>$msg, 'code'=>$code);
             $this->dieWithErrors($errors);
         }
 
-        $this->applyChanges($input);
+        if(is_array($from_child)) {
+            $this->applyChanges($input);
+        }
     }
 
     function post($f3,$from_child) {
+        // INSERT record
 
         $errors = array();
+
         $loc = $f3->get('REALM');
 
         if($f3->get('PARAMS.id')<>'') {
@@ -166,13 +148,17 @@ class conferences extends rest {
 
         $input = $this->parseInputData($f3);
 
-        $this->checkRequiredFields($input);
-
-        $this->dieExtensionDuplicate($f3,$input['extension']);
-
-        $newopts = $input['options'];
-        unset($input['options']);
-        $input['options'] = $this->setOptions($newopts);
+        // convert variable array to flat string for db storage
+        if(isset($input['variables'])) {
+            if(is_array($input['variables'])) {
+                $vars = array();
+                foreach($input['variables'] as $idx=>$data) {
+                    $vars[]=$data['name'].'='.$data['value'];
+                }
+                $stringvars = implode(",",$vars);
+                $input['variables']=$stringvars;
+            }
+        }
 
         $input = $this->flatten($input);
 
@@ -195,6 +181,7 @@ class conferences extends rest {
         $f3->set('INPUT',$input);
 
         try {
+
             $this->data->copyFrom('INPUT');
             $this->data->save();
 
@@ -204,13 +191,20 @@ class conferences extends rest {
                 $mapid = $this->data[$this->id_field];
             }
 
-            $this->applyChanges($input);
-            // 201 CREATED
-            header("Location: $loc/$mapid", true, 201);
-            die();
+            if(is_array($from_child)) {
+
+                $this->applyChanges($input);
+                // 201 CREATED
+                header("Location: $loc/$mapid", true, 201);
+                die();
+
+            } else {
+                return $mapid;
+            }
 
         } catch(\PDOException $e) {
-            $err = $e->errorInfo;
+
+            $err=$e->errorInfo;
             $msg = $e->getMessage();
 
             if ($e->getCode() != 23000) {
@@ -220,28 +214,10 @@ class conferences extends rest {
                 // on other errors
                 $errors[]=array('status'=>'400','detail'=>$msg);
             }
-            $this->dieWithErrors($errors);
+            die();
         }
-    }
-
-    protected function setOptions($newoptions) {
-        if(!is_array($newoptions)) {
-            return  '';
-        }
-        $roptions = array_flip($this->options);
-        $curopt = str_split($this->data->options);
-        $ret = '';
-        foreach($newoptions as $key=>$val) {
-            if(array_key_exists($key,$roptions)) {
-                if($val=='yes') {
-                    $curopt[]=$roptions[$key];
-                } else {
-                    $curopt = array_diff($curopt,array($roptions[$key]));
-                }
-            }
-        }
-        $ret = implode('',array_unique($curopt));
-        return $ret;
     }
 
 }
+
+

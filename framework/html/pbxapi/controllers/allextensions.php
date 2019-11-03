@@ -21,67 +21,51 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: alldestinations.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
+  $Id: allextensions.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-class alldestinations extends rest {
+class allextensions extends rest {
 
-    protected $destinations = array();
+    protected $extensions = array();
 
     function __construct($f3, $ami_connect=0, $sql_mapper=1) {
 
-        parent::__construct($f3,0,0);
+        parent::__construct($f3,1,0);
 
         $cdir = scandir('controllers/');
         $results=array();
 
         $obj = array();
 
-        $deprecated = array('devices','ivrs','ivroptions','prompts','sip','users','voicemails');
-
         foreach ($cdir as $key => $controller) {
             if (!in_array($controller,array(".",".."))) {
                 $controller = preg_replace("/\.php/","",$controller);
-                if(!strstr($controller,'.') && $controller<>'alldestinations' && !is_dir('controllers/'.$controller)) {
+                if(!strstr($controller,'.') && $controller<>'allextensions' && !is_dir('controllers/'.$controller)) {
                     if($controller==$callingClass) { continue; } // do not create a new instance of calling class, it causes and endless loop
-                    if($controller=='alldestinations' || $controller=='allextensions') { continue; }
-                    if(in_array($controller,$deprecated)) { continue; }
+                    if($controller=='alldestinations' || $controller=='allextensions' || $controller=='musiconhold') { continue; }
                     $obj[$controller] = new $controller($f3);
-                    if(is_callable(array($obj[$controller],'getDestinations'))) {
-                        $ret = $obj[$controller]->getDestinations($f3);
-                        if(count($ret)>0) { $this->destinations = array_merge($this->destinations,$ret); }
+                    if(is_callable(array($obj[$controller],'getExtensions'))) {
+                        $ret = $obj[$controller]->getExtensions($f3);
+                        if(count($ret)>0) { $this->extensions = array_merge($this->extensions,$ret); }
                     }
                 }
             }
         }
+        $this->extensions = array_unique($this->extensions);
+        asort($this->extensions);
+        $this->extensions=array_values($this->extensions);
     }
 
     public function get($f3, $from_child=0) {
 
-        $results = $this->destinations;
-
         if(is_array($from_child)) {
-            $this->outputSuccess($results);
+            $this->outputSuccess($this->extensions);
         } else {
-            return $results;
+            return $this->extensions;
         }
     }
 
-    public function getExtensions($f3) {
-        $term = 'extensions';
-        $res = $this->destinations;
-        $results = array();
-        foreach($res as $idx=>$data) {
-            foreach($data as $idx2=>$data2) {
-                if(isset($data2['extension']))  {
-                    $results[]=$data2['extension'];
-                }
-             }
-        }
-        return array_unique($results);
-    }
-
-    public function search($f3,$from_child) {
+    public function search($f3, $from_child) {
         // searchs only on category, not on individual items
         $errors = array();
         if($f3->get('PARAMS.term')=='') {
@@ -95,7 +79,7 @@ class alldestinations extends rest {
 
         $results = array();
         foreach($res as $idx=>$data) {
-            // search only works by category in alldestinations entity
+            // search only works by category in allextensions entity
             if(preg_match("/$term/i",$idx)) {
                 $results[]=$data;
             }
@@ -120,3 +104,5 @@ class alldestinations extends rest {
     }
 
 }
+
+

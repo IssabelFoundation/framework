@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -22,47 +21,39 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: sip.php, Tue 04 Sep 2018 09:54:53 AM EDT, nicolas@issabel.com
+  $Id: cidlookup.php, Fri 05 Apr 2019 05:48:47 PM EDT, nicolas@issabel.com
 */
 
-class sip extends rest {
-    protected $table           = "sip";
-    protected $id_field        = 'id';
-    protected $name_field      = 'keyword';
+class cidlookup extends rest {
+
+    protected $table      = "cidlookup";
+    protected $id_field   = 'cidlookup_id';
+    protected $name_field = 'description';
     protected $extension_field = '';
-    protected $dest_field      = '';
-    protected $list_fields  = array('keyword','data');
+    protected $list_fields  = array('description','sourcetype');
 
-    function delete($f3) {
-        // Because the devices table in IssabelPBX does not have a primary key, we have to override
-        // the rest class DELETE method and pass the condition as a filter
-        //
-        if($f3->get('PARAMS.id')=='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed', true, 405);
-            die();
-        }
+    protected $field_map = array (
+        'sourcetype'           => 'source_type',
+        'cache'                => 'cache',
+        'deptname'             => 'department',
+        'http_host'            => 'http.host',
+        'http_port'            => 'http.port',
+        'http_username'        => 'http.username',
+        'http_password'        => 'http.password',
+        'http_path'            => 'http.path',
+        'http_query'           => 'http.query',
+        'mysql_host'           => 'mysql.host',
+        'mysql_dbname'         => 'mysql.dbname',
+        'mysql_query'          => 'mysql.query',
+        'mysql_username'       => 'mysql.username',
+        'mysql_password'       => 'mysql.password',
+        'mysql_charset'        => 'mysql.charset',
+        'opencnam_account_sid' => 'opencnam.auth_token',
+        'opencnam_auth_token'  => 'opencnam.account_sid'
+    );
 
-        $allids = explode(",",$f3->get('PARAMS.id'));
 
-        foreach($allids as $oneid) {
 
-            $this->data->load(array($this->id_field.'=?',$oneid));
-
-            if ($this->data->dry()) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-                die();
-            }
-
-            try {
-                $this->data->erase($this->id_field."=".$oneid);
-            } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
-            }
-
-        }
-
-    }
 
 }
 

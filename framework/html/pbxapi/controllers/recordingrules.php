@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -22,30 +21,38 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: ivroptions.php, Tue 04 Sep 2018 09:53:27 AM EDT, nicolas@issabel.com
+  $Id: callrecordings.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-class ivroptions extends rest {
-
-    protected $table           = "pbx_ivr_options";
-    protected $name_field      = 'option';
-    protected $dest_field      = 'dest';
-    protected $search_field    = 'ivr_id';
+class recordingrules extends rest {
+    protected $table      = "callrecording";
+    protected $id_field   = 'callrecording_id';
+    protected $name_field = 'description';
     protected $extension_field = '';
-    protected $list_fields  = array('pattern');
+    protected $list_fields  = array('callrecording_mode','description','dest');
 
-    public function ivr($f3) {
+    protected $provides_destinations = true;
+    protected $context               = 'ext-callrecording';
+    protected $category              = 'Recording Rules';
 
-        // Almost exact same, but we want to search by ivr_id exactly, not likekly
-        // So we can get with one request all options from a particular IVR
+    protected $field_map = array(
+        'dest' => 'destination'
+    );
 
-        if($f3->get('PARAMS.term')=='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed', true, 405);
-            die();
+    public function getDestinations($f3) {
+        $ret = array();
+        if($this->provides_destinations == true) {
+            $res = $this->get($f3,1);
+            $entity = ($this->category<>'')?$this->category:get_class($this);
+            foreach($res as $key=>$val) {
+                $ext = ($this->extension_field<>'')?$val['extension']:$val['id'];
+                $ret[$entity][]=array('name'=>$val['name'], 'destination'=>$this->context.','.$ext.',1');
+            }
         }
-
-        $this->condition = array($this->search_field.'=?',$f3->get('PARAMS.term'));
-        $this->get($f3);
-
+        return $ret;
     }
+
+
 }
+
+

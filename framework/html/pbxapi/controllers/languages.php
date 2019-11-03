@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -22,47 +21,36 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: users.php, Tue 04 Sep 2018 09:55:05 AM EDT, nicolas@issabel.com
+  $Id: languages.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-class users extends rest {
-    protected $table           = "users";
-    protected $id_field        = 'extension';
-    protected $name_field      = 'name';
-    protected $extension_field = 'extension';
-    protected $dest_field      = 'CONCAT("from-internal",",",extension,",1")';
+class languages extends rest {
 
-    function delete($f3) {
-        // Because the devices table in IssabelPBX does not have a primary key, we have to override
-        // the rest class DELETE method and pass the condition as a filter
-        //
-        if($f3->get('PARAMS.id')=='') {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed', true, 405);
-            die();
-        }
+    protected $table      = "languages";
+    protected $id_field   = 'language_id';
+    protected $name_field = 'description';
+    protected $extension_field = '';
+    protected $list_fields  = array('lang_code','description');
 
-        $allids = explode(",",$f3->get('PARAMS.id'));
+    protected $provides_destinations = true;
+    protected $context               = 'app-languages';
+    protected $category              = 'Languages';
 
-        foreach($allids as $oneid) {
+    protected $field_map = array(
+        'dest' => 'destination'
+    );
 
-            $this->data->load(array($this->id_field.'=?',$oneid));
-
-            if ($this->data->dry()) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-                die();
+    public function getDestinations($f3) {
+        $ret = array();
+        if($this->provides_destinations == true) {
+            $res = $this->get($f3,1);
+            $entity = ($this->category<>'')?$this->category:get_class($this);
+            foreach($res as $key=>$val) {
+                $ext = ($this->extension_field<>'')?$val['extension']:$val['id'];
+                $ret[$entity][]=array('name'=>$val['name'], 'destination'=>$this->context.','.$ext.',1');
             }
-
-            try {
-                $this->data->erase($this->id_field."=".$oneid);
-            } catch(\PDOException $e) {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-                die();
-            }
-
         }
-
+        return $ret;
     }
 
 }
-
-

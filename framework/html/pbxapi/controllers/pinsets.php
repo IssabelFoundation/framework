@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -22,27 +21,37 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: voicemails.php, Tue 04 Sep 2018 09:55:16 AM EDT, nicolas@issabel.com
+  $Id: pinsets.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-class voicemails extends rest {
-    protected $table      = "users";
-    protected $id_field   = 'extension';
-    protected $name_field = 'name';
-    protected $dest_field = 'CONCAT("from-internal",",","*",extension,",1")';
-    protected $extension_field = 'extension';
-    protected $condition = array('voicemail=?','default');
+class pinsets extends rest {
+    protected $table      = "pinsets";
+    protected $id_field   = 'pinsets_id';
+    protected $name_field = 'description';
+    protected $extension_field = '';
+    protected $list_fields  = array('passwords','addtocdr');
 
-    function post($f3) {
+    protected $field_map = array(
+        'addtocdr'          => 'add_to_cdr'
+    );
+
+    protected $transforms = array(
+        'add_to_cdr'          => 'enabled',
+    );
+
+    protected $presentationTransforms = array(
+        'add_to_cdr'          => 'presentation_enabled',
+    );
+
+    public function enabled($data) {
+        if($data==1 || $data=="1" || $data==strtolower("on") || $data==strtolower("yes")) { return '1'; } else { return '0'; }
     }
 
-    function put($f3) {
+    public function presentation_enabled($data) {
+        if($data=='1') { return 'yes'; } else { return 'no'; }
     }
 
-    function delete($f3) {
-    }
 
-    function search($f3) {
-    }
 }
+
 

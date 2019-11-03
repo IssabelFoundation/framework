@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -41,7 +40,7 @@ class asmanager {
 
         $mgrpass    = $f3->get('MGRPASS');
         $this->ami  = new asteriskmanager();
-        $this->conn = $this->ami->connect("localhost","admin",$mgrpass);
+        $this->conn = $this->ami->connect("localhost","admin",$mgrpass,'off',$errors);
         if(!$this->conn) {
            header('Content-Type: application/json');
            echo "{\"status\":\"error\",\"reason\":\"Could not connect to AMI\"}";

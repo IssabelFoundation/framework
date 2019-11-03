@@ -1,6 +1,5 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
   +----------------------------------------------------------------------+
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
@@ -22,11 +21,26 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: prompts.php, Tue 04 Sep 2018 09:54:30 AM EDT, nicolas@issabel.com
+  $Id: callback.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-class prompts extends rest {
-    protected $table      = "pbx_prompts";
+class callback extends rest {
+    protected $table      = "callback";
+    protected $id_field   = 'callback_id';
+    protected $name_field = 'description';
     protected $extension_field = '';
-    protected $dest_field = '';
+    protected $list_fields  = array('destination','sleep','callbacknum');
+
+    protected $category              = 'Callback';
+    protected $provides_destinations = 'false';
+
+    protected $field_map = array(
+        'callbacknum'    => 'callback_number',
+        'sleep'          => 'delay_before_callback',
+        'destination'    => 'destination'
+    );
+
+
 }
+
+

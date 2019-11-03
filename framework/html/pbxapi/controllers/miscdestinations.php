@@ -21,53 +21,37 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: authorize.php, Tue 04 Sep 2018 09:55:56 AM EDT, nicolas@issabel.com
+  $Id: miscdestinations.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
 */
 
-use Firebase\JWT\JWT;
+class miscdestinations extends rest {
+    protected $table      = "miscdests";
+    protected $id_field   = 'id';
+    protected $name_field = 'description';
+    protected $extension_field = '';
+    protected $list_fields  = array('destdial');
 
-class authorize {
+    protected $provides_destinations = true;
+    protected $context               = 'ext-miscdests';
+    protected $category              = 'Misc Destinations';
 
-    protected $whitelist = array( '127.0.0.1', '::1');
+    protected $field_map = array(
+        'destdial'                   => 'number_to_dial'
+    );
 
-    function authorized($f3) {
-
-        $headers = $f3->get('HEADERS');
-
-        if(!$f3->exists('HEADERS.Authorization')) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 403 Unauthorized', true, 403);
-            die();
-        }
-
-        list (,$jwt) = preg_split("/ /",$headers['Authorization']);
-        $key = $f3->get('JWT_KEY');
-
-        try {
-            $data = JWT::decode($jwt, $key, array('HS256'));
-        }catch(Exception $e) {
-
-            if($e->getMessage()=="Expired token") {
-                JWT::$leeway = 720000;
-                $decoded = JWT::decode($jwt, $key, array('HS256'));
-                echo "{\"status\": \"expired\"}";
-            } else {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 403 Unauthorized', true, 403);
+    public function getDestinations($f3) {
+        $ret = array();
+        if($this->provides_destinations == true) {
+            $res = $this->get($f3,1);
+            $entity = ($this->category<>'')?$this->category:get_class($this);
+            foreach($res as $key=>$val) {
+                $ext = ($this->extension_field<>'')?$val['extension']:$val['id'];
+                $ret[$entity][]=array('name'=>$val['name'], 'destination'=>$this->context.','.$ext.',1');
             }
-            die();
         }
-
-        // Token ok, then just return
-        return;
-
-        /*
-        if($f3->get('DOAUTH')==false) {
-            return;
-        }
-
-        if(in_array($_SERVER['REMOTE_ADDR'], $this->whitelist)){
-            // always accept from localhost
-            return;
-        }
-        */
+        return $ret;
     }
+
 }
+
+

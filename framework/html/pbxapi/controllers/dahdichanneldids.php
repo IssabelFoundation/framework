@@ -21,31 +21,24 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: customdestinations.php, Tue 04 Sep 2018 09:53:01 AM EDT, nicolas@issabel.com
+  $Id: dahdichanneldids.php, Tue 04 Sep 2018 09:54:43 AM EDT, nicolas@issabel.com
 */
 
-class customdestinations extends rest {
-    protected $table      = "custom_destinations";
-    protected $id_field   = 'custom_dest';
-    protected $name_field = 'description';
-    protected $extension_field ='';
+class dahdichanneldids extends rest {
 
-    protected $provides_destinations = true;
-    protected $category              = 'Custom Destinations';
-   
-    public function getDestinations($f3) {
-        $ret = array();
-        if($this->provides_destinations == true) {
-            $res = $this->get($f3,1);
-            $entity = ($this->category<>'')?$this->category:get_class($this);
-            foreach($res as $key=>$val) {
-                $ext = ($this->extension_field<>'')?$val[$this->extension_field]:'s';
-                $ret[$entity][]=array('name'=>$val['name'], 'destination'=>$val['id']);
-            }
-        }
-        return $ret;
-    }
+    protected $table           = "dahdichandids";
+    protected $id_field        = 'channel';
+    protected $name_field      = 'description';
+    protected $extension_field = '';
+    protected $list_fields     = array('did');
+    protected $search_field    = 'description';
 
+    protected $provides_destinations = false;
+    protected $category              = 'DAHDI Channel DIDs';
+
+    protected $field_map = array(
+        'did'             => 'did',
+    );
 
     function post($f3,$from_child) {
 
@@ -82,11 +75,10 @@ class customdestinations extends rest {
                 $input[$field_map_reverse[$key]]=$val;
             }
         }
-
-        $query = "INSERT INTO ".$this->table." (custom_dest,description,notes) VALUES (?,?,?)";
+        $query = "INSERT INTO dahdichandids (channel,description,did) VALUES (?,?,?)";
 
         try {
-            $db->exec($query,array($input['id'],$input['description'],$input['notes']));
+            $db->exec($query,array($input['id'],$input['description'],$input['did']));
             $this->applyChanges($input);
             // 201 CREATED
             header("Location: $loc/".$input['id'], true, 201);
@@ -106,9 +98,6 @@ class customdestinations extends rest {
         }
 
     }
-
-
-
 }
 
 

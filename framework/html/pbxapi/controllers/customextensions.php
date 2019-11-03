@@ -21,17 +21,17 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: customdestinations.php, Tue 04 Sep 2018 09:53:01 AM EDT, nicolas@issabel.com
+  $Id: customextensions.php, Tue 04 Sep 2018 09:53:01 AM EDT, nicolas@issabel.com
 */
 
-class customdestinations extends rest {
-    protected $table      = "custom_destinations";
-    protected $id_field   = 'custom_dest';
+class customextensions extends rest {
+    protected $table      = "custom_extensions";
+    protected $id_field   = 'custom_exten';
     protected $name_field = 'description';
-    protected $extension_field ='';
+    protected $extension_field ='custom_exten';
 
-    protected $provides_destinations = true;
-    protected $category              = 'Custom Destinations';
+    protected $provides_destinations = false;
+    protected $category              = 'Custom Extensions';
    
     public function getDestinations($f3) {
         $ret = array();
@@ -45,7 +45,6 @@ class customdestinations extends rest {
         }
         return $ret;
     }
-
 
     function post($f3,$from_child) {
 
@@ -83,7 +82,7 @@ class customdestinations extends rest {
             }
         }
 
-        $query = "INSERT INTO ".$this->table." (custom_dest,description,notes) VALUES (?,?,?)";
+        $query = "INSERT INTO ".$this->table." (custom_exten,description,notes) VALUES (?,?,?)";
 
         try {
             $db->exec($query,array($input['id'],$input['description'],$input['notes']));

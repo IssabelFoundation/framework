@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: asteriskmanager.php, Tue 04 Sep 2018 09:50:17 AM EDT, nicolas@issabel.com
+  $Id: asteriskmanager.php, Sun 03 Nov 2019 09:26:03 PM EST, nicolas@issabel.com
 */
 
 class asteriskmanager
@@ -51,71 +51,89 @@ class asteriskmanager
         fwrite($this->socket, $req);
 
         if($wait_response==1) {
-            return $this->wait_response();
+
+            $response = $this->wait_response();
+            if($action == 'Command' && empty($response['data']) && !empty($response['Output'])) {
+                $response['data'] = $response['Output'];
+                unset($response['Output']);
+            }
+            return $response;
+
         } else {
             return true;
         }
     }
 
-    function wait_response($allow_timeout=false) {
-        $timeout = false;
 
+    function wait_response($allow_timeout = false, $return_on_event = false) {
+        $timeout = false;
         do {
             $type = NULL;
             $parameters = array();
 
-            if(is_resource($this->socket)) {
-                if (feof($this->socket)) { return false; }
-            } else { return false; }
-
+            if (feof($this->socket) || !$this->socket) {
+                $this->log("Got EOF in wait_response() from socket waiting for response, returning false",10);
+                return false;
+            }
             $buffer = trim(fgets($this->socket, 4096));
-
-            while($buffer != '')
-            {
+            while($buffer != '') {
                 $a = strpos($buffer, ':');
-                if($a)
-                {
-                    if(!count($parameters)) // first line in a response?
-                    {
+                if($a) {
+                    if(!count($parameters)) {// first line in a response?
                         $type = strtolower(substr($buffer, 0, $a));
-                        if(substr($buffer, $a + 2) == 'Follows')
-                        {
-                            // A follows response means there is a multiline field that follows.
+                        if(substr($buffer, $a + 2) == 'Follows') {
+                            // A 'follows' response means there is a multiline field that follows.
                             $parameters['data'] = '';
                             $buff = fgets($this->socket, 4096);
-                            while(substr($buff, 0, 6) != '--END ')
-                            {
+                            while(substr($buff, 0, 6) != '--END ') {
                                 $parameters['data'] .= $buff;
                                 $buff = fgets($this->socket, 4096);
                             }
+                        }
+                    } elseif(count($parameters) == 2) {
+                        if($parameters['Response'] == "Success" && isset($parameters['Message']) && $parameters['Message'] == 'Command output follows') {
+                            // A 'Command output follows' response means there is a muiltiline field that follows.
+                            $parameters['data'] = "Privilege: Command\n"; //Add this to make Asterisk 16 look/work like < 13
+                            $parameters['data'] .= preg_replace("/^Output:\s*/","",$buffer)."\n";
+                            $buff = fgets($this->socket, 4096);
+                            while($buff !== "\r\n") {
+                                $buff = preg_replace("/^Output:\s*/","",$buff);
+                                $parameters['data'] .= trim($buff)."\n";
+                                $buff = fgets($this->socket, 4096);
+                            }
+                            break;
                         }
                     }
 
                     // store parameter in $parameters
                     $parameters[substr($buffer, 0, $a)] = substr($buffer, $a + 2);
                 }
-
                 $buffer = trim(fgets($this->socket, 4096));
-
             }
 
             // process response
             switch($type) {
-            case '': // timeout occured
+                case '': // timeout occured
                 $timeout = $allow_timeout;
-                break;
-            case 'event':
-                $this->process_event($parameters);
-                break;
-            case 'response':
-                break;
-            default:
-                $this->log('Unhandled response packet from Manager: ' . print_r($parameters, true));
-                break;
+                    break;
+                case 'event':
+                    $this->process_event($parameters);
+                    break;
+                case 'response':
+                case 'message':
+                    break;
+                default:
+                    $this->log('Unhandled response packet ('.$type.') from Manager: ' . print_r($parameters, true));
+                    break;
             }
-
-        } while($type != 'response' && $timeout !== true );
-
+        //} while($type != 'response' && $type != 'message' && !$timeout);
+        } while(($return_on_event && ($type != 'event' && $type != 'response' && $type != 'message' && !$timeout)) || (!$return_on_event && ($type != 'response' && $type != 'message' && !$timeout)));
+        $this->log("returning from wait_response with with type: $type",10);
+        $this->log('$parmaters: '.print_r($parameters,true),10);
+        $this->log('$buffer: '.print_r($buffer,true),10);
+        if (isset($buff)) {
+            $this->log('$buff: '.print_r($buff,true),10);
+        }
         return $parameters;
     }
 

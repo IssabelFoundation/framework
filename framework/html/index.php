@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Fri 23 Nov 2018 03:46:48 PM EST, nicolas@issabel.com
+  $Id: index.php, Mon 04 Nov 2019 07:38:41 AM EST, nicolas@issabel.com
 */
 function spl_issabel_class_autoload($sNombreClase)
 {
@@ -69,6 +69,17 @@ if(file_exists("langmenus/$lang.lang")){
     global $arrLangMenu;
     global $arrLang;
     $arrLang = array_merge($arrLang,$arrLangMenu);
+}
+
+// cargar traducciones de modulos issabelPBX para menu
+$it = new RecursiveDirectoryIterator("admin/modules/");
+foreach(new RecursiveIteratorIterator($it) as $file) {
+    if(preg_match("/titlelang\.php$/ui",$file)) {
+        include_once $file;
+        foreach($modTitle[$lang] as $title=>$translatedtitle) {
+            $arrLang[$title]=$translatedtitle;
+        }
+    }
 }
 
 $pdbACL = new paloDB($arrConf['issabel_dsn']['acl']);

@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Mon 04 Nov 2019 07:46:08 AM EST, nicolas@issabel.com
+  $Id: index.php, Tue 19 Nov 2019 05:30:23 PM EST, nicolas@issabel.com
 */
 function spl_issabel_class_autoload($sNombreClase)
 {
@@ -141,6 +141,8 @@ if (isset($_SESSION['issabel_user']) &&
         $arrMenuFiltered[$idMenu]['Name'] = _tr($arrMenuItem['Name']);
     }
 
+    $smarty->assign("WEBPATH", '');
+    $smarty->assign("WEBCOMMON", 'libs/');
     $smarty->assign("THEMENAME", $arrConf['mainTheme']);
 
     /*agregado para register*/

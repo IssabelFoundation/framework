@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 1.0                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2019 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -18,12 +19,11 @@
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
-  |                                                                      |
   | Translate by: Haamed Kouhfallah                                      |
-  | Email: haamed@cytco.net                                              |
-  |                                                                      |
+  | Email: k.haamed@gmail.com                                            |
   +----------------------------------------------------------------------+
-  $Id: fa.lang,v 1.2 2008/04/21 10:11:44 bmacias@palosanto.com Exp $ */
+  $Id: fa.lang,v 1.1 2019-11-30 04:08:50 Haamed Kouhfallah k.haamed@gmail.com Exp $
+*/
 global $arrLangModule;
 $arrLangModule=array(
 "Description" => "توصیف",
@@ -32,6 +32,19 @@ $arrLangModule=array(
 "View Group" => "نمایش گروه",
 "Edit Group" => "تنظیم گروه",
 "The Group have users assigned. You can delete any group that does not have any users assigned in it." => "این گروه دارای کاربران مرتبط است شما تنها گروهی را می توانید حذف کنید که کاربر مرتبط نداشته باشد",
-"The administrator group cannot be deleted because is the default Issabel Group. You can delete any other group." => "گروه مدیر قابل حذف نیست زیرا گروه پیش فرض سیستم است، شما می توانید هر گروه دیگری را حذف کنید",
+"The administrator group cannot be deleted because is the default Elastix Group. You can delete any other group." => "گروه مدیر قابل حذف نیست زیرا گروه پیش فرض سیستم است، شما می توانید هر گروه دیگری را حذف کنید",
+"Create New Group" => "ايجاد گروه جديد",
+"View Group" => "ديدن گروه",
+"Group List" => "ليست گروه",
+
+
+
+
+
+
+
+
+
+
 );
 ?>

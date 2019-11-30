@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 1.0                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2019 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -18,16 +19,14 @@
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
-  |                                                                      |
   | Translate by: Haamed Kouhfallah                                      |
-  | Email: haamed@cytco.net                                              |
-  |                                                                      |
+  | Email: k.haamed@gmail.com                                            |
   +----------------------------------------------------------------------+
-  $Id: fa.lang,v 1.2 2008/04/21 10:11:44 bmacias@palosanto.com Exp $ */
+  $Id: fa.lang,v 1.1 2019-11-30 04:08:50 Haamed Kouhfallah k.haamed@gmail.com Exp $
+*/
 global $arrLangModule;
 $arrLangModule=array(
 "Themes not Found" => "پوسته پیدا نشد",
 "The theme could not be updated" => "پوسته مورد نظر به روز نمی شود",
-"The smarty cache could not be deleted" => "The smarty cache could not be deleted"
 );
 ?>

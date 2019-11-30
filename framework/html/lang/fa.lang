@@ -5,6 +5,7 @@
   | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2019 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -18,12 +19,13 @@
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
-  |                                                                      |
+  | Translate by: Haamed Kouhfallah                                      |
+  | Email: k.haamed@gmail.com                                            |
   | Translate by: Farhad Kouhfallah                                      |
   | Email: farhad@cytco.net                                              |
-  |                                                                      |
   +----------------------------------------------------------------------+
-  $Id: fa.lang,v 2.0 2008/04/21 10:11:44 bmacias@palosanto.com Exp $ */
+  $Id: fa.lang,v 1.1 2019-11-30 04:08:50 Haamed Kouhfallah k.haamed@gmail.com Exp $
+*/
 global $arrLang;
 $arrLang=array(
 /*System Info*/
@@ -64,12 +66,13 @@ $arrLang=array(
 "The following fields contain errors" => "اين فيلدها داراري خطا هستند",
 "Validation Error" => "خطاي اعتبار",
 
+
 /*Login to Issabel*/
-"Welcome to Issabel"=>"به سرور ارتباطي سيتکو خوش آمديد",
+"Welcome to Elastix"=>"به voiz خوش آمدید",
 "Please enter your username and password"=>"لطفا شناسه کاربري و رمز عبور خود را وارد نماييد",
 "Username"=>"شناسه کاربري",
 "Password"=>"رمز عبور",
-"Submit"=>"ثبت",
+"Submit"=>"ورود",
 "Login page"=>"صفحه ورود",
 /*end Login to Issabel*/
 
@@ -118,7 +121,7 @@ $arrLang=array(
 "File install.php doesn't exist in module file" => "فايل install.php در فايل ماژول وجود ندارد",
 /*end load module*/
 
-// Issabel 0.9 
+// Elastix 0.9 
 /*Start SubModule Themes*/
 "Themes" =>"پوسته ها",
 "Change Theme" => "تغییر پوسته",
@@ -128,7 +131,7 @@ $arrLang=array(
 "IM" => "پیام فوری",
 "OpenFire" => "سرور پیام فوری",
 "The service Openfire No running" => "در حال حاضر سرویس پيام فوري فعال نیست در صورت تمایل برای فعال سازی لطفا",
-"Webmin" => "پنل سيستم عامل",
+"Webmin" => "Webmin مدیریت لینوکس با",
 "The service Webmin No running" => "سرويس پنل سيستم عامل فعال نيست. براي فعال سازي لطفا",
 /*vTigerCRM*/
 "vTigerCRM" => "ارتباط با مشتري وي تايگر",
@@ -142,13 +145,14 @@ $arrLang=array(
 /* Preferences*/
 "Preferences" => "تنظیمات",
 
+
 /* Start About Issabel */
-"About Issabel" => "درباره سيتکو",
-"About Issabel2"=>"درباره ما",
-"HELP"=>"Help",
-"About Issabel Content" => "این سیستم جامع ارتباطی بر اساس قابلیت اطمینان بالا، کاربری آسان و مدیریت تحت وب طراحی شده و با زبان پارسی و پشتیبانی کامل شرکت سیتکو ارائه می گردد - انجمن و مقالات voip-iran.com ",
-"About Issabel Closed" => "پنجره را ببند",
-/* end  About Issabel */
+"About Issabel"=>"درباره voiz",
+"About Issabel2"=>"درباره ویپ ایران",
+"HELP"=>"کمک",
+"About Issabel Content"=>" voiz محبوب ترین سیستم تلفنی ویپ فارسی زبان است که توسط گروه ویپ ایران ارائه و پشتیبانی می گردد.",
+"About Issabel Closed"=>"بستن",
+/* End About Issabel */
 
 "Search" => "جستجو",
 "Show"   => "نمايش",
@@ -169,11 +173,11 @@ $arrLang=array(
 "Extras" => "برنامه هاي جانبي",
 "Call Center" => "مرکز تماس",
 "Addons" => "افزونه ها",
-"Dashboard" => "داشبرد",
-"Network" => "شبکه",
-"Shutdown" => "راه اندازي",
+"Dashboard" => "میز کار",
+"Network" => "تنظیمات شبکه",
+"Shutdown" => "کنترل سرور",
 "Hardware Detector" => "يافتن سخت افزار",
-"Updates" => "به روزآوري",
+"Updates" => "به روز رسانی",
 "Backup/Restore" => "پشتيبان گيري",
 "Calendar" => "تقويم",
 "Address Book" => "دفترچه تلفن",
@@ -187,7 +191,7 @@ $arrLang=array(
 "Packages" => "بسته ها",
 "Repositories" => "مخازن",
 "Currency" => "پول رايج",
-"Dashboard Applet Admin" => "مديريت داشبرد",
+"Dashboard Applet Admin" => "مدیریت میز کار",
 "Domains" => "دامنه ها",
 "Accounts" => "حساب ها",
 "Relay" => "رله",
@@ -203,12 +207,61 @@ $arrLang=array(
 "Virtual Fax List" => "ليست فکس مجازي",
 "New Virtual Fax" => "فکس مجازي جديد",
 "Send Fax" => "ارسال فکس",
-"PBX Configuration" => "تنظيمات",
+"PBX Configuration" => "تنظیمات تلفنی",
 "Operator Panel" => "پنل اپراتور",
 "Voicemail" => "صندوق صوتي",
+"Monitoring" => "مکالمات ضبط شده",
 "Calls Recordings" => "مکالمات ضبط شده",
+"Batch Configurations" => "تنظیمات دسته ای",
+"Festival" => "برنامه فستیوال",
+"Security" => "امنیت",
+"Settings" => "تنظیمات",
+"Summary" => "گزارش داخلی ها",
+"Missed Calls" => "تماس های بی پاسخ",
+"Hide Filter" => "پنهان کردن فیلتر",
+"Show Filter" => "نمایش فیلتر",
+"Queue" => "صف",
+"Default" => "پیش فرض",
+"No records match the filter criteria" => "رکوردی یافت نشد",
+"Filter applied" => "فیلتر اعمال شده",
+"Download" => "دریافت",
+"Billing Setup" => "تنظیمات صورت حساب",
+"Billing Report" => "گزارش کارکرد",
+"Destination Distribution" => "توزیع مقصد",
+"Rates" => "نرخ مقاصد",
+"Showing" => "نمایش",
+"Page" => "صفحه",
+"Advanced Settings" => "تنظیمات پیشرفته",
+"Weak Keys" => "رمز های ضعیف",
+"Audit" => "گزارش کاربران",
+"Port Knocking Users" => "کاربران پورت ناکینگ",
+"Port Knocking Interfaces" => "کارت شبکه پورت ناکینگ",
+"Define Ports" => "تعریف پورت",
+"Firewall" => "فایروال",
+"Fax Queue" => "صف فکس های خروجی",
+"Email stats" => "گزارش ایمیل ها",
+"Vacations" => "تعطیلات",
+"Firewall Rules" => "قوانین فایروال",
+"SmartFink" => "اسمارت فینک",
+"SmartFink User" => "کاربر اسمارت فینک",
+"Asterisk User" => "کاربر مدیریت استریسک",
+"License" => "لایسنس",
+"About SmartFink" => "درباره اسمارت فینک",
+"Issabel Meet" => "ویدئو کنفرانس",
+"End Date" => "تاریخ پایان",
+"Start Date" => "تاریخ شروع",
+"Filter applied: " => "فیلتر شده بر اساس:  ",
+"bulkdids: " => "ساخت گروهی did",
+"Developer" => "توسعه",
+"Build Module" => "ساخت ماژول",
+"Delete Module" => "حذف ماژول",
+"Language Admin" => "مدیریت زبان وب",
+"Filter applied" => "فیلتر شده بر اساس:  ",
+"bulkdids" => "ساخت گروهی did",
+
+
 "Endpoint Configurator" => "تنظيم گوشي ها",
-"Conference" => "کنفرانس",
+"Conference" => "کنفرانس صوتی",
 "Batch of Extensions" => "ليست کامل داخلي ها",
 "Tools" => "ابزار",
 "Flash Operator Panel" => "پنل اپراتور فلش",
@@ -225,20 +278,22 @@ $arrLang=array(
 "Summary by Extension" => "گزارش خلاصه بر اساس داخلي",
 "Calling Cards" => "کارت هاي تلفن",
 "Downloads" => "دانلودها",
+
+/*CallCenter*/
 "Agent Console" => "کنسول اپراتور",
-"Outgoing Calls" => "تماس هاي خروجي",
-"Ingoing Calls" => "تماس هاي ورودي",
-"Agents" => "اپراتورها",
-"Breaks" => "تنفس ها",
-"Forms" => "فرم ها",
-"Configuration" => "تنظيمات",
-"Campaigns" => "تماس هاي تبليغاتي",
-"Do not Call List" => "ليست عدم تماس",
-"Queues" => "صف ها",
-"Clients" => "کلاينت ها",
+"Outgoing Calls" => "تماس خروجی",
+"Ingoing Calls" => "تماس ورودی",
+"Agents" => "اپراتور",
+"Breaks" => "زمان استراحت",
+"Forms" => "فرم ساز",
+"Configuration" => "تنظیمات عمومی",
+"Campaigns" => "کمپین تماس",
+"Do not Call List" => "شماره های ممنوعه",
+"Queues" => "صف",
+"Clients" => "مخاطبین",
 "Form Designer" => "طراحي فرم",
 "Form Preview" => "پيش مشاهده فرم",
-"Reports Break" => "گزارشات تنفس",
+"Reports Break" => "گزارشات زمان استراحت",
 "Calls Detail" => "جزييات تماس",
 "Calls per hour" => "تماس ها در ساعت",
 "Calls per Agent" => "تماس هاي هر اپراتور",
@@ -251,19 +306,46 @@ $arrLang=array(
 "Trunks used per hour" => "زمان استفاده از ترانک ها در ساعت",
 "Agents connection time" => "زمان اتصال اپراتورها",
 "Incoming calls monitoring" => "گزارش تماس هاي ورودي",
-"VersionDetails" => "Version",
-"VersionPackage" => "Details of package versions",
-"textMode" => "Text Mode",
-"htmlMode" => "Html Mode",
-"Register" => "Register",
-"Registered" => "Registered",
-"Unauthorized" => "Unauthorized",
-"You are not authorized to access to this page" => "You are not authorized to access to this page",
-"You need administrator privileges" => "You need administrator privileges",
-"Issabel Authentication" => "Issabel Authentication",
-"Unauthorized" => "Unauthorized",
-"You are not authorized to access this page." => "You are not authorized to access this page.",
-"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
-"Advice" => "Advice"
+"VersionDetails" => "جزئیات نسخه",
+"VersionPackage" => "جزئیات بسته های نصب شده",
+"textMode" => "حالت متنی",
+"htmlMode" => "Html حالت",
+"Register" => "ثبت نام",
+"Registered" => "ثبت شده",
+"Unauthorized" => "بدون تاییدیه",
+"Agent Options" => "تنظیمات اپراتور",
+"Campaign monitoring" => "نظارت بر کمپین",
+"External URLs" => "لینک های وب خروجی",
+"Ingoing Campaigns" => "کمپین تماس های ورودی",
+"Callback Extensions" => "اپراتور کال بک",
+
+
+"Change Issabel Password" => "تغییر رمز voiz",
+"You are not authorized to access to this page" => "شما اجازه دسترسی به این صفحه را ندارید.",
+"You need administrator privileges" => "شما به مجوز مدیریت احتیاج دارید",
+"Issabel Authentication" => "احراز هویت voiz",
+"Unauthorized" => "بدون اهزار هویت",
+"You are not authorized to access this page." => "شما اجازه دسترسی به این صفحه را ندارید",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "اجازه دسترسی به پنل نظارتی را ندارید لطفا با مدیریت تماس بگیرید.",
+"Advice" => "فعال",
+/*new*/
+"History" => "تاریخچه",
+"Change Issabel Password" => "تغییر رمز ورود voiz",
+"Current Password" => "رمز جاری",
+"New Password" => "رمز جدید",
+"Issabel Website" => "رمز جدید",
+"Retype New Password" => "ورود دوباره رمز",
+"Search modules" => "جستجوی منو",
+
+
+/*VOIPIRN*/
+"CRM" => "ارتباط با مشتری",
+"VI CRM" => "CRM ویپ ایران",
+"VI Lookup" => "جستجوی تماس گیرنده",
+
+"Unembedded IssabelPBX" => "تنظیمات",
+
+
+
 );
 ?>

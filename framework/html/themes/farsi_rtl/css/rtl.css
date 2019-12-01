@@ -1,0 +1,243 @@
+/* rtl tenant theme */
+/*
+and do one more step : 
+remove with-animation class from 112 , 118 in _menu.tpl
+*/
+@font-face {
+    font-family: 'irsns';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/eot/IRANSansWeb_FaNum_Bold.eot');
+     src: url('../fonts/eot/IRANSansWeb_FaNum_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+       url('../fonts/woff2/IRANSansWeb_FaNum_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+       url('../fonts/woff/IRANSansWeb_FaNum_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+       url('../fonts/ttf/IRANSansWeb_FaNum_Bold.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'irsns';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/eot/IRANSansWeb_FaNum_Medium.eot');
+    src: url('../fonts/eot/IRANSansWeb_FaNum_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+       url('../fonts/woff2/IRANSansWeb_FaNum_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+       url('../fonts/woff/IRANSansWeb_FaNum_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+       url('../fonts/ttf/IRANSansWeb_FaNum_Medium.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'irsns';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/eot/IRANSansWeb_FaNum_Light.eot');
+    src: url('../fonts/eot/IRANSansWeb_FaNum_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+       url('../fonts/woff2/IRANSansWeb_FaNum_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+       url('../fonts/woff/IRANSansWeb_FaNum_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+       url('../fonts/ttf/IRANSansWeb_FaNum_Light.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'irsns';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/eot/IRANSansWeb_FaNum_UltraLight.eot');
+    src: url('../fonts/eot/IRANSansWeb_FaNum_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+       url('../fonts/woff2/IRANSansWeb_FaNum_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+       url('../fonts/woff/IRANSansWeb_FaNum_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+       url('../fonts/ttf/IRANSansWeb_FaNum_UltraLight.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'irsns';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/eot/IRANSansWeb_FaNum.eot');
+    src: url('../fonts/eot/IRANSansWeb_FaNum.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+       url('../fonts/woff2/IRANSansWeb_FaNum.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+       url('../fonts/woff/IRANSansWeb_FaNum.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+       url('../fonts/ttf/IRANSansWeb_FaNum.ttf') format('truetype');
+  }
+  
+body{
+    direction: rtl;
+    font-family:'irsns', 'tahoma'
+}
+
+body .profile-info.dropdown.pull-right .dropdown-menu , th , .detailText , .detailActivity {
+    text-align:right;
+}
+
+.page-container{
+    padding: 0 280px 0 0 ;
+}
+.page-container .sidebar-menu{
+    right:0;
+    left:auto;
+}
+
+A , input , .tabForm td , th{
+    font-family: 'irsns' , 'tahoma';
+}
+ul.neo-topbar-notification > li > a, ul.neo-topbar-notification > li.profile-info > a{
+    font-size:12px;
+}
+
+A, input, .tabForm td{
+    text-align: right;
+}
+
+ol.breadcrumb > li#tenant-help{
+    float:left;
+}
+
+ol.breadcrumb > li#tenant-sticky{
+    float:left;
+}
+
+table.issabel-standard-table>thead>tr, table.issabel-standard-table>tfoot>tr{
+    text-align:right;
+}
+
+table.issabel-standard-table>thead>tr>th:first-child{
+    border-radius: 0 6px 0 0 ;
+}
+table.issabel-standard-table>thead>tr>th:last-child{
+    border-radius: 6px 0 0 0 ;
+}
+table.issabel-standard-table>tbody>tr>td{
+    text-align: right;
+    font-family: 'irsns' , 'tahoma';
+}
+footer{
+    margin-left:auto !important;
+    margin-right:16px !important;
+}
+
+#dashboard-applet-performancegraph , #dashboard-applet-hd-usage , #harddrives_dirspacereport{
+    float:left;
+}
+
+div.neo-applet-titem{
+    right:0;
+    left:auto;
+}
+
+div.neo-applet-tdesc{
+    left: auto;
+    right: 120px;
+}
+
+.typeActivity , .detailActivity{
+    float:right !important;
+}
+
+.appletwindow > .appletwindow_topbar > .appletwindow_title{
+    left:auto;
+    right:0;
+    float:right;
+    font-family: 'irsns' , 'tahoma';
+}
+.appletwindow > .appletwindow_topbar > .appletwindow_widgets{
+    float:left;
+}
+div.neo-module-content *, div.neo-module-content *::before, div.neo-module-content *::after{
+    text-align: right;
+}
+
+table.issabel-standard-table>tfoot>tr>th:first-child{
+    border-radius: 0 0 6px 0;
+}
+
+table.issabel-standard-table>tfoot>tr>th:last-child{
+    border-radius: 0 0 0 6px;
+}
+
+input.neo-table-action , .ui-widget{
+    font-family: 'irsns' , 'tahoma';
+}
+
+select#time  , .ui-button-text-only .ui-button-text{
+    font-family: 'irsns' , 'tahoma';
+}
+
+td, th{
+    text-align: right;
+}
+
+#calendar_eventdialog .input-append{
+    float:right;
+}
+
+#colorSelector div{
+    left: auto;
+    right: -2px;
+}
+
+.rnav{
+    float:left;
+}
+
+.page-container .sidebar-menu #main-menu li.has-sub > a:before{
+    float:left;
+}
+.profile-info.dropdown .dropdown-menu li a i{
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+div.neo-applet-processes-row-status-msg{
+    font: 11px 'irsns' , 'tahoma' !important;
+}
+
+.page-container.right-sidebar.sidebar-collapsed .sidebar-menu #main-menu > li#search.focused .search-input {
+    right: auto;
+    left: 65px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px 0 0 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px 0 0 3px;
+    background-clip: padding-box;
+  }
+
+  .page-container.sidebar-collapsed .sidebar-menu #main-menu > li#search.focused .search-input {
+    display: block;
+    position: absolute;
+    visibility: visible;
+    top: 0px;
+    right: 65px;
+    background: #262b34;
+    border: 1px solid #454a54;
+    width: 250px;
+    -webkit-border-radius: 0 3px 3px 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0 3px 3px 0;
+    -moz-background-clip: padding;
+    border-radius: 0 3px 3px 0;
+    background-clip: padding-box;
+    border-left: 0;
+    padding: 15px 20px;
+    padding-bottom: 16px;
+    border: 0;
+    padding-left: 0;
+  }
+
+  .page-container.sidebar-collapsed{
+      padding-right: 65px;
+      padding-left: 0;
+  }
+
+  .page-container.sidebar-collapsed .sidebar-menu #main-menu > li > ul{
+      left:auto;
+      right: 65px;
+  }
+
+  .page-container.sidebar-collapsed .sidebar-menu #main-menu > li > a > span:not(.badge){
+      left:auto;
+      right:65px;
+  }
+  @media(max-width:767px){
+    .page-body .page-container{
+        padding:0;
+    }
+  }
+
+  .login-page .login-form .form-group .btn-login{
+      text-align:right;
+  }

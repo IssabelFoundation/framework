@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Tue 19 Nov 2019 05:30:23 PM EST, nicolas@issabel.com
+  $Id: index.php, Thu 12 Dec 2019 08:40:24 AM EST, nicolas@issabel.com
 */
 function spl_issabel_class_autoload($sNombreClase)
 {
@@ -64,6 +64,19 @@ if(isset($_GET['logout']) && $_GET['logout']=='yes') {
 //cargar el archivo de idioma
 load_language();
 $lang = get_language();
+
+// Look for langmenu/xx.lang files for Issabel menu translations per module
+$it = new RecursiveDirectoryIterator("modules/");
+foreach(new RecursiveIteratorIterator($it) as $file) {
+    if(preg_match("/langmenu\/$lang\.lang/ui",$file)) {
+        echo "file $file<br>";
+        include_once "$file";
+        global $arrLangMenu;
+        global $arrLang;
+        $arrLang = array_merge($arrLang,$arrLangMenu);
+    }
+}
+
 if(file_exists("langmenus/$lang.lang")){
     include_once "langmenus/$lang.lang";
     global $arrLangMenu;

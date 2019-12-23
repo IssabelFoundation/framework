@@ -363,6 +363,7 @@ $arrLang=array(
 "Asterisk Logs"  => "Logs de Asterisk",
 "Dashboard Applet Admin"  => "Administrador de Applets",
 'Panels' => 'Paneles',
-'Storage' => 'Almacenamiento'
+'Storage' => 'Almacenamiento',
+"is licensed under" => "esta licenciado bajo",
 );
 ?>

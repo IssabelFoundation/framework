@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Thu 12 Dec 2019 08:58:21 AM EST, nicolas@issabel.com
+  $Id: index.php, Mon 23 Dec 2019 03:02:03 PM EST, nicolas@issabel.com
 */
 function spl_issabel_class_autoload($sNombreClase)
 {
@@ -105,6 +105,7 @@ if(!empty($pACL->errMsg)) {
 
 // Load smarty
 $smarty = getSmarty($arrConf['mainTheme'], $arrConf['basePath']);
+$smarty->assign("ISSABEL_LICENSED", _tr("is licensed under"));
 
 //- 1) SUBMIT. Si se hizo submit en el formulario de ingreso
 //-            autentico al usuario y lo ingreso a la sesion

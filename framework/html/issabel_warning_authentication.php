@@ -34,7 +34,7 @@ $title         = isset($content['title'])?$content['title']:"";
     <?php echo $msg; ?>
   <div/>
   <br /><br />
-  <div align="center" class="copyright"><a href="http://www.issabel.org" target='_blank'>Issabel</a> is licensed under <a href="http://www.opensource.org/licenses/gpl-license.php" target='_blank'>GPL</a>. 2006 - <?php echo $currentYear; ?>.</div>
+  <div align="center" class="copyright"><a href="http://www.issabel.org" target='_blank'>Issabel</a> {$ISSABEL_LICENSED} <a href="http://www.opensource.org/licenses/gpl-license.php" target='_blank'>GPL</a>. 2006 - <?php echo $currentYear; ?>.</div>
   <br />
 </body>
 </html>

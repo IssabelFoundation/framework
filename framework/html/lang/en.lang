@@ -234,5 +234,6 @@ $arrLang=array(
 "Voicemail" => "Voicemails",
 "Calls Recordings" => "Calls Recordings",
 'Panels' => 'Panels',
+"is licensed under" => "is licensed under",
 );
 ?>

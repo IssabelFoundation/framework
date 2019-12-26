@@ -19,8 +19,9 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Mon 23 Dec 2019 03:02:03 PM EST, nicolas@issabel.com
+  $Id: index.php, Tue 19 Nov 2019 05:30:23 PM EST, nicolas@issabel.com
 */
+
 function spl_issabel_class_autoload($sNombreClase)
 {
     if (!preg_match('/^\w+$/', $sNombreClase)) return;
@@ -65,7 +66,6 @@ if(isset($_GET['logout']) && $_GET['logout']=='yes') {
 load_language();
 $lang = get_language();
 
-// Look for langmenu/xx.lang files for Issabel menu translations per module
 $it = new RecursiveDirectoryIterator("modules/");
 foreach(new RecursiveIteratorIterator($it) as $file) {
     if(preg_match("/langmenu\/$lang\.lang/ui",$file)) {
@@ -73,7 +73,7 @@ foreach(new RecursiveIteratorIterator($it) as $file) {
         global $arrLangMenu;
         global $arrLang;
         $arrLang = array_merge($arrLang,$arrLangMenu);
-    }
+    } 
 }
 
 if(file_exists("langmenus/$lang.lang")){
@@ -105,21 +105,87 @@ if(!empty($pACL->errMsg)) {
 
 // Load smarty
 $smarty = getSmarty($arrConf['mainTheme'], $arrConf['basePath']);
+
 $smarty->assign("ISSABEL_LICENSED", _tr("is licensed under"));
+$smarty->assign("LOGIN_INCORRECT",  '');
+
+// Two Factor Authentication Check
+if(isset($_POST['input_code'])) {
+    $sec  = $pACL->getTwoFactorSecret($_SESSION['2fa_user']);
+    include('modules/sec_2fa/libs/TwoFactorAuth.class.php');
+    $tfa  = new TwoFactorAuth('Issabel');
+    $code = $tfa->getCode($sec);
+    if($_POST['input_code']==$code) {
+        $iauth = new IssabelAuth();
+        list($access_token,$refresh_token) = $iauth->acquire_jwt_token($_SESSION['2fa_user'],$_SESSION['2fa_pass']);
+        $_SESSION['access_token']  = $access_token;
+        $_SESSION['refresh_token'] = $refresh_token;
+        $_SESSION['issabel_user'] = $_SESSION['2fa_user'];
+        $_SESSION['issabel_pass'] = $_SESSION['2fa_pass'];
+        header("Location: index.php");
+        $user = urlencode(substr($_SESSION['2fa_user'],0,20));
+        writeLOG("audit.log", "LOGIN $user: Web Interface login successful. Accepted password for $user from $_SERVER[REMOTE_ADDR] using two factor authentication.");
+        exit;
+    } else {
+        $oPn = new paloSantoNavigation(array(), $smarty);
+        $oPn->putHEAD_JQUERY_HTML();
+        $sCurYear = date('Y');
+        if ($sCurYear < '2013') $sCurYear = '2013';
+        $smarty->assign("currentyear", $sCurYear);
+        $smarty->assign("THEMENAME", 'tenant');
+        $smarty->assign("WEBPATH", '');
+        $smarty->assign("SUBMIT", _tr('Submit'));
+        $smarty->assign("PAGE_NAME", _tr('Two Factor Authentication'));
+        $smarty->assign("WELCOME", _tr('Welcome to Issabel'));
+        $smarty->assign("CODE", _tr('Code'));
+        $smarty->assign("ISSABEL_LICENSED", _tr("is licensed under"));
+        $smarty->display("modules/sec_2fa/templates/default/2fa.tpl");
+        $user = urlencode(substr($_SESSION['2fa_user'],0,20));
+        writeLOG("audit.log", "LOGIN $user: Authentication Failure to Web Interface login. Failed two factore code for $user from $_SERVER[REMOTE_ADDR].");
+        die();
+    }
+}
 
 //- 1) SUBMIT. Si se hizo submit en el formulario de ingreso
 //-            autentico al usuario y lo ingreso a la sesion
 
 if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
+    include('modules/sec_2fa/libs/TwoFactorAuth.class.php');
     $pass_md5 = md5($_POST['input_pass']);
     if($pACL->authenticateUser($_POST['input_user'], $pass_md5)) {
         session_regenerate_id(TRUE);
+
+        $tfa  = new TwoFactorAuth('Issabel');
+        $tfa_enabled = $tfa->is_licensed();
+
+        // two factor authentication form, if enabled for user, show it instead of login
+        if(method_exists($pACL,'getTwoFactorSecret') && $tfa_enabled==true) {
+            $sec = $pACL->getTwoFactorSecret($_POST['input_user']);
+            if($sec<>'') {
+                $oPn = new paloSantoNavigation(array(), $smarty);
+                $oPn->putHEAD_JQUERY_HTML();
+                $_SESSION['2fa_user'] = $_POST['input_user'];
+                $_SESSION['2fa_pass'] = $pass_md5;
+                $sCurYear = date('Y');
+                if ($sCurYear < '2013') $sCurYear = '2013';
+                $smarty->assign("currentyear", $sCurYear);
+                $smarty->assign("THEMENAME", 'tenant');
+                $smarty->assign("WEBPATH", '');
+                $smarty->assign("SUBMIT", _tr('Submit'));
+                $smarty->assign("PAGE_NAME", _tr('Two Factor Authentication'));
+                $smarty->assign("WELCOME", _tr('Welcome to Issabel'));
+                $smarty->assign("CODE", _tr('Code'));
+                $smarty->assign("ISSABEL_LICENSED", _tr("is licensed under"));
+                $smarty->display("modules/sec_2fa/templates/default/2fa.tpl");
+                die();
+            }
+        }
 
         $iauth = new IssabelAuth();
         list($access_token,$refresh_token) = $iauth->acquire_jwt_token($_POST['input_user'],$_POST['input_pass']);
         $_SESSION['access_token']  = $access_token;
         $_SESSION['refresh_token'] = $refresh_token;
-
+    
         $_SESSION['issabel_user'] = $_POST['input_user'];
         $_SESSION['issabel_pass'] = $pass_md5;
         header("Location: index.php");
@@ -127,11 +193,12 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
         exit;
     } else {
         $user = urlencode(substr($_POST['input_user'],0,20));
-        if(!$pACL->getIdUser($_POST['input_user'])) // not exists user?
+        if(!$pACL->getIdUser($_POST['input_user'])) {
             writeLOG("audit.log", "LOGIN $user: Authentication Failure to Web Interface login. Invalid user $user from $_SERVER[REMOTE_ADDR].");
-        else
+        } else {
             writeLOG("audit.log", "LOGIN $user: Authentication Failure to Web Interface login. Failed password for $user from $_SERVER[REMOTE_ADDR].");
-        // Debo hacer algo aquí?
+        }
+        $smarty->assign("LOGIN_INCORRECT",_tr('Incorrect username or password. Please try again.'));
     }
 }
 

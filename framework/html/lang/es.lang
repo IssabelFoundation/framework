@@ -364,6 +364,7 @@ $arrLang=array(
 "Dashboard Applet Admin"  => "Administrador de Applets",
 'Panels' => 'Paneles',
 'Storage' => 'Almacenamiento',
-"is licensed under" => "esta licenciado bajo",
+'is licensed under' => 'esta licenciado bajo',
+'Incorrect username or password. Please try again.'=>'Usuario o clave incorrectos. Intente nuevamente.'
 );
 ?>

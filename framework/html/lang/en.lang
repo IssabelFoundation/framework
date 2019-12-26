@@ -234,6 +234,8 @@ $arrLang=array(
 "Voicemail" => "Voicemails",
 "Calls Recordings" => "Calls Recordings",
 'Panels' => 'Panels',
-"is licensed under" => "is licensed under",
+'Storage' => 'Storage',
+'is licensed under' => 'is licensed under',
+'Incorrect username or password. Please try again.'=>'Incorrect username or password. Please try again.'
 );
 ?>

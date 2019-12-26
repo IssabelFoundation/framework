@@ -63,10 +63,10 @@ var baseurl = '';
 
 		<div class="login-content">
 
-			<div class="form-login-error">
-				<h3>Invalid login</h3>
-				<p>Enter <strong>demo</strong>/<strong>demo</strong> as login and password.</p>
-			</div>
+{if !empty({$LOGIN_INCORRECT})}
+			<div class="form-login-error"><h3>{$LOGIN_INCORRECT}</h3></div>
+			<script>$('.form-login-error').show();</script>
+{/if}
 
 			<form method="post">
 

@@ -1660,4 +1660,89 @@ SQL_CURRENT_GROUP_PRIVILEGES;
         }
         return TRUE;
     }
+
+    function getTwoFactorSecret($user)
+    {
+        $user = trim($user);
+
+        if ($this->_DB->connStatus) {
+            return FALSE;
+        } else {
+            $this->errMsg = "";
+
+            if($user == "") {
+                $this->errMsg = PALOACL_MSG_ERROR_1;
+                return FALSE;
+            }
+
+            $has2f=false;
+            $arr = $this->_DB->fetchTable("PRAGMA table_info('acl_user')");
+            if (is_array($arr)) {
+                foreach($arr as $idx=>$dta) {
+                    if($dta[1]=='twofactorsecret') { $has2f=true; }
+                }
+            } else { return FALSE; }
+
+            if($has2f==FALSE) {
+                $sql = "ALTER TABLE acl_user ADD twofactorsecret varchar(200) DEFAULT ''";
+                if (!$this->_DB->genQuery($sql))  {
+                    return FALSE;
+                }
+            }
+
+            $sql = "SELECT twofactorsecret FROM acl_user WHERE name = ? ";
+            $arr = $this->_DB->fetchTable($sql, FALSE, array($user));
+            if (is_array($arr)) {
+                return ($arr[0][0]);
+            } else {
+                $this->errMsg = $this->_DB->errMsg;
+                return FALSE;
+            }
+        }
+    }
+
+    function setTwoFactorSecret($user,$secret)
+    {
+        $user   = trim($user);
+        $secret = trim($secret);
+
+        if ($this->_DB->connStatus) {
+            $this->errMsg = "not connected";
+            return FALSE;
+        } else {
+            $this->errMsg = "";
+
+            if($user == "") {
+                $this->errMsg = PALOACL_MSG_ERROR_1;
+                return FALSE;
+            }
+
+            $has2f=FALSE;
+            $arr = $this->_DB->fetchTable("PRAGMA table_info('acl_user')");
+            if (is_array($arr)) {
+                foreach($arr as $idx=>$dta) {
+                    if($dta[1]=='twofactorsecret') { $has2f=true; }
+                }
+            } else { $this->errMsg = "not connected pragma"; return FALSE; }
+
+            if($has2f==FALSE) {
+                $sql = "ALTER TABLE acl_user ADD twofactorsecret varchar(200) DEFAULT ''";
+                if (!$this->_DB->genQuery($sql))  {
+            $this->errMsg = "problem with alter table";
+                    return FALSE;
+                }
+            }
+
+            $sql = 'UPDATE acl_user SET twofactorsecret = ? WHERE name = ?';
+            $r = $this->_DB->genQuery($sql, array($secret, $user));
+            if (!$r) {
+                $this->errMsg = $this->_DB->errMsg." problema con update acl_user";
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
+
+
+
 }

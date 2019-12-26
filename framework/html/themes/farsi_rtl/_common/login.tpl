@@ -79,7 +79,7 @@ var baseurl = '';
 							<i class="entypo-user"></i>
 						</div>
 
-						<input type="text" class="form-control" name="input_user" id="input_user" placeholder="Username" autocomplete="off" />
+						<input type="text" class="form-control" name="input_user" id="input_user" placeholder="{$USERNAME}" autocomplete="off" />
 					</div>
 
 				</div>
@@ -91,7 +91,7 @@ var baseurl = '';
 							<i class="entypo-key"></i>
 						</div>
 
-						<input type="password" class="form-control" name="input_pass" placeholder="Password" autocomplete="off" />
+						<input type="password" class="form-control" name="input_pass" placeholder="{$PASSWORD}" autocomplete="off" />
 					</div>
 
 				</div>

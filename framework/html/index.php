@@ -127,6 +127,8 @@ if(isset($_POST['input_code'])) {
         writeLOG("audit.log", "LOGIN $user: Web Interface login successful. Accepted password for $user from $_SERVER[REMOTE_ADDR] using two factor authentication.");
         exit;
     } else {
+        list ($color1,$color2) = $tfa->get_theme_colors();
+       
         $oPn = new paloSantoNavigation(array(), $smarty);
         $oPn->putHEAD_JQUERY_HTML();
         $sCurYear = date('Y');
@@ -139,6 +141,8 @@ if(isset($_POST['input_code'])) {
         $smarty->assign("WELCOME", _tr('Welcome to Issabel'));
         $smarty->assign("CODE", _tr('Code'));
         $smarty->assign("ISSABEL_LICENSED", _tr("is licensed under"));
+        $smarty->assign("LOGIN_COLOR_1", $color1);
+        $smarty->assign("LOGIN_COLOR_2", $color2);
         $smarty->display("modules/sec_2fa/templates/default/2fa.tpl");
         $user = urlencode(substr($_SESSION['2fa_user'],0,20));
         writeLOG("audit.log", "LOGIN $user: Authentication Failure to Web Interface login. Failed two factore code for $user from $_SERVER[REMOTE_ADDR].");
@@ -162,6 +166,9 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
         if(method_exists($pACL,'getTwoFactorSecret') && $tfa_enabled==true) {
             $sec = $pACL->getTwoFactorSecret($_POST['input_user']);
             if($sec<>'') {
+
+                list ($color1,$color2) = $tfa->get_theme_colors();
+
                 $oPn = new paloSantoNavigation(array(), $smarty);
                 $oPn->putHEAD_JQUERY_HTML();
                 $_SESSION['2fa_user'] = $_POST['input_user'];
@@ -176,6 +183,8 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
                 $smarty->assign("WELCOME", _tr('Welcome to Issabel'));
                 $smarty->assign("CODE", _tr('Code'));
                 $smarty->assign("ISSABEL_LICENSED", _tr("is licensed under"));
+                $smarty->assign("LOGIN_COLOR_1", $color1);
+                $smarty->assign("LOGIN_COLOR_2", $color2);
                 $smarty->display("modules/sec_2fa/templates/default/2fa.tpl");
                 die();
             }

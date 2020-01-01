@@ -32,6 +32,7 @@ class asteriskmanager
     var $port;
     var $event_handlers;
     var $waits_for_response = 1;
+    var $debug = 0;
 
     function asteriskmanager($config=NULL, $optconfig=array())
     {
@@ -375,7 +376,9 @@ class asteriskmanager
     }
 
     function log($message, $level=1) {
-        error_log(date('r') . ' - ' . $message);
+        if($this->debug==1) {
+            error_log(date('r') . ' - ' . $message);
+        }
     }
 
     /**

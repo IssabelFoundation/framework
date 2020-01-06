@@ -20,4 +20,4 @@ foreach $s (@l) {
 }
 POSIX::setsid();
 
-exec @ARGV;
+exec "LC_MESSAGES=C @ARGV";

@@ -20,4 +20,7 @@ foreach $s (@l) {
 }
 POSIX::setsid();
 
-exec "LC_MESSAGES=C @ARGV";
+unshift @ARGV, 'LC_MESSAGES=C';
+my @finalcmd = map { $_ =~ / / ? "'".$_."'" : $_ } @ARGV;
+$cmd = join(" ",@finalcmd);
+exec $cmd;

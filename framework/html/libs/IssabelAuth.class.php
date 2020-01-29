@@ -27,10 +27,13 @@ class IssabelAuth {
     function acquire_jwt_token($user,$password) {
         session_write_close();
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"http://localhost/pbxapi/authenticate");
+        curl_setopt($ch, CURLOPT_URL,"https://localhost/pbxapi/authenticate");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('user' => $user, 'password' => $password)));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response    = curl_exec($ch);
         $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);

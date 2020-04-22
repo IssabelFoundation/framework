@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: asteriskmanager.php, Sun 03 Nov 2019 09:26:03 PM EST, nicolas@issabel.com
+  $Id: asteriskmanager.php, Wed 22 Apr 2020 02:01:21 PM EDT, nicolas@issabel.com
 */
 
 class asteriskmanager
@@ -71,6 +71,11 @@ class asteriskmanager
         do {
             $type = NULL;
             $parameters = array();
+
+            if(!is_resource($this->socket)) {
+                $this->log("AMI Socket closed, returning false");
+                return false;
+            }
 
             if (feof($this->socket) || !$this->socket) {
                 $this->log("Got EOF in wait_response() from socket waiting for response, returning false",10);

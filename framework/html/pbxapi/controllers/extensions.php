@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Fri 05 Apr 2019 05:51:34 PM EDT, nicolas@issabel.com
+  $Id: extensions.php, Wed 29 Apr 2020 07:03:51 PM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -1497,15 +1497,18 @@ echo "perro\n";
     }
 
     protected function checkAcl($data,$field,&$errors) {
-        $parts = preg_split("/\//",$data,2);
-        $ok=1;
-        foreach($parts as $element) {
-            if(!preg_match('/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',$element,$matches)) {
-                $ok=0;
+        $items = preg_split("/&/",$data);
+        foreach($items as $dita) {
+            $parts = preg_split("/\//",$dita,2);
+            $ok=1;
+            foreach($parts as $element) {
+                if(!preg_match('/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',$element,$matches)) {
+                    $ok=0;
+                }
             }
-        }
-        if($ok==0) {
-            $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Not a valid IP address or Mask');
+            if($ok==0) {
+                $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Not a valid IP address or Mask');
+            }
         }
         return $data;
     }

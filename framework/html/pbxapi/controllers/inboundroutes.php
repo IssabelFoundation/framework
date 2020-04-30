@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: inboundroutes.php, Tue 04 Sep 2018 09:55:16 AM EDT, nicolas@issabel.com
+  $Id: inboundroutes.php, Thu 30 Apr 2020 05:58:39 PM EDT, nicolas@issabel.com
 */
 
 class inboundroutes extends rest {
@@ -30,7 +30,7 @@ class inboundroutes extends rest {
     protected $name_field = 'description';
     protected $extension_field = '';
     protected $list_fields = array('description','extension','destination','cidnum');
-    protected $search_field    = 'description';
+    protected $search_field    = 'description,extension';
     protected $has_callrecording = 1;
     protected $has_cidlookup = 1;
     protected $valid_cid_lookups = array('0');

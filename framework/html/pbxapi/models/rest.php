@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: rest.php, Fri 05 Apr 2019 06:06:16 PM EDT, nicolas@issabel.com
+  $Id: rest.php, Thu 30 Apr 2020 05:57:37 PM EDT, nicolas@issabel.com
 */
 
 class rest {
@@ -544,7 +544,19 @@ class rest {
 
         if($this->search_field=='') { $this->search_field = $this->name_field; }
 
-        $list = $this->data->find(array($this->search_field.' LIKE ?',"%".$f3->get('PARAMS.term')."%"));
+        if(preg_match("/,/",$this->search_field)) {
+            $parts = preg_split("/,/",$this->search_field);
+            $sfields = array();
+            foreach($parts as $myfield) {
+                $sfields[] = $myfield.' LIKE ? ';
+                $sterms[] = "%".$f3->get('PARAMS.term')."%";
+            }
+            $ffield = implode(" OR ",$sfields);
+            $list = $this->data->find(array($ffield,$sterms));
+        } else {
+            // search on one field only
+            $list = $this->data->find(array($this->search_field.' LIKE ?',"%".$f3->get('PARAMS.term')."%"));
+        }
 
         $results = array();
 

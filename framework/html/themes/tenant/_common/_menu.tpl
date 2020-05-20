@@ -225,7 +225,7 @@ function removeNeoDisplayOnMouseOver(ref){
     <span style='float:right; width:400px;'>
         <ul style="padding-top:12px;" class="list-inline links-list pull-right neo-topbar-notification">
 
-        <li id="header_notification_bar" class="profile-info dropdown">
+        <li id="header_registration_info" class="profile-info dropdown">
             <a data-toggle="dropdown" class="" href="#">
                 <i class="fa fa-info-circle"></i>
             </a>

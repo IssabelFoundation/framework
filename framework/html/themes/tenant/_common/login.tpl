@@ -32,7 +32,8 @@
 <body class="page-body login-page login-form-fall" data-url="http://neon.dev">
 
 
-<!-- This is needed when you send requests via Ajax --><script type="text/javascript">
+<!-- This is needed when you send requests via Ajax -->
+<script type="text/javascript">
 var baseurl = '';
 </script>
 
@@ -118,15 +119,15 @@ var baseurl = '';
 
 
 	<!-- Bottom Scripts -->
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/gsap/main-gsap.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/bootstrap.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/joinable.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/resizeable.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/neon-api.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/jquery.validate.min.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/neon-login.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/neon-custom.js"></script>
-	<script type='text/javascript' src="{$WEBPATH}themes/{$THEMENAME}/js/neon-demo.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/gsap/main-gsap.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/bootstrap.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/joinable.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/resizeable.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-api.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/jquery.validate.min.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-login.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-custom.js"></script>
+	<script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-demo.js"></script>
 
 </body>
 </html>

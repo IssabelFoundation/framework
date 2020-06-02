@@ -82,6 +82,7 @@ class IssabelFirstBoot {
 
             if($ret==0) {
                 unlink("/etc/asterisk/firstboot");
+                header('Refresh: 1');
             }
             die();
         }
@@ -553,7 +554,7 @@ margin-left:15px !important;
             </fieldset>
 
             <fieldset class='step'>
-            <legend><span class='translate' data-text='Setting Passwords. Please wait.'></span></legend>
+            <legend style='text-align:center;'><span class='translate' data-text='Setting Passwords. Please wait.'></span></legend>
 
             <div style='display:none;'><input type=submit></div>
             <progress id='progressbar' style='width:98%; -webkit-appearance:none; appearance:none;' max='100' value='0'></progress>
@@ -734,7 +735,6 @@ function notmatch(el) {
     }
 
     function validateStep(step){
-
         if(step == fieldsetCount) return;
 
         var hasError = false;
@@ -750,6 +750,27 @@ function notmatch(el) {
         });
         return hasError;
     }
+
+\$('#form-boot').on('submit',function(e) {
+
+    e.preventDefault();
+
+    var stepsWidth    = 0;
+    var widths         = new Array();
+    \$('#steps .step').each(function(i){
+        var \$step         = \$(this);
+        widths[i]          = stepsWidth;
+        stepsWidth         += \$step.width();
+    });
+    var laststep = 4;
+
+    \$('#steps').stop().animate({
+         marginLeft: '-' + widths[laststep-1] + 'px'
+     },500,function(){
+         changePasswords();
+     });
+
+});
 
 });
 </script>

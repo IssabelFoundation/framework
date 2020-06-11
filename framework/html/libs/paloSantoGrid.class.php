@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoGrid.class.php, bmacias@palosanto.com Exp $ */
-
+  $Id: paloSantoGrid.class.php, Thu 11 Jun 2020 12:23:12 PM EDT, nicolas@issabel.com
+*/
 class paloSantoGrid {
 
     private $title;
@@ -591,6 +591,7 @@ class paloSantoGrid {
 
     function fetchGridCSV($arrGrid=array(), $arrData=array())
     {
+        ob_end_clean();
         if(isset($arrGrid["columns"]) && count($arrGrid["columns"]) > 0)
             $this->arrHeaders = $arrGrid["columns"];
         if(isset($arrData) && count($arrData) > 0)
@@ -621,6 +622,7 @@ class paloSantoGrid {
 
     function fetchGridXLS()
     {
+        ob_end_clean();
         header ("Cache-Control: private");
         header ("Pragma: cache");    // Se requiere para HTTPS bajo IE6
         header ('Content-Disposition: attachment; filename="'."{$this->nameFile_Export}.xls".'"');

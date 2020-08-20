@@ -44,7 +44,7 @@ $counter_channels_local = 0;
 foreach($arrSalida as $linea) {
     if(preg_match("#^DAHDI/#i", $linea)) {
         $counter_channels_dahdi++;
-    } else if(preg_match("/SIP/i", $linea)) {
+    } else if(preg_match("/SIP|PJSIP/i", $linea)) {
         $counter_channels_sip++;
     } else if(preg_match("/IAX2/i", $linea)) {
         $counter_channels_iax++;

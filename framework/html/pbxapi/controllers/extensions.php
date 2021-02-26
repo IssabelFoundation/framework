@@ -305,6 +305,8 @@ class extensions extends rest {
                 $final['followme.extension_list']=$data['extension'];
             }
 
+            if($techtable=='pjsip') $techtable='sip';
+
             if($techtable<>'custom' && $techtable<>'virtual') {  // custom extension do not have a table to get extra data from
                 $query = "SELECT keyword,data FROM ".$techtable." WHERE id=:id AND keyword NOT IN ('secret','context','dial') ORDER BY flags";
                 $rews = $db->exec($query,array(':id'=>$data['extension']));

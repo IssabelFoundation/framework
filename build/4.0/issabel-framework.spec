@@ -276,6 +276,8 @@ elif [ $1 -eq 2 ]; then #update
     fi
 fi
 
+chown -R asterisk.asterisk /var/www/html 
+
 # Se revisa la clave de ami si esta en /etc/issabel.conf
 search_ami_admin_pwd
 if [ "$?" == "1" ]; then

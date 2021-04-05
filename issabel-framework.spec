@@ -1,9 +1,9 @@
 %define modname framework
-Summary: Issabel is a Web based software to administrate a PBX based in open source programs, forked from Elastix
 Name: issabel-framework
-Vendor: Issabel Foundation
+Summary: Issabel is a Web based software to administrate a PBX based in open source programs, forked from Elastix
 Version: 4.0.0
 Release: 11
+Vendor: Issabel Foundation
 License: GPL
 Group: Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
@@ -61,17 +61,17 @@ Requires: sqlite
 %description
 Issabel is a Web based software to administrate a PBX based in open source programs
 
-%package themes-extra
-Summary: Issabel GUI themes from 2.4 and earlier
-Group: Applications/System
-BuildArch: noarch
-Requires: issabel-framework = %{version}-%{release}
+#%package themes-extra
+#Summary: Issabel GUI themes from 2.4 and earlier
+#Group: Applications/System
+#BuildArch: noarch
+#Requires: issabel-framework = %{version}-%{release}
 
-%description themes-extra
-This package provides the Issabel GUI themes from earlier versions.
+#%description themes-extra
+#This package provides the Issabel GUI themes from earlier versions.
 
 %prep
-%setup -n %{name}_%{version}
+%setup -n %{name}-%{version}
 %patch0 -p1
 
 %install

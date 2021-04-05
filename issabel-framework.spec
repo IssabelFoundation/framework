@@ -107,7 +107,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/init.d
 
 ## ** Step 2: Installation of files and folders ** ##
 # ** Installating framework issabel webinterface ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
+mv $RPM_BUILD_DIR/%{name}_%{version}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
 
 # ** Installating modules issabel webinterface ** #
 
@@ -115,64 +115,64 @@ chmod 777 $RPM_BUILD_ROOT/var/www/db/
 chmod 755 $RPM_BUILD_ROOT/usr/share/issabel/privileged
 
 # ** Httpd and Php config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/issabel.conf        $RPM_BUILD_ROOT/etc/httpd/conf.d/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/httpd/conf.d/issabel-htaccess.conf  $RPM_BUILD_ROOT/etc/httpd/conf.d/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/php.d/issabel.ini                $RPM_BUILD_ROOT/etc/php.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/httpd/conf.d/issabel.conf        $RPM_BUILD_ROOT/etc/httpd/conf.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/httpd/conf.d/issabel-htaccess.conf  $RPM_BUILD_ROOT/etc/httpd/conf.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/php.d/issabel.ini                $RPM_BUILD_ROOT/etc/php.d/
 
 # ** crons config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/cron.d/issabel.cron              $RPM_BUILD_ROOT/etc/cron.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/cron.d/issabel.cron              $RPM_BUILD_ROOT/etc/cron.d/
 chmod 644 $RPM_BUILD_ROOT/etc/cron.d/*
 
 # ** Repos config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/yum.repos.d/Issabel.repo         $RPM_BUILD_ROOT/etc/yum.repos.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/yum.repos.d/Issabel.repo         $RPM_BUILD_ROOT/etc/yum.repos.d/
 
 # ** sudoers config ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/sudoers                          $RPM_BUILD_ROOT/usr/share/issabel/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/sudoers                          $RPM_BUILD_ROOT/usr/share/issabel/
 
 # ** profile login server info ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/profile.d/login-info.sh          $RPM_BUILD_ROOT/etc/profile.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/profile.d/login-info.sh          $RPM_BUILD_ROOT/etc/profile.d/
 
 # ** /usr/local/ files ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/local/issabel/sampler.php        $RPM_BUILD_ROOT/usr/local/issabel/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/local/sbin/motd.sh               $RPM_BUILD_ROOT/usr/local/sbin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/local/issabel/sampler.php        $RPM_BUILD_ROOT/usr/local/issabel/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/local/sbin/motd.sh               $RPM_BUILD_ROOT/usr/local/sbin/
 chmod 755 $RPM_BUILD_ROOT/usr/local/sbin/motd.sh
 
 # ** /usr/share/ files ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/share/pear/DB/sqlite3.php                    $RPM_BUILD_ROOT/usr/share/pear/DB/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/share/pear/DB/sqlite3.php                    $RPM_BUILD_ROOT/usr/share/pear/DB/
 
 # ** setup ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/setup/usr/share/issabel/privileged/*   $RPM_BUILD_ROOT/usr/share/issabel/privileged/
+mv $RPM_BUILD_DIR/%{name}_%{version}/framework/setup/usr/share/issabel/privileged/*   $RPM_BUILD_ROOT/usr/share/issabel/privileged/
 rmdir framework/setup/usr/share/issabel/privileged/ framework/setup/usr/share/issabel
 rmdir framework/setup/usr/share framework/setup/usr
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/setup/                                 $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/framework/menu.xml                               $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+mv $RPM_BUILD_DIR/%{name}_%{version}/framework/setup/                                 $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+mv $RPM_BUILD_DIR/%{name}_%{version}/framework/menu.xml                               $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
 
 # ** issabel -* file ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-menumerge            $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-menuremove           $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-dbprocess            $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/compareVersion		   $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/search_ami_admin_pwd             $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-add-yum-exclude             $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-notification             $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/issabel-menumerge            $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/issabel-menuremove           $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/issabel-dbprocess            $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/compareVersion		   $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/search_ami_admin_pwd             $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/issabel-add-yum-exclude             $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/issabel-notification             $RPM_BUILD_ROOT/usr/bin/
 chmod 755 $RPM_BUILD_ROOT/usr/bin/compareVersion
 chmod 755 $RPM_BUILD_ROOT/usr/bin/search_ami_admin_pwd
 
 # ** Moving issabel_helper
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/bin/issabel-helper               $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/sbin/issabel-helper              $RPM_BUILD_ROOT/usr/sbin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/bin/issabel-helper               $RPM_BUILD_ROOT/usr/bin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/sbin/issabel-helper              $RPM_BUILD_ROOT/usr/sbin/
 
 chmod 755 $RPM_BUILD_ROOT/usr/sbin/issabel-helper
 chmod 755 $RPM_BUILD_ROOT/usr/bin/issabel-helper
 
 
 # Archivos generic-cloexec y close-on-exec.pl
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/usr/sbin/close-on-exec.pl            $RPM_BUILD_ROOT/usr/sbin/
-mv $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/init.d/generic-cloexec           $RPM_BUILD_ROOT/etc/init.d/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/usr/sbin/close-on-exec.pl            $RPM_BUILD_ROOT/usr/sbin/
+mv $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/init.d/generic-cloexec           $RPM_BUILD_ROOT/etc/init.d/
 
 #Logrotate
 mkdir -p    $RPM_BUILD_ROOT/etc/logrotate.d/
-mv          $RPM_BUILD_DIR/%{name}_%{version}-%{release}/additionals/etc/logrotate.d/*           $RPM_BUILD_ROOT/etc/logrotate.d/
+mv          $RPM_BUILD_DIR/%{name}_%{version}/additionals/etc/logrotate.d/*           $RPM_BUILD_ROOT/etc/logrotate.d/
 # Los archivos de logrotate TIENEN que ser 0644 (http://bugs.elastix.org/view.php?id=2608)
 chmod 644 $RPM_BUILD_ROOT/etc/logrotate.d/*
 

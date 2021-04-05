@@ -107,7 +107,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/init.d
 
 ## ** Step 2: Installation of files and folders ** ##
 # ** Installating framework issabel webinterface ** #
-mv $RPM_BUILD_DIR/%{name}_%{version}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
+mv $RPM_BUILD_DIR/%{name}-%{version}/framework/html/*                              $RPM_BUILD_ROOT/var/www/html/
 
 # ** Installating modules issabel webinterface ** #
 

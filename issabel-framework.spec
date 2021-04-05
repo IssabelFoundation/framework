@@ -61,14 +61,14 @@ Requires: sqlite
 %description
 Issabel is a Web based software to administrate a PBX based in open source programs
 
-#%package themes-extra
-#Summary: Issabel GUI themes from 2.4 and earlier
-#Group: Applications/System
-#BuildArch: noarch
-#Requires: issabel-framework = %{version}-%{release}
+%package themes-extra
+Summary: Issabel GUI themes from 2.4 and earlier
+Group: Applications/System
+BuildArch: noarch
+Requires: issabel-framework = %{version}-%{release}
 
-#%description themes-extra
-#This package provides the Issabel GUI themes from earlier versions.
+%description themes-extra
+This package provides the Issabel GUI themes from earlier versions.
 
 %prep
 %setup -n %{name}-%{version}
@@ -410,9 +410,9 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/cache/.dummy
 /var/www/html/templates_c/.dummy
 
-#%files themes-extra
-#%defattr(-, root, root)
-#/var/www/html/themes/*
-#%exclude /var/www/html/themes/tenant
+%files themes-extra
+%defattr(-, root, root)
+/var/www/html/themes/*
+%exclude /var/www/html/themes/tenant
 
 %changelog

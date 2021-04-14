@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoNavigation.class.php,v 1.2 2007/09/07 00:20:03 gcarrillo Exp $ */
-
+  $Id: paloSantoNavigation.class.php, Wed 14 Apr 2021 07:10:29 PM EDT, nicolas@issabel.com
+*/
 define('MENUTAG', 'Name');
 define('MAX_THEME_LEVEL', 3);
 
@@ -222,6 +222,14 @@ class paloSantoNavigation extends paloSantoNavigationBase
     {
         $selectedModule = $this->getSelectedModule();
         $this->putHEAD_JQUERY_HTML();
+
+        if ($this->_smarty->getTemplateVars('HEADER') === null)  {
+            $this->_smarty->assign('HEADER','');
+        }
+
+        if ($this->_smarty->getTemplateVars('BODYPARAMS') === null)  {
+            $this->_smarty->assign('BODYPARAMS','');
+        }
 
         // Módulo seleccionado es un verdadero módulo con código
         if ($this->_menunodes[$selectedModule]['Type'] == 'module')

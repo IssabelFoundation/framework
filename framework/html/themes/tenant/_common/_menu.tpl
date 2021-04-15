@@ -83,7 +83,6 @@ function removeNeoDisplayOnMouseOver(ref){
 <input type="hidden" id="lblRegisterCm"   value="{$lblRegisterCm}" />
 <input type="hidden" id="lblRegisteredCm" value="{$lblRegisteredCm}" />
 <input type="hidden" id="userMenuColor" value="{$MENU_COLOR}" />
-<input type="hidden" id="lblSending_request" value="{$SEND_REQUEST}" />
 <input type="hidden" id="toolTip_addBookmark" value="{$ADD_BOOKMARK}" />
 <input type="hidden" id="toolTip_removeBookmark" value="{$REMOVE_BOOKMARK}" />
 <input type="hidden" id="toolTip_addingBookmark" value="{$ADDING_BOOKMARK}" />

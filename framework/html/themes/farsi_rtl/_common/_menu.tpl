@@ -142,7 +142,6 @@ function removeNeoDisplayOnMouseOver(ref){
                     <a href="index.php?menu={$idMenu}">
                          <i class="{$menu.icon}"></i>
 			<!--<span>{$idMenu}</span>-->
-                        <!--<span>{$menu.description}</span>-->
 			<span>{$menu.Name}</span>
                     </a>
                     <ul>
@@ -153,27 +152,34 @@ function removeNeoDisplayOnMouseOver(ref){
                             {else}
                                 <li>
                             {/if}
-                                    <a href="index.php?menu={$idSubMenu}">
-					<i class="{$subMenu.icon}"></i>
-					<!--<span>{$idSubMenu}</span>-->
-                                        <!--<span>{$subMenu.description}</span>-->
-					<span>{$subMenu.Name}</span>
-                                    </a>
-                                    {if $subMenu.children}
-                                        <ul>
-                                            <!--recorremos el arreglo del menu de tercer nivel-->
-                                            {foreach from=$subMenu.children key=idSubMenu2 item=subMenu2}
-                                                <li>
-                                                    <a href="index.php?menu={$idSubMenu2}">
-							<!--<span>{$idSubMenu2}</span>-->
-                                                        <!--<span>{$subMenu2.description}</span>-->
-							<span>{$subMenu2.Name}</span>
-                                                    </a>
-                                                </li>
-                                            {/foreach}
-                                        </ul>
-                                    {/if}
-                                </li>
+                            {if $subMenu.Type eq "popup"}
+                                <a href="{$subMenu.Link}" target="{$idSubMenu}">
+                                    <span>{$subMenu.Name}</span>
+                                </a>
+                            {else}
+                                <a href="index.php?menu={$idSubMenu}">
+                                    <span>{$subMenu.Name}</span>
+                                </a>
+                            {/if}
+                            {if $subMenu.children}
+                                <ul>
+                                    <!--recorremos el arreglo del menu de tercer nivel-->
+                                    {foreach from=$subMenu.children key=idSubMenu2 item=subMenu2}
+                                        <li>
+                                            {if $subMenu2.Type eq "popup"}
+                                                <a href="{$subMenu2.Link}" target="{$idSubMenu2}">
+                                                    <span>{$subMenu2.Name}</span>
+                                                </a>
+                                            {else}
+                                                <a href="index.php?menu={$idSubMenu2}">
+                                                    <span>{$subMenu2.Name}</span>
+                                                </a>
+                                            {/if}
+                                        </li>
+                                    {/foreach}
+                                </ul>
+                            {/if}
+                        </li>
                         {/foreach}
                     </ul>
                 </li>

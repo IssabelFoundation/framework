@@ -23,7 +23,7 @@
   +----------------------------------------------------------------------+
   | Autores: Gladys Carrillo B.   <gcarrillo@palosanto.com>              |
   +----------------------------------------------------------------------+
-  $Id: paloSantoInstaller.class.php,v 1.1 2007/09/05 00:25:25 gcarrillo Exp $
+  $Id: paloSantoInstaller.class.php, Mon 19 Apr 2021 01:46:21 PM EDT, nicolas@issabel.com
 */
 
 require_once "paloSantoDB.class.php";
@@ -44,12 +44,16 @@ class Installer
 
     private function _normalizeMenuAttributes($a)
     {
-        foreach (array('parent', 'link', 'tag', 'menuid') as $k)
+        foreach (array('parent', 'link', 'tag', 'menuid') as $k) {
             if (!isset($a[$k])) $a[$k] = '';
-        if (!isset($a['order'])) $a['order'] = '-1';
-        $a['type'] = ($a['parent'] != '')
-            ? (($a['link'] != '') ? 'framed' : 'module')
-            : '';
+        }
+
+        if(!isset($a['order'])) $a['order'] = '-1';
+        if(!isset($a['type'])) {
+            $a['type'] = ($a['parent'] != '')
+                ? (($a['link'] != '') ? 'framed' : 'module')
+                : '';
+        }
         return $a;
     }
 

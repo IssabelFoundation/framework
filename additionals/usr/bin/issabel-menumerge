@@ -69,7 +69,7 @@ if (!isset($xml->menulist->menuitem)) error_exit("ERR: no menuitem found in menu
 foreach ($xml->menulist->menuitem as $xml_menuitem) {
     // Atributos del elemento <menuitem>
     $menuitem = array();
-    foreach (array('menuid', 'module', 'parent', 'link', 'order') as $k)
+    foreach (array('menuid', 'module', 'parent', 'link', 'order', 'type') as $k)
         $menuitem[$k] = (string)$xml_menuitem[$k];
     $menuitem['tag'] = (string)$xml_menuitem['desc'];
     if (empty($menuitem['menuid'])) error_exit("ERR: resource for menuitem is not defined!\n");

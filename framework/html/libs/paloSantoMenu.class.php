@@ -19,7 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoMenu.class.php,v 1.2 2007/09/05 00:25:25 gcarrillo Exp $ */
+  $Id: paloSantoMenu.class.php, Mon 19 Apr 2021 01:44:31 PM EDT, nicolas@issabel.com
+*/
 
 if (isset($arrConf['basePath'])) {
     include_once($arrConf['basePath'] . "/libs/paloSantoDB.class.php");
@@ -195,7 +196,7 @@ INFO_AUTH_MODULO;
             $this->errMsg = "ID and module name cannot be empty";
             return FALSE;
         }
-        if (!in_array($type, array('', 'module', 'framed'))) {
+        if (!in_array($type, array('', 'module', 'framed', 'popup'))) {
             $this->errMsg = "Invalid menuitem type";
             return FALSE;
         }
@@ -203,9 +204,9 @@ INFO_AUTH_MODULO;
             $this->errMsg = "Conflict between menuitem type and first-level";
             return FALSE;
         }
-        if ($type == 'framed') {
+        if ($type == 'framed' || $type=='popup') {
             if ($link == '') {
-                $this->errMsg = "Link for framed menuitem cannot be empty";
+                $this->errMsg = "Link for framed or popup menuitem cannot be empty";
                 return FALSE;
             }
         } else {

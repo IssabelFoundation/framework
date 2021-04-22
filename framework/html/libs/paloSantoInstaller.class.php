@@ -23,7 +23,7 @@
   +----------------------------------------------------------------------+
   | Autores: Gladys Carrillo B.   <gcarrillo@palosanto.com>              |
   +----------------------------------------------------------------------+
-  $Id: paloSantoInstaller.class.php, Mon 19 Apr 2021 01:46:21 PM EDT, nicolas@issabel.com
+  $Id: paloSantoInstaller.class.php, Thu 22 Apr 2021 10:46:30 AM EDT, nicolas@issabel.com
 */
 
 require_once "paloSantoDB.class.php";
@@ -49,7 +49,7 @@ class Installer
         }
 
         if(!isset($a['order'])) $a['order'] = '-1';
-        if(!isset($a['type'])) {
+        if(!isset($a['type']) || $a['type']=='') {
             $a['type'] = ($a['parent'] != '')
                 ? (($a['link'] != '') ? 'framed' : 'module')
                 : '';

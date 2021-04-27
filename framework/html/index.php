@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Mon 26 Apr 2021 09:28:13 AM EDT, nicolas@issabel.com
+  $Id: index.php, Tue 27 Apr 2021 09:05:27 AM EDT, nicolas@issabel.com
 */
 
 function spl_issabel_class_autoload($sNombreClase)
@@ -66,7 +66,7 @@ if(isset($_GET['logout']) && $_GET['logout']=='yes') {
 load_language();
 $lang = get_language();
 
-if (!isset($_COOKIE['lang'])) { setcookie("lang", $lang); 
+if (!isset($_COOKIE['lang'])) { setcookie("lang", $lang); }
 
 $it = new RecursiveDirectoryIterator("modules/");
 foreach(new RecursiveIteratorIterator($it) as $file) {

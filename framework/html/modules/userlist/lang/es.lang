@@ -31,6 +31,7 @@ $arrLangModule = array(
     "New User" => "Nuevo Usuario",
     "Main Fields" => "Campos Principales",
     "Edit User" => "Editar Usuario",
+    "Delete User" => "Eliminar Usuario",
     "The passwords are empty or don't match" => "Las contraseñas están vacías o no concuerdan",
     "The admin user cannot be deleted because is the default Issabel administrator. You can delete any other user." => "El usuario admin no puede ser eliminado porque es el administrador de Issabel predeterminado. Puede borrar cualquier otro usuario.",
     "User List" => "Lista de Usuarios",

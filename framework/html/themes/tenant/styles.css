@@ -876,14 +876,18 @@ td.botonoff a {
     FONT-WEIGHT: bold;
 }
 .tabForm {
-/*     border-top: 1px solid #aaaaaa; */
+    border: 1px solid #aaaaaa; 
     color: #aaaaaa;
-/*     padding: 1px 3px 3px 1px; */
     font-size: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 1rem 0 1rem 0;
+    position: relative;
 }
-
 .tabForm td {
-    padding: 4px 4px 4px 4px;
+    padding: 10px;
     FONT-FAMILY: verdana, arial, helvetica, sans-serif;
     color: #666666;
 }

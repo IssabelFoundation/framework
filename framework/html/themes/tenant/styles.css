@@ -879,7 +879,7 @@ td.botonoff a {
     border: 1px solid #aaaaaa; 
     color: #aaaaaa;
     font-size: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     background: #fff;
     border-radius: 2px;
     display: inline-block;

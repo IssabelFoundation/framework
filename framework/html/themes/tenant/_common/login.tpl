@@ -60,7 +60,7 @@ $(document).ready(function() {
 
 		<div class="login-content">
 
-			<img src="{$WEBPATH}themes/{$THEMENAME}/images/issabel_logo_mini.png" width="200" height="62" alt="Issabel logo" />
+			<!--img src="{$WEBPATH}themes/{$THEMENAME}/images/issabel_logo_mini.png" width="200" height="62" alt="Issabel logo" /-->
             <div id="animIssabel" style='width:200px; height:200px; margin:auto;'></div>
 
 			<p class="description"></p>

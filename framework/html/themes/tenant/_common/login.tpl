@@ -28,6 +28,7 @@
 	<![endif]-->
 
     {$HEADER_LIBS_JQUERY}
+    <script src="{$WEBPATH}themes/{$THEMENAME}/js/lottie.min.js"></script>
 </head>
 <body class="page-body login-page login-form-fall" data-url="http://neon.dev">
 
@@ -35,6 +36,22 @@
 <!-- This is needed when you send requests via Ajax -->
 <script type="text/javascript">
 var baseurl = '';
+
+$(document).ready(function() {
+    var anim;
+    var animData = {
+        container: document.getElementById('animIssabel'),
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        rendererSettings: {
+            progressiveLoad: false
+        },
+        path: '{$WEBPATH}themes/{$THEMENAME}/images/animIssabel.json'
+    };
+    anim = bodymovin.loadAnimation(animData);
+    anim.setSpeed(1.5);
+});
 </script>
 
 <div class="login-container">
@@ -44,6 +61,7 @@ var baseurl = '';
 		<div class="login-content">
 
 			<img src="{$WEBPATH}themes/{$THEMENAME}/images/issabel_logo_mini.png" width="200" height="62" alt="Issabel logo" />
+            <div id="animIssabel" style='width:200px; height:200px; margin:auto;'></div>
 
 			<p class="description"></p>
 

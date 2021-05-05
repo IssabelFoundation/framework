@@ -56,7 +56,7 @@ $(document).ready(function() {
 
 <div class="login-container">
 
-	<div class="login-header login-caret">
+	<div class="login-header login-caret" style="padding:50px 0 10px 0;">
 
 		<div class="login-content">
 

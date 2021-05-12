@@ -244,7 +244,7 @@ $(document).ready(function(){
             var statusResponse = response.statusResponse;
             var error = response.error;
 
-            ShowModalPopUP(arrData['title'],450,130,arrData['html']);
+            ShowModalPopUP(arrData['title'],450,330,arrData['html']);
         });
     });
 

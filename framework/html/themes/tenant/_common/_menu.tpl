@@ -200,8 +200,7 @@ function removeNeoDisplayOnMouseOver(ref){
             <!-- Profile Info -->
             <li class="profile-info dropdown pull-right"><!-- add class "pull-right" if you want to place this from right -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <!--<img  style="border:0px" src="index.php?menu=_issabelutils&action=getImage&ID={$USER_ID}&rawmode=yes" alt="" class="img-circle" width="44" />-->
-            <img  style="border:0px" src="/themes/tenant/images/Icon-user.png" alt="" class="img-circle" width="44" />
+                    <img  style="border:0px" src="index.php?menu=address_book&type=internal&action=getImage&idPhoto={$EXTENSION}&rawmode=yes&thumbnail=yes" alt="" class="img-circle" width="44" />
                     {$USER_LOGIN}
                 </a>
                 <!-- Reverse Caret -->

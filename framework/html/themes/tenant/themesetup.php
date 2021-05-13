@@ -5,7 +5,7 @@
   | Issabel version 0.5                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  | Copyright (c) 2021 Issabel Foundation                                |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
   | (GPL) Version 2 (the "License"); you may not use this file except in |
@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.3 2007/07/17 00:03:42 gcarrillo Exp $ */
-
+  $Id: themesetup.php, Thu 13 May 2021 07:04:36 PM EDT, nicolas@issabel.com
+*/
 function themeSetup(&$smarty, $selectedMenu, $pdbACL, $pACL, $idUser)
 {
     /* El tema elastixneo muestra hasta 7 items de menú de primer nivel, y
@@ -69,11 +69,13 @@ function themeSetup(&$smarty, $selectedMenu, $pdbACL, $pACL, $idUser)
 
     $smarty->assign('arrMainMenu', $arrMainMenu);
     $smarty->assign("LANG", $lang);
+    $extension = $pACL->getUserExtension($_SESSION['issabel_user']);
     $smarty->assign(array(
         "ABOUT_ISSABEL2"            =>  _tr('About Issabel'),
         "HELP"                      =>  _tr('HELP'),
         "USER_LOGIN"                =>  $_SESSION['issabel_user'],
         "USER_ID"                   =>  $idUser,
+        "EXTENSION"                 =>  $extension,
         "CHANGE_PASSWORD"           =>  _tr("Change Issabel Password"),
         "MODULES_SEARCH"            =>  _tr("Search modules"),
         "ADD_BOOKMARK"              =>  _tr("Add Bookmark"),

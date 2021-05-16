@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Sat 15 May 2021 10:52:53 PM EDT, nicolas@issabel.com
+  $Id: index.php, Sun 16 May 2021 10:54:09 AM EDT, nicolas@issabel.com
 */
 
 function spl_issabel_class_autoload($sNombreClase)
@@ -290,10 +290,11 @@ if (isset($_SESSION['issabel_user']) &&
         $selectedMenu = $_SESSION['menu'];
 
     $rawmode = getParameter("rawmode");
+    $oPn = new paloSantoNavigation($arrMenuFiltered, $smarty, $selectedMenu);
+    $selectedMenu = $oPn->getSelectedModule();
+
     if(!isset($rawmode)) {
        // Inicializa el objeto palosanto navigation
-       $oPn = new paloSantoNavigation($arrMenuFiltered, $smarty, $selectedMenu);
-       $selectedMenu = $oPn->getSelectedModule();
        $_SESSION['menu'] = $selectedMenu;
 
        // Guardar historial de la navegación

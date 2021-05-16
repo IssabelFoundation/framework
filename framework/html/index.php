@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Tue 27 Apr 2021 09:05:27 AM EDT, nicolas@issabel.com
+  $Id: index.php, Sat 15 May 2021 10:52:53 PM EDT, nicolas@issabel.com
 */
 
 function spl_issabel_class_autoload($sNombreClase)
@@ -289,14 +289,16 @@ if (isset($_SESSION['issabel_user']) &&
     if (empty($selectedMenu) && !empty($_SESSION['menu']))
         $selectedMenu = $_SESSION['menu'];
 
-    // Inicializa el objeto palosanto navigation
-    $oPn = new paloSantoNavigation($arrMenuFiltered, $smarty, $selectedMenu);
-    $selectedMenu = $oPn->getSelectedModule();
-    $_SESSION['menu'] = $selectedMenu;
+    $rawmode = getParameter("rawmode");
+    if(!isset($rawmode)) {
+       // Inicializa el objeto palosanto navigation
+       $oPn = new paloSantoNavigation($arrMenuFiltered, $smarty, $selectedMenu);
+       $selectedMenu = $oPn->getSelectedModule();
+       $_SESSION['menu'] = $selectedMenu;
 
-    // Guardar historial de la navegación
-    // TODO: también para rawmode=yes ?
-    putMenuAsHistory($pdbACL, $pACL, $idUser, $selectedMenu);
+       // Guardar historial de la navegación
+       putMenuAsHistory($pdbACL, $pACL, $idUser, $selectedMenu);
+    }
 
     // Obtener contenido del módulo, si usuario está autorizado a él
     $bModuleAuthorized = $pACL->isUserAuthorizedById($idUser, "access", $selectedMenu);
@@ -304,7 +306,6 @@ if (isset($_SESSION['issabel_user']) &&
 
     // rawmode es un modo de operacion que pasa directamente a la pantalla la salida
     // del modulo. Esto es util en ciertos casos.
-    $rawmode = getParameter("rawmode");
     if(isset($rawmode) && $rawmode=='yes') {
         echo $sModuleContent;
     } else {

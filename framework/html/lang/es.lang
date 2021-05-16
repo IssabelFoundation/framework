@@ -69,6 +69,7 @@ $arrLang=array(
 "Accept"=>"Aceptar",
 "Group Permission"=>"Permisos de Grupo",
 "Users" => "Usuarios",
+"User" => "Usuario",
 "Directory couldn't be opened"=>"No se pudo abrir el directorio",
 /*end User Management*/
 
@@ -365,6 +366,7 @@ $arrLang=array(
 'Panels' => 'Paneles',
 'Storage' => 'Almacenamiento',
 'is licensed under' => 'esta licenciado bajo',
-'Incorrect username or password. Please try again.'=>'Usuario o clave incorrectos. Intente nuevamente.'
+'Incorrect username or password. Please try again.'=>'Usuario o clave incorrectos. Intente nuevamente.',
+'No notifications' => 'No hay notificaciones'
 );
 ?>

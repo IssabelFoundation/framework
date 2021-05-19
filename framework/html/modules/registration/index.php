@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Fri 04 Oct 2019 05:11:07 PM EDT, nicolas@issabel.com
+  $Id: index.php, Wed 19 May 2021 07:19:31 PM EDT, nicolas@issabel.com
 */
 include_once "libs/paloSantoForm.class.php";
 include_once "libs/paloSantoACL.class.php";
@@ -123,7 +123,7 @@ function viewFormRegister($smarty, $module_name, $local_templates_dir, &$pDB, $a
     }
 
     if ($pACL->isUserAdministratorGroup($user))
-        $htmlForm = $oForm->fetchForm($tpl, "", "");
+        $htmlForm = $oForm->fetchForm($tpl, "", array());
     else
         $htmlForm = "<div align='center' style='font-weight: bolder;'>" . _tr("Not user allowed to access this content") . "</div>";
 

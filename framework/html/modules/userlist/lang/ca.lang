@@ -33,5 +33,6 @@ $arrLangModule = array(
     "The admin user cannot be deleted because is the default Issabel administrator. You can delete any other user." => "L'usuari administrador no es pot borrar perquè és l'usuari administrador per defecte d'Issabel. Pot borrar qualsevol altre usuari",
     "User List" => "Llista d'usuaris",
     "Real Name" => "Nom",
+    "Are you sure you want to delete this user?" => "Are you sure you want to delete this user?"
 );
 ?>

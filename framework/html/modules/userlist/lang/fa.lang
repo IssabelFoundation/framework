@@ -46,5 +46,6 @@ $arrLangModule=array(
 "Mail Profile" => "پروفایل ایمیل",
 "No extension associated" => "داخلي انتخاب نشده",
 "userNoAllowed" => "كاربر اجازه اين كار را ندارد",
+"Are you sure you want to delete this user?" => "Are you sure you want to delete this user?"
 );
 ?>

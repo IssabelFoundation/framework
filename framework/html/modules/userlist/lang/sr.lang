@@ -34,5 +34,6 @@ $arrLangModule = array(
     "The admin user cannot be deleted because is the default Issabel administrator. You can delete any other user." => "Admin nemoze biti izbrisan zbog toga sto je standardni Issabel administrator. Mozete izbrisati bilo kog drugog korisnika.",
     "User List" => "Lista korisnika",
     "Real Name" => "Stvarno ime",
+    "Are you sure you want to delete this user?" => "Are you sure you want to delete this user?"
 );
 ?>

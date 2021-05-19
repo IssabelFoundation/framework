@@ -40,5 +40,6 @@ $arrLangModule = array(
     "userNoAllowed" => "Пользователю не разрешено выполнять это действие.",
     "You are not authorized to access to information of that user" => "Вы не авторизованы для доступа к информации этого пользователя",
     "Page" => "Страница",
+    "Are you sure you want to delete this user?" => "Are you sure you want to delete this user?"
 );
 ?>

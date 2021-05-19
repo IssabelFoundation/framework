@@ -172,7 +172,7 @@ function listUsers($pACL, $smarty, $module_name, $local_templates_dir, $plugins)
         $oGrid->addNew("?menu={$module_name}&action=new", _tr('Create New User'), TRUE);
     }
     if ($bDeleteAnyUser) {
-        $oGrid->deleteList('Are you sure you want to delete this user?', 'delete', _tr('Delete User'));
+        $oGrid->deleteList(_tr('Are you sure you want to delete this user?'), 'delete', _tr('Delete User'));
     }
     return $oGrid->fetchGrid();
 }

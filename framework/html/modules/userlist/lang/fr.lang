@@ -38,5 +38,6 @@ $arrLangModule = array(
     "Retype Webmail password" => "Retapez le mot de passe webmail",
     "userNoAllowed" => "L'utilisateur n'est pas autorisé à effectuer cette action",
     "You are not authorized to access to information of that user" => "Vous n'êtes pas autorisé à accéder aux informations de cet utilisateur",
+    "Are you sure you want to delete this user?" => "Are you sure you want to delete this user?"
 );
 ?>

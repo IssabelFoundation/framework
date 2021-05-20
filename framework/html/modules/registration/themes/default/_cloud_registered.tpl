@@ -34,7 +34,11 @@
                 <div class="div_td1_style">{$emailReg.LABEL}</div>
                 <div class="div_td2_style"><b id="emailReg" class="b-style"></b></div>
             </div>
-               <div id="msnTextErr" align="center" style="height:58px;"></div>
+            <div class="cloud-login-line" ></div>
+            <div class="cloud-login-line" >
+                {$PATREON}
+            </div>
+            <div id="msnTextErr" align="center" style="height:58px;"></div>
             <div class="cloud-footernote"><a href="http://www.issabel.org" style="text-decoration: none;" target='_blank'>Issabel</a> {$ISSABEL_LICENSED} <a href="http://www.opensource.org/licenses/gpl-license.php" style="text-decoration: none;" target='_blank'>GPL</a>. 2006 - {$currentyear}.</div>
             <br>
         </div>

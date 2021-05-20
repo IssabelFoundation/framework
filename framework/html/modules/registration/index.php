@@ -1,5 +1,4 @@
 <?php
-
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
@@ -20,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2010-08-09 10:08:51 Mercy Anchundia manchundia@palosanto.com Exp $ */
-//include issabel framework
+  $Id: index.php, Fri 04 Oct 2019 05:11:07 PM EDT, nicolas@issabel.com
+*/
 include_once "libs/paloSantoForm.class.php";
 include_once "libs/paloSantoACL.class.php";
 include_once "libs/paloSantoJSON.class.php";
@@ -99,6 +98,9 @@ function viewFormRegister($smarty, $module_name, $local_templates_dir, &$pDB, $a
     $smarty->assign("BY", _tr("by"));
     $smarty->assign("REQUIRED_FIELD", _tr("Required field"));
     $smarty->assign("INFO_REGISTER", _tr("INFO_REGISTER"));
+    $smarty->assign("REGISTER_RECOMMENDATION", _tr("By signing up you will be able to install addons and get professional support"));
+    $smarty->assign("PATREON_LEGEND", _tr("Consider supporting the Issabel project on Patreon:"));
+    $smarty->assign("PATREON", '<a href="https://www.patreon.com/bePatron?u=25268006" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>');
 
     $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : "";
 

@@ -5,6 +5,7 @@
   | Issabel version 4.0.3                                                |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoGrid.class.php, Thu 11 Jun 2020 12:23:12 PM EDT, nicolas@issabel.com
+  $Id: paloSantoGrid.class.php, Thu 20 May 2021 08:24:36 AM EDT, nicolas@issabel.com
 */
 class paloSantoGrid {
 
@@ -229,7 +230,7 @@ class paloSantoGrid {
         "up-thin",
     );
 
-    public function paloSantoGrid($smarty)
+    function __construct($smarty)
     {
         $this->title  = "";
         $this->icon   = "images/list.png";

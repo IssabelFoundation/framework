@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoGrid.class.php,v 1.1.1.1 2008/04/24 12:31:55 bmacias Exp $ */
+  $Id: paloSantoAjax.class.php, Thu 20 May 2021 08:23:54 AM EDT, nicolas@issabel.com
+*/
 
 require_once "libs/xajax/xajax.inc.php";
 class paloSantoAjax {
@@ -29,7 +31,7 @@ class paloSantoAjax {
     var $printJavascript;
     var $smarty;
 
-    function paloSantoAjax($smarty)
+    function __construct($smarty)
     {
         $this->smarty = $smarty;
     }

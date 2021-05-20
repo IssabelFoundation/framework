@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoSampler.class.php,v 1.1.1.1 2007/07/06 21:31:55 gcarrillo Exp $ */
+  $Id: paloSantoSampler.class.php, Thu 20 May 2021 08:25:05 AM EDT, nicolas@issabel.com
+*/
 
 /**
  * Estructura de tablas del muestreo de valores:
@@ -48,7 +50,7 @@ class paloSampler {
     var $errMsg;
     var $_db;
 
-    function paloSampler()
+    function __construct()
     {
         global $arrConf;
         $this->rutaDB = $arrConf['issabel_dsn']['samples'];

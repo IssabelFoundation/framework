@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Thu 20 May 2021 03:14:19 PM EDT, nicolas@issabel.com
+  $Id: index.php, Thu 20 May 2021 03:40:21 PM EDT, nicolas@issabel.com
 */
 include_once "libs/paloSantoForm.class.php";
 include_once "libs/paloSantoACL.class.php";
@@ -100,7 +100,7 @@ function viewFormRegister($smarty, $module_name, $local_templates_dir, &$pDB, $a
     $smarty->assign("INFO_REGISTER", _tr("INFO_REGISTER"));
     $smarty->assign("REGISTER_RECOMMENDATION", _tr("By signing up you will be able to install addons and get professional support"));
     $smarty->assign("PATREON_LEGEND", _tr("Consider supporting the Issabel project on Patreon:"));
-    $smarty->assign("PATREON", "<a href='https://www.patreon.com/bePatron?u=25268006'><button class='btn btn-patreon' style='background-color:#ff424d; color:#fff; border-radius:20px; text-transform: uppercase;'>Patreon</button></a>");
+    $smarty->assign("PATREON", "<a href='https://www.patreon.com/bePatron?u=25268006'><img src='modules/{$module_name}/images/patreon-small.png' height='40px' alt='Patreon.com/issabel' style='align:top;'></a>");
 
     $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : "";
 

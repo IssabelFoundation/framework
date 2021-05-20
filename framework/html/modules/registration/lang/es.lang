@@ -90,6 +90,7 @@ $arrLangModule=array(
 "Confirmation will be sent to this email"=>"La confirmación se enviará a este email",
 "INFO_REGISTER" => "Obtenga información y beneficios Issabel.  El registro es indispensable para acceder a los diferentes Addons de Issabel",
 "Thanks for registering your server" => "Gracias por registrar su servidor",
-"By signing up you will be able to install addons and get professional support" => "Al registrar el servidor podrá instalar addons y obtener soporte profesional"
+"By signing up you will be able to install addons and get professional support" => "Al registrar el servidor podrá instalar addons y obtener soporte profesional",
+"Consider supporting the Issabel project on Patreon:" => "Puedes apoyar el proyecto Issabel en Patreon:"
 );
 ?>

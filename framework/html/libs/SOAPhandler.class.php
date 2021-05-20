@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: SOAPhandler.class.php,v 1.0 2011-03-31 14:33:00 Alberto Santos F.  asantos@palosanto.com Exp $*/
-
+  $Id: SOAPhandler.class.php, Thu 20 May 2021 08:04:38 AM EDT, nicolas@issabel.com
+*/
 $document_root = $_SERVER["DOCUMENT_ROOT"];
 require_once("$document_root/libs/misc.lib.php");
 require_once("$document_root/configs/default.conf.php");
@@ -78,7 +78,7 @@ class SOAPhandler
      * @param  string   $className         Name of the class that contains the functional points for SOAP
      * @param  string   $soapAddress       SOAP Address
      */
-    public function SOAPhandler($className, $soapAddress=null)
+    public function __construct($className, $soapAddress=null)
     {
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
             $urlSOAP = 'https://'.$_SERVER['SERVER_NAME'];

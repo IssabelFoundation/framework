@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: PaloSantoJSON.class.php,v 1.1.1.1 2010/06/15 11:10:00 Mercy Anchundia manchundia@palosanto.com */
+  $Id: paloSantoJSON.class.php, Thu 20 May 2021 08:02:25 AM EDT, nicolas@issabel.com
+*/
 
 require_once "JSON.php";
 
@@ -29,7 +31,7 @@ class PaloSantoJSON {
     var $_statusResponse;
     var $_message;
 
-    function PaloSantoJSON()
+    function __construct()
     {
         $this->_error="";
         $this->_statusResponse="OK";

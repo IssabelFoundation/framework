@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoACL.class.php,v 1.1.1.1 2007/07/06 21:31:55 gcarrillo Exp $ */
+  $Id: paloSantoACL.class.php, Thu 20 May 2021 07:57:40 AM EDT, nicolas@issabel.com
 
 /*
 if (isset($arrConf['basePath'])) {
@@ -37,7 +37,7 @@ class paloACL {
     var $_DB; // instancia de la clase paloDB
     var $errMsg;
 
-    function paloACL(&$pDB)
+    function __construct(&$pDB)
     {
         // Se recibe como parámetro una referencia a una conexión paloDB
         if (is_object($pDB)) {

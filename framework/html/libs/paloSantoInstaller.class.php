@@ -23,7 +23,7 @@
   +----------------------------------------------------------------------+
   | Autores: Gladys Carrillo B.   <gcarrillo@palosanto.com>              |
   +----------------------------------------------------------------------+
-  $Id: paloSantoInstaller.class.php, Thu 22 Apr 2021 10:46:30 AM EDT, nicolas@issabel.com
+  $Id: paloSantoInstaller.class.php, Thu 20 May 2021 07:59:07 AM EDT, nicolas@issabel.com
 */
 
 require_once "paloSantoDB.class.php";
@@ -37,7 +37,7 @@ class Installer
 
     var $_errMsg;
 
-    function Installer()
+    function __construct()
     {
 
     }

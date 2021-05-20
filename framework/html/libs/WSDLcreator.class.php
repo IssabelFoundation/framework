@@ -5,6 +5,7 @@
   | Issabel version 4.0.4                                                |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: WSDLcreator.class.php,v 1.0 2011-03-18 15:30:00 Bruno Macias V.  bmacias@elastix.org Exp $*/
+  $Id: WSDLcreator.class.php, Thu 20 May 2021 08:05:48 AM EDT, nicolas@issabel.com
+*/
 $root = $_SERVER["DOCUMENT_ROOT"];
 require_once("$root/libs/misc.lib.php");
 
@@ -165,7 +167,7 @@ class WSDLcreator
      * @param  string   $targetNamespace   URN of namespace target WSDL.
      * @param  string   $soapAddress       Address location WSDL functions implementation.
      */
-    public function WSDLcreator($nameWSDL, $targetNamespace="http://cloud.issabel.org/webservices", $soapAddress)
+    public function __construct($nameWSDL, $targetNamespace="http://cloud.issabel.org/webservices", $soapAddress)
     {
         /*
             PRIMITIVE DATA TYPES

@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoDB.class.php, Tue 18 May 2021 10:34:25 PM EDT, nicolas@issabel.com
+  $Id: paloSantoDB.class.php, Thu 20 May 2021 07:59:25 AM EDT, nicolas@issabel.com
 */
 // La siguiente clase es una clase prototipo... Usela bajo su propio riesgo
 class paloDB {
@@ -40,7 +40,7 @@ class paloDB {
      *
      * @param string    $dsn    cadena de conexión, de la forma "mysql://user:password@dbhost/baseomision"
      */
-    function paloDB($dsn) // Creo que aqui debo pasar el dsn
+    function __construct($dsn) // Creo que aqui debo pasar el dsn
     {
         $this->_forceintcast = (explode(".", phpversion()) >= array(5, 3, 0));
 

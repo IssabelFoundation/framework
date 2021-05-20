@@ -5,6 +5,7 @@
   | Issabel version 0.5                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoTree.class.php,v 1.1.1.1 2007/07/06 21:31:55 gcarrillo Exp $ */
+  $Id: paloSantoTree.class.php, Thu 20 May 2021 08:00:54 AM EDT, nicolas@issabel.com
+*/
 
 class paloTree {
 
@@ -34,7 +36,7 @@ class paloTree {
 
     var $arrNodos;
 
-    function paloTree($arrNodos)
+    function __construct($arrNodos)
     {
         $this->errMsg = "";
         $this->nivel = 0;

@@ -19,8 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoForm.class.php, Wed 19 May 2021 07:19:03 PM EDT, nicolas@issabel.com
-  $Id: paloSantoForm.class.php, Wed 19 May 2021 07:19:03 PM EDT, nicolas@issabel.com
+  $Id: paloSantoForm.class.php, Thu 20 May 2021 08:00:08 AM EDT, nicolas@issabel.com
   */
 
 /* A continuacion se ilustra como luce un tipico elemento del arreglo $this->arrFormElements
@@ -116,7 +115,7 @@ class paloForm
     var $arrErroresValidacion;
     var $modo;
 
-    function paloForm(&$smarty, $arrFormElements)
+    function __construct(&$smarty, $arrFormElements)
     {
         $this->smarty = &$smarty;
         $this->arrFormElements = $arrFormElements;

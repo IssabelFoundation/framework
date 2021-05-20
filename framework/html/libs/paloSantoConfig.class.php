@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoConfig.class.php,v 1.1.1.1 2007/07/06 21:31:55 gcarrillo Exp $ */
+  $Id: paloSantoConfig.class.php, Thu 20 May 2021 07:58:08 AM EDT, nicolas@issabel.com
 
 if (is_null(LOCK_SH)) define (LOCK_SH, 1);
 if (is_null(LOCK_EX)) define (LOCK_EX, 2);
@@ -38,7 +38,7 @@ class paloConfig
     var $usuario_sistema = "root";
     var $grupo_sistema ="root";
 
-    function paloConfig($directorio, $archivo, $separador="", $separador_regexp="", $usuario_proceso=NULL)
+    function __construct($directorio, $archivo, $separador="", $separador_regexp="", $usuario_proceso=NULL)
     {
         $this->directorio=$directorio;
         $this->archivo=$archivo;

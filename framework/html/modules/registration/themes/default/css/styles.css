@@ -252,3 +252,30 @@ div.cloud-footernote {
     font: 13px Verdana, Arial,Helvetica,sans-serif;
     color: #333;
 }
+
+.btn-shine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #5600b3;
+  background: linear-gradient(to right, #25004d 0, #f2e6ff 10%, #25004d 20%);
+  background-position: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 7s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+    
+@keyframes shine {
+  0%
+    {background-position: 0;}
+    {background: linear-gradient(to right, #4d4d4d 0, white 10%, #4d4d4d 20%);}
+  100%
+    {background-position: 500px;}
+}

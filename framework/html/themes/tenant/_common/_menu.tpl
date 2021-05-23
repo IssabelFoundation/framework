@@ -2,6 +2,7 @@
 <script type='text/javascript'>
 var themeName='elastixneo'; //nombre del tema
 $(document).ready(function(){
+    LblRegister = '{/literal}{$Register}{literal}';
     $("#togglebookmark").click(function() {
         var imgBookmark = $("#togglebookmark").attr('src');
         if(/bookmarkon.png/.test(imgBookmark)) {

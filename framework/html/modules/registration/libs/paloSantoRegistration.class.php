@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoRegistration.class.php, Sun 23 May 2021 12:12:39 PM EDT, nicolas@issabel.com
+  $Id: paloSantoRegistration.class.php, Sun 23 May 2021 12:17:48 PM EDT, nicolas@issabel.com
 */
 
 class paloSantoRegistration {
@@ -276,7 +276,7 @@ class paloSantoRegistration {
             case "no":
             default:
                 $info['label'] = _tr("Register Server");
-                $info['color'] = "#FF0000";
+                $info['color'] = "#FFFF00";
                 $info['sid']   = "";
         }
  

@@ -311,6 +311,7 @@ $arrLang=array(
 "textMode" => "حالت متنی",
 "htmlMode" => "Html حالت",
 "Register" => "ثبت نام",
+"Register Server" => "Register Server",
 "Registered" => "ثبت شده",
 "Unauthorized" => "بدون تاییدیه",
 "Agent Options" => "تنظیمات اپراتور",

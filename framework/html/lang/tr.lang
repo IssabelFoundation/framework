@@ -257,6 +257,7 @@ $arrLang=array(
 "textMode" => "Yazı Modu",
 "htmlMode" => "Html Modu",
 "Register" => "Kayıt",
+"Register Server" => "Register Server",
 "Registered" => "Kayıtlı",
 "Unauthorized" => "Yetkisiz",
 "You are not authorized to access to this page" => "You are not authorized to access to this page",

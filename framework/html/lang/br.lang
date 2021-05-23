@@ -165,6 +165,7 @@ $arrLang=array(
 "textMode" => "Modo Texto",
 "htmlMode" => "Modo Html",
 "Register" => "Registrar",
+"Register Server" => "Register Server",
 "Registered" => "Registrado",
 "Unauthorized" => "Unauthorized",
 "You are not authorized to access to this page" => "You are not authorized to access to this page",

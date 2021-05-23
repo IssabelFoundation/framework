@@ -182,6 +182,7 @@ $arrLang=array(
 "htmlMode" => "Modo Html",
 "Register" => "Registro",
 "Registered" => "Registrado",
+"Register Server" => "Registrar Servidor",
 "Unauthorized" => "No Autorizado",
 "You are not authorized to access to this page" => "Usted no está autorizado a acceder a esta página",
 "You need administrator privileges" => "Usted necesita privilegios de administrador",

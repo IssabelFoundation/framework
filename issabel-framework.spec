@@ -50,7 +50,7 @@ Requires: procps
 Requires: rpm
 
 # commands: /usr/bin/mysql /usr/bin/mysqldump
-Requires: mysql
+Requires: mariadb
 
 # commands: /usr/bin/sqlite3
 Requires: sqlite

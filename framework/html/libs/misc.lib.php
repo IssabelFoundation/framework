@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: misc.lib.php,v 1.3 2007/08/10 01:32:51 gcarrillo Exp $ */
+  $Id: misc.lib.php, Wed 23 Jun 2021 01:08:06 PM EDT, nicolas@issabel.com
 
 
 function recoger_valor($key, &$get, &$post, $default = NULL) {
@@ -313,7 +313,7 @@ function load_theme($ruta_base='')
 		case 5:
 			$available_themes = array('elastixneo','tenant', 'blackmin', 'giox', 'default');
 		break;
-		case 7:
+		default:
 			$available_themes = array('tenant', 'elastixneo', 'blackmin', 'giox', 'default');
 		break;
 	}

@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Sun 16 May 2021 10:54:09 AM EDT, nicolas@issabel.com
+  $Id: index.php, Wed 30 Jun 2021 04:41:59 PM EDT, nicolas@issabel.com
 */
 
 function spl_issabel_class_autoload($sNombreClase)
@@ -156,12 +156,12 @@ if(isset($_POST['input_code'])) {
 //-            autentico al usuario y lo ingreso a la sesion
 
 if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
-    include('modules/sec_2fa/libs/TwoFactorAuth.class.php');
     $pass_md5 = md5($_POST['input_pass']);
     if($pACL->authenticateUser($_POST['input_user'], $pass_md5)) {
         session_regenerate_id(TRUE);
 
         if(file_exists('modules/sec_2fa/libs/TwoFactorAuth.class.php')) {
+            include('modules/sec_2fa/libs/TwoFactorAuth.class.php');
             $tfa  = new TwoFactorAuth('Issabel');
             $tfa_enabled = $tfa->is_licensed();
         } else {

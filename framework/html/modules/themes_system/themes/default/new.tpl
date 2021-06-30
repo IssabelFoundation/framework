@@ -6,7 +6,7 @@
 	</td>
     </tr>
 </table>
-<table class="tabForm" width="100%" >
+<table class="tabForm" width="99%" >
     <tr class="letra12">
         <td width="9%"><b>{$themes.LABEL}:</b></td>
 	<td width="35%">{$themes.INPUT}</td>

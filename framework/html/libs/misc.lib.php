@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: misc.lib.php, Thu 01 Jul 2021 11:08:52 PM EDT, nicolas@issabel.com
+  $Id: misc.lib.php, Thu 01 Jul 2021 11:10:55 PM EDT, nicolas@issabel.com
 */
 
 function recoger_valor($key, &$get, &$post, $default = NULL) {
@@ -157,7 +157,7 @@ function obtener_info_de_sistema()
         foreach($arrExec as $lineaParticion) {
             if(preg_match("/^([\/-_\.[:alnum:]|-]+)[[:space:]]+([[:digit:]]+)[[:space:]]+([[:digit:]]+)[[:space:]]+([[:digit:]]+)" .
                     "[[:space:]]+([[:digit:]]{1,3}%)[[:space:]]+([\/-_\.[:alnum:]]+)$/", $lineaParticion, $arrReg)) {
-                $arrTmp="";
+                $arrTmp=array();
                 $arrTmp["fichero"]=$arrReg[1];
                 $arrTmp["num_bloques_total"]=$arrReg[2];
                 $arrTmp["num_bloques_usados"]=$arrReg[3];

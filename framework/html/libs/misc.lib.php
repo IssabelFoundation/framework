@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: misc.lib.php, Thu 01 Jul 2021 11:10:55 PM EDT, nicolas@issabel.com
+  $Id: misc.lib.php, Fri 02 Jul 2021 04:50:06 PM EDT, nicolas@issabel.com
 */
 
 function recoger_valor($key, &$get, &$post, $default = NULL) {
@@ -307,7 +307,11 @@ function load_theme($ruta_base='')
     }
 
     // Verificar si los temas existen en el orden indicado
-    $output=file("/etc/centos-release");
+    if(is_file("/etc/centos-release")) {
+        $output=file("/etc/centos-release");
+    } else if(is_file("/etc/redhat-release")) {
+        $output=file("/etc/redhat-release");
+    }
 	$ver = explode(" ",$output[0]);
     if(intval($ver[3])==5) {
 	    $available_themes = array('elastixneo','tenant', 'blackmin', 'giox', 'default');

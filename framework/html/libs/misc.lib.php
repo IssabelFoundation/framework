@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: misc.lib.php, Wed 23 Jun 2021 02:47:24 PM EDT, nicolas@issabel.com
-
+  $Id: misc.lib.php, Thu 01 Jul 2021 11:08:52 PM EDT, nicolas@issabel.com
+*/
 
 function recoger_valor($key, &$get, &$post, $default = NULL) {
     if (isset($post[$key])) return $post[$key];

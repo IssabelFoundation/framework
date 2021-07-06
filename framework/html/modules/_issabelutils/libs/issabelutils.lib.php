@@ -34,7 +34,7 @@ function obtenerDetallesRPMS()
         'Issabel'   =>  array('issabel*'),
         'RoundCubeMail' =>  array('RoundCubeMail'),
         'Mail'          =>  array('postfix', 'cyrus-imapd'),
-        'IM'            =>  array('openfire'),
+        'IM'            =>  array('prosody'),
         'IssablPBX'     =>  array('issabelPBX'),
         'Asterisk'      =>  array('asterisk*'),
         'FAX'           =>  array('hylafax', 'iaxmodem'),
@@ -55,6 +55,13 @@ function obtenerDetallesRPMS()
     }
 
     $result = array();
+
+    if(is_readable('/etc/redhat-release')) {
+        $ver = explode(" ",trim(file_get_contents('/etc/redhat-release')));
+        $partes = preg_split("/\./",$ver[3]);
+        $result['Distro'][]=array(implode(' ',array($ver[0],$ver[1],$ver[2],$ver[4],$ver[5])),$partes[0],$partes[1]);
+    }
+
     foreach ($packageClass as $sTag => $packageLists) {
     	if (!isset($result[$sTag])) $result[$sTag] = array();
         if ($sTag == 'Kernel') {

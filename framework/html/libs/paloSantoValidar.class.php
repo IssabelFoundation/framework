@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoValidar.class.php, Thu 20 May 2021 07:58:32 AM EDT, nicolas@issabel.com
+  $Id: paloSantoValidar.class.php, Fri 09 Jul 2021 05:01:48 PM EDT, nicolas@issabel.com
 */
 global $arrLang;
 define("PALOVALIDAR_MSG_ERROR_1",_tr("Empty field"));
@@ -43,7 +43,7 @@ class PaloValidar
 
     function clear()
     {
-        $this->arrErrores = '';
+        $this->arrErrores = array();
     }
 
     function validar($nombre_variable, $variable, $tipo_validacion, $parametro_extra='')

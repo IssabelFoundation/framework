@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1.1.1 2007/07/06 21:31:56 afigueroa Exp $ */
-
+  $Id: index.php, Mon 12 Jul 2021 04:34:51 PM EDT, nicolas@issabel.com
+*/
 function _moduleContent(&$smarty, $module_name)
 {
     include_once("libs/paloSantoDB.class.php");
@@ -134,7 +134,9 @@ function _moduleContent(&$smarty, $module_name)
             $pACL = new paloACL($pDB);
 
             // Creo el Grupo
-            $pACL->createGroup($_POST['group'], $_POST['description']);
+            $postgroup = htmlspecialchars($_POST['group']);
+            $postdescription = htmlspecialchars($_POST['description']);
+            $pACL->createGroup($postgroup, $postdescription);
 
             if(!empty($pACL->errMsg)) {
                 // Ocurrio algun error aqui

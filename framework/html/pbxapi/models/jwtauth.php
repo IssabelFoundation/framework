@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: jwtauth.php, Tue 04 Sep 2018 05:57:11 PM EDT, nicolas@issabel.com
+  $Id: jwtauth.php, Mon 23 Aug 2021 05:11:08 PM EDT, nicolas@issabel.com
 */
 
 use Firebase\JWT\JWT;
@@ -49,10 +49,20 @@ class jwtauth {
         }
 
         if(is_file("/etc/issabel.conf")) {
-            $data      = parse_ini_file("/etc/issabel.conf");
+            $data      = parse_conf("/etc/issabel.conf");
             $this->pwd = $data['amiadminpwd'];
         }
 
+    }
+
+    function parse_conf($file) {
+        $result = array();
+        $lines = file($file);
+        foreach($lines as $line) {
+            $partes = preg_split("/=/",$line);
+            $result[trim($partes[0])]=trim($partes[1]);
+        }
+        return $result;
     }
 
     function get($f3) {

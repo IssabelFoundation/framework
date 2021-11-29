@@ -22,7 +22,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: index.php, Tue 04 Sep 2018 05:56:55 PM EDT, nicolas@issabel.com
+  $Id: index.php, Mon 23 Aug 2021 05:11:41 PM EDT, nicolas@issabel.com
 */
 
 $f3=require('lib/base.php');
@@ -30,7 +30,7 @@ $f3->set('AUTOLOAD','models/; controllers/');
 $f3->set('DEBUG',255);
 
 if(is_file("/etc/issabel.conf")) {
-    $data    = parse_ini_file("/etc/issabel.conf");
+    $data    = parse_conf("/etc/issabel.conf");
     $dbpass  = $data['mysqlrootpwd'];
     $mgrpass = $data['amiadminpwd'];
 }
@@ -55,3 +55,13 @@ $f3->map('/@controller/@id','@controller');
 $f3->route('GET /@controller/search/@term','@controller->search');
 
 $f3->run();
+
+function parse_conf($file) {
+    $result = array();
+    $lines = file($file);
+    foreach($lines as $line) {
+        $partes = preg_split("/=/",$line);
+        $result[trim($partes[0])]=trim($partes[1]);
+    }
+    return $result;
+}

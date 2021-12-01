@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoNavigation.class.php, Wed 14 Apr 2021 07:10:29 PM EDT, nicolas@issabel.com
+  $Id: paloSantoNavigation.class.php, Wed 01 Dec 2021 09:19:00 AM EST, nicolas@issabel.com
 */
 define('MENUTAG', 'Name');
 define('MAX_THEME_LEVEL', 3);
@@ -307,7 +307,7 @@ class paloSantoNavigation extends paloSantoNavigationBase
         // TODO: allow custom theme to define a jQueryUI theme
         $jquery_ui_theme = 'ui-lightness';
         switch ($arrConf['mainTheme']) {
-            case 'tenant':      $jquery_ui_theme = 'eggplant'; break;
+            case 'tenant':      $jquery_ui_theme = 'smoothness'; break;
             case 'blackmin':    $jquery_ui_theme = 'smoothness'; break;
             case 'giox':
             case 'elastixblue':

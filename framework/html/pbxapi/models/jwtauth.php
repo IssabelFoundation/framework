@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: jwtauth.php, Mon 23 Aug 2021 05:11:08 PM EDT, nicolas@issabel.com
+  $Id: jwtauth.php, Mon 09 May 2022 06:11:20 PM EDT, nicolas@issabel.com
 */
 
 use Firebase\JWT\JWT;
@@ -148,11 +148,12 @@ class jwtauth {
         //
         // authenticate user and return a set of access and refresh tokens
         //
-        $user = $f3->get('POST.user');
+        $input = json_decode($f3->get('BODY'),true);
+        $user = isset($input['user'])?$input['user']:$f3->get('POST.user');
         if(!isset($user)) {
-            $user = $f3->get('POST.username');
+            $user = isset($input['username'])?$input['username']:$f3->get('POST.username');
         }
-        $password    = $f3->get('POST.password');
+        $password    = isset($input['password'])?$input['password']: $f3->get('POST.password');
         $md5password = md5($password);
 
         //  $result = $this->db->exec('SELECT * FROM acl_user WHERE name = :name AND md5_password = :md5password',array(':name'=>$user,':md5password'=>$md5password));

@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Wed 29 Apr 2020 07:03:51 PM EDT, nicolas@issabel.com
+  $Id: extensions.php, Tue 10 May 2022 10:24:07 AM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -881,14 +881,11 @@ class extensions extends rest {
         $db = $f3->get('DB');
 
         // Expect JSON data, if its not good, fail
-$dat = $f3->get('BODY');
+        $dat = $f3->get('BODY');
         $input = json_decode($dat,true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-print_r($dat);
-die();
             $error = json_last_error();
             $errors[]=array('status'=>'400','detail'=>'Could not decode JSON','code'=>$error);
-echo "perro\n";
             $this->dieWithErrors($errors);
         }
 

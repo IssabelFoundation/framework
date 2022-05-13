@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Tue 10 May 2022 10:24:07 AM EDT, nicolas@issabel.com
+  $Id: extensions.php, Fri 13 May 2022 09:52:24 AM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -843,9 +843,11 @@ class extensions extends rest {
                 // we have a input with same field name, use it instead of default value for parameters techtable
                 $valor[1]=$input[$newkey];
             } else {
-                // secret is set on general settings, not device options
+                // secret and context are set on general settings, not device options
                 if($valor[0]=='secret' && isset($input['secret'])) {
                     $valor[1] = $input['secret'];
+                } elseif($valor[0]=='context' && isset($input['context'])) {
+                    $valor[1] = $input['context'];
                 }
             }
 

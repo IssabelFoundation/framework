@@ -21,32 +21,34 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: jwtauth.php, Mon 09 May 2022 06:11:20 PM EDT, nicolas@issabel.com
+  $Id: jwtauth.php, Wed 18 May 2022 08:17:16 AM EDT, nicolas@issabel.com
 */
 
 use Firebase\JWT\JWT;
 
 class jwtauth {
 
-    protected $data;
+    //protected $data;
 
-    protected $db;
+    //protected $db;
 
     protected $pwd;
 
     function __construct($f3) {
 
-        $this->db  = new DB\SQL( 'sqlite:/var/www/db/acl.db' );
+        // $this->db  = new DB\SQL( 'sqlite:/var/www/db/acl.db' );
 
         // Use always CORS header, no matter the outcome
         $f3->set('CORS.origin','*');
 
+        /*
         try {
             $this->data = new DB\SQL\Mapper($this->db,'acl-user');
         } catch(Exception $e) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
             die();
         }
+        */
 
         if(is_file("/etc/issabel.conf")) {
             $data      = parse_conf("/etc/issabel.conf");

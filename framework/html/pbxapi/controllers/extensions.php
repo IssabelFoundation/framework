@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Mon 23 May 2022 04:07:25 PM EDT, nicolas@issabel.com
+  $Id: extensions.php, Mon 23 May 2022 05:29:30 PM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -1098,6 +1098,8 @@ class extensions extends rest {
         if(!isset($input['tech'])) {
             $input['tech']='sip';
         }
+
+        $input['tech']=strtolower($input['tech']);
 
         if(!in_array($input['tech'],$this->validations['tech'])) { 
             // default to sip instead of givin 422 error

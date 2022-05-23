@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Mon 23 May 2022 04:04:14 PM EDT, nicolas@issabel.com
+  $Id: extensions.php, Mon 23 May 2022 04:07:25 PM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -1193,12 +1193,14 @@ class extensions extends rest {
             $this->dieWithErrors($errors);
         }
 
+        /*
         $input = json_decode($f3->get('BODY'),true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             $error = json_last_error();
             $errors[]=array('status'=>'400','detail'=>'Could not decode JSON','code'=>$error);
             $this->dieWithErrors($errors);
         }
+        */
 
         $allids = explode(",",$f3->get('PARAMS.id'));
 

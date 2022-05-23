@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Fri 13 May 2022 09:52:24 AM EDT, nicolas@issabel.com
+  $Id: extensions.php, Mon 23 May 2022 04:04:14 PM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -278,6 +278,7 @@ class extensions extends rest {
 
             $techtable = strtolower($data['tech']);
             if($techtable=='iax2') { $techtable='iax'; }
+            if($techtable=='pjsip') { $techtable='sip'; }
 
             $final = array();
 
@@ -304,8 +305,6 @@ class extensions extends rest {
                 $final['followme.initial_ring_time']='0';
                 $final['followme.extension_list']=$data['extension'];
             }
-
-            if($techtable=='pjsip') $techtable='sip';
 
             if($techtable<>'custom' && $techtable<>'virtual') {  // custom extension do not have a table to get extra data from
                 $query = "SELECT keyword,data FROM ".$techtable." WHERE id=:id AND keyword NOT IN ('secret','context','dial') ORDER BY flags";
@@ -753,6 +752,39 @@ class extensions extends rest {
             );
 
 
+        } else if($TECH=='pjsip') {
+            $defaults = array(
+                array("secret",          "$SECRET",          2),
+                array("dtmfmode",        "rfc2833",          3),
+                array("context",         "$CONTEXT",         5),
+                array("trustrpid",       "yes",              7),
+                array("sendrpid",        "no",               8),
+                array("nat",             "yes",              9),
+                array("qualify_timeout", "3.0",             10),
+                array("qualifyfreq",     "60",              13),
+                array("transport",       "transport-udp",   14),
+                array("avpf",            "no",              15),
+                array("icesupport",      "no",              16),
+                array("dtlsenable",      "no",              18),
+                array("dtlsverify",      "no",              19),
+                array("dtlssetup",       "actpass",         20),
+                array("encryption",      "no",              21),
+                array("callgroup",       "",                22),
+                array("pickupgroup",     "",                23),
+                array("disallow",        "",                24),
+                array("allow",           "",                25),
+                array("dial",            "PJSIP/$EXTEN",    26),
+                array("accountcode",     "",                27),
+                array("parkinglot",      "default",         28),
+                array("mailbox",         "$EXTEN@device",   29),
+                array("deny",            "0.0.0.0/0.0.0.0", 30),
+                array("permit",          "0.0.0.0/0.0.0.0", 31),
+                array("account",         "$EXTEN",          32),
+                array("callerid",        "device <$EXTEN>", 33),
+                array("dtlscertfile",    "",                34),
+                array("dtlsprivatekey",  "",                35)
+            );
+ 
         } else if($TECH=='iax2') {
 
             $defaults = array(
@@ -812,6 +844,7 @@ class extensions extends rest {
 
         $techtable = $TECH;
         if($techtable=='iax2') { $techtable='iax'; }
+        if($techtable=='pjsip') { $techtable='sip'; }
 
         $current=array();
         if($method=='UPDATE' && $TECH<>'virtual' && $TECH<>'custom') {
@@ -940,6 +973,7 @@ class extensions extends rest {
 
             $techtable = $TECH;
             if($techtable=='iax2') { $techtable='iax'; }
+            if($techtable=='pjsip') { $techtable='sip'; }
 
             if($techtable<>'virtual' && $techtable<>'custom') {
                 $db->exec("DELETE FROM $techtable WHERE id = ?", array(1=>$EXTEN));
@@ -1099,6 +1133,7 @@ class extensions extends rest {
 
         $techtable = $TECH;
         if($techtable=='iax2') { $techtable='iax'; }
+        if($techtable=='pjsip') { $techtable='sip'; }
 
         if($techtable<>'virtual' && $techtable<>'custom') {
             $db->exec("DELETE FROM $techtable WHERE id = ?", array(1=>$EXTEN));
@@ -1175,6 +1210,7 @@ class extensions extends rest {
             $query = "SELECT tech FROM devices WHERE id=:id";
             $rews  = $db->exec($query,array(':id'=>$oneid));
             $tech  = $rews[0]['tech'];
+            if($tech=="pjsip") { $tech="sip"; }
 
             if ($this->data->dry()) {
                 $errors[]=array('status'=>'404','detail'=>'Could not find a record to delete');
@@ -1487,12 +1523,17 @@ class extensions extends rest {
         return $data;
     }
 
-    protected function checkTransport($data,$field,&$errors) {
+    protected function checkTransport($data,$field,&$errors,$row) {
         $valid_transports = array('wss','ws','udp','tcp','tls');
+        if(isset($row['tech'])) {
+            if(strtolower($row['tech'])=='pjsip') {
+                $valid_transports = array('transport-udp','transport-tcp','transport-tls','transport-ws','transport-wss');
+            }
+        }
         $input_transports = explode(',',$data);
         $result = array_filter($input_transports, function($v) use ($valid_transports) { if(in_array($v,$valid_transports)) { return false; } else { return true; }});
         if(count($result)>0) {
-            $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Allowed transports: wss,ws,udp,tcp and tls');
+            $errors[]=array('status'=>'422','source'=>$field,'detail'=>'Allowed transports: '.implode(',',$valid_transports));
         }
         return $data;
     }

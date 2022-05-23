@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: rest.php, Thu 30 Apr 2020 05:57:37 PM EDT, nicolas@issabel.com
+  $Id: rest.php, Mon 23 May 2022 04:05:15 PM EDT, nicolas@issabel.com
 */
 
 class rest {
@@ -741,7 +741,7 @@ class rest {
                     }
                 } else {
                     if(method_exists($this,$val)) {
-                        $input[$key]=$this->$val($input[$key],$key,$errors);
+                        $input[$key]=$this->$val($input[$key],$key,$errors,$input);
                     }
                 }
             }

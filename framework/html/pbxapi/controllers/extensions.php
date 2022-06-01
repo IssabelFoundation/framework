@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: extensions.php, Mon 23 May 2022 05:29:30 PM EDT, nicolas@issabel.com
+  $Id: extensions.php, Wed 01 Jun 2022 11:31:14 AM EDT, nicolas@issabel.com
 */
 
 class extensions extends rest {
@@ -94,6 +94,7 @@ class extensions extends rest {
         'astdb.ampusers.recording/priority'     => 'recording.priority',
         'parameters.accountcode'                => 'device_options.account_code',
         'parameters.parkinglot'                 => 'device_options.parking_lot',
+        'parameters.max_contacts'               => 'device_options.max_contacts',
         'parameters.canreinvite'                => 'device_options.can_reinvite',
         'parameters.host'                       => 'device_options.host',
         'parameters.type'                       => 'device_options.type',
@@ -167,6 +168,7 @@ class extensions extends rest {
         'callerid_override.internal'                   => 'checkDigit',
         'recording.priority'                           => 'checkDigit',
         'device_options.transport'                     => 'checkTransport',
+        'device_options.max_contacts'                  => 'checkDigit',
         'device_options.permit_acl'                    => 'checkAcl',
         'device_options.deny_acl'                      => 'checkAcl',
         'dictation.enabled'                            => array('enabled',''),
@@ -782,7 +784,8 @@ class extensions extends rest {
                 array("account",         "$EXTEN",          32),
                 array("callerid",        "device <$EXTEN>", 33),
                 array("dtlscertfile",    "",                34),
-                array("dtlsprivatekey",  "",                35)
+                array("dtlsprivatekey",  "",                35),
+                array("max_contacts",    "1",               36)
             );
  
         } else if($TECH=='iax2') {

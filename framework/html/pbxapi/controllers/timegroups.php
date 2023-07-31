@@ -21,7 +21,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is Issabel LLC            |
   +----------------------------------------------------------------------+
-  $Id: timegroups.php, Tue 04 Sep 2018 09:52:36 AM EDT, nicolas@issabel.com
+  $Id: timegroups.php, Mon 31 Jul 2023 04:56:24 PM EDT, nicolas@issabel.com
 */
 
 class timegroups extends rest {
@@ -234,6 +234,7 @@ class timegroups extends rest {
         $defaults['end_month']      = '*';
 
         $validweekdays = array('*','mon','tue','wed','thu','fri','sat','sun');
+        $validmonths = array('jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec','*');
 
         $finalval=array();
         foreach($defaults as $key=>$defaultval) {
@@ -264,11 +265,11 @@ class timegroups extends rest {
                     $errors[]=array('status'=>'422','source'=>'end_monthday','detail'=>'Incorrect format. Allowed values: 1-31 or *');
                 }
             } else if ($key=='start_month') {
-                if((intval($finalval[$key])<1 || intval($finalval[$key])>12) && $finalval[$key]<>'*') {
+                if(!in_array($finalval[$key],$validmonths)) {
                     $errors[]=array('status'=>'422','source'=>'start_month','detail'=>'Incorrect format. Allowed values: 1-12 or *');
                 }
             } else if ($key=='end_month') {
-                if((intval($finalval[$key])<1 || intval($finalval[$key])>12) && $finalval[$key]<>'*') {
+                if(!in_array($finalval[$key],$validmonths)) {
                     $errors[]=array('status'=>'422','source'=>'end_month','detail'=>'Incorrect format. Allowed values: 1-12');
                 }
             }
@@ -308,13 +309,11 @@ class timegroups extends rest {
         if($finalval['start_month']==$finalval['end_month']) { 
             $finalparts[] = $finalval['start_month'];
         } else {
-            if($finalval['start_month']=='*' && $finalval['end_month']<>'*') {
-                $finalval['start_month']=$finalval['end_month'];
-            } else
-            if($finalval['end_month']=='*' && $finalval['start_month']<>'*') {
-                $finalval['end_month']=$finalval['start_month'];
+            if($finalval['start_month']=='*' || $finalval['end_month']=='*') {
+                $finalparts[] = '*';
+            } else {
+                $finalparts[] = $finalval['start_month'].'-'.$finalval['end_month'];
             } 
-            $finalparts[] = $finalval['start_month'].'-'.$finalval['end_month'];
         }
 
         $final = implode("|",$finalparts);

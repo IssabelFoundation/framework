@@ -215,12 +215,12 @@ fi
 
 # TODO: tarea de post-instalación.
 # Habilito inicio automático de servicios necesarios
-chkconfig --level 345 ntpd on
-chkconfig --level 345 mysqld on
-chkconfig --level 345 mariadb on
-chkconfig --level 345 httpd on
-chkconfig --del cups  &> /dev/null
-chkconfig --del gpm   &> /dev/null
+#chkconfig --level 345 ntpd on
+#chkconfig --level 345 mysqld on
+#chkconfig --level 345 mariadb on
+#chkconfig --level 345 httpd on
+#chkconfig --del cups  &> /dev/null
+#chkconfig --del gpm   &> /dev/null
 
 
 # ** Change content of sudoers ** #

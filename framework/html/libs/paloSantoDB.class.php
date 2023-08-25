@@ -54,6 +54,8 @@ class paloDB {
             $dsninfo = $this->parseDSN($dsn);
             $engine  = $dsninfo['dbsyntax'];
 
+            if($engine=='mysqli') { $engine='mysql'; }
+
             if($engine=='sqlite3'){
                 $dsn = "sqlite:".$dsninfo['database'];
                 $this->engine = $engine;

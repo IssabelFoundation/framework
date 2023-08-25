@@ -7,7 +7,7 @@ License: GPL
 Vendor: Issabel Foundation
 Group: Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
-Patch0:  baserepo-40.patch
+#Patch0:  baserepo-40.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
 Requires(pre): /sbin/chkconfig, /etc/sudoers, sudo

@@ -551,16 +551,7 @@ function obtenerClaveConocidaMySQL($sNombreUsuario, $ruta_base='')
             if (isset($listaParam['mysqlrootpwd'])) {
                 $ret = $listaParam['mysqlrootpwd']['valor'];
             } else {
-                $ret = 'iSsAbEl.2o17'; 
-            }
-        }
-        if(is_file("/etc/issabel.conf")) {
-            $pConfig = new paloConfig("/etc", "issabel.conf", "=", "[[:space:]]*=[[:space:]]*");
-            $listaParam = $pConfig->leer_configuracion(FALSE);
-            if (isset($listaParam['mysqlrootpwd'])) {
-                $ret = $listaParam['mysqlrootpwd']['valor'];
-            } else {
-                $ret = 'iSsAbEl.2o17'; 
+                $ret = ''; 
             }
         }
         return $ret;

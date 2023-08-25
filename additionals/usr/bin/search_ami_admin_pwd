@@ -112,13 +112,6 @@ TEMP;
     chown("/etc/issabel.conf","asterisk");
     chgrp("/etc/issabel.conf","asterisk");
 
-    $fhandler = fopen("/etc/issabel.conf","a");
-    echo "Writing the key amiadminpwd in /etc/issabel.conf\n";
-    fwrite($fhandler,"amiadminpwd=$secret\n"); 
-    fclose($fhandler);
-    chown("/etc/issabel.conf","asterisk");
-    chgrp("/etc/issabel.conf","asterisk");
-
 }
 
 checkAmportalFile($secret,$doReload);

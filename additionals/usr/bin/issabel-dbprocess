@@ -250,7 +250,11 @@ function renameDatabase($engine, $dbName, $password, $path_folder)
             return FALSE;
         }
 
-        $mysqlcred = '-u root '.escapeshellarg("-p$password");
+        if($password!='') {
+            $mysqlcred = '-u root '.escapeshellarg("-p$password");
+        } else {
+            $mysqlcred = '-u root ';
+        }
         $cmdarray = array(
             array(
                 'create dumpfile for',
@@ -354,9 +358,11 @@ function executeSQL($data, $path_folder, $sql_export, $dbName, $action, $passwor
             escapeshellarg(".read $fullpath");
         break;
     case 'mysql':
-        $command = 'mysql -uroot '.
-            escapeshellarg("-p$password").' '.
-            escapeshellarg(databaseExists('mysql', $dbName) ? $dbName : '').' < '.
+        $command = 'mysql -uroot ';
+        if($password!='') {
+            $command.=escapeshellarg("-p$password");
+        }
+        $command.=' '.escapeshellarg(databaseExists('mysql', $dbName) ? $dbName : '').' < '.
             escapeshellarg($fullpath);
         break;
     default:

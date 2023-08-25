@@ -72,7 +72,7 @@ This package provides the Issabel GUI themes from earlier versions.
 
 %prep
 %setup -n %{name}-%{version}
-%patch0 -p1
+#%patch0 -p1
 
 %install
 ## ** Step 1: Creation path for the installation ** ##

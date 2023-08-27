@@ -144,9 +144,7 @@ $arrLang=array(
 "About Issabel"=>"About Issabel",
 "About Issabel2"=>"About us",
 "HELP"=>"Help",
-"About Issabel Content"=>"Issabel was created under the premise of becoming a reliable, easy-to-use,web-based system for the management of communications over IP. This open
-source software started in Ecuador has become the solution of choice for
-implementations of Voice over IP around the globe.",
+"About Issabel Content"=>"Issabel was created under the premise of becoming a reliable, easy-to-use,web-based system for the management of communications over IP. This open source software started in Ecuador has become the solution of choice for implementations of Voice over IP around the globe.",
 "About Issabel Closed"=>"Close",
 /* End About Issabel */
 

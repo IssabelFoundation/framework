@@ -156,13 +156,15 @@ class paloForm
                     count($arrVars['INPUT_EXTRA_PARAM']) <= 0)
                     return '';
                 $listaAttr = array();
-                foreach($arrVars['INPUT_EXTRA_PARAM'] as $key => $value) {
+		foreach($arrVars['INPUT_EXTRA_PARAM'] as $key => $value) {
+		    if(is_array($value)) {
+                        $value = implode(',',array_keys($value));
+		    }
                     $listaAttr[] = sprintf(
                         '%s="%s"',
                         htmlentities($key, ENT_COMPAT, 'UTF-8'),
                         htmlentities($value, ENT_COMPAT, 'UTF-8'));
                 }
-
                 return implode(' ', $listaAttr);
             }
         }

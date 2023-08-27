@@ -344,6 +344,9 @@ class PaloValidar
 
     function estaVacio($variable)
     {
+        if(is_array($variable)) {
+            $variable = $variable[0];
+        }
         return (trim("$variable") == '');
     }
 }

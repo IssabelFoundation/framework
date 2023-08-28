@@ -34,7 +34,7 @@ class asteriskmanager
     var $waits_for_response = 1;
     var $debug = 0;
 
-    function asteriskmanager($config=NULL, $optconfig=array())
+    function __construct($config=NULL, $optconfig=array())
     {
         // add default values to config for uninitialized values
         if(!isset($this->config['asmanager']['server'])) $this->config['asmanager']['server'] = 'localhost';

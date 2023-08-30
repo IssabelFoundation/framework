@@ -69,7 +69,7 @@ class Events {
 
     function CheckTimers() {
             $rv = false;
-            $now = time(NULL);
+            $now = time();
             foreach ($this->timers as $time => $events) {
                     if ($time > $now) {
                             break;

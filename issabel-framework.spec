@@ -222,6 +222,7 @@ fi
 #chkconfig --del cups  &> /dev/null
 #chkconfig --del gpm   &> /dev/null
 systemctl enable mariadb || :
+systemctl enable httpd || :
 
 
 # ** Change content of sudoers ** #

@@ -261,6 +261,7 @@ $arrLang=array(
 "Port Knocking Users" => "Utilisateurs Port Knocking",
 "Audit" => "Audit",
 "Weak Keys" => "Clés faibles",
+'Issabel Website' => "Site Internet d'Issabel",
 "Advanced Settings" => "Paramètres avancés",
 );
 ?>

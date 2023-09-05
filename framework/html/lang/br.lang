@@ -338,6 +338,7 @@ $arrLang=array(
 "Agents Monitoring" => "Monitoramento de Agentes",
 "Trunks used per hour" => "Troncos Usados por Hora",
 "Incoming calls monitoring" => "Monitoramento de Ligações de Entrada",
+"Issabel Website" => "Site Issabel",
 "Campaign monitoring" => "Monitoramento de Campanhas",
 );
 ?>

@@ -181,6 +181,7 @@ $arrLang=array(
 "Unauthorized" => "Unauthorized",
 "You are not authorized to access this page." => "You are not authorized to access this page.",
 "You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "You have not permissions to access to Flash Operator Panel. Please contact your administrator.",
+"Issabel Website" => "Issabel Website",
 "Advice" => "Advice"
 );
 ?>

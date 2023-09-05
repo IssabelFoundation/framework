@@ -318,6 +318,7 @@ $arrLang=array(
 "Asterisk Logs" => "Журнал Asterisk",
 "Graphic Report"  => "Графический Отчёт",
 "Summary"  => "Сводка",
+"Issabel Website" => "Сайт Изабель",
 "Missed Calls"  => "Пропущенные Вызовы"
 );
 ?>

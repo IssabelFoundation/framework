@@ -246,7 +246,7 @@ function removeNeoDisplayOnMouseOver(ref){
                 <!-- Profile sub-links -->
                 <li><a href="#" class="register_link">{$Registered}</a></li>
                 <li><a href="#" id="viewDetailsRPMs"><i class="fa fa-cube"></i>{$VersionDetails}</a></li>
-                <li><a href="http://www.issabel.org" target="_blank"><i class="fa fa-external-link"></i>Issabel Website</a></li>
+                <li><a href="http://www.issabel.org" target="_blank"><i class="fa fa-external-link"></i>{$IssabelWebsite}</a></li>
                 <li><a href="#" id="dialogaboutissabel"><i class="fa fa-info-circle"></i>{$ABOUT_ISSABEL2}</a></li>
             </ul>
         </li>

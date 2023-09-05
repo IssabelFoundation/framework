@@ -254,6 +254,7 @@ if (isset($_SESSION['issabel_user']) &&
     $smarty->assign("LOGOUT", _tr('Logout'));
     $smarty->assign("VersionDetails", _tr('VersionDetails'));
     $smarty->assign("VersionPackage", _tr('VersionPackage'));
+    $smarty->assign("IssabelWebsite", _tr('Issabel Website'));
     $smarty->assign("AMOUNT_CHARACTERS", _tr("characters left"));
     $smarty->assign("SAVE_NOTE", _tr("Save Note"));
     $smarty->assign("MSG_SAVE_NOTE", _tr("Saving Note"));

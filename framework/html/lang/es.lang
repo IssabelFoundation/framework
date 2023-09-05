@@ -368,6 +368,7 @@ $arrLang=array(
 'Storage' => 'Almacenamiento',
 'is licensed under' => 'está publicado bajo la licencia',
 'Incorrect username or password. Please try again.'=>'Usuario o clave incorrectos. Intente nuevamente.',
+'Issabel Website' => 'Sitio Web de Issabel',
 'No notifications' => 'No hay notificaciones'
 );
 ?>

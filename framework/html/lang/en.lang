@@ -237,6 +237,7 @@ $arrLang=array(
 'Panels' => 'Panels',
 'Storage' => 'Storage',
 'is licensed under' => 'is licensed under',
+"Issabel Website" => "Issabel Website",
 'Incorrect username or password. Please try again.'=>'Incorrect username or password. Please try again.'
 );
 ?>

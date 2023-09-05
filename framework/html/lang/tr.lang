@@ -329,6 +329,7 @@ $arrLang=array(
 "Conference" => "Konferans",
 "Operator Panel" => "Operatör Paneli",
 "Flash Operator Panel" => "Anlık İzleme",
+"Issabel Website" => "Issabel'in web sitesi",
 "My Extension" => "Dahilim"
 
 );

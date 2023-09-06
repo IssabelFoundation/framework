@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Wed 30 Jun 2021 04:41:59 PM EDT, nicolas@issabel.com
+  $Id: index.php, Wed 06 Sep 2023 04:00:10 PM EDT, nicolas@issabel.com
 */
 
 function spl_issabel_class_autoload($sNombreClase)
@@ -222,6 +222,7 @@ if (isset($_SESSION['issabel_user']) &&
     isset($_SESSION['issabel_pass']) &&
     $pACL->authenticateUser($_SESSION['issabel_user'], $_SESSION['issabel_pass'])) {
 
+    setcookie('issaUser',$_SESSION['issabel_user']);
     $idUser = $pACL->getIdUser($_SESSION['issabel_user']);
     $pMenu = new paloMenu($arrConf['issabel_dsn']['menu']);
     $arrMenuFiltered = $pMenu->filterAuthorizedMenus($idUser);

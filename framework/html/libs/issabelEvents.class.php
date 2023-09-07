@@ -36,9 +36,9 @@ class Events {
 
     function AddTimer($when, $action, $args = false, $flags = 0) {
             if (preg_match('#([0-9a-zA-Z]+)..([0-9a-zA-Z]+)#', $when, $a)) {
-                    $time = time(NULL) + rand($this->time2seconds($a[1]), $this->time2seconds($a[2]));
+                    $time = time() + rand($this->time2seconds($a[1]), $this->time2seconds($a[2]));
             } else {
-                    $time = time(NULL) + $this->time2seconds($when);
+                    $time = time() + $this->time2seconds($when);
             }
             if ($flags & self::EVENT_SEQUENCE) {
                     while ($this->IsArrayCount($this->timers[$time])) {
@@ -59,7 +59,7 @@ class Events {
                     return false;
             }
             $time = $firstevent["key"];
-            $nextEvent = $time - time(NULL);
+            $nextEvent = $time - time();
             if ($nextEvent < 1) {
                     return 1;
             }

@@ -125,6 +125,7 @@ chmod 644 $RPM_BUILD_ROOT/etc/cron.d/*
 
 # ** Repos config ** #
 mv $RPM_BUILD_DIR/%{name}-%{version}/additionals/etc/yum.repos.d/Issabel.repo         $RPM_BUILD_ROOT/etc/yum.repos.d/
+mv $RPM_BUILD_DIR/%{name}-%{version}/additionals/etc/yum.repos.d/Issabel5.repo        $RPM_BUILD_ROOT/etc/yum.repos.d/
 
 # ** sudoers config ** #
 mv $RPM_BUILD_DIR/%{name}-%{version}/additionals/etc/sudoers                          $RPM_BUILD_ROOT/usr/share/issabel/
@@ -399,6 +400,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/httpd/conf.d/issabel.conf
 %config(noreplace) /etc/php.d/issabel.ini
 /etc/yum.repos.d/Issabel.repo
+/etc/yum.repos.d/Issabel5.repo
 #%config(noreplace) /etc/yum.repos.d/Issabel.repo
 %config(noreplace) /etc/logrotate.d/issabelAudit.logrotate
 %config(noreplace) /etc/logrotate.d/issabelEmailStats.logrotate

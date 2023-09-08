@@ -1,6 +1,5 @@
 [issabel-cinco]
 name=Base RPM Repository for Issabel 5
-#baseurl=http://repo.issabel.org/issabel/5/base/$basearch/
 mirrorlist=http://mirror.issabel.org/?release=5&arch=$basearch&repo=base
 gpgcheck=1
 enabled=1
@@ -9,23 +8,34 @@ gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
 [issabel-cinco-noarch]
 name=Base RPM Repository for Issabel 5 (noarch)
 mirrorlist=http://mirror.issabel.org/?release=5&arch=noarch&repo=base
-#baseurl=http://repo.issabel.org/issabel/5/base/noarch/
 gpgcheck=1
 enabled=1
 gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
 
 [issabel-cinco-updates]
 name=Updates RPM Repository for Issabel 5
+mirrorlist=http://mirror.issabel.org/?release=5&arch=$basearch&repo=updates
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+
+[issabel-cinco-updates-noarch]
+name=Updates RPM Repository for Issabel 5 (noarch)
 mirrorlist=http://mirror.issabel.org/?release=5&arch=noarch&repo=updates
-#baseurl=http://repo.issabel.org/issabel/5/updates/$basearch/
 gpgcheck=1
 enabled=1
 gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
 
 [issabel-cinco-extras]
 name=Extras RPM Repository for Issabel 5
+mirrorlist=http://mirror.issabel.org/?release=5&arch=$basearch&repo=extras
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+
+[issabel-cinco-extras-noarch]
+name=Extras RPM Repository for Issabel 5 (noarch)
 mirrorlist=http://mirror.issabel.org/?release=5&arch=noarch&repo=extras
-#baseurl=http://repo.issabel.org/issabel/5/extras/$basearch/
 gpgcheck=1
 enabled=1
 gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel

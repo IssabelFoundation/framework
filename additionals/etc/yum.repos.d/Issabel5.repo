@@ -1,0 +1,34 @@
+[issabel-cinco]
+name=Base RPM Repository for Issabel 5
+baseurl=http://repo.issabel.org/issabel/5/base/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+
+[issabel-cinco-noarch]
+name=Base RPM Repository for Issabel 5
+baseurl=http://repo.issabel.org/issabel/5/base/noarch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+
+[issabel-cinco-updates]
+name=Updates RPM Repository for Issabel 5
+baseurl=http://repo.issabel.org/issabel/5/updates/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+
+[issabel-cinco-extras]
+name=Extras RPM Repository for Issabel 5
+baseurl=http://repo.issabel.org/issabel/5/extras/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel
+
+[issabel-cinco-beta]
+name=Beta RPM Repository for Issabel 5
+mirrorlist=http://mirror.issabel.org/?release=5&arch=$basearch&repo=beta
+#gpgcheck=1
+enabled=0
+gpgkey=http://repo.issabel.org/issabel/RPM-GPG-KEY-Issabel

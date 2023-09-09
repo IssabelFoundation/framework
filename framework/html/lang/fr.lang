@@ -263,5 +263,6 @@ $arrLang=array(
 "Weak Keys" => "Clés faibles",
 'Issabel Website' => "Site Internet d'Issabel",
 "Advanced Settings" => "Paramètres avancés",
+'Beta Channel'=>'Beta Channel'
 );
 ?>

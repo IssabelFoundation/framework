@@ -319,6 +319,8 @@ $arrLang=array(
 "Graphic Report"  => "Графический Отчёт",
 "Summary"  => "Сводка",
 "Issabel Website" => "Сайт Изабель",
-"Missed Calls"  => "Пропущенные Вызовы"
+"Missed Calls"  => "Пропущенные Вызовы",
+'Beta Channel'=>'Beta Channel'
+
 );
 ?>

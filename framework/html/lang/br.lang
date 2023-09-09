@@ -340,5 +340,6 @@ $arrLang=array(
 "Incoming calls monitoring" => "Monitoramento de Ligações de Entrada",
 "Issabel Website" => "Site Issabel",
 "Campaign monitoring" => "Monitoramento de Campanhas",
+'Beta Channel'=>'Beta Channel'
 );
 ?>

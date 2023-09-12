@@ -243,10 +243,10 @@ if (isset($_SESSION['issabel_user']) &&
 
     /*agregado para register*/
 
-    $smarty->assign("Register", _tr("Register"));
-    $smarty->assign("lblRegisterCm", _tr("Register"));
-    $smarty->assign("lblRegisteredCm", _tr("Registered"));
-    $smarty->assign("Registered", _tr("Register"));
+    $smarty->assign("Register", addcslashes(_tr("Register"),"'"));
+    $smarty->assign("lblRegisterCm", addcslashes(_tr("Register"),"'"));
+    $smarty->assign("lblRegisteredCm", addcslashes(_tr("Registered"),"'"));
+    $smarty->assign("Registered", addcslashes(_tr("Register"),"'"));
 
     $smarty->assign("md_message_title", _tr('md_message_title'));
     $sCurYear = date('Y');

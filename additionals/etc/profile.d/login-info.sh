@@ -1,5 +1,6 @@
 #!/bin/bash
 exec 2>&1
+/usr/local/sbin/motd.sh
 user=$(whoami)
 load=`cat /proc/loadavg | awk '{print $1" (1min) "$2" (5min) "$3" (15min)"}'`
 memory_usage=`free -m | awk '/Mem:/ { printf("%3.0f%%", ($3/$2)*100)}'`

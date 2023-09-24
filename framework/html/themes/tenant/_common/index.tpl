@@ -131,6 +131,8 @@ $(document).ready(function(e) {
         <script src="{$WEBPATH}themes/{$THEMENAME}/js/resizeable.js"></script>
         <script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-api.js"></script>
         <script src="{$WEBPATH}themes/{$THEMENAME}/js/jquery.validate.min.js"></script>
+        <script src="{$WEBPATH}themes/{$THEMENAME}/js/loadingoverlay.js"></script>
+        <script src="{$WEBPATH}themes/{$THEMENAME}/js/iframe-show-loader.js"></script>
         <script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-login.js"></script>
         <script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-custom.js"></script>
         <script src="{$WEBPATH}themes/{$THEMENAME}/js/neon-demo.js"></script>

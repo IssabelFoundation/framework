@@ -85,6 +85,7 @@ if(file_exists("langmenus/$lang.lang")){
     $arrLang = array_merge($arrLang,$arrLangMenu);
 }
 
+if(file_exists("admin/modules")) {
 // cargar traducciones de modulos issabelPBX para menu
 $it = new RecursiveDirectoryIterator("admin/modules/");
 foreach(new RecursiveIteratorIterator($it) as $file) {
@@ -96,6 +97,7 @@ foreach(new RecursiveIteratorIterator($it) as $file) {
             }
         }
     }
+}
 }
 
 $pdbACL = new paloDB($arrConf['issabel_dsn']['acl']);

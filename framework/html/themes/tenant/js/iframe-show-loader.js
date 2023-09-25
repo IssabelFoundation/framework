@@ -1,3 +1,5 @@
+// Detects if frame source changes to display loader
+// and hides the loader on frame onload
 function iframeURLChange(iframe, callback) {
     var unloadHandler = function () {
         // Timeout needed because the URL changes immediately after
@@ -18,15 +20,16 @@ function iframeURLChange(iframe, callback) {
     attachUnload();
 }
 
-iframeURLChange(document.getElementById("myframe"), function (newURL) {
-    console.log("show loader");
-    $('#neo-contentbox').LoadingOverlay('show', {
-      image       : "/themes/tenant/images/issabel_logo_pattern.png",
+if($('#myframe').length>0) {
+
+    iframeURLChange(document.getElementById("myframe"), function (newURL) {
+        $('#neo-contentbox').LoadingOverlay('show', {
+            image: "/themes/tenant/images/issabel_logo_pattern.png",
+        });
     });
-});
 
-$('#myframe').get(0).onload = function() {
-  console.log("hide loader");
-  $('#neo-contentbox').LoadingOverlay('hide');
-};
+    $('#myframe').get(0).onload = function() {
+      $('#neo-contentbox').LoadingOverlay('hide');
+    };
 
+}

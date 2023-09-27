@@ -1,6 +1,6 @@
 /var/log/issabel/audit.log {
    missingok
-   rotate 5
-   weekly
+   rotate 24
+   monthly
    create 0640 asterisk asterisk
 }

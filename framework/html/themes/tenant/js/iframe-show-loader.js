@@ -29,6 +29,7 @@ if($('#myframe').length>0) {
     });
 
     $('#myframe').get(0).onload = function() {
+      calcHeight();
       $('#neo-contentbox').LoadingOverlay('hide');
     };
 

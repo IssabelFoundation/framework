@@ -44,7 +44,7 @@ do
 		# ww* for wireless wan interfaces
 		# sl* for lineal serial interfaces
 		eth*|en*|ww*|wl*|sl*)
-			IPADDR[$cont]=`LANG=C /sbin/ip addr show dev $x | perl -ne 'print "$1\n" if /inet (\d+\.\d+.\d+.\d+)/;'`
+			IPADDR[$cont]=$(ip a s $x | awk -F"[/ ]+" '/inet / {print $3}')
 		;;
 	esac
 	let "cont++"

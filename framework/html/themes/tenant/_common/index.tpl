@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,15 +12,15 @@
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/font-awesome-animation.min.css">
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/custom.css">
 
-    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/styles.css" />
-    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/widgets.css" />
-    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/help.css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/header.css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/content.css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/applet.css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}libs/js/sticky_note/sticky_note.css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/table.css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/rightbar.css" />
+    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/styles.css" >
+    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/widgets.css" >
+    <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/help.css" >
+    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/header.css" >
+    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/content.css" >
+    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/applet.css" >
+    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}libs/js/sticky_note/sticky_note.css" >
+    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/table.css" >
+    <link rel="stylesheet" media="screen" type="text/css" href="{$WEBPATH}themes/{$THEMENAME}/rightbar.css" >
     <link rel="stylesheet" href="{$WEBPATH}themes/{$THEMENAME}/css/purple.css">
 
     {$HEADER_LIBS_JQUERY}

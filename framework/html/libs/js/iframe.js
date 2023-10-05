@@ -6,7 +6,10 @@ function calcHeight() {
         el.height= 580;
         //find the height of the internal page
         var altura = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        altura = altura - 200;
+        var viewportOffset = el.getBoundingClientRect();
+        var frameTop = viewportOffset.top;
+        var footerHeight = 60;
+        altura = altura - (frameTop + footerHeight);
         if(altura>=500) {
             // Cambio la altura 
             el.height= altura;

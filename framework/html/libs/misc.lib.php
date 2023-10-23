@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: misc.lib.php, Fri 02 Jul 2021 04:50:06 PM EDT, nicolas@issabel.com
+  $Id: misc.lib.php, Mon 23 Oct 2023 11:40:03 AM EDT, nicolas@issabel.com
 */
 
 function recoger_valor($key, &$get, &$post, $default = NULL) {
@@ -364,7 +364,10 @@ function load_language($ruta_base='')
 
 function load_language_module($module_id, $ruta_base='')
 {
+    global $arrLang;
     global $arrLangModule;
+    if(!isset($arrLangModule)) $arrLangModule=array();
+    if(!isset($arrLang)) $arrLang=array();
 
     $lang = get_language($ruta_base);
     include_once $ruta_base."modules/$module_id/lang/en.lang";
@@ -372,12 +375,12 @@ function load_language_module($module_id, $ruta_base='')
     if ($lang != 'en' && file_exists("$lang_file_module")) {
         $arrLangEN = $arrLangModule;
         include_once "$lang_file_module";
-        $arrLangModule = array_merge($arrLangEN, $arrLangModule);
+        $temp = array_merge($arrLangEN, $arrLangModule);
+        $arrLangModule = $temp;
     }
 
-    global $arrLang;
-    global $arrLangModule;
-    $arrLang = array_merge($arrLang,$arrLangModule);
+    $temp = array_merge($arrLang,$arrLangModule);
+    $arrLang = $temp;
 }
 
 function _tr($s)

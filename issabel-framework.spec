@@ -139,7 +139,7 @@ mv $RPM_BUILD_DIR/%{name}-%{version}/additionals/usr/local/sbin/motd.sh         
 chmod 755 $RPM_BUILD_ROOT/usr/local/sbin/motd.sh
 
 # ** /usr/share/ files ** #
-mv $RPM_BUILD_DIR/%{name}-%{version}/additionals/usr/share/pear/DB/sqlite3.php                    $RPM_BUILD_ROOT/usr/share/pear/DB/
+# mv $RPM_BUILD_DIR/%{name}-%{version}/additionals/usr/share/pear/DB/sqlite3.php                    $RPM_BUILD_ROOT/usr/share/pear/DB/
 
 # ** setup ** #
 mv $RPM_BUILD_DIR/%{name}-%{version}/framework/setup/usr/share/issabel/privileged/*   $RPM_BUILD_ROOT/usr/share/issabel/privileged/
@@ -382,7 +382,7 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/pbxapi
 /var/www/html/var/.htaccess
 /usr/share/issabel/*
-/usr/share/pear/DB/sqlite3.php
+#/usr/share/pear/DB/sqlite3.php
 /usr/local/issabel/sampler.php
 /usr/local/sbin/motd.sh
 /usr/sbin/close-on-exec.pl

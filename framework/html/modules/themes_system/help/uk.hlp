@@ -1,0 +1,18 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>Пункт "Теми" меню "Налаштування" Issabel дозволяє нам вибрати тему для веб-інтерфейсу Issabel.</p>
+<p>Виберіть тему з доступних варіантів і натисніть кнопку "Зберегти".</p>
+<br />
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_themes.png" border="0" />
+<p>Зображення 1</p></div>
+<br />
+
+</body>
+</html>

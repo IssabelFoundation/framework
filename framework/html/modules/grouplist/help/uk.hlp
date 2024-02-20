@@ -1,0 +1,131 @@
+<html>
+<header>
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="../themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>Опція "Групи" дозволяє створювати і змінювати всі групи, які матимуть доступ до веб-інтерфейсу Issabel. Існує 3 групи користувачів за замовчуванням, а саме:</p>
+
+  <ul>
+      <li>Адміністратор</li>
+      <li>Оператор</li>
+      <li>Внутрішній Номер</li>
+  </ul>
+
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_grouplist.png" border="0" />
+<p>Зображення 1</p></div>
+<br />
+
+<p>Кожна з цих груп представляє різні рівні доступу до веб-інтерфейсу Issabel. Ці рівні пов'язані з набором меню, до яких користувач матиме доступ. Різні дозволи доступу до меню краще проілюстровані в наступній таблиці:</p>
+
+<table class="inline">
+	<tr>
+		<th> Меню </th><th> Адміністратор </th><th> Оператор </th><th> Внутрішній Номер </th>
+	</tr>
+
+	<tr>
+		<th class="centeralign" colspan="4">  Система  </th>
+	</tr>
+	<tr>
+		<td> Системна Інформація </td><td> Так </td><td> Так </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<td> Конфігурація АТС </td><td> Так </td><td> Ні </td><td> Ні </td>
+	</tr>
+	<tr>
+
+		<td> Мережа </td><td> Так </td><td> Ні </td><td> Ні </td>
+	</tr>
+	<tr>
+		<td> Користувачі </td><td> Так </td><td> Ні </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<td> Завершити Роботу Сервера </td><td> Так </td><td> Ні </td><td> Ні </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Панель Оператора  </th>
+	</tr>
+	<tr>
+		<td> Flash Панель Оператора </td><td> Так </td><td> Так </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Голосова Пошта  </th>
+	</tr>
+	<tr>
+		<td> Інтерфейс Запису Asterisk </td><td> Так </td><td> Так </td><td> Так </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Факс  </th>
+	</tr>
+	<tr>
+		<td> Список Віртуальних Факсів </td><td> Так </td><td> Так </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<td> Новий Віртуальний Факс </td><td> Так </td><td> Ні </td><td> Ні </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Звіти  </th>
+	</tr>
+	<tr>
+		<td> Звіт CDR </td><td> Так </td><td> Так </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<td> Використання Каналів </td><td> Так </td><td> Так </td><td> Ні </td>
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Білінг  </th>
+	</tr>
+	<tr>
+		<td> Тарифи </td><td> Так </td><td> Ні </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<td> Білінговий Звіт </td><td> Так </td><td> Ні </td><td> Ні </td>
+	</tr>
+	<tr>
+
+		<td> Напрямками </td><td> Так </td><td> Ні </td><td> Ні </td>
+	</tr>
+	<tr>
+		<td> Налаштування Білінгу </td><td> Так </td><td> Ні </td><td> Ні </td>
+
+	</tr>
+	<tr>
+		<th class="centeralign" colspan="4">  Додатково  </th>
+	</tr>
+	<tr>
+		<td> SugarCRM </td><td> Так </td><td> Так </td><td> Так </td>
+
+	</tr>
+	<tr>
+
+		<th class="centeralign" colspan="4">  Скачування  </th>
+	</tr>
+	<tr>
+		<td> Софтфони </td><td> Так </td><td> Так </td><td> Так </td>
+
+	</tr>
+	<tr>
+		<td> Утиліти Факсу </td><td> Так </td><td> Так </td><td> Так </td>
+	</tr>
+</table>
+<br />
+<h2>Створити нову групу</h2>
+<p>Щоб створити нову групу, натисніть на кнопку "Створити Нову Групу" і заповніть необхідну інформацію.</p>
+<div  class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_grouplist_new.png" border="0" />
+<p>Зображення 2</p></div>
+<br />
+<p>Щоб призначити або змінити права доступу до групи, перейдіть до модуля "Права Групи".</p>
+</body>
+</html>

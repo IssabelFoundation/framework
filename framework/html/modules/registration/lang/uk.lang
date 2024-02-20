@@ -1,0 +1,94 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel Version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2017 Issabel Foundation                                |
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translated by: LLC LeNET                                             |
+  | Email: support@lenet.com.ua                                          |
+  +----------------------------------------------------------------------+
+  $Id: uk.lang,v 1.7 2023-10-29 23:44:19 LLC LENET support@lenet.ua Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+	"Contact Name" => "Ім'я Контактної Особи",
+	"Email" => "Email",
+	"Email Confirm" => "Підтвердити Email",
+	"Password" => "Пароль",
+	"Password Confirm" => "Підтвердити Пароль",
+	"Phone" => "Телефон",
+	"Country" => "Країна",
+	"Company" => "Компанія",
+	"Address" => "Адреса",
+	"City" => "Місто",
+	"idPartner" => "idПартнера",
+	"registration" => "Форма реєстрації сервера Issabel",
+	"registration_server" => "Зареєструйте свій сервер в Issabel",
+	"alert_message_unregister" => "Зареєструвавши свій сервер Issabel, ви зможете встановлювати доповнення для Issabel. Щоб отримати доступ до галереї доступних доповнень, просто натисніть на вкладку \"Додатки\". Якщо у вас вже є обліковий запис Issabel Cloud, перейдіть до реєстрації",
+	"alert_message_form" => "Переконайтеся, що ви правильно заповнили поля цієї форми, і не забудьте про поле електронної пошти, тому що це ваше ім'я користувача, яке дозволить вам отримати доступ до вашого хмарного інтерфейсу Issabel і будь-яких ліцензій на аддони, які ви придбаєте в майбутньому",
+	"alert_message_registered" => "Дякуємо за реєстрацію сервера Issabel. Тепер ви можете насолоджуватися можливістю встановлення Issabel Addons. Щоб отримати доступ до галереї доступних додатків, клацніть вкладку Додатки. <br />Ваш сервер Issabel ТЕПЕР ЗАРЕЄСТРОВАНО в Issabel Cloud",
+	"Activate registration" => "Активувати реєстрацію",
+	"Update Information" => "Оновлення Інформації",
+	"Cancel" => "Скасувати",
+	"Save information and sending data" => "Збереження інформації та надсилання даних про реєстр",
+	"Not user allowed to access this content" => "Цей користувач не має права доступу до цього вмісту",
+	"Your information cannot be saved. Please try again." => "Ваші дані не можуть бути збережені в Issabel Cloud. Будь ласка, спробуйте ще раз.",
+	"Your information has been saved." => "Ваша інформація збережена.",
+	"Impossible connect to Issabel Web services. Please check your internet connection." => "Неможливо підключитися до веб-сервісів Issabel. Будь ласка, перевірте своє інтернет-з'єднання.",
+	"Impossible connect to Issabel Web services. Please check your internet connection. Showing local information cache." => "Неможливо підключитися до веб-сервісів Issabel. Будь ласка, перевірте підключення до Інтернету. Показати локальний інформаційний кеш.",
+	"Your Server ID" => "Ваш ID Сервера",
+	"Getting infomation from Issabel Web Services." => "Отримання інформації від Веб Сервісів Issabel.",
+	"Your Server ID is not valid. Please update your information to generate a new Server ID." => "ВашID недійсний. Будь ласка, оновіть інформацію, щоб згенерувати новий ID Сервера.",
+	"There are some problem with the local database. Information cannot be saved in database." => "Інформацію про реєстр не вдалося зберегти в локальній базі даних.",
+	"* Contact Name: Only text " => "* Ім'я Контактної Особи: Не повинно бути порожнім",
+	"* Email: Only format email " => "* Email. Неправильний формат, має бути user@domain",
+	"* Email Confirm: Only format email " => "* Підтвердити Email: Неправильний формат, має бути user@domain",
+	"* Phone: number " => "* Телефон: Можуть бути тільки цифри, +, -",
+	"* Company: text " => "* Компанія: Не повинно бути порожнім",
+	"* City: text " => "* Місто: Не повинно бути порожнім",
+	"* Country: Selected a country " => "* Країна: Виберіть Країну",
+	"* Address: text " => "* Адреса: Не повинна бути порожньою",
+	"Please fill the correct values in fields: " => "Будь ласка введіть правильні значення в полях: ",
+	"The table register does not exist and could not be created" => "Таблиці register не існує і не може бути створена",
+	"EMAIL" => "Email",
+	"PASSWORD" => "Пароль",
+	"Don't have an Issabel Cloud account?" => "Не маєте облікового запису в Issabel Cloud?",
+	"is licensed under" => "має ліцензію згідно з",
+	"by" => "до",
+	"REGISTER_ACTION" => "Логін",
+	"USERNAME" => "Ім'я користувача",
+	"Your Issabel server is registered" => "Ваш сервер Issabel зареєстровано",
+	"Access my account Issabel Cloud" => "Доступ до мого облікового запису \"Issabel Cloud\"",
+	"The column 'has_account' does not exist and could not be created" => "Колонка \"has_account\" не існує і не може бути створена",
+	"Incomplete registration" => "Неповна реєстрація",
+	"Your Issabel Server is not registered" => "Ваш Сервер Issabel не зареєстровано",
+	"Unable to get local information cache. Nor from Issabel Web services." => "Не вдалося отримати локальний інформаційний кеш. А також від веб-сервісів Issabel.",
+	"* Emails do not match " => "* Emails не збігаються",
+	"* Passwords do not match " => "* Паролі не збігаються",
+	"* Password: Must be at least 10 " => "* Пароль: Повинен складатися щонайменше з 10 символів і містити щонайменше одну велику літеру, щонайменше одну малу літеру та щонайменше одну цифру",
+	"* Password Confirm: Must be at least 10 " => "* Підтвердити Пароль: Повинно бути не менше 10 символів і містити принаймні одну велику літеру, принаймні одну малу літеру та принаймні одну цифру",
+	"FIELD VALIDATION" => "Дані клієнта недійсні.",
+	"INVALID LOGIN" => "Електронна пошта та/або пароль невірні.",
+	"ACCOUNT EXISTS" => "Обліковий запис із введеною адресою вже існує.",
+	"Customer could not be created" => "Обліковий запис не вдалося створити.",
+	"Installation data could not be saved" => "Дані інсталяції не вдалося зберегти.",
+	"SIGN_UP" => "Зареєструватися",
+	"INFO_REGISTER" => "Ви повинні увійти щоб встановити доповнення",
+	"By signing up you will be able to install addons and get professional support" => "Зареєструвавшись, ви зможете встановлювати аддони та отримувати професійну підтримку",
+);
+?>

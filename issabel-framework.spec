@@ -378,6 +378,7 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/robots.txt
 /var/www/html/panels/README.en
 /var/www/html/panels/README.es
+/var/www/html/panels/README.uk
 /var/www/html/var
 /var/www/html/pbxapi
 /var/www/html/var/.htaccess

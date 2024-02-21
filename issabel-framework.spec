@@ -17,6 +17,7 @@ Requires(pre): perl
 Requires(pre): issabel-firstboot >= 2.3.0-4
 #Requires: issabelPBX
 Requires(pre): /sbin/pidof
+Requires: liberation-sans-fonts
 Obsoletes: elastix-additionals
 Conflicts: elastix-system <= 4.0.0-8
 Conflicts: elastix-callcenter <= 2.0.0-16

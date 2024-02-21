@@ -215,8 +215,9 @@ if( sizeof($G_YDATAS) >= 1 )
 
         $graph->SetScale($G_SCALE);
         $graph->SetMarginColor($G_COLOR);
+        $graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
         $graph->title->Set($G_TITLE);
-        $graph->title->SetFont(FF_ARIAL);
+        $graph->title->SetFont(FF_USERFONT);
         $graph->SetFrame(true, '#999999');
         $graph->img->SetMargin($G_MARGIN[0],$G_MARGIN[1],$G_MARGIN[2],$G_MARGIN[3]);
         $graph->img->SetAntiAliasing();
@@ -228,7 +229,7 @@ if( sizeof($G_YDATAS) >= 1 )
         $graph->legend->SetFillColor("#fafafa");
         $graph->legend->Pos($G_LEYEND_POS[0], $G_LEYEND_POS[1], "right","center");
         $graph->legend->SetColumns( $G_LEYEND_NUM_COLUMN );
-        $graph->legend->SetFont(FF_ARIAL);
+        $graph->legend->SetFont(FF_USERFONT);
 
         $graph->legend->SetColor("#444444", "#999999");
 
@@ -273,8 +274,8 @@ if( sizeof($G_YDATAS) >= 1 )
         $graph->legend->SetShadow('gray@0.6',4);
         $graph->legend->SetColumns( $G_LEYEND_NUM_COLUMN );
         $graph->title->Set($G_TITLE);
-        $graph->title->SetFont(FF_ARIAL);
-        $graph->legend->SetFont(FF_ARIAL);
+        $graph->title->SetFont(FF_USERFONT);
+        $graph->legend->SetFont(FF_USERFONT);
 
         $pieplot3d = new PiePlot3d( $G_YDATAS[0] );
         $pieplot3d->SetSliceColors( $G_ARR_COLOR );
@@ -377,7 +378,7 @@ if( sizeof($G_YDATAS) >= 1 )
         $graph->SetMarginColor($G_COLOR);
         $graph->img->SetMargin($G_MARGIN[0],$G_MARGIN[1],$G_MARGIN[2],$G_MARGIN[3]);
         $graph->title->Set($G_TITLE);
-        $graph->title->SetFont(FF_ARIAL);
+        $graph->title->SetFont(FF_USERFONT);
         $graph->xaxis->title->Set($G_LABEL[0]);
         $graph->xaxis->SetLabelFormatCallback("CallBack");
         $graph->xaxis->SetLabelAngle(90);
@@ -386,7 +387,7 @@ if( sizeof($G_YDATAS) >= 1 )
         $graph->legend->SetFillColor("#fafafa");
         $graph->legend->Pos($G_LEYEND_POS[0], $G_LEYEND_POS[1], "right","center");
         $graph->legend->SetColumns( $G_LEYEND_NUM_COLUMN );
-        $graph->legend->SetFont(FF_ARIAL);
+        $graph->legend->SetFont(FF_USERFONT);
 
         $arr_barplot = array();
         foreach($G_YDATAS as $num => $yDatas)
@@ -414,7 +415,7 @@ if( sizeof($G_YDATAS) >= 1 )
         $graph->SetScale($G_SCALE);
         $graph->SetFrame(true, '#999999');
         $graph->title->Set($G_TITLE);
-        $graph->title->SetFont(FF_ARIAL);
+        $graph->title->SetFont(FF_USERFONT);
         $graph->img->SetAntiAliasing();
         $graph->xaxis->SetLabelFormatCallback("CallBack");
         $graph->img->SetMargin($G_MARGIN[0],$G_MARGIN[1],$G_MARGIN[2],$G_MARGIN[3]);
@@ -425,7 +426,7 @@ if( sizeof($G_YDATAS) >= 1 )
         $graph->legend->SetColor("#444444", "#999999");
         $graph->legend->SetShadow('gray@0.6',4);
         $graph->legend->SetColumns( $G_LEYEND_NUM_COLUMN );
-        $graph->legend->SetFont(FF_ARIAL);
+        $graph->legend->SetFont(FF_USERFONT);
         
         foreach($G_YDATAS as $num => $yData){
             $lineplot = new LinePlot($yData);
@@ -636,7 +637,7 @@ function showError($msj, $G_SIZE = array(400,300), $G_TITLE = "")
         $titulo = utf8_decode($_MSJ_NOTHING);
         $title = new Text($G_TITLE);
         $title->ParagraphAlign('center');
-        $title->SetFont(FF_ARIAL);
+        $title->SetFont(FF_USERFONT);
         $title->SetMargin(3);
         $title->SetAlign('center');
         $title->Center(0,$G_SIZE[0],$G_SIZE[1]/2);
@@ -652,7 +653,7 @@ function showError($msj, $G_SIZE = array(400,300), $G_TITLE = "")
     $t1->SetBox("white","black",true);
     $t1->ParagraphAlign("center");
     $t1->SetColor("black");
-    $t1->SetFont(FF_ARIAL);
+    $t1->SetFont(FF_USERFONT);
 
     $graph->AddText($t1);
     $graph->img->SetColor('navy');

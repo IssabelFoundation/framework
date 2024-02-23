@@ -226,6 +226,7 @@ fi
 systemctl enable mariadb || :
 systemctl enable httpd || :
 
+mkdir -p /usr/share/fonts/truetype
 
 # ** Change content of sudoers ** #
 cat   /usr/share/issabel/sudoers > /etc/sudoers.d/issabel

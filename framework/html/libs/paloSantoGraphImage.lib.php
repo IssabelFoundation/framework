@@ -210,12 +210,12 @@ if( sizeof($G_YDATAS) >= 1 )
     if( $G_TYPE == 'lineplot' )
     {
         $graph = new Graph($G_SIZE[0], $G_SIZE[1], "auto");
+        $graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
         
         if( $G_SHADOW ) $graph->SetShadow();
 
         $graph->SetScale($G_SCALE);
         $graph->SetMarginColor($G_COLOR);
-        $graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
         $graph->title->Set($G_TITLE);
         $graph->title->SetFont(FF_USERFONT);
         $graph->SetFrame(true, '#999999');
@@ -260,6 +260,7 @@ if( sizeof($G_YDATAS) >= 1 )
     else if( $G_TYPE == 'plot3d' )
     {
         $graph = new PieGraph($G_SIZE[0], $G_SIZE[1],"auto");
+	$graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
 
         if( $G_SHADOW ) $graph->SetShadow();
 
@@ -371,6 +372,7 @@ if( sizeof($G_YDATAS) >= 1 )
     else if( $G_TYPE == 'barplot' )
     {
         $graph = new Graph($G_SIZE[0], $G_SIZE[1], "auto");
+	$graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
 
         if( $G_SHADOW ) $graph->SetShadow();
 
@@ -407,6 +409,7 @@ if( sizeof($G_YDATAS) >= 1 )
     else if( $G_TYPE == 'lineplot_multiaxis' )
     {
         $graph = new Graph($G_SIZE[0], $G_SIZE[1], "auto");
+	$graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
 
         if( $G_SHADOW ) $graph->SetShadow();
 
@@ -631,6 +634,7 @@ function checkAttributes($G_TITLE,$G_TYPE,$G_LABEL_Y,$_MSJ_ERROR,$_MSJ_NOTHING)
 function showError($msj, $G_SIZE = array(400,300), $G_TITLE = "")
 {
     $graph = new CanvasGraph($G_SIZE[0],$G_SIZE[1],"auto");
+    $graph->SetUserFont('../liberation-sans/LiberationSans-Regular.ttf');
 
     if($msj == 'nothing'){
         Global $_MSJ_NOTHING;

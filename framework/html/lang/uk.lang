@@ -1,0 +1,292 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel Version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2017 Issabel Foundation                                |
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translated by: LLC LeNET                                             |
+  | Email: support@lenet.com.ua                                          |
+  +----------------------------------------------------------------------+
+  $Id: uk.lang,v 1.7 2023-10-10 22:06:52 LLC LENET support@lenet.ua Exp $ */
+global $arrLang;
+$arrLang=array(
+/*System Info*/
+"Disk usage" => "Використання Диска",
+"Used space" => "Зайнято",
+"Free space" => "Вільно",
+"Simultaneous calls, memory and CPU" => "Дзвінки, Пам'ять та ЦП разом",
+"Sim. calls" => "Одночасні Дзвінки",
+"CPU usage (%)" => "Завантаження ЦП (%)",
+"Mem. usage (MB)" => "Використання Пам'яті (MB)",
+/*System Info*/
+
+"Export" => "Експорт",
+"Start" => "Початок",
+"End" => "Кінець",
+"Next" => "Наступний",
+"Previous" => "Попередній",
+
+"Validation Error" => "Помилка Валідації",
+"The following fields contain errors" => "Наступні поля містять помилки",
+"Save" => "Зберегти",
+"Required field" => "Обов'язкове поле",
+"Apply changes" => "Застосувати Зміни",
+"Cancel" => "Скасувати",
+
+/*Login to Issabel*/
+"Welcome to Issabel" => "Ласкаво Просимо до Issabel",
+"Please enter your username and password" => "Будь ласка введіть ім'я користувача та пароль",
+"Username" => "Ім'я Користувача",
+"Password" => "Пароль",
+"Submit" => "Увійти",
+"Login page" => "Сторінка входу",
+/*end Login to Issabel*/
+
+/*start User Management*/
+"Group" => "Група",
+"The group is wrong" => "Невірна група",
+"Are you sure you wish to continue?" => "Ви впевнені що хочете продовжити?",
+"Edit" => "Редагувати",
+"Delete" => "Видалити",
+"Accept" => "Прийняти",
+"Users" => "Користувачі",
+"Directory couldn't be opened" => "Директорія не може бути відкритою",
+/*end User Management*/
+
+/*start menu*/
+"System" => "Система",
+"System Info" => "Системна Інформація",
+"User Management" => "Користувачі",
+"Menu Administrator" => "Меню Адміністратора",
+/*end  menu*/
+
+/*Start Language*/
+"Change" => "Змінити",
+"Logout" => "Вихід",
+/*end Language*/
+
+/*version 0.7*/
+/*start paloSantoValidar.class.php*/
+"Options" => "Опції",
+"Empty field" => "Пусте поле",
+"Bad Format" => "Некоректний Формат",
+"No option was selected" => "Жодної опції не вибрано",
+"Octets out of range" => "Октети поза діапазоном",
+"Undefined validation type" => "Невизначений тип перевірки",
+/*end paloSantoValidar.class.php*/
+
+/*version 0.8*/
+/*start user*/
+"View User" => "Перегляд Користувача",
+/*end user*/
+
+/*History*/
+"History" => "Історія",
+
+/*load module*/
+"Load Module" => "Завантажити Модуль",
+"ID for new module (folder name)" => "ID для нового модуля (ім'я папки)",
+"Choose Menu" => "Виберіть Меню",
+"ID for new menu" => "ID для нового меню",
+"Menu Name" => "Назва Меню",
+"Defined Menu" => "Певне Меню",
+"New Menu" => "Нове Меню",
+"Module sucessfully loaded" => "Модуль успішно завантажений",
+"Folder name doesn't exist in module file" => "Ім'я папки не існує у файлі модуля",
+"Folder configs doesn't exist in module file" => "Конфігураційні файли папки не існують у файлі модуля",
+"Folder themes doesn't exist in module file" => "Теми папки не існують у файлі модуля",
+"File index.php doesn't exist in module file" => "Файл index.php не існує у файлі модуля",
+"File install.php doesn't exist in module file" => "Файл install.php не існує у файлі модуля",
+/*end load module*/
+
+/*Module Agenda*/
+"Agenda" => "Опції",
+
+/*Module Email*/
+"Email" => "Пошта",
+"Webmail" =>"Веб Пошта",
+
+/*Module Fax*/
+"Fax" => "Факс",
+"Virtual Fax" => "Віртуальний Факс",
+
+/*Module PBX*/
+"PBX" => "АТС",
+"PBX Configuration" => "Налаштування АТС",
+"Operator Panel" => "Панель Оператора",
+"Batch Configurations" => "Групове Налаштування",
+"Tools" => "Інструменти",
+"Flash Operator Panel" => "Flash Панель Оператора",
+
+/*Module IM*/
+"IM" => "Миттєві Повідомлення",
+"OpenFire" => "OpenFire",
+"The service Openfire No running" => "Сервіс Openfire не запущено",
+"Webmin" => "Webmin",
+"The service Webmin No running" => "Сервіс Webmin на даний момент не активний. Якщо ви хочете активувати його будь ласка ",
+
+/*Module Reports*/
+"Reports" => "Звіти",
+
+"Extras" => "Додатково",
+"My Extension" => "Мій Номер",
+
+/*Module Security*/
+"Security" => "Безпека",
+"Firewall" => "Мережевий Екран",
+
+/*vTigerCRM*/
+
+"vTigerCRM" => "vTigerCRM",
+"The vTiger installation is almost done. To complete it please" => "Встановлення vTiger майже завершено. Будь ласка завершіть його ",
+"click here" => "натисніть ТУТ",
+
+/*Sugarcrm*/
+"SugarCRM" => "SugarCRM",
+"The SugarCRM installation is almost done. To complete it please" => "Встановлення SugarCRM майже завершено. Будь ласка завершіть його",
+
+/*Network*/
+"Network" => "Мережа",
+
+/*Updates*/
+"Updates" => "Оновлення",
+"Repositories" => "Репозиторії",
+"Packages" => "Пакети",
+
+/*Preferences*/
+"Preferences" => "Налаштування",
+
+/* Start About Issabel */
+"About Issabel" => "Про Issabel",
+"About Issabel2"=>"Про Issabel",
+"HELP"=>"Допомога",
+"About Issabel Content" => "Issabel було створено з передумовою стати надійною, простою у використанні веб-системою для керування зв’язком через IP. Це програмне забезпечення з відкритим вихідним кодом, створене в Еквадорі, стало кращим рішенням для впровадження голосу через IP по всьому світу.",
+"About Issabel Closed" => "Закрити",
+/* end About Issabel */
+
+//Issabel 0.9.1
+/*Start module Group List*/
+"Group List"=>"Список Груп",
+/*End module Group List*/
+
+/*Grouplist*/
+"administrator" => "Адміністратор",
+"operator" => "Оператор",
+"extension" => "Внутрішній Номер",
+"total access" => "Повний Доступ",
+"extension user" => "Користувач Внутрішнього Номера",
+/*Grouplist*/
+"Title" => "Назва",
+"Search" => "Пошук",
+"Show"   => "Показати",
+'md_message_title' => 'Відхилити',
+"ERROR" => "Помилка",
+"VersionDetails" => "Версія",
+"VersionPackage" => "Версії Пакетів",
+"textMode" => "Режим Текст",
+"htmlMode" => "Режим Html",
+"Register" => "Реєстрація",
+"Register Server" => "Зареєструвати Сервер",
+"Registered" => "Зареєстровано",
+"Unauthorized" => "Неавторизований",
+"You are not authorized to access to this page" => "Ви неавторизовані для доступу до цієї сторінки",
+"You need administrator privileges" => "Вам потрібні права адміністратора",
+"Issabel Authentication" => "Автентифікація Issabel",
+"You have not permissions to access to Flash Operator Panel. Please contact your administrator." => "Вам не дозволено доступ до Flash Панелі Оператора. Будь ласка, зв'яжіться з адміністратором.",
+"Advice" => "Порада",
+
+/*Module Call Center*/
+
+"Call Center" => "Контакт-Центр",
+"Reports" => "Звіти",
+"Forms" => "Форми",
+"Agent Options" => "Налаштування Агента",
+"Ingoing Calls" => "Вхідні Дзвінки",
+"Outgoing Calls" => "Вихідні Дзвінки",
+
+/*New*/
+"Hide left panel" => "Приховати ліву панель",
+"Load left panel" => "Показати ліву панель",
+"Add Bookmark" => "Додати Закладку",
+"Search modules" => "Пошук модулів",
+"Change Issabel Password" => "Змінити Пароль Issabel",
+"Billing" => "Білінг",
+"Issabel Website" => "Сайт Issabel",
+"FOP2 Manager" => "Менеджер FOP2",
+"Developer" => "Розробник",
+"Fail2Ban" => "Налаштування Безпеки",
+"View" => "Переглянути",
+"Status" => "Статус",
+"Type" => "Тип",
+"Active" => "Активний",
+"Filter" => "Фільтр",
+"Please write your current password." => "Будь ласка напишіть свій поточний пароль.",
+"Please write the new password and confirm the new password." => "Будь ласка напишіть новий пароль та підтвердьте новий пароль.",
+"The new password doesn't match with retype new password." => "Новий пароль не збігається з повторно введеним паролем.",
+"Please your session id does not exist. Refresh the browser and try again." => "Ваш ID сеансу не існує. Будь ласка оновіть веб-переглядач і повторіть спробу.",
+"Issabel password has been changed." => "Пароль Issabel було успішно змінено.",
+"Impossible to change your Issabel password." => "Помилка! Неможливо змінити пароль Issabel.",
+"Impossible to change your Issabel password. User does not exist or password is wrong" => "Помилка! Неможливо змінити пароль Issabel. Користувач не існує або пароль неправильний",
+"Current Password" => "Поточний Пароль",
+"New Password" => "Новий Пароль",
+"Retype New Password" => "Повторно Введіть Новий Пароль",
+"You are not authorized to access this page." => "Ви не авторизовані для доступу до цієї сторінки.",
+"Bookmarks" => "Закладки",
+"The maximum of bookmarks is 5. Please uncheck one in order to add this bookmark" => "Максимальна кількість закладок 5. Зніміть прапорець з однієї з них, щоб додати закладку",
+"Bookmark has been added." => "Закладку було успішно додано.",
+"Bookmark cannot be added. Please try again or contact with your Issabel administrator and notify the next error: " => "Неможливо додати закладку. Спробуйте ще раз або зверніться до свого адміністратора Issabel і повідомте про наступну помилку: ",
+"Bookmark has been removed." => "Закладку було успішно видалено.",
+"Bookmark cannot be removed. Please try again or contact with your Issabel administrator and notify the next error: " => "Закладку неможливо видалити. Спробуйте ще раз або зверніться до свого адміністратора Issabel і повідомте про наступну помилку: ",
+"Sending Request" => "Надсилання Запиту",
+"Request cannot be completed. Please try again or contact with your Issabel administrator and notify the next error: " => "Неможливо виконати запит. Спробуйте ще раз або зверніться до свого адміністратора Issabel і повідомте про наступну помилку: ",
+"Request has been sent." => "Запит було успішно надіслано.",
+"Remove Bookmark" => "Видалити Закладку",
+"Adding Bookmark" => "Додавання Закладки",
+"Removing Bookmark" => "Видалення Закладки",
+"Hiding left panel" => "Приховування лівої панелі",
+"Loading left panel" => "Завантаження лівої панелі",
+"characters left" => "залишилося символів",
+"Save Note" => "Зберегти Нотатку",
+"Saving Note" => "Збереження Нотатки",
+"Loading Note" => "Завантаження Нотатки",
+"Click here to leave a note." => "Натисніть тут щоб залишити примітку.",
+"Your session has expired. Press 'Accept' to return to the login page." => "Ваш сеанс закінчився. Натисніть 'Прийняти' щоб повернутися на сторінку входу.",
+"No records match the filter criteria" => "Жоден запис не відповідає критеріям фільтра",
+"New Row" => "Новий Рядок",
+"Custom Action" => "Користувальницька Дія",
+"Delete Selected" => "Видалити Вибране",
+"Page" => "Сторінка",
+"of" => "з",
+"records" => "записів",
+"Apply Filter" => "Застосувати Фільтр",
+"Download" => "Скачати",
+"WARNING" => "УВАГА",
+"Show Filter" => "Показати Фільтр",
+"Hide Filter" => "Приховати Фільтр",
+"More Options" => "Більше Опцій",
+"Filter applied: " => "Застосовано фільтр: ",
+"Panels" => "Панелі",
+"is licensed under" => "має ліцензію згідно",
+"Incorrect username or password. Please try again." => "Неправильне ім'я користувача або пароль. Будь ласка спробуйте ще раз.",
+"Upload" => "Завантажити",
+"Operator" => "Оператор",
+"Traslates saved succetiful" => "Переклад успішно збережено",
+"The selected menu is not valid." => "Вибране меню не є дійсним.",
+);
+?>

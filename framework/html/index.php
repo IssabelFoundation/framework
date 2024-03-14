@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Wed 06 Sep 2023 04:00:10 PM EDT, nicolas@issabel.com
+  $Id: index.php, Thu 14 Mar 2024 05:42:23 PM EDT, nicolas@issabel.com
 */
 
 function spl_issabel_class_autoload($sNombreClase)
@@ -307,7 +307,24 @@ if (isset($_SESSION['issabel_user']) &&
 
     // Obtener contenido del módulo, si usuario está autorizado a él
     $bModuleAuthorized = $pACL->isUserAuthorizedById($idUser, "access", $selectedMenu);
+
     $sModuleContent = ($bModuleAuthorized) ? $oPn->showContent() : '';
+
+    // try to open wizard modal
+    if($selectedMenu=='pbxadmin') {
+        if(is_file("/var/www/html/wizard/index.php")) {
+        $pDB = new paloDB(generarDSNSistema('asteriskuser', 'asterisk'));
+            $query = "SELECT count(*) FROM `users`";
+            $row = $pDB->getFirstRowQuery($query, false, array());
+            if($row[0]<1) {
+                $sModuleContent.="<script>";
+                $sModuleContent.="\$(document).ready( function() { \n";
+                $sModuleContent.="ShowModalPopUP('"._tr('Initial Configuration Wizard')."','900',800,'<iframe src=\"/wizard/index.php\" frameborder=\"0\" style=\"overflow:hidden;height:100%;width:100%\" height=\"100%\" width=\"100%\" ></iframe>');\n";
+                $sModuleContent.="$('.neo-modal-issabel-popup-content').css('left','0');$('.neo-modal-issabel-popup-content').css('right','0');$('.neo-modal-issabel-popup-content').css('bottom','0');\n";
+                $sModuleContent.="});</script>";
+            }
+        }
+    }
 
     // rawmode es un modo de operacion que pasa directamente a la pantalla la salida
     // del modulo. Esto es util en ciertos casos.

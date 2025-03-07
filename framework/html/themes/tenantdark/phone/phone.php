@@ -1,17 +1,10 @@
-<!-- Check that browser is not IE -->
-    <?php
+<?php
     include "helper.php";
-    //echo $_COOKIE['issaUser'];
-    
     $extension = sqliteExtensionFind($_COOKIE['issaUser']);
-    //echo $extension;
     if(!$extension)
         exit;
-    
     $password = getAsteriskExtensionPassword($extension);
-    
-    //echo $password;
-    ?>  
+?>  
 <html>
 
 <head>
@@ -49,7 +42,8 @@
             displayName: "<?php echo $extension; ?>"
         }
         
-        
+        //Check that browser is not IE
+
         var ua = window.navigator.userAgent;
         if (ua.indexOf('MSIE ') > 0 || ua.indexOf('Trident/') > 0) {
             alert("Internet Explorer is not supported. Please use Chrome or Firefox");

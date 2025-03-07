@@ -1,0 +1,23 @@
+/**
+ *
+ * Apply Here your Custom CSS
+ *
+*/
+
+body {
+	
+}
+
+#input_user.form-control, #input_pass.form-control {
+    width: 95%;
+    -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+body.login-page .login-form .form-group .input-group {
+  background: #005577;
+  border-color: #002244;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+}

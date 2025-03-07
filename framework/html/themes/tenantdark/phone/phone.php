@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="phone.css">
     <link rel="icon" href="images/favicon.png">
-	    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
 
     <script defer src="js/ac_webrtc.min.js"></script>
     <script defer src="js/utils.js"></script>

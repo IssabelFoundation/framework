@@ -1,0 +1,90 @@
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 4.0.0-31                                               |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.1 2011-08-09 10:08:51 Eduardo Cueva ecueva@palosanto.com Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Contact Name" => "İletişim Adı",
+"Email" => "E-posta",
+"Email Confirm" => "E-posta Onayı",
+"Password" => "Şifre",
+"Password Confirm" => "Şifre Onayı",
+"Phone" => "Telefon",
+"Country" => "Ülke",
+"Company" => "Şirket",
+"Address" => "Adres",
+"City" => "Şehir",
+"idPartner" => "Partner ID",
+"registration" => "Issabel Sunucu Kayıt Formu",
+"registration_server" => "Sunucunuzu Issabel'e kaydedin",
+"alert_message_unregister" => "Issabel sunucunuzu kaydederek Issabel için eklentiler yükleyebileceksiniz. Mevcut eklentilerin galerisine erişmek için Eklentiler sekmesine tıklayın. Zaten bir Elastix Bulut hesabınız varsa, kayda devam edin.",
+"alert_message_form" => "Bu formun alanlarını doğru şekilde doldurduğunuzdan emin olun ve e-posta alanını unutmayın, çünkü bu, Issabel Bulut Arayüzünüze ve gelecekte satın alacağınız eklentilerin lisanslarına erişmenizi sağlayacak kullanıcı adınızdır.",
+"alert_message_registered" => "Issabel Sunucunuzu kaydettiğiniz için teşekkür ederiz. Artık Issabel Eklentilerini yükleme olanağının keyfini çıkarabilirsiniz. Mevcut eklentilerin galerisine erişmek için Eklentiler sekmesine tıklayın. <br />Issabel Sunucunuz ŞİMDİ Issabel Bulut'a KAYDEDİLDİ.",
+"Activate registration" => "Kaydı Etkinleştir",
+"Update Information" => "Bilgileri Güncelle",
+"Cancel" => "İptal",
+"Save information and sending data" => "Bilgileri kaydet ve kayıt verilerini gönder",
+"Not user allowed to access this content" => "Bu içeriğe erişime izin verilen kullanıcı değil",
+"Your information cannot be saved. Please try again." => "Bilgileriniz Issabel Bulut'a kaydedilemedi. Lütfen tekrar deneyin.",
+"Your information has been saved." => "Bilgileriniz kaydedildi.",
+"Impossible connect to Issabel Web services. Please check your internet connection." => "Issabel Web servislerine bağlanılamıyor. Lütfen internet bağlantınızı kontrol edin.",
+"Impossible connect to Issabel Web services. Please check your internet connection. Showing local information cache." => "Issabel Web servislerine bağlanılamıyor. Lütfen internet bağlantınızı kontrol edin. Yerel bilgi önbelleği gösteriliyor.",
+"Your Server ID" => "Sunucu ID'niz",
+"Getting infomation from Issabel Web Services." => "Issabel Web Servislerinden bilgi alınıyor.",
+"Your Server ID is not valid. Please update your information to generate a new Server ID." => "Sunucu ID'niz geçersiz. Yeni bir Sunucu ID'si oluşturmak için lütfen bilgilerinizi güncelleyin.",
+"There are some problem with the local database. Information cannot be saved in database." => "Yerel veritabanında bazı sorunlar var. Bilgiler veritabanına kaydedilemiyor.",
+"* Contact Name: Only text " => "* İletişim Adı: Boş olmamalıdır",
+"* Email: Only format email " => "* E-posta: Geçersiz biçim, kullanıcı@alan olmalıdır",
+"* Email Confirm: Only format email " => "* E-posta Onayı: Geçersiz biçim, kullanıcı@alan olmalıdır",
+"* Phone: number " => "* Telefon: Sadece sayılar, +, - içerebilir",
+"* Company: text " => "* Şirket: Boş olmamalıdır",
+"* City: text " => "* Şehir: Boş olmamalıdır",
+"* Country: Selected a country " => "* Ülke: Bir ülke seçildi",
+"* Address: text " => "* Adres: Boş olmamalıdır",
+"Please fill the correct values in fields: " => "Lütfen alanlara doğru değerleri girin: ",
+"The table register does not exist and could not be created" => "Kayıt tablosu mevcut değil ve oluşturulamadı",
+"EMAIL" => "E-POSTA",
+"PASSWORD" => "ŞİFRE",
+"Don't have an Issabel Cloud account?" => "Issabel Bulut hesabınız yok mu?",
+"is licensed under" => "lisansı altında",
+"by" => "tarafından",
+"REGISTER_ACTION" => "Giriş Yap",
+"USERNAME" => "Kullanıcı Adı",
+"Your Issabel server is registered" => "Issabel sunucunuz kayıtlı",
+"Access my account Issabel Cloud" => "Issabel Bulut hesabıma eriş",
+"The column 'has_account' does not exist and could not be created" => "'has_account' sütunu mevcut değil ve oluşturulamadı",
+"Incomplete registration" => "Eksik kayıt",
+"Your Issabel Server is not registered" => "Issabel Sunucunuz kayıtlı değil",
+"Unable to get local information cache. Nor from Issabel Web services." => "Yerel bilgi önbelleği veya Issabel Web servislerinden bilgi alınamıyor.",
+"* Emails do not match " => "* E-postalar eşleşmiyor",
+"* Passwords do not match " => "* Şifreler eşleşmiyor",
+"* Password: Must be at least 10 " => "* Şifre: En az 10 karakter olmalı ve en az bir büyük harf, en az bir küçük harf ve en az bir rakam içermelidir",
+"* Password Confirm: Must be at least 10 " => "* Şifre Onayı: En az 10 karakter olmalı ve en az bir büyük harf, en az bir küçük harf ve en az bir rakam içermelidir",
+"FIELD VALIDATION" => "Müşteri verileri geçersiz.",
+"INVALID LOGIN" => "E-posta ve/veya şifre yanlış.",
+"ACCOUNT EXISTS" => "Girilen e-posta ile bir hesap zaten mevcut.",
+"Customer could not be created" => "Hesap oluşturulamadı.",
+"Installation data could not be saved" => "Kurulum verileri kaydedilemedi.",
+"SIGN_UP"=>"Kayıt Ol",
+"INFO_REGISTER" =>"Eklentileri yüklemek için giriş yapmış olmanız gerekir",
+"By signing up you will be able to install addons and get professional support" => "Kayıt olarak eklentileri yükleyebilir ve profesyonel destek alabilirsiniz"
+);
+?>

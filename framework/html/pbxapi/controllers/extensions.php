@@ -419,19 +419,25 @@ class extensions extends rest {
                            } 
                        }
                    }
+
+                   if(!isset($complete_array['device_options'])) { $complete_array['device_options']=array(); }
                    if(count($complete_array['device_options'])==0) {
                        unset($complete_array['device_options']);
                    }
-                   if(count($complete_array['extension_options'])==0) {
+                   if(!isset($complete_array['extension_options'])) { $complete_array['extension_options']=array(); }
+                   if (count($complete_array['extension_options'])==0) {
                        unset($complete_array['extension_options']);
                    }
-                   if(count($complete_array['recording'])==0) {
+                   if(!isset($complete_array['recording'])) { $complete_array['recording']=array(); }
+                   if (count($complete_array['recording'])==0) {
                        unset($complete_array['recording']);
                    }
-                   if(count($complete_array['callerid_override'])==0) {
+                   if(!isset($complete_array['callerid_override'])) { $complete_array['callerid_override']=array(); }
+                   if (count($complete_array['callerid_override']) == 0) {
                        unset($complete_array['callerid_override']);
                    }
-                   if(count($complete_array['destination'])==0) {
+                   if(!isset($complete_array['destination'])) { $complete_array['destination']=array(); }
+                   if (count($complete_array['destination']) == 0) {
                        unset($complete_array['destination']);
                    }
                }

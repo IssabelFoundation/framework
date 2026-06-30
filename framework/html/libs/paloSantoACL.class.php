@@ -896,6 +896,61 @@ class paloACL {
     }
 
     /**
+     * Devuelve la lista de extensiones que un usuario puede monitorear en el
+     * módulo de grabaciones (monitoring). Se almacena en acl_user.monitorexten
+     * como una lista separada por comas. Si la columna no existe (instalación
+     * sin migrar) o está vacía, devuelve un arreglo vacío y el módulo cae al
+     * comportamiento clásico (sólo la extensión propia del usuario).
+     *
+     * @param string   $username  Username del usuario
+     *
+     * @return array   arreglo de extensiones (strings), posiblemente vacío
+     */
+    function getUserMonitorExtensions($username)
+    {
+        $this->errMsg = '';
+        $extens = array();
+        if (is_null($username) || $username === '') return $extens;
+        $result = $this->_DB->getFirstRowQuery(
+            'SELECT monitorexten FROM acl_user WHERE name = ?', FALSE, array($username));
+        if (!is_array($result) || count($result) <= 0) {
+            // La columna puede no existir en instalaciones que no migraron;
+            // se ignora silenciosamente para preservar el comportamiento clásico.
+            return $extens;
+        }
+        $raw = $result[0];
+        if (!is_null($raw) && trim($raw) != '') {
+            foreach (explode(',', $raw) as $e) {
+                $e = trim($e);
+                if ($e != '') $extens[] = $e;
+            }
+        }
+        return $extens;
+    }
+
+    /**
+     * Asigna la lista de extensiones a monitorear de un usuario existente.
+     *
+     * @param string   $username  Username del usuario
+     * @param string   $list      lista separada por comas (NULL/'' para limpiar)
+     *
+     * @return boolean  VERDADERO en éxito, FALSO en error
+     */
+    function setUserMonitorExtensions($username, $list)
+    {
+        $this->errMsg = '';
+        if (is_null($list) || trim($list) == '') $list = NULL;
+        $r = $this->_DB->genQuery(
+            'UPDATE acl_user SET monitorexten = ? WHERE name = ?',
+            array($list, $username));
+        if (!$r) {
+            $this->errMsg = $this->_DB->errMsg;
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    /**
      * Procedimiento para obtener el is del recurso dado su nombre.
      *
      * @param string   $resource_name  Nombre del recurso

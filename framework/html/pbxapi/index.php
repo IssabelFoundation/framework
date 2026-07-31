@@ -29,10 +29,21 @@ $f3=require('lib/base.php');
 $f3->set('AUTOLOAD','models/; controllers/');
 $f3->set('DEBUG',255);
 
-if(is_file("/etc/issabel.conf")) {
-    $data    = parse_conf("/etc/issabel.conf");
-    $dbpass  = $data['mysqlrootpwd'];
-    $mgrpass = $data['amiadminpwd'];
+if(!is_file("/etc/issabel.conf")) {
+    throw new RuntimeException('/etc/issabel.conf not found');
+}
+
+$data    = parse_conf("/etc/issabel.conf");
+$dbpass  = $data['mysqlrootpwd'];
+$mgrpass = $data['amiadminpwd'];
+
+if(empty($data['pbxapijwtsecret'])) {
+    throw new RuntimeException('Missing pbxapijwtsecret in /etc/issabel.conf');
+}
+
+$jwtKey = base64_decode($data['pbxapijwtsecret'], true);
+if($jwtKey === false || strlen($jwtKey) < 32) {
+    throw new RuntimeException('pbxapijwtsecret must contain at least 32 random bytes encoded as Base64');
 }
 
 $options = array(
@@ -44,7 +55,7 @@ $options = array(
 $f3->set('MGRPASS',$mgrpass);
 $f3->set('DB', new DB\SQL( 'mysql:host=localhost;port=3306;dbname=asterisk', 'root', $dbpass, $options));
 
-$f3->set('JWT_KEY', 'da893kasdfam43k29akdkfaFFlsdfhj23rasdf');
+$f3->set('JWT_KEY', $jwtKey);
 $f3->set('JWT_EXPIRES', 60 * 60);
 
 $f3->route('GET /','help->display');
@@ -58,10 +69,26 @@ $f3->run();
 
 function parse_conf($file) {
     $result = array();
-    $lines = file($file);
-    foreach($lines as $line) {
-        $partes = preg_split("/=/",$line);
-        $result[trim($partes[0])]=trim($partes[1]);
+    $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    if($lines === false) {
+        throw new RuntimeException("Unable to read $file");
     }
+
+    foreach($lines as $line) {
+        $line = trim($line);
+
+        if($line === '' || $line[0] === '#' || $line[0] === ';') {
+            continue;
+        }
+
+        $partes = explode('=', $line, 2);
+        if(count($partes) !== 2) {
+            continue;
+        }
+
+        $result[trim($partes[0])] = trim($partes[1]);
+    }
+
     return $result;
 }

@@ -14,7 +14,8 @@ Requires(pre): /sbin/chkconfig, /etc/sudoers, sudo
 Requires(pre): php, php-gd, php-pear, php-xml, php-mysql, php-pdo, php-imap, php-soap
 Requires(pre): httpd, mariadb-server, ntp, mod_ssl
 Requires(pre): perl
-Requires(pre): issabel-firstboot >= 2.3.0-4
+Requires(pre): issabel-firstboot >= 5.0.0-1
+
 #Requires: issabelPBX
 Requires(pre): /sbin/pidof
 Requires: liberation-sans-fonts
@@ -342,6 +343,10 @@ issabel-menumerge $pathModule/menu.xml
 # Los archivos de logrotate TIENEN que ser 0644 (http://bugs.elastix.org/view.php?id=2608)
 chmod 644 /etc/logrotate.d/issabelAudit.logrotate
 chmod 644 /etc/logrotate.d/issabelEmailStats.logrotate
+
+if [ "$1" -ge 1 ]; then
+    /usr/bin/issabel-admin-passwords --ensure-jwt-secret >/dev/null 2>&1 || :
+fi
 
 %preun
 # Reverse the patching of php.conf

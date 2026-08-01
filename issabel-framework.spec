@@ -14,7 +14,7 @@ Requires(pre): /sbin/chkconfig, /etc/sudoers, sudo
 Requires(pre): php, php-gd, php-pear, php-xml, php-mysql, php-pdo, php-imap, php-soap
 Requires(pre): httpd, mariadb-server, ntp, mod_ssl
 Requires(pre): perl
-Requires(pre): issabel-firstboot >= 5.0.0-1
+Requires: issabel-firstboot >= 5.0.0-2
 
 #Requires: issabelPBX
 Requires(pre): /sbin/pidof

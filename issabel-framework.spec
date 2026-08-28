@@ -428,3 +428,6 @@ rm -rf $RPM_BUILD_ROOT
 %exclude /var/www/html/themes/tenant
 
 %changelog
+* Tue Jun 30 2026 Trixocom <hectorquiroz@trixocom.com> - 5.0.0-4
+- ACL: optional per-user monitor extensions (acl_user.monitorexten)
+

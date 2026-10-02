@@ -1,7 +1,8 @@
 # Table of contents
 
-1. [Installation](#installation)
-2. [Usage](#usage)
+1. [MCP and AI Assistant](#mcp-and-ai-assistant)
+2. [Installation](#installation)
+3. [Usage](#usage)
 	1. [Authentication](#authentication)
 	2. [Extensions](#extensions)
 		1. [Retrieve All](#extensions_retrieve_all)
@@ -17,6 +18,67 @@
 		4. [Insert specifying extension number](#ringgroups_insertspecify)
 		5. [Update](#ringgroups_update)
 		6. [Delete](#ringgroups_delete)
+
+***
+
+<a name='mcp-and-ai-assistant'></a>
+## MCP and AI Assistant
+
+This tree includes a security-constrained MCP server and an Issabel web assistant. The Go daemon in `mcp/` supports OpenAI, Anthropic, and Gemini with a per-user BYOK configuration encrypted locally using AES-256-GCM. Provider URLs are fixed; custom endpoints are intentionally unsupported.
+
+OpenAI tool calls use the Responses API. The Issabel module follows the native `_moduleContent()` contract and keeps its scoped CSS and JavaScript under `themes/default`, so it renders inside the existing Issabel shell without changing global page styles.
+
+The exposed MCP tools are limited to extension reads and immutable change plans:
+
+- `list_extensions` and `get_extension`
+- `create_extension_plan`, `update_extension_plan`, and `delete_extension_plan`
+- `create_queue_plan` for queues with explicit static and dynamic agents
+- `list_queues` and `delete_queue_plan` for secret-free inventory and approval-bound deletion
+- `list_ringgroups`, `create_ring_group_plan`, `update_ring_group_plan` and `delete_ring_group_plan` for ring groups
+- `list_timegroups`, `list_timeconditions`, `create_time_group_plan`, `delete_time_group_plan`, `create_time_condition_plan` and `delete_time_condition_plan` for time groups and time conditions
+- `list_ivrs`, `create_ivr_plan`, `update_ivr_plan` and `delete_ivr_plan` for IVRs
+- `list_numbers`, `list_destinations`, `check_number` and `check_numbers` for the credential-free number and destination namespace
+- `get_plan_status` and `cancel_plan`
+
+There is no MCP tool for approval, execution, shell, SQL, AMI, Originate, trunks, or routes. An Issabel administrator must review and approve each plan in the same-origin web UI. Plans expire after 30 minutes, contain no credentials, and are integrity checked before execution. Generated SIP passwords and voicemail PINs exist only during execution and are returned once as a CSV.
+
+Rejected plan requests are recorded for 30 days in the local `request_audit` table with a correlation ID, actor, HTTP status, sanitized validation reason, and a safe projection of extension selector fields. The daemon journal also records the provider/model, tool name, and safe selector fields produced by the LLM before normalization. Raw request payloads, prompts, and secrets are not stored in these diagnostic records.
+
+If that CSV is lost, `update_extension_plan` can create a new approval-bound credential rotation plan. The replacement password/PIN values are likewise generated only during execution and returned in a new one-time CSV.
+
+The supported creation profiles are `sip`, `pjsip`, and `pjsip_webrtc`. `voicemail.enabled` is mandatory and must be a JSON boolean. A count of 10 starting at 100 produces 100–109; contradictory count/range inputs are rejected as ambiguous. Batches are limited to 100 extensions.
+
+Extension-plan tools expose a required discriminated selector. Use `{"selector":{"mode":"range","start_extension":100,"count":10}}` for a sequence or `{"selector":{"mode":"list","extensions":["100","105"]}}` for an explicit list. The daemon treats `mode` as authoritative, removes fields from the other mode before calling PBX API, and continues to normalize the previous flat selector format for external MCP clients.
+
+The WebRTC profile uses Issabel's combined `/etc/asterisk/keys/asterisk.pem` file as both the DTLS certificate and private key by default. Deployments with separate files can override these paths through `PBXAPI_DTLS_CERT` and `PBXAPI_DTLS_KEY`.
+
+Queue plans require an extension, name, strategy, explicit static and dynamic agent arrays, maximum wait, and an allowlisted failover. Each agent has an explicit penalty. Supported failovers are hangup, an existing extension, an existing queue, or an existing ring group; arbitrary dialplan destinations are never accepted. The failover type is authoritative, so any provider-populated destination field is discarded for hangup. The plan shows the effective maximum wait, per-agent timeout, retry interval, and wrap-up time before approval.
+
+`list_queues` uses a dedicated read-only controller and returns no queue passwords or arbitrary dialplan data. `delete_queue_plan` stages deletion of one queue at a time. The deletion plan stores a non-reversible fingerprint of the queue configuration and refuses execution if that queue changes before approval, preventing a reviewed plan from deleting a replacement or materially modified queue.
+
+Time groups and time conditions share one scope pair, `time:read` and `time:plan`, because a condition is meaningless without its group. A time group is a set of ranges stored as packed `hours|weekdays|monthdays|months` rows in `timegroups_details`; `models/pbtime.php` owns that format, validating and defaulting each field on the way in and parsing it back on the way out, so the read projection and the plans cannot drift apart. A range only needs the fields the caller cares about: an omitted end mirrors the resolved start and an omitted hour window defaults to the whole day. A time condition pairs one existing time group with a destination for a match and another for a miss, both using the same allowlist as queues and ring groups; the time group, its members and both destinations are re-checked at execution time. Deleting a time group is refused while a time condition still points at it, naming the conditions, because the alternative is a condition silently pointing at a group that no longer exists. Creating a time condition also creates its `*27<id>` toggle feature code and its `TC/<id>` entry, exactly as the GUI does, so `list_numbers` will show that feature code afterwards.
+
+An IVR is a parent row plus one row per menu option. `list_ivrs` reports the greeting id, the timeout, both fallback destinations and every option decoded. `create_ivr_plan` requires an explicit name, both fallback destinations and an `entries` array, which may be empty; each option is a single caller digit from 0 to 9 with its own destination, duplicate digits are rejected, and the menu is capped at ten options. `update_ivr_plan` sends only the changed fields, and because the API replaces the whole menu when `entries` is present, sending it rewrites the menu rather than merging it. `delete_ivr_plan` stores a fingerprint of the parent row **and** its menu, so a plan approved for one menu cannot delete a different one.
+
+Destinations in a plan are no longer limited to extensions, queues and ring groups. `mcpplans::destinationFamilies()` is now the single registry of the families a plan may point at — extension, queue, ring group and IVR, plus the `hangup` pseudo-destination — and each entry owns the table, the column and the dialplan template. Nested IVR menus work because of it. The value is always checked to exist in that family, and an arbitrary dialplan string is still never accepted; adding another family is one entry in that map plus its enum value in the tool schema.
+
+Ring groups follow the same model. `list_ringgroups` returns the strategy, ring time, members and a decoded failover, and it never echoes raw dialplan text: destinations are projected through the shared `pbxnamespace::parseDestination()`, which also backs `list_queues`. The decoder recognises the families the PBX builds itself (extensions, queues, ring groups, conferences, paging, voicemail blasts, feature codes, time conditions, IVRs, announcements and misc destinations) and reports anything else as `configured`. That is a description of what exists, not a promise: plan validation still accepts only the four allowlisted failover types. Creation is a `POST /ringgroups` with an explicit member list of existing extensions and a strategy from the eight value ring group enum; the API stores members as `-` separated values, and the projection tolerates both `-` and `,` because GUI created records have used both. `update_ring_group_plan` changes an existing ring group and accepts only `name`, `members`, `strategy`, `ring_time_seconds` and `failover` inside a `changes` object; any other field is rejected, so an unknown key can never be forwarded to the API. `delete_ring_group_plan` stores the same configuration fingerprint as queues, so a plan approved for one ring group refuses to delete a different or modified one. Both the create and update request bodies are built by pure functions with an explicit field mapping, so the API contract is unit tested without HTTP.
+
+`list_numbers` and `list_destinations` read the shared namespace model in `models/pbxnamespace.php`, which `mcpplans` also uses to reject a plan before approval. `list_numbers` reports every number Issabel reserves when creating an extension or queue — extensions, queues, ring groups, conferences, parking lots, custom extensions, and feature codes (under `customcode` when set, otherwise `defaultcode`) — so a plan is never created for a number that would fail mid-execution with HTTP 409. `list_destinations` reports the dialplan destinations that exist, with the family and label, as an advisory inventory; plan validation stays authoritative. Numbers that Issabel does not reserve for extensions, such as paging or voicemail blast groups, are deliberately not listed as blockers. Both tools select identifiers and admin-visible labels only, never credential columns such as `meetme.userpin`, `vmblast.password`, or `users.secret`, and they accept no mutation.
+
+`check_number` answers the narrower question that precedes any plan: is this specific number usable? It is needed because `get_extension` returning 404 only proves that no *extension* has that number — the number can still be owned by a queue, ring group, conference, parking lot, custom extension or feature code, as happened with a feature code on 411. `check_number` returns `available`, the owning `sources`, a `usage` classification (`free`, `extension`, or `reserved`), and a human-readable reason. The tool descriptions and the assistant system prompt both require verifying every number with `check_number` before proposing it, and the 404 from `mcpextensions` now says explicitly that it does not mean the number is free.
+
+`check_numbers` does the same for up to 100 numbers in one call and returns `free` and `unavailable` arrays. It exists because asking *"which numbers are free between 410 and 415"* previously made the model check nothing: verifying six numbers one by one looked too expensive, so it answered from the extension list alone and reported a reserved number as free. The system prompt requires every availability statement — including answers to such questions — to come from a `check_number`/`check_numbers` result, and to say the availability is unverified when that call was never made. Read-tool calls are logged as `tool_call_read` in the daemon journal, so whether the model actually verified a number is now auditable.
+
+Build, service installation, key generation, and restricted SSH/stdio instructions are in [`packaging/README.md`](packaging/README.md). The service listens only on `127.0.0.1` by default. Conversation history is isolated by Issabel user and automatically expires after 30 days.
+
+Example stdio client command after installation:
+
+```sh
+ssh -T -i /path/to/restricted-key mcp-user@pbx.example
+```
+
+The corresponding SSH key must use the forced command described in the packaging guide.
 
 ***
 
@@ -474,5 +536,3 @@ HTTP Status: HTTP/1.1 200 OK
 *Response*
 
 There is no response body
-
-

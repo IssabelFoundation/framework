@@ -77,10 +77,10 @@ class jwtauth {
         if($f3->get('PARAMS.id')=='') {
             // returns tokens from php session
             header('Content-Type: application/json');
-            if($_SESSION['access_token']<>'') {
+            if(isset($_SESSION['access_token']) && $_SESSION['access_token']<>'') {
                 $jwt        = $_SESSION['access_token'];
-                $jwtrefresh = $_SESSION['refresh_token'];
-                echo "{\"access_token\":\"$jwt\",\"refresh_token\":\"$jwtrefresh\",\"token_type\":\"Bearer\",\"status\":\"authorized\"}";
+                $jwtrefresh = isset($_SESSION['refresh_token']) ? $_SESSION['refresh_token'] : '';
+                echo json_encode(array('access_token'=>$jwt,'refresh_token'=>$jwtrefresh,'token_type'=>'Bearer','status'=>'authorized'));
             } else {
                 echo "{\"status\":\"unauthorized\"}";
             }
@@ -93,49 +93,31 @@ class jwtauth {
             $key = $f3->get('JWT_KEY');
 
             try {
-
-                $rnt  = $f3->get('GET.refresh_token');
-                $jwt  = $f3->get('GET.access_token');
-                $data = JWT::decode($rnt, $key, array('HS256'));
-
-            }catch(Exception $e) {
-
-                if($e->getMessage()=="Expired token") {
-
-                    echo "{\"status\": \"expired\", \"type\": \"refresh\"}";
-                    die();
+                JWT::$leeway = 60;
+                $headers = $f3->get('HEADERS');
+                if(!is_array($headers)) { $headers = array(); }
+                $refreshToken = '';
+                foreach($headers as $headerName=>$headerValue) {
+                    if(strtolower(str_replace('_', '-', (string)$headerName)) === 'x-refresh-token' && $headerValue !== '') {
+                        $refreshToken = (string)$headerValue;
+                        break;
+                    }
                 }
-            }
-
-            // refresh token is ok, extract payload from expired token to generate a new one with new expiration
-            //
-            try {
-                JWT::$leeway = 720000;
-                $data = JWT::decode($jwt, $key, array('HS256'));
-
-                $time = time();
-                $exp  = $f3->get('JWT_EXPIRES');
-
-                $token = array(
-                    'iat'  => $time,
-                    'exp'  => $time + $exp,
-                    'data' => $data->data
-                );
-
-                $tokenrefresh = array(
-                    'iat' => $time,
-                    'exp' => $time + ( $exp * 24 ),
-                    'data' => [ ]
-                );
-
-                $jwt        = JWT::encode($token, $key);
-                $jwtrefresh = JWT::encode($tokenrefresh, $key);
-
-                echo "{\"access_token\":\"$jwt\",\"expires_in\":$exp,\"refresh_token\":\"$jwtrefresh\",\"token_type\":\"Bearer\",\"status\":\"authorized\"}";
+                if($refreshToken === '') { $refreshToken = (string)$f3->get('GET.refresh_token'); }
+                $data = JWT::decode($refreshToken, $key, array('HS256'));
+                if(!isset($data->type) || $data->type !== 'refresh' ||
+                   !isset($data->iss) || $data->iss !== 'pbxapi' ||
+                   !isset($data->aud) || $data->aud !== 'pbxapi' ||
+                   !isset($data->sub) || $data->sub === '') {
+                    throw new RuntimeException('Invalid refresh token');
+                }
+                $tokens = $this->issueTokens($f3, (string)$data->sub);
+                $tokens['status'] = 'authorized';
+                echo json_encode($tokens);
                 die();
-
             } catch(Exception $e) {
-                echo "{\"status\": \"unauthorized\"}";
+                echo json_encode(array('status'=>'unauthorized'));
+                die();
             }
 
         }
@@ -163,29 +145,8 @@ class jwtauth {
 
         if($user=='admin' && $password==$this->pwd) {
 
-            $time = time();
-            $key  = $f3->get('JWT_KEY');
-            $exp  = $f3->get('JWT_EXPIRES');
-
-            $token = array(
-                'iat' => $time,
-                'exp' => $time + $exp,
-                'data' => [
-                    'name' => $user
-                ]
-            );
-
-            $tokenrefresh = array(
-                'iat' => $time,
-                'exp' => $time + ( $exp * 2 ),
-                'data' => [ ]
-            );
-
-            $jwt = JWT::encode($token, $key);
-            $jwtrefresh = JWT::encode($tokenrefresh, $key);
-
             header('Content-Type: application/json');
-            echo "{\"access_token\":\"$jwt\",\"expires_in\":$exp,\"refresh_token\":\"$jwtrefresh\",\"token_type\":\"Bearer\"}";
+            echo json_encode($this->issueTokens($f3, $user));
 
             die();
 
@@ -194,5 +155,35 @@ class jwtauth {
             die();
         }
 
+    }
+
+    protected function issueTokens($f3, $user) {
+        $time = time();
+        $key  = $f3->get('JWT_KEY');
+        $exp  = $f3->get('JWT_EXPIRES');
+        $jti  = $this->randomId();
+
+        $token = array(
+            'iss'=>'pbxapi', 'aud'=>'pbxapi', 'sub'=>$user, 'type'=>'access',
+            'iat'=>$time, 'exp'=>$time+$exp, 'jti'=>$jti,
+            'scope'=>array('*'), 'data'=>array('name'=>$user)
+        );
+        $refresh = array(
+            'iss'=>'pbxapi', 'aud'=>'pbxapi', 'sub'=>$user, 'type'=>'refresh',
+            'iat'=>$time, 'exp'=>$time+($exp*24), 'jti'=>$this->randomId()
+        );
+        return array(
+            'access_token'=>JWT::encode($token, $key),
+            'expires_in'=>$exp,
+            'refresh_token'=>JWT::encode($refresh, $key),
+            'token_type'=>'Bearer'
+        );
+    }
+
+    protected function randomId() {
+        if(function_exists('random_bytes')) { return bin2hex(random_bytes(16)); }
+        $bytes = openssl_random_pseudo_bytes(16, $strong);
+        if($bytes === false || !$strong) { throw new RuntimeException('Secure random source unavailable'); }
+        return bin2hex($bytes);
     }
 }

@@ -58,6 +58,14 @@ $f3->set('DB', new DB\SQL( 'mysql:host=localhost;port=3306;dbname=asterisk', 'ro
 $f3->set('JWT_KEY', $jwtKey);
 $f3->set('JWT_EXPIRES', 60 * 60);
 
+$mcpPublicKeyFile = '/etc/issabel-mcp/public.pem';
+if(is_readable($mcpPublicKeyFile)) {
+    $mcpPublicKey = file_get_contents($mcpPublicKeyFile);
+    if($mcpPublicKey !== false && $mcpPublicKey !== '') {
+        $f3->set('JWT_MCP_PUBLIC_KEY', $mcpPublicKey);
+    }
+}
+
 $f3->route('GET /','help->display');
 
 $f3->map('/@controller','@controller');

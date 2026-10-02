@@ -215,6 +215,9 @@ class timegroups extends rest {
             $db->exec($query,array($oneid));
         }
 
+        // $input was never read here: keep the existing always-reload behaviour
+        // without emitting an undefined variable notice on every deletion.
+        $input = array();
         $this->applyChanges($input);
 
     }

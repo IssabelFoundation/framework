@@ -778,6 +778,7 @@ class extensions extends rest {
                 array("transport",       "transport-udp",   14),
                 array("avpf",            "no",              15),
                 array("icesupport",      "no",              16),
+                array("force_avp",       "no",              17),
                 array("dtlsenable",      "no",              18),
                 array("dtlsverify",      "no",              19),
                 array("dtlssetup",       "actpass",         20),
@@ -800,6 +801,7 @@ class extensions extends rest {
                 array("subscribe_context","",               37),
                 array("message_context",  "",               38),
                 array("allow_subscribe", "no",              39),
+                array("rtcp_mux",        "no",              40),
             );
  
         } else if($TECH=='iax2') {
@@ -958,7 +960,28 @@ class extensions extends rest {
 
         // We use the users table to track, using the Database Mapper
         $EXTEN = $f3->get('PARAMS.id');
+        if(!$this->acquireExtensionLock($db, $EXTEN)) {
+            $errors[]=array('status'=>'503','detail'=>'Could not acquire extension operation lock');
+            $this->dieWithErrors($errors);
+        }
         $this->data->load(array($this->id_field.'=?',$EXTEN));
+
+        if(!$this->data->dry() && (string)$f3->get('GET.create_only') === '1') {
+            // Compare the mapper decision with a fresh, minimal query. Never log
+            // request bodies or mapped rows: they may contain device secrets.
+            $diagnostic = array('requested_extension'=>(string)$EXTEN,
+                'mapped_extension'=>(string)$this->data->get($this->id_field));
+            try {
+                $matches = $db->exec('SELECT extension FROM users WHERE extension=?', array($EXTEN));
+                $diagnostic['direct_matches'] = array();
+                foreach($matches as $match) { $diagnostic['direct_matches'][] = (string)$match['extension']; }
+            } catch(Exception $e) {
+                $diagnostic['direct_query_failed'] = true;
+            }
+            error_log('[pbxapi.extensions] create_only conflict '.json_encode($diagnostic));
+            $errors[]=array('status'=>'409','code'=>'extension_exists','detail'=>'Extension already exists; create_only refuses to update it','diagnostic'=>$diagnostic);
+            $this->dieWithErrors($errors);
+        }
 
         if ($this->data->dry()) {
 
@@ -1137,6 +1160,11 @@ class extensions extends rest {
             $input['extension'] = $EXTEN;
         }
 
+        if(!$this->acquireExtensionLock($db, $EXTEN)) {
+            $errors[]=array('status'=>'503','detail'=>'Could not acquire extension operation lock');
+            $this->dieWithErrors($errors);
+        }
+
         // Check if extension number is valid and it has no collitions
         $this->dieExtensionDuplicate($f3,$EXTEN);
 
@@ -1196,6 +1224,16 @@ class extensions extends rest {
         header("Location: $loc/".$EXTEN, true, 201);
         die();
 
+    }
+
+    protected function acquireExtensionLock($db, $extension) {
+        $lockName = 'pbxapi-extension-'.sha1((string)$extension);
+        $lockRows = $db->exec('SELECT GET_LOCK(?,10) AS acquired', array($lockName));
+        if(!isset($lockRows[0]['acquired']) || intval($lockRows[0]['acquired']) !== 1) { return false; }
+        register_shutdown_function(function() use ($db, $lockName) {
+            try { $db->exec('SELECT RELEASE_LOCK(?)', array($lockName)); } catch(Exception $ignored) {}
+        });
+        return true;
     }
 
     public function delete($f3, $from_child) {
@@ -1480,8 +1518,25 @@ class extensions extends rest {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
+
+        // Ignore values outside the largest multiple of the alphabet length
+        // to avoid modulo bias while retaining PHP 5 compatibility.
+        $limit = floor(256 / $charactersLength) * $charactersLength;
+        while(strlen($randomString) < $length) {
+            if(function_exists('random_bytes')) {
+                $bytes = random_bytes($length);
+            } else {
+                $bytes = openssl_random_pseudo_bytes($length, $strong);
+                if($bytes === false || !$strong) {
+                    throw new RuntimeException('Unable to obtain cryptographically secure random bytes');
+                }
+            }
+            for($i = 0; $i < strlen($bytes) && strlen($randomString) < $length; $i++) {
+                $value = ord($bytes[$i]);
+                if($value < $limit) {
+                    $randomString .= $characters[$value % $charactersLength];
+                }
+            }
         }
         return $randomString;
     }

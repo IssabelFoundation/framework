@@ -340,7 +340,7 @@ class queues extends rest {
             }
         }
 
-        $amidb[] = "QPENALTY/$EXTEN:dynmemberonly:${post['restrict_dynamic_agents']}";
+        $amidb[] = "QPENALTY/$EXTEN:dynmemberonly:".$post['restrict_dynamic_agents'];
 
         if($method=='INSERT') {
 
@@ -689,6 +689,11 @@ class queues extends rest {
         $EXTEN = $f3->get('PARAMS.id');
         $this->data->load(array($this->id_field.'=?',$EXTEN));
 
+        if(!$this->data->dry() && (string)$f3->get('GET.create_only') === '1') {
+            $errors[]=array('status'=>'409','detail'=>'Queue already exists; create_only refuses to update it');
+            $this->dieWithErrors($errors);
+        }
+
         if ($this->data->dry()) {
 
             // No entry with that extension/id, this is an INSERT, extension number is the one in the URL
@@ -701,7 +706,7 @@ class queues extends rest {
 
             $this->create_queue($f3, $input, 'INSERT');
 
-            //$this->applyChanges($input);
+            $this->applyChanges($input);
 
             // Return new entity in Location header
             $loc    = $f3->get('REALM');
@@ -1089,5 +1094,3 @@ class queues extends rest {
     }
 
 }
-
-

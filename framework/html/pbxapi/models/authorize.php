@@ -35,29 +35,70 @@ class authorize {
         $headers = $f3->get('HEADERS');
 
         if(!$f3->exists('HEADERS.Authorization')) {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 403 Unauthorized', true, 403);
-            die();
+            $this->unauthorized();
         }
 
-        list (,$jwt) = preg_split("/ /",$headers['Authorization']);
+        if(!preg_match('/^Bearer\s+([^\s]+)$/i', trim($headers['Authorization']), $matches)) {
+            $this->unauthorized();
+        }
+
+        $jwt = $matches[1];
         $key = $f3->get('JWT_KEY');
+        $data = null;
+        $isMcp = false;
 
-        try {
-            $data = JWT::decode($jwt, $key, array('HS256'));
-        }catch(Exception $e) {
+        JWT::$leeway = 60;
 
-            if($e->getMessage()=="Expired token") {
-                JWT::$leeway = 720000;
-                $decoded = JWT::decode($jwt, $key, array('HS256'));
-                echo "{\"status\": \"expired\"}";
-            } else {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 403 Unauthorized', true, 403);
+        if($f3->exists('JWT_MCP_PUBLIC_KEY')) {
+            try {
+                $data = JWT::decode($jwt, $f3->get('JWT_MCP_PUBLIC_KEY'), array('RS256'));
+                $isMcp = true;
+            } catch(Exception $e) {
+                $data = null;
             }
-            die();
         }
 
-        // Token ok, then just return
-        return;
+        if($data === null) {
+            try {
+                $data = JWT::decode($jwt, $key, array('HS256'));
+            } catch(Exception $e) {
+                $this->unauthorized();
+            }
+        }
+
+        if($isMcp) {
+            if(!isset($data->iss) || $data->iss !== 'issabel-mcp' ||
+               !isset($data->sub) || trim($data->sub) === '' ||
+               !isset($data->jti) || trim($data->jti) === '' ||
+               !isset($data->iat) || !isset($data->exp) ||
+               intval($data->iat) > time()+60 || intval($data->exp)-intval($data->iat) > 300 ||
+               !$this->audienceContains($data, 'pbxapi')) {
+                $this->unauthorized();
+            }
+            $scopes = $this->extractScopes($data);
+            foreach($scopes as $scope) {
+                if(!in_array($scope, array('extensions:read','extensions:plan','queues:read','queues:plan','ringgroups:read','ringgroups:plan','time:read','time:plan','ivr:read','ivr:plan','namespace:read','plans:read','plans:cancel'), true)) {
+                    $this->forbidden();
+                }
+            }
+            $this->enforceMcpEndpoint($f3, $scopes);
+        } else {
+            if(isset($data->type)) {
+                if($data->type !== 'access' || !isset($data->iss) || $data->iss !== 'pbxapi' ||
+                   !$this->audienceContains($data, 'pbxapi') || !isset($data->sub) || trim($data->sub) === '') {
+                    $this->unauthorized();
+                }
+            } elseif(!isset($data->data->name) || trim($data->data->name) === '') {
+                // Legacy access tokens contain data.name; legacy refresh tokens do not.
+                $this->unauthorized();
+            }
+            // Existing valid administrator access tokens retain full API access.
+            $scopes = array('*');
+        }
+
+        $f3->set('JWT_PAYLOAD', $data);
+        $f3->set('JWT_SCOPES', $scopes);
+        return $data;
 
         /*
         if($f3->get('DOAUTH')==false) {
@@ -69,5 +110,102 @@ class authorize {
             return;
         }
         */
+    }
+
+    function requireScope($f3, $required) {
+        $scopes = $f3->get('JWT_SCOPES');
+        if(!is_array($scopes) ||
+           (!in_array('*', $scopes, true) && !in_array($required, $scopes, true))) {
+            header('Content-Type: application/json');
+            $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+            header($protocol . ' 403 Forbidden', true, 403);
+            echo json_encode(array('status'=>'forbidden','required_scope'=>$required));
+            die();
+        }
+    }
+
+    function requireAnyScope($f3, $required) {
+        $scopes = $f3->get('JWT_SCOPES');
+        if(is_array($scopes) && in_array('*', $scopes, true)) { return; }
+        if(is_array($scopes)) {
+            foreach($required as $scope) {
+                if(in_array($scope, $scopes, true)) { return; }
+            }
+        }
+        header('Content-Type: application/json');
+        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        header($protocol . ' 403 Forbidden', true, 403);
+        echo json_encode(array('status'=>'forbidden','required_scope'=>$required));
+        die();
+    }
+
+    protected function extractScopes($data) {
+        if(!isset($data->scope)) {
+            return array();
+        }
+        if(is_array($data->scope)) {
+            return $data->scope;
+        }
+        if(is_string($data->scope)) {
+            return preg_split('/\s+/', trim($data->scope), -1, PREG_SPLIT_NO_EMPTY);
+        }
+        return array();
+    }
+
+    protected function audienceContains($data, $expected) {
+        if(!isset($data->aud)) {
+            return false;
+        }
+        if(is_array($data->aud)) {
+            return in_array($expected, $data->aud, true);
+        }
+        return $data->aud === $expected;
+    }
+
+    protected function enforceMcpEndpoint($f3, $scopes) {
+        $controller = strtolower((string)$f3->get('PARAMS.controller'));
+        $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
+
+        // RS256 service tokens are denied everywhere unless explicitly listed.
+        // In particular they can never reach manager/originate, trunks, routes,
+        // arbitrary controllers, or mutation methods on /extensions.
+        if($controller === 'mcpextensions' && $method === 'GET' && in_array('extensions:read', $scopes, true)) {
+            return;
+        }
+        if($controller === 'mcpqueues' && $method === 'GET' && in_array('queues:read', $scopes, true)) {
+            return;
+        }
+        if($controller === 'mcpringgroups' && $method === 'GET' && in_array('ringgroups:read', $scopes, true)) {
+            return;
+        }
+        if(($controller === 'mcptimegroups' || $controller === 'mcptimeconditions') && $method === 'GET' && in_array('time:read', $scopes, true)) {
+            return;
+        }
+        if($controller === 'mcpivrs' && $method === 'GET' && in_array('ivr:read', $scopes, true)) {
+            return;
+        }
+        if($controller === 'mcpnamespace' && $method === 'GET' && in_array('namespace:read', $scopes, true)) {
+            return;
+        }
+        if($controller === 'mcpplans') {
+            return; // The controller applies the operation-specific scope.
+        }
+        $this->forbidden();
+    }
+
+    protected function forbidden() {
+        header('Content-Type: application/json');
+        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        header($protocol . ' 403 Forbidden', true, 403);
+        echo json_encode(array('status'=>'forbidden'));
+        die();
+    }
+
+    protected function unauthorized() {
+        header('Content-Type: application/json');
+        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        header($protocol . ' 401 Unauthorized', true, 401);
+        echo json_encode(array('status'=>'unauthorized'));
+        die();
     }
 }

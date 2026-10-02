@@ -206,6 +206,9 @@ class ivr extends rest {
             $db->exec($query,array($ivr_id));
         }
 
+        // $input was never read here: keep the existing always-reload behaviour
+        // without emitting an undefined variable notice on every deletion.
+        $input = array();
         $this->applyChanges($input);
 
     }

@@ -116,7 +116,7 @@ class timeconditions extends rest {
         $this->applyChanges($input);
 
         $loc = $f3->get('REALM');
-        header("Location: $loc/".$trunkid, true, 201);
+        header("Location: $loc/".$condid, true, 201);
         die();
 
     }
@@ -158,6 +158,9 @@ class timeconditions extends rest {
             $db->exec($query,array('timeconditions','toggle-mode-'.$oneid));
         }
 
+        // $input was never read here: keep the existing always-reload behaviour
+        // without emitting an undefined variable notice on every deletion.
+        $input = array();
         $this->applyChanges($input);
 
     }

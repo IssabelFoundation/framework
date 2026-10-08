@@ -223,7 +223,8 @@ class mcpplans {
             $this->json(422, array('status'=>'error','detail'=>'Enabled voicemail requires pin_mode generate or provided_at_execution'));
         }
 
-        $codecs = isset($input['codecs']) ? $input['codecs'] : array('ulaw','alaw');
+        $defaultCodecs = $input['profile'] === 'pjsip_webrtc' ? array('opus') : array('ulaw','alaw');
+        $codecs = isset($input['codecs']) ? $input['codecs'] : $defaultCodecs;
         if(!is_array($codecs) || count($codecs) === 0) {
             $this->json(422, array('status'=>'error','detail'=>'codecs must be a non-empty array'));
         }

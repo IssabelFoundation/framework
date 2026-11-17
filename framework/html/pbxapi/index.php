@@ -25,6 +25,8 @@
   $Id: index.php, Mon 23 Aug 2021 05:11:41 PM EDT, nicolas@issabel.com
 */
 
+require_once(__DIR__ . '/lib/compat.php');
+
 $f3=require('lib/base.php');
 $f3->set('AUTOLOAD','models/; controllers/');
 $f3->set('DEBUG',255);
@@ -33,7 +35,7 @@ if(!is_file("/etc/issabel.conf")) {
     throw new RuntimeException('/etc/issabel.conf not found');
 }
 
-$data    = parse_conf("/etc/issabel.conf");
+$data    = pbxapi_parse_conf("/etc/issabel.conf");
 $dbpass  = $data['mysqlrootpwd'];
 $mgrpass = $data['amiadminpwd'];
 
@@ -67,28 +69,5 @@ $f3->route('GET /@controller/search/@term','@controller->search');
 
 $f3->run();
 
-function parse_conf($file) {
-    $result = array();
-    $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-    if($lines === false) {
-        throw new RuntimeException("Unable to read $file");
-    }
-
-    foreach($lines as $line) {
-        $line = trim($line);
-
-        if($line === '' || $line[0] === '#' || $line[0] === ';') {
-            continue;
-        }
-
-        $partes = explode('=', $line, 2);
-        if(count($partes) !== 2) {
-            continue;
-        }
-
-        $result[trim($partes[0])] = trim($partes[1]);
-    }
-
-    return $result;
-}
+// El parser de /etc/issabel.conf vive en lib/compat.php (pbxapi_parse_conf)
+// para que index.php y jwtauth.php usen exactamente la misma logica.

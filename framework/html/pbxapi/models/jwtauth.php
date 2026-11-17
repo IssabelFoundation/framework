@@ -26,6 +26,8 @@
 
 use Firebase\JWT\JWT;
 
+require_once(dirname(__FILE__) . '/../lib/compat.php');
+
 class jwtauth {
 
     //protected $data;
@@ -51,20 +53,19 @@ class jwtauth {
         */
 
         if(is_file("/etc/issabel.conf")) {
-            $data      = parse_conf("/etc/issabel.conf");
-            $this->pwd = $data['amiadminpwd'];
+            $data = $this->parse_conf("/etc/issabel.conf");
+            if(isset($data['amiadminpwd'])) {
+                $this->pwd = $data['amiadminpwd'];
+            }
         }
 
     }
 
     function parse_conf($file) {
-        $result = array();
-        $lines = file($file);
-        foreach($lines as $line) {
-            $partes = preg_split("/=/",$line);
-            $result[trim($partes[0])]=trim($partes[1]);
-        }
-        return $result;
+        // Delegado al parser unico de lib/compat.php: el preg_split
+        // anterior truncaba el valor en el primer "=" y hacia que el
+        // password comparado no fuera el del archivo.
+        return pbxapi_parse_conf($file);
     }
 
     function get($f3) {
@@ -141,9 +142,50 @@ class jwtauth {
         }
     }
 
-    function put($f3) {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden', true, 403);
+    /**
+     * Responde 403 y termina. Usa HTTP/1.1 si SERVER_PROTOCOL no esta
+     * definido (por ejemplo, al ejecutar desde consola en pruebas).
+     */
+    protected static function denyForbidden() {
+        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        header($protocol . ' 403 Forbidden', true, 403);
         die();
+    }
+
+    function put($f3) {
+        self::denyForbidden();
+    }
+
+    /**
+     * Compara credenciales de forma segura.
+     *
+     * Devuelve true solo si:
+     *  - usuario y password son strings (no float/int/bool/array/null),
+     *  - el usuario es exactamente 'admin',
+     *  - el password esperado no esta vacio,
+     *  - el password coincide en tiempo constante.
+     *
+     * El chequeo is_string() es lo que cierra el type juggling: un body
+     * JSON como {"user":"admin","password":0e999999} decodifica a
+     * float(0), y en PHP < 8 la comparacion 0 == "cualquier password"
+     * devolvia true (el string se casteaba a numero).
+     *
+     * @param  mixed  $user         usuario recibido
+     * @param  mixed  $password     password recibido
+     * @param  mixed  $expected_pwd password esperado (amiadminpwd)
+     * @return bool
+     */
+    public static function credentialsMatch($user, $password, $expected_pwd) {
+        if(!is_string($user) || !is_string($password)) {
+            return false;
+        }
+        if(!is_string($expected_pwd) || $expected_pwd === '') {
+            return false;
+        }
+        if($user !== 'admin') {
+            return false;
+        }
+        return hash_equals($expected_pwd, $password);
     }
 
     function post($f3) {
@@ -151,48 +193,44 @@ class jwtauth {
         // authenticate user and return a set of access and refresh tokens
         //
         $input = json_decode($f3->get('BODY'),true);
+        if(!is_array($input)) {
+            $input = array();
+        }
+
         $user = isset($input['user'])?$input['user']:$f3->get('POST.user');
         if(!isset($user)) {
             $user = isset($input['username'])?$input['username']:$f3->get('POST.username');
         }
-        $password    = isset($input['password'])?$input['password']: $f3->get('POST.password');
-        $md5password = md5($password);
+        $password = isset($input['password'])?$input['password']: $f3->get('POST.password');
 
-        //  $result = $this->db->exec('SELECT * FROM acl_user WHERE name = :name AND md5_password = :md5password',array(':name'=>$user,':md5password'=>$md5password));
-        //  if($this->db->count() > 0) {
-
-        if($user=='admin' && $password==$this->pwd) {
-
-            $time = time();
-            $key  = $f3->get('JWT_KEY');
-            $exp  = $f3->get('JWT_EXPIRES');
-
-            $token = array(
-                'iat' => $time,
-                'exp' => $time + $exp,
-                'data' => [
-                    'name' => $user
-                ]
-            );
-
-            $tokenrefresh = array(
-                'iat' => $time,
-                'exp' => $time + ( $exp * 2 ),
-                'data' => [ ]
-            );
-
-            $jwt = JWT::encode($token, $key);
-            $jwtrefresh = JWT::encode($tokenrefresh, $key);
-
-            header('Content-Type: application/json');
-            echo "{\"access_token\":\"$jwt\",\"expires_in\":$exp,\"refresh_token\":\"$jwtrefresh\",\"token_type\":\"Bearer\"}";
-
-            die();
-
-        } else {
-            header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden', true, 403);
-            die();
+        if(!self::credentialsMatch($user, $password, $this->pwd)) {
+            self::denyForbidden();
         }
 
+        $time = time();
+        $key  = $f3->get('JWT_KEY');
+        $exp  = $f3->get('JWT_EXPIRES');
+
+        $token = array(
+            'iat' => $time,
+            'exp' => $time + $exp,
+            'data' => array(
+                'name' => $user
+            )
+        );
+
+        $tokenrefresh = array(
+            'iat' => $time,
+            'exp' => $time + ( $exp * 2 ),
+            'data' => array()
+        );
+
+        $jwt        = JWT::encode($token, $key);
+        $jwtrefresh = JWT::encode($tokenrefresh, $key);
+
+        header('Content-Type: application/json');
+        echo "{\"access_token\":\"$jwt\",\"expires_in\":$exp,\"refresh_token\":\"$jwtrefresh\",\"token_type\":\"Bearer\"}";
+
+        die();
     }
 }

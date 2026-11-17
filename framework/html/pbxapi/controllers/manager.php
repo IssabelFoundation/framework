@@ -28,6 +28,113 @@ class manager extends asmanager {
 
     protected $response = array();
 
+    /**
+     * Aplicaciones del AMI que permiten ejecutar comandos del sistema
+     * operativo, de forma directa o indirecta. Se rechazan siempre, sin
+     * distinguir mayusculas/minusculas ni espacios.
+     *
+     * Ojo: esto es una mitigacion, no un sandbox. La causa raiz es exponer
+     * manager/originate con application+data arbitrarios: eso es ejecucion
+     * remota de comandos por diseno. Lo definitivo es no publicar /pbxapi
+     * en Internet y no dar permisos de system/command al usuario AMI.
+     *
+     * @var array
+     */
+    protected static $blocked_applications = array(
+        'system',       // ejecuta un comando de shell
+        'trysystem',    // idem, sin lanzar error
+        'exec',         // ejecuta OTRA aplicacion por nombre -> puede invocar System
+        'tryexec',      // idem
+        'execif',       // idem, condicional
+        'execiftime',   // idem, condicional
+        'mixmonitor',   // ejecuta un comando de shell al terminar la grabacion
+        'originate',    // origina otra llamada eligiendo otra aplicacion
+    );
+
+    /**
+     * Devuelve true si la aplicacion pedida no debe ejecutarse nunca.
+     *
+     * Una aplicacion vacia o ausente se permite: significa que Asterisk usa
+     * extension/context/priority del dialplan, no una aplicacion directa.
+     *
+     * @param  mixed $application valor crudo de REQUEST.application
+     * @return bool
+     */
+    public static function isBlockedApplication($application) {
+        if($application === null || $application === '') {
+            return false;
+        }
+        if(!is_string($application)) {
+            return true; // arrays u otros tipos: se rechazan
+        }
+        $app = strtolower(trim($application));
+        if($app === '') {
+            return false;
+        }
+        return in_array($app, self::$blocked_applications, true);
+    }
+
+    /**
+     * Detecta caracteres de control (CR, LF, NUL, etc.) en un valor que va
+     * a viajar como cabecera AMI. Sin esto, un "data" con \r\n podria
+     * inyectar acciones o cabeceras en el protocolo del manager.
+     *
+     * @param  mixed $value
+     * @return bool
+     */
+    public static function hasControlChars($value) {
+        if(!is_string($value)) {
+            return false;
+        }
+        return preg_match('/[\x00-\x1F\x7F]/', $value) === 1;
+    }
+
+    /**
+     * Valida los parametros de originate antes de hablar con el AMI.
+     *
+     * @param object $f3 instancia de Fat-Free
+     * @return void
+     */
+    protected function validateOriginate($f3) {
+        $params = array('channel','extension','context','priority','timeout','callerid','variable','account','application','data');
+
+        foreach($params as $name) {
+            $value = $f3->get('REQUEST.' . $name);
+            if($value === null) {
+                continue;
+            }
+            if(!is_string($value)) {
+                self::rejectOriginate('parametro no string: ' . $name);
+            }
+            if(self::hasControlChars($value)) {
+                self::rejectOriginate('caracteres de control en: ' . $name);
+            }
+        }
+
+        $application = $f3->get('REQUEST.application');
+        if(self::isBlockedApplication($application)) {
+            self::rejectOriginate('aplicacion bloqueada: ' . (is_string($application) ? $application : gettype($application)));
+        }
+    }
+
+    /**
+     * Corta la peticion con 403. El motivo real queda solo en el log del
+     * servidor; al cliente se le devuelve un mensaje generico.
+     *
+     * @param  string $reason
+     * @return void
+     */
+    protected static function rejectOriginate($reason) {
+        $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'cli';
+        error_log('pbxapi: originate bloqueado (' . $ip . '): ' . $reason);
+
+        $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+        header($protocol . ' 403 Forbidden', true, 403);
+        header('Content-Type: application/json');
+        echo json_encode(array('status' => 'error', 'message' => 'Originate request not allowed'));
+        die();
+    }
+
     function delete($f3) {
 
         if($this->conn) {
@@ -358,6 +465,8 @@ class manager extends asmanager {
                 break;
 
             case "originate":
+
+                $this->validateOriginate($f3);
 
                 $channel     = $f3->get('REQUEST.channel');
                 $extension   = $f3->get('REQUEST.extension');

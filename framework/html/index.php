@@ -36,6 +36,20 @@ function spl_issabel_class_autoload($sNombreClase)
 }
 spl_autoload_register('spl_issabel_class_autoload');
 
+function get_post_login_redirect($pACL, $sUsername)
+{
+    if (isset($_SESSION['rd']) && $_SESSION['rd'] === 'phone') {
+        unset($_SESSION['rd']);
+        return '/phone';
+    }
+    $idUser = $pACL->getIdUser($sUsername);
+    $groups = ($idUser !== FALSE) ? $pACL->getMembership($idUser) : NULL;
+    if (is_array($groups) && isset($groups['Webphone'])) {
+        return '/phone';
+    }
+    return 'index.php';
+}
+
 // Agregar directorio libs de script a la lista de rutas a buscar para require()
 ini_set('include_path', dirname($_SERVER['SCRIPT_FILENAME'])."/libs:".ini_get('include_path'));
 
@@ -51,6 +65,10 @@ load_default_timezone();
 
 session_name("issabelSession");
 session_start();
+
+if (isset($_GET['rd']) && $_GET['rd'] === 'phone') {
+    $_SESSION['rd'] = 'phone';
+}
 
 if(isset($_GET['logout']) && $_GET['logout']=='yes') {
     $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"unknown";
@@ -126,7 +144,7 @@ if(isset($_POST['input_code'])) {
         $_SESSION['refresh_token'] = $refresh_token;
         $_SESSION['issabel_user'] = $_SESSION['2fa_user'];
         $_SESSION['issabel_pass'] = $_SESSION['2fa_pass'];
-        header("Location: index.php");
+        header("Location: ".get_post_login_redirect($pACL, $_SESSION['2fa_user']));
         $user = urlencode(substr($_SESSION['2fa_user'],0,20));
         writeLOG("audit.log", "LOGIN $user: Web Interface login successful. Accepted password for $user from $_SERVER[REMOTE_ADDR] using two factor authentication.");
         exit;
@@ -205,7 +223,7 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
     
         $_SESSION['issabel_user'] = $_POST['input_user'];
         $_SESSION['issabel_pass'] = $pass_md5;
-        header("Location: index.php");
+        header("Location: ".get_post_login_redirect($pACL, $_POST['input_user']));
         writeLOG("audit.log", "LOGIN $_POST[input_user]: Web Interface login successful. Accepted password for $_POST[input_user] from $_SERVER[REMOTE_ADDR].");
         exit;
     } else {
@@ -223,6 +241,12 @@ if(isset($_POST['submit_login']) and !empty($_POST['input_user'])) {
 if (isset($_SESSION['issabel_user']) &&
     isset($_SESSION['issabel_pass']) &&
     $pACL->authenticateUser($_SESSION['issabel_user'], $_SESSION['issabel_pass'])) {
+
+    $postLogin = get_post_login_redirect($pACL, $_SESSION['issabel_user']);
+    if ($postLogin !== 'index.php') {
+        header("Location: ".$postLogin);
+        exit;
+    }
 
     setcookie('issaUser',$_SESSION['issabel_user']);
     $idUser = $pACL->getIdUser($_SESSION['issabel_user']);
